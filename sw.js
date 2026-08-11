@@ -1,5 +1,5 @@
-const CACHE = 'hifz-progress-report-Hpr118tu11aug1019am';
-const ASSETS = ['./index.html','./manifest.json','./icons/icon-192.png','./icons/icon-512.png'];
+const CACHE = 'hifz-progress-report-Hpr119tu11aug1040am';
+const ASSETS = ['./index.html','./manifest.json','./icon-192.png','./icon-512.png'];
 
 self.addEventListener('install', e=>{
   e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));
