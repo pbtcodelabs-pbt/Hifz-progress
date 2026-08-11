@@ -53,7 +53,26 @@
     margin-bottom:12px;
   }
   .header .kicker{font-size:11px;letter-spacing:.1em;color:var(--gold-400);text-transform:uppercase;margin-bottom:3px}
-  .header .version-tag{margin-top:7px;font-size:10.5px;color:var(--gold-400);opacity:.85;letter-spacing:.03em}
+  .header .version-tag{
+    display:inline-block;position:relative;overflow:hidden;
+    margin-top:8px;padding:4px 14px;
+    font-size:10.5px;font-weight:700;letter-spacing:.05em;
+    border-radius:20px;color:#2B1D02;
+    background:linear-gradient(90deg,#C9A227,#FFF3B0,#7CFFCB,#FFF3B0,#C9A227);
+    background-size:300% 100%;
+    animation:vtagShift 3.2s linear infinite, vtagGlow 1.6s ease-in-out infinite alternate;
+  }
+  .header .version-tag::before{
+    content:"";position:absolute;top:0;left:-160%;width:55%;height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,.95),transparent);
+    animation:vtagSweep 2.1s ease-in-out infinite;
+  }
+  @keyframes vtagShift{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+  @keyframes vtagGlow{
+    from{box-shadow:0 0 6px rgba(230,197,90,.55),0 0 12px rgba(230,197,90,.3)}
+    to{box-shadow:0 0 16px rgba(255,243,176,.95),0 0 30px rgba(124,255,203,.55)}
+  }
+  @keyframes vtagSweep{0%{left:-160%}100%{left:170%}}
   .header h1{font-size:21px;margin:0 0 2px;font-weight:700}
   .header .sub{font-size:12.5px;color:#DCEFE6}
 
@@ -144,7 +163,7 @@
     <div class="kicker">Hifz Progress Report</div>
     <h1>حفظ پروگریس رپورٹ</h1>
     <div class="sub">روزانہ سبق، مکمل قرآنِ پاک اور تکمیل کی متوقع تاریخ</div>
-    <div class="version-tag">ورژن: Hpr121tu11aug1054am — 11 اگست 2026</div>
+    <div class="version-tag">Hpr118tu1105am</div>
   </div>
   <div id="root"><div class="loading">لوڈ ہو رہا ہے…</div></div>
 </div>

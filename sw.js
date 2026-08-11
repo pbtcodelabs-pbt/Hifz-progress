@@ -1,4 +1,4 @@
-const CACHE = 'hifz-progress-report';
+const CACHE = 'hifz-progress-report-Hpr118tu1105am';
 const ASSETS = ['./index.html','./manifest.json','./icon-192.png','./icon-512.png'];
 
 self.addEventListener('install', e=>{
@@ -14,8 +14,8 @@ self.addEventListener('activate', e=>{
 
 /* Network-first: always fetch the latest file when online.
    Falls back to the last cached copy only when offline.
-   Because this doesn't rely on a version-stamped cache name,
-   this file itself never needs to be re-uploaded again. */
+   CACHE name is version-stamped, so every new version bump
+   automatically clears the old cache in 'activate' above. */
 self.addEventListener('fetch', e=>{
   e.respondWith(
     fetch(e.request).then(res=>{
