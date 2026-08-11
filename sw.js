@@ -1,4 +1,4 @@
-const CACHE = 'hifz-progress-report-Hpr118tu1105am';
+const CACHE = 'hifz-progress-report-Hpr118tu0241pm';
 const ASSETS = ['./index.html','./manifest.json','./icon-192.png','./icon-512.png'];
 
 self.addEventListener('install', e=>{
