@@ -93,10 +93,12 @@
   .whatif .out{font-weight:700;color:var(--emerald-800)}
 
   .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin-bottom:8px}
+  .date-row{margin-bottom:8px}
+  .date-row input[type=date]{max-width:220px}
   label{font-size:11.5px;color:var(--ink-soft);display:block;margin-bottom:3px}
   input[type=number],input[type=date],input[type=text]{width:100%;padding:8px 8px;border-radius:9px;border:1.5px solid var(--line);font-family:inherit;font-size:13.5px;background:#FFFEFB}
-  input[type=date]{direction:ltr;text-align:right;padding-inline-end:30px;font-size:13px;letter-spacing:0}
-  input[type=date]::-webkit-calendar-picker-indicator{padding:0;margin-inline-start:6px;width:16px;height:16px}
+  input[type=date]{direction:ltr;text-align:right;padding-inline-end:10px;font-size:14px}
+  input[type=date]::-webkit-calendar-picker-indicator{padding:0;margin-inline-start:8px;width:16px;height:16px}
   input:focus{outline:2px solid var(--emerald-700);outline-offset:1px}
   .btn{border:none;border-radius:10px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:13.5px;cursor:pointer}
   .btn-primary{background:linear-gradient(160deg,var(--emerald-700),var(--emerald-800));color:#fff;box-shadow:0 6px 14px -8px rgba(11,110,79,.55)}
@@ -142,7 +144,7 @@
     <div class="kicker">Hifz Progress Report</div>
     <h1>حفظ پروگریس رپورٹ</h1>
     <div class="sub">روزانہ سبق، مکمل قرآنِ پاک اور تکمیل کی متوقع تاریخ</div>
-    <div class="version-tag">ورژن: Hpr119tu11aug1040am — 11 اگست 2026</div>
+    <div class="version-tag">ورژن: Hpr121tu11aug1054am — 11 اگست 2026</div>
   </div>
   <div id="root"><div class="loading">لوڈ ہو رہا ہے…</div></div>
 </div>
@@ -456,8 +458,10 @@ function render(){
       html+=`<div class="card">
         <h2>آج کا سبق درج کریں</h2>
         <p class="hint">جتنی اکائیاں لاگو ہوں وہ بھریں — باقی خالی چھوڑ دیں</p>
+        <div class="date-row">
+          <label>تاریخ</label><input type="date" id="entry_date" value="${todayISO()}">
+        </div>
         <div class="form-grid">
-          <div><label>تاریخ</label><input type="date" id="entry_date" value="${todayISO()}"></div>
           ${UNITS.map(u=>`<div><label>${u.label}</label><input type="number" min="0" id="entry_${u.key}" placeholder="0"></div>`).join('')}
         </div>
         <div style="margin-bottom:8px">

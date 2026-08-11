@@ -2,7 +2,6 @@
   "name": "حفظ پروگریس رپورٹ",
   "short_name": "حفظ رپورٹ",
   "description": "روزانہ سبق، مکمل قرآنِ پاک اور تکمیل کی متوقع تاریخ",
-  "version": "Hpr119tu11aug1040am",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
