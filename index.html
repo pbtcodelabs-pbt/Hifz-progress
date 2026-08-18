@@ -166,7 +166,7 @@
     <div class="kicker">Hifz Progress Report</div>
     <h1>حفظ پروگریس رپورٹ</h1>
     <div class="sub">روزانہ سبق، سبقی، منزل اور مکمل قرآنِ پاک کی متوقع تاریخ</div>
-    <div class="version-tag">Hpr188tu0300pm</div>
+    <div class="version-tag">Hpr18aug0334pm</div>
   </div>
   <div id="root"><div class="loading">لوڈ ہو رہا ہے…</div></div>
 </div>
@@ -183,6 +183,23 @@ const UNITS = [
   {key:'pao',   label:'پاؤ'},
   {key:'para',  label:'پارے'},
 ];
+/* کل قرآن کی مکمل تعداد — پاؤ/رکوع/پارہ/لائن کے ساتھ صفحات بھی، تاکہ ایک اکائی درج کرنے پر باقی سب خودکار حساب ہو سکیں */
+const TOTALS_ALL = {pages:TOTAL_PAGES, lines:DEFAULT_TOTAL.lines, ruku:DEFAULT_TOTAL.ruku, pao:DEFAULT_TOTAL.pao, para:DEFAULT_TOTAL.para};
+const UNIT_KEYS = ['lines','ruku','pao','para'];
+const BASELINE_KEYS = ['lines','ruku','pao','para','pages'];
+/* کوئی ایک خانہ (لائنیں/رکوع/پاؤ/پارے/صفحات) درج ہونے پر باقی خانے تناسب کے حساب سے خودکار پُر کر دیتا ہے */
+function autoFillUnits(prefix, keys, changedKey){
+  const el = document.getElementById(prefix+changedKey);
+  if(!el) return;
+  const val = parseInt(el.value||'',10);
+  if(!val || val<=0) return; /* خالی/صفر ہونے پر باقی خانوں کو مت چھیڑو */
+  const ratio = val / TOTALS_ALL[changedKey];
+  keys.forEach(k=>{
+    if(k===changedKey) return;
+    const target=document.getElementById(prefix+k);
+    if(target) target.value = Math.round(ratio*TOTALS_ALL[k]);
+  });
+}
 const CATS = [
   {key:'sabaq',  label:'سبق',  hint:'آج کا نیا سبق'},
   {key:'sabqi',  label:'سبقی', hint:'حالیہ سبقوں کا اعادہ'},
@@ -479,9 +496,13 @@ function render(){
       <p class="builtin-note">یہ تعداد سولہ سطری حفظی مصحف کے مطابق خودکار طے شدہ ہے — ${LINES_PER_PAGE} × ${TOTAL_PAGES} صفحات = ${DEFAULT_TOTAL.lines} لائنیں</p>
       <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)">
         <h2 style="font-size:14px">پہلے سے مکمل مقدار (اختیاری)</h2>
-        <p class="hint">اگر طالب علم پہلے سے کچھ حفظ کر چکا ہے تو یہاں ایک دفعہ درج کریں</p>
-        <div class="form-grid">
-          ${UNITS.map(u=>`<div><label>${u.label}</label><input type="number" min="0" id="base_${u.key}" value="${st.baseline[u.key]||''}"></div>`).join('')}
+        <p class="hint">نیا طالب علم اگر پہلے سے کچھ حفظ کر چکا ہے تو نیچے صرف ایک خانہ (مثلاً پارے) درج کریں — باقی سب (پاؤ، رکوع، لائنیں، صفحات) خود بخود پُر ہو جائیں گے</p>
+        <div class="form-grid" style="grid-template-columns:repeat(2,1fr)">
+          <div><label>پارے</label><input type="number" min="0" id="base_para" value="${st.baseline.para||''}" oninput="autoFillUnits('base_', BASELINE_KEYS, 'para')"></div>
+          <div><label>پاؤ</label><input type="number" min="0" id="base_pao" value="${st.baseline.pao||''}" oninput="autoFillUnits('base_', BASELINE_KEYS, 'pao')"></div>
+          <div><label>رکوع</label><input type="number" min="0" id="base_ruku" value="${st.baseline.ruku||''}" oninput="autoFillUnits('base_', BASELINE_KEYS, 'ruku')"></div>
+          <div><label>صفحات</label><input type="number" min="0" id="base_pages" value="${st.baseline.para? Math.round(st.baseline.para*TOTALS_ALL.pages/TOTALS_ALL.para) : ''}" oninput="autoFillUnits('base_', BASELINE_KEYS, 'pages')"></div>
+          <div><label>لائنیں</label><input type="number" min="0" id="base_lines" value="${st.baseline.lines||''}" oninput="autoFillUnits('base_', BASELINE_KEYS, 'lines')"></div>
         </div>
         <button class="btn btn-primary" onclick="saveBaseline()">محفوظ کریں</button>
         <button class="btn btn-ghost" onclick="closeSettings()" style="margin-inline-start:8px">منسوخ</button>
@@ -508,7 +529,7 @@ function render(){
     html+=`<div class="cat-box ${c.key}">
       <div class="cat-title">${c.label} <small>${c.hint}</small></div>
       <div class="form-grid">
-        ${UNITS.map(u=>`<div><label>${u.label}</label><input type="number" min="0" id="e_${c.key}_${u.key}" placeholder="0" value="${cv[u.key]||''}"></div>`).join('')}
+        ${UNITS.map(u=>`<div><label>${u.label}</label><input type="number" min="0" id="e_${c.key}_${u.key}" placeholder="0" value="${cv[u.key]||''}" oninput="autoFillUnits('e_${c.key}_', UNIT_KEYS, '${u.key}')"></div>`).join('')}
       </div>
     </div>`;
   });
