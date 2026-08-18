@@ -1,19 +1,27 @@
 {
-  "name": "حفظ پروگریس رپورٹ",
-  "short_name": "حفظ رپورٹ",
-  "description": "روزانہ سبق، مکمل قرآنِ پاک اور تکمیل کی متوقع تاریخ",
+  "name": "جامعہ امتحانی سافٹ ویئر — طلبہ حاضری و حفظ پروگریس",
+  "short_name": "جامعہ امتحان",
+  "description": "مدرسہ کا امتحانی و حفظ پروگریس مینجمنٹ سافٹ ویئر",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#FBF6EC",
-  "theme_color": "#0B6E4F",
-  "dir": "rtl",
+  "background_color": "#0d4f2e",
+  "theme_color": "#0d4f2e",
   "lang": "ur",
+  "dir": "rtl",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }
