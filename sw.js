@@ -1,4 +1,4 @@
-const CACHE = 'hifz-progress-report-v5';
+const CACHE = 'hifz-progress-report-v7';
 const ASSETS = [
   './',
   './index.html',

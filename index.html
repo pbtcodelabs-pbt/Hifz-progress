@@ -128,16 +128,21 @@
   .btn-mini.btn-danger:hover{background:#FDEDED}
   .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 
-  .cat-section{margin-bottom:6px}
-  .cat-box{border:1.5px solid var(--line);border-radius:10px;padding:7px 8px 6px;margin-bottom:6px;background:var(--parchment-2);transition:box-shadow .2s}
-  .cat-box.sabaq{border-color:#8FCB9E;background:#E7F6EA}
-  .cat-box.sabqi{border-color:#9BC4E8;background:#E9F2FC}
-  .cat-box.manzil{border-color:#C7C2B8;background:#EDEBE5}
-  .cat-box .cat-title{font-size:12.5px;font-weight:700;color:var(--emerald-950);margin-bottom:4px}
-  .cat-box .cat-title small{font-weight:400;color:var(--ink-soft);font-size:10px}
-  .cat-box .form-grid{gap:4px;margin-bottom:0}
-  .cat-box label{font-size:9.5px;margin-bottom:1px}
-  .cat-box input[type=number]{padding:5px 3px;font-size:12.5px;text-align:center}
+  .entry-table-wrap{overflow-x:auto;border-radius:14px}
+  .entry-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 6px 20px -12px rgba(43,38,32,.28);border:1px solid var(--line)}
+  .entry-table th,.entry-table td{padding:8px 5px;text-align:center}
+  .entry-table thead th{font-size:12.5px;font-weight:700;color:var(--emerald-950);padding:9px 4px 7px;vertical-align:bottom}
+  .entry-table thead th.corner{background:var(--parchment-2)}
+  .entry-table thead th small{display:block;font-weight:400;font-size:9px;color:var(--ink-soft);margin-top:2px}
+  .entry-table thead th.sabaq{background:linear-gradient(180deg,#EFFBF2,#E7F6EA);border-bottom:3px solid #6FBF83}
+  .entry-table thead th.sabqi{background:linear-gradient(180deg,#EEF6FE,#E9F2FC);border-bottom:3px solid #7BAEE0}
+  .entry-table thead th.manzil{background:linear-gradient(180deg,#F2F0EA,#EDEBE5);border-bottom:3px solid #B4AC9C}
+  .entry-table tbody th.u-h{background:var(--emerald-100);color:var(--emerald-950);font-size:12px;font-weight:700;text-align:center;white-space:nowrap;border-inline-end:1px solid var(--line)}
+  .entry-table tbody tr:nth-child(even) td{background:#FBF9F3}
+  .entry-table tbody td{border-top:1px solid var(--line)}
+  .entry-table tbody th{border-top:1px solid var(--line)}
+  .entry-table input[type=number]{width:100%;min-width:52px;padding:7px 3px;text-align:center;border-radius:9px;border:1.4px solid var(--line);font-family:inherit;font-size:13.5px;font-weight:700;background:#FFFEFB;color:var(--ink)}
+  .entry-table input[type=number]:focus{outline:2px solid var(--emerald-700);outline-offset:1px}
 
   .settings-toggle{font-size:11.5px;color:var(--emerald-800);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;font-family:inherit}
   .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--emerald-950);color:#fff;padding:9px 20px;border-radius:999px;font-size:12.5px;box-shadow:var(--shadow);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:50}
@@ -158,6 +163,32 @@
   table.month tfoot td.naagha-total{color:var(--down)}
   .table-scroll{overflow-x:auto}
   .empty{text-align:center;padding:14px 8px;color:var(--ink-soft);font-size:12.5px}
+
+  /* ---------------- PDF / پرنٹ رپورٹ (تمام طلبہ) ---------------- */
+  #printReportRoot{display:none}
+  .pr-page{font-family:'Noto Naskh Arabic', Arial, sans-serif;direction:rtl;color:#141414;box-sizing:border-box}
+  .pr-header{text-align:center;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #141414}
+  .pr-header h1{font-size:19px;margin:0 0 4px;font-weight:700}
+  .pr-header .sub{font-size:10.5px;color:#555}
+  .pr-card{border:1.4px solid #222;border-radius:14px;overflow:hidden}
+  .pr-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:10.8px}
+  .pr-table th,.pr-table td{padding:8px 6px;border-bottom:1px solid #ccc;word-wrap:break-word;overflow-wrap:break-word;vertical-align:middle}
+  .pr-table thead th{background:#EFEFEF;font-weight:700;font-size:10.3px;border-bottom:2px solid #222;text-align:center}
+  .pr-table tbody tr:last-child td{border-bottom:none}
+  .pr-table tbody tr:nth-child(even){background:#FAFAFA}
+  .pr-table td.pr-idx{text-align:center;width:24px;color:#555}
+  .pr-table td.pr-name{text-align:right;padding-inline-start:10px;font-weight:700;font-size:11.5px;width:15%}
+  .pr-table td.pr-detail{text-align:right;padding-inline-start:10px;line-height:1.55}
+  .pr-table td.pr-eta{text-align:center;font-weight:700;font-size:10.3px;width:17%}
+  .pr-table tr{page-break-inside:avoid;break-inside:avoid}
+  .pr-footer{margin-top:10px;text-align:center;font-size:9.5px;color:#666}
+  @media print{
+    .app{display:none !important}
+    .toast{display:none !important}
+    #printReportRoot{display:block !important}
+    @page{ size:A4; margin:12mm 10mm; }
+    .pr-card{box-shadow:none}
+  }
 </style>
 </head>
 <body>
@@ -166,11 +197,13 @@
     <div class="kicker">Hifz Progress Report</div>
     <h1>حفظ پروگریس رپورٹ</h1>
     <div class="sub">روزانہ سبق، سبقی، منزل اور مکمل قرآنِ پاک کی متوقع تاریخ</div>
-    <div class="version-tag">Hpr18aug0334pm</div>
+    <div class="version-tag">Hpr18aug0349pm</div>
   </div>
   <div id="root"><div class="loading">لوڈ ہو رہا ہے…</div></div>
 </div>
 <div class="toast" id="toast"></div>
+<div id="printReportRoot"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
 /* ---------------- constants ---------------- */
@@ -513,27 +546,36 @@ function render(){
   }
 
   /* ================= MAIN PAGE ================= */
-  html+=`<div class="row" style="justify-content:flex-end;margin-bottom:10px">
+  html+=`<div class="row" style="justify-content:space-between;margin-bottom:10px;flex-wrap:wrap">
+    <button class="settings-toggle" onclick="generateAllStudentsReport()">📄 تمام طلبہ کی PDF رپورٹ</button>
     <button class="settings-toggle" onclick="openSettings()">⚙ مکمل قرآن / پہلے سے مکمل مقدار</button>
   </div>`;
 
-  /* ---- روزانہ اندراج: سبق / سبقی / منزل (سب سے اوپر، کمپیکٹ) ---- */
+  /* ---- روزانہ اندراج: ایک ہی ٹیبل — کالم: سبق/سبقی/منزل، قطاریں: لائنیں/رکوع/پاؤ/پارہ ---- */
   const editRec = state.editDate!=null ? st.records.find(r=>r.date===state.editDate) : null;
+  const cvMap={}; CATS.forEach(c=>{ cvMap[c.key]= editRec? editRec[c.key] : emptyCat(); });
   html+=`<div class="card compact" id="entry-form-card">
-    <div class="row" style="justify-content:space-between;margin-bottom:2px">
+    <div class="row" style="justify-content:space-between;margin-bottom:8px">
       <h2 style="margin:0;font-size:14.5px">${editRec? 'اندراج میں ترمیم کریں':'آج کا ریکارڈ درج کریں'}</h2>
       <input type="date" id="entry_date" style="max-width:132px;padding:5px 6px;font-size:12px" value="${editRec? editRec.date : todayISO()}">
-    </div>`;
-  CATS.forEach(c=>{
-    const cv = editRec? editRec[c.key] : emptyCat();
-    html+=`<div class="cat-box ${c.key}">
-      <div class="cat-title">${c.label} <small>${c.hint}</small></div>
-      <div class="form-grid">
-        ${UNITS.map(u=>`<div><label>${u.label}</label><input type="number" min="0" id="e_${c.key}_${u.key}" placeholder="0" value="${cv[u.key]||''}" oninput="autoFillUnits('e_${c.key}_', UNIT_KEYS, '${u.key}')"></div>`).join('')}
-      </div>
-    </div>`;
-  });
-  html+=`<button class="btn btn-primary" onclick="addEntry()" style="margin-top:2px">${editRec? 'اپڈیٹ کریں':'محفوظ کریں'}</button>
+    </div>
+    <div class="entry-table-wrap">
+      <table class="entry-table">
+        <thead>
+          <tr>
+            <th class="corner"></th>
+            ${CATS.map(c=>`<th class="cat-h ${c.key}">${c.label}<small>${c.hint}</small></th>`).join('')}
+          </tr>
+        </thead>
+        <tbody>
+          ${UNITS.map(u=>`<tr>
+            <th class="u-h">${u.label}</th>
+            ${CATS.map(c=>`<td><input type="number" min="0" id="e_${c.key}_${u.key}" placeholder="0" value="${cvMap[c.key][u.key]||''}" oninput="autoFillUnits('e_${c.key}_', UNIT_KEYS, '${u.key}')"></td>`).join('')}
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+    <button class="btn btn-primary" onclick="addEntry()" style="margin-top:10px">${editRec? 'اپڈیٹ کریں':'محفوظ کریں'}</button>
     ${editRec? `<button class="btn btn-ghost" onclick="cancelEdit()" style="margin-inline-start:8px">منسوخ</button>`:''}
   </div>`;
 
@@ -551,6 +593,7 @@ function render(){
         <tr class="row-left"><td>باقی</td>${UNITS.map(u=>`<td>${remaining[u.key]||0}</td>`).join('')}</tr>
       </tbody>
     </table>
+    <button class="btn btn-ghost" onclick="sharePoster()" style="margin-top:10px;width:100%">🖼️ پوسٹر شیئر کریں (واٹس ایپ)</button>
   </div>`;
 
   /* ---- ماہانہ ریکارڈ ---- */
@@ -608,6 +651,138 @@ function render(){
 }
 
 function escapeHtml(s){ return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ---------------- پرنٹ / PDF رپورٹ (تمام طلبہ) ---------------- */
+const REPORT_UNIT_ORDER = ['para','pao','ruku','lines'];
+function unitsLine(vals){
+  return REPORT_UNIT_ORDER.map(k=>{
+    const label = UNITS.find(u=>u.key===k).label;
+    return (vals[k]||0)+' '+label;
+  }).join('، ');
+}
+function normalizeStudentData(stu){
+  const total = stu.total ? {lines: stu.total.lines||DEFAULT_TOTAL.lines, ruku: stu.total.ruku||DEFAULT_TOTAL.ruku, pao: stu.total.pao||DEFAULT_TOTAL.pao, para: stu.total.para||DEFAULT_TOTAL.para} : {...DEFAULT_TOTAL};
+  const baseline = stu.baseline || emptyCat();
+  let records = stu.records || [];
+  records = records.map(r=>{
+    if(r.sabaq || r.sabqi || r.manzil) return {date:r.date, sabaq:{...emptyCat(),...(r.sabaq||{})}, sabqi:{...emptyCat(),...(r.sabqi||{})}, manzil:{...emptyCat(),...(r.manzil||{})}};
+    return {date:r.date, sabaq:{lines:r.lines||0, ruku:r.ruku||0, pao:r.pao||0, para:r.para||0}, sabqi:emptyCat(), manzil:emptyCat()};
+  });
+  return {total, baseline, records};
+}
+async function generateAllStudentsReport(){
+  if(!state.students.length){ toast('کوئی طالب علم رجسٹرڈ نہیں ہے'); return; }
+  const rows=[];
+  for(const s of state.students){
+    const raw = (s.id===state.activeId && state.student) ? state.student : await getJSON('student:'+s.id);
+    if(!raw) continue;
+    const {total, baseline, records} = normalizeStudentData(raw);
+    const completed = combineWithBaseline(completedSabaq(records), baseline);
+    const remaining = remainingTotals(total, completed);
+    const hasRemaining = UNITS.some(u=>(remaining[u.key]||0)>0);
+    const eta = hasRemaining ? overallEta(records, remaining) : null;
+    rows.push({name: raw.name || s.name || '—', completed, remaining, hasRemaining, eta});
+  }
+  if(!rows.length){ toast('کوئی ریکارڈ نہیں ملا'); return; }
+
+  const rowsHtml = rows.map((r,i)=>`
+    <tr>
+      <td class="pr-idx">${i+1}</td>
+      <td class="pr-name">${escapeHtml(r.name)}</td>
+      <td class="pr-detail">${unitsLine(r.completed)}</td>
+      <td class="pr-detail">${r.hasRemaining ? unitsLine(r.remaining) : '—'}</td>
+      <td class="pr-eta">${r.hasRemaining ? (r.eta || 'تخمینہ درکار') : 'مکمل ✓'}</td>
+    </tr>`).join('');
+
+  const root=document.getElementById('printReportRoot');
+  root.innerHTML=`
+    <div class="pr-page">
+      <div class="pr-header">
+        <h1>حفظ پروگریس رپورٹ — تمام طلبہ</h1>
+        <div class="sub">تیار کردہ: ${fmtDate(todayISO())} • کل طلبہ: ${rows.length}</div>
+      </div>
+      <div class="pr-card">
+        <table class="pr-table">
+          <thead><tr>
+            <th style="width:24px">#</th>
+            <th>نام</th>
+            <th>مکمل حفظ</th>
+            <th>باقی</th>
+            <th>متوقع تاریخ تکمیل</th>
+          </tr></thead>
+          <tbody>${rowsHtml}</tbody>
+        </table>
+      </div>
+      <div class="pr-footer">Hifz Progress Report — سولہ سطری حفظی مصحف کے مطابق</div>
+    </div>`;
+
+  setTimeout(()=>window.print(), 150);
+}
+window.addEventListener('afterprint', ()=>{
+  const root=document.getElementById('printReportRoot');
+  if(root) root.innerHTML='';
+});
+
+/* ---------------- پوسٹر شیئر کریں (واٹس ایپ) ---------------- */
+async function sharePoster(){
+  if(!state.student) return;
+  if(typeof html2canvas==='undefined'){ toast('پوسٹر فیچر لوڈ نہیں ہو سکا — انٹرنیٹ چیک کریں'); return; }
+  const st=state.student;
+  const total=st.total;
+  const completed=combineWithBaseline(completedSabaq(st.records), st.baseline);
+  const remaining=remainingTotals(total,completed);
+  const eta=overallEta(st.records,remaining);
+  const hasRemaining=UNITS.some(u=>(remaining[u.key]||0)>0);
+
+  const wrap=document.createElement('div');
+  wrap.style.position='fixed'; wrap.style.left='-9999px'; wrap.style.top='0';
+  wrap.innerHTML=`
+    <div id="posterCard" style="width:640px;font-family:'Noto Naskh Arabic',Arial,sans-serif;direction:rtl;background:linear-gradient(160deg,#0B6E4F,#08352A);padding:30px;border-radius:24px;color:#fff;position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 85% 8%,rgba(230,197,90,.22),transparent 55%)"></div>
+      <div style="position:relative;text-align:center">
+        <div style="font-size:12px;letter-spacing:.14em;color:#E6C55A;text-transform:uppercase;margin-bottom:6px">Hifz Progress Report</div>
+        <div style="font-size:26px;font-weight:700;margin-bottom:3px">حفظ پروگریس رپورٹ</div>
+        <div style="font-size:16px;color:#DCEFE6;margin-bottom:18px">${escapeHtml(st.name)}</div>
+        <div style="display:inline-block;background:#fff;color:#08352A;padding:11px 28px;border-radius:16px;font-weight:800;font-size:15px;margin-bottom:20px;box-shadow:0 8px 18px -8px rgba(0,0,0,.35)">
+          ${hasRemaining? (eta? 'تخمینہ ختم قرآن: '+eta : 'روزانہ سبق درج کرنا شروع کریں') : 'مبارک ہو، قرآن مکمل! 🎉'}
+        </div>
+        <table style="width:100%;border-collapse:collapse;background:rgba(255,255,255,.09);border-radius:14px;overflow:hidden;font-size:14px">
+          <thead><tr>
+            <th style="padding:10px 4px"></th>
+            ${UNITS.map(u=>`<th style="padding:10px 4px;color:#E6C55A;font-size:13px">${u.label}</th>`).join('')}
+          </tr></thead>
+          <tbody>
+            <tr style="border-top:1px solid rgba(255,255,255,.18)"><td style="padding:9px 4px;color:#DCEFE6;text-align:right;padding-inline-start:14px">کل قرآن</td>${UNITS.map(u=>`<td style="padding:9px 4px;font-weight:700">${total[u.key]||0}</td>`).join('')}</tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.18)"><td style="padding:9px 4px;color:#DCEFE6;text-align:right;padding-inline-start:14px">مکمل</td>${UNITS.map(u=>`<td style="padding:9px 4px;font-weight:700;color:#7CFFCB">${completed[u.key]||0}</td>`).join('')}</tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.18)"><td style="padding:9px 4px;color:#DCEFE6;text-align:right;padding-inline-start:14px">باقی</td>${UNITS.map(u=>`<td style="padding:9px 4px;font-weight:700;color:#FFD3A6">${remaining[u.key]||0}</td>`).join('')}</tr>
+          </tbody>
+        </table>
+        <div style="margin-top:18px;font-size:11.5px;color:#B9D8CB">${fmtDate(todayISO())}</div>
+      </div>
+    </div>`;
+  document.body.appendChild(wrap);
+  try{
+    const canvas = await html2canvas(wrap.querySelector('#posterCard'), {scale:2, backgroundColor:null});
+    canvas.toBlob(async (blob)=>{
+      if(!blob){ toast('پوسٹر بنانے میں مسئلہ ہوا'); document.body.removeChild(wrap); return; }
+      const file = new File([blob], (st.name||'hifz')+'-poster.png', {type:'image/png'});
+      if(navigator.canShare && navigator.canShare({files:[file]})){
+        try{ await navigator.share({files:[file], title:'حفظ پروگریس رپورٹ', text: st.name+' کی حفظ پروگریس رپورٹ'}); }
+        catch(e){ /* user cancelled — no toast needed */ }
+      } else {
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement('a'); a.href=url; a.download=file.name; a.click();
+        URL.revokeObjectURL(url);
+        toast('پوسٹر ڈاؤن لوڈ ہو گیا — واٹس ایپ پر شیئر کریں');
+      }
+      document.body.removeChild(wrap);
+    }, 'image/png');
+  }catch(e){
+    console.error(e);
+    toast('پوسٹر بنانے میں مسئلہ ہوا');
+    document.body.removeChild(wrap);
+  }
+}
 
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
