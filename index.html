@@ -14,7 +14,6 @@
 <link rel="apple-touch-icon" href="./icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400..700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
 <style>
   :root{
     --emerald-950:#08352A;
@@ -68,10 +67,6 @@
   .chip.active{background:var(--emerald-800);border-color:var(--emerald-800);color:#fff}
   .chip.add{border-style:dashed;color:var(--emerald-800);font-weight:700;font-size:13px}
 
-  .tab-bar{display:flex;gap:6px;margin-bottom:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:4px}
-  .tab-btn{flex:1;text-align:center;padding:9px 6px;border-radius:9px;border:none;background:transparent;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:700;color:var(--ink-soft)}
-  .tab-btn.active{background:var(--emerald-800);color:#fff}
-
   .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px 14px;margin-bottom:12px;box-shadow:0 3px 14px -10px rgba(43,38,32,.18)}
   .card h2{font-size:16.5px;margin:0 0 3px;color:var(--emerald-950)}
   .card .hint{font-size:11.5px;color:var(--ink-soft);margin:0 0 10px}
@@ -85,18 +80,9 @@
   .qtable tr.row-done td{color:var(--emerald-800)}
   .qtable tr.row-left td{color:var(--maroon);background:#FDF4EC}
   .qtable tr.row-left td:first-child{border-radius:0 0 0 9px}
+  .qtable tr:last-child td:first-child{border-radius:0 0 0 9px}
 
-  .unit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}
-  .unit-card{border-radius:12px;padding:10px 10px 9px;background:linear-gradient(165deg,var(--emerald-100),#fff);border:1px solid #D7ECE1}
-  .unit-card .u-name{font-size:13.5px;color:var(--emerald-950);font-weight:700;margin-bottom:2px}
-  .unit-card .u-remain{font-size:22px;font-weight:800;color:var(--emerald-800);line-height:1.1}
-  .unit-card .u-remain small{font-size:11.5px;font-weight:600;color:var(--ink-soft)}
-  .unit-card .u-est{margin-top:7px;padding-top:7px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink)}
-  .unit-card .u-est b{color:var(--maroon)}
-  .unit-card .u-date{margin-top:5px;font-size:11.5px;background:#fff;border:1px dashed var(--gold-600);border-radius:8px;padding:5px 7px;color:var(--emerald-950)}
-  .whatif{display:flex;align-items:center;gap:5px;margin-top:6px;font-size:11px;flex-wrap:wrap}
-  .whatif input{width:46px;padding:4px 5px;border-radius:7px;border:1px solid var(--line);font-family:inherit;font-size:12px;text-align:center}
-  .whatif .out{font-weight:700;color:var(--emerald-800)}
+  .builtin-note{font-size:11px;color:var(--ink-soft);margin-top:6px}
 
   .quran-eta{
     margin-top:12px;position:relative;overflow:hidden;text-align:center;
@@ -118,9 +104,10 @@
   }
   @keyframes vtagSweep{0%{left:-160%}100%{left:170%}}
   .quran-eta .eta-label{position:relative;font-size:13px;font-weight:700;color:#1F1400;opacity:.85;letter-spacing:.03em;margin-bottom:4px}
-  .quran-eta .eta-value{position:relative;font-size:27px;font-weight:800;color:#1F1400;letter-spacing:.01em;line-height:1.3}
-  .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(70px,1fr));gap:6px;margin-bottom:8px}
-  .date-row{margin-bottom:8px}
+  .quran-eta .eta-value{position:relative;font-size:23px;font-weight:800;color:#1F1400;letter-spacing:.01em;line-height:1.3}
+
+  .form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
+  .date-row{margin-bottom:10px}
   .date-row input[type=date]{max-width:220px}
   label{font-size:11.5px;color:var(--ink-soft);display:block;margin-bottom:2px}
   input[type=number],input[type=date],input[type=text]{width:100%;padding:7px 6px;border-radius:9px;border:1.5px solid var(--line);font-family:inherit;font-size:13.5px;background:#FFFEFB}
@@ -130,42 +117,35 @@
   .btn{border:none;border-radius:10px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:13.5px;cursor:pointer}
   .btn-primary{background:linear-gradient(160deg,var(--emerald-700),var(--emerald-800));color:#fff;box-shadow:0 6px 14px -8px rgba(11,110,79,.55)}
   .btn-ghost{background:#fff;color:var(--emerald-800);border:1.5px solid var(--emerald-800)}
-  .btn-danger{background:#fff;color:var(--down);border:1.5px solid var(--down);padding:5px 9px;font-size:11.5px;border-radius:7px}
   .btn-mini{background:#fff;color:var(--emerald-800);border:1.5px solid var(--emerald-700);padding:4px 8px;font-size:10.5px;border-radius:7px;font-family:inherit;font-weight:700;cursor:pointer}
-  .log-actions{display:flex;gap:5px;justify-content:center;white-space:nowrap}
-  .mini-log td.log-actions{padding:5px 3px}
+  .btn-mini.btn-danger{color:var(--down);border-color:var(--down)}
   .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 
-  .compare-line{display:flex;gap:14px;flex-wrap:wrap;background:var(--parchment-2);border-radius:10px;padding:8px 12px;margin-bottom:10px;font-size:12px}
-  .compare-line b{color:var(--emerald-950);font-size:13.5px}
-
-  .mini-log{width:100%;border-collapse:collapse;font-size:12px}
-  .mini-log th,.mini-log td{padding:6px 4px;text-align:center;border-bottom:1px solid var(--line)}
-  .mini-log th{color:var(--ink-soft);font-size:10.5px;background:var(--parchment-2)}
-
-  .filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-  .filter-btn{padding:6px 13px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer;font-family:inherit}
-  .filter-btn.active{background:var(--emerald-950);color:#fff;border-color:var(--emerald-950)}
-  .unit-select{margin-inline-start:auto;padding:6px 10px;border-radius:9px;border:1.5px solid var(--line);font-family:inherit;font-size:12.5px;background:#fff}
-
-  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:10px}
-  .stat-card{background:var(--parchment-2);border-radius:11px;padding:9px 10px;text-align:center}
-  .stat-card .val{font-size:19px;font-weight:800;color:var(--emerald-950)}
-  .stat-card .lab{font-size:10.5px;color:var(--ink-soft);margin-top:2px}
-  .trend-up{color:var(--up)} .trend-down{color:var(--down)}
-
-  .chart-wrap{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:6px;height:200px}
-
-  table.log{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px}
-  table.log th,table.log td{padding:6px 4px;text-align:center;border-bottom:1px solid var(--line)}
-  table.log th{color:var(--ink-soft);font-weight:700;font-size:10.5px;background:var(--parchment-2)}
-  table.log tbody tr:hover{background:#FAF6EA}
-  .empty{text-align:center;padding:18px 8px;color:var(--ink-soft);font-size:12.5px}
+  .cat-section{margin-bottom:10px}
+  .cat-box{border:1.5px solid var(--line);border-radius:12px;padding:10px 10px 8px;margin-bottom:8px;background:var(--parchment-2)}
+  .cat-box.sabaq{border-color:var(--emerald-700);background:var(--emerald-100)}
+  .cat-box .cat-title{font-size:14px;font-weight:700;color:var(--emerald-950);margin-bottom:6px}
+  .cat-box .cat-title small{font-weight:400;color:var(--ink-soft);font-size:11px}
 
   .settings-toggle{font-size:11.5px;color:var(--emerald-800);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;font-family:inherit}
   .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--emerald-950);color:#fff;padding:9px 20px;border-radius:999px;font-size:12.5px;box-shadow:var(--shadow);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:50}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
   .loading{text-align:center;padding:40px 8px;color:var(--ink-soft)}
+
+  .month-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .month-nav .m-btn{background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:5px 11px;font-family:inherit;font-size:15px;cursor:pointer;color:var(--emerald-800);font-weight:700}
+  .month-nav .m-label{font-size:14px;font-weight:700;color:var(--emerald-950)}
+
+  table.month{width:100%;border-collapse:collapse;font-size:11.5px}
+  table.month th,table.month td{padding:6px 3px;text-align:center;border-bottom:1px solid var(--line)}
+  table.month th{color:var(--ink-soft);font-weight:700;font-size:10.5px;background:var(--parchment-2)}
+  table.month td.d-date{color:var(--ink-soft);font-size:10.5px;white-space:nowrap}
+  table.month td.naagha{color:var(--down);font-weight:700}
+  table.month tr.is-today{background:#FDF6E3}
+  table.month tfoot td{font-weight:700;background:var(--emerald-100);color:var(--emerald-950);border-bottom:none}
+  table.month tfoot td.naagha-total{color:var(--down)}
+  .table-scroll{overflow-x:auto}
+  .empty{text-align:center;padding:14px 8px;color:var(--ink-soft);font-size:12.5px}
 </style>
 </head>
 <body>
@@ -173,8 +153,8 @@
   <div class="header">
     <div class="kicker">Hifz Progress Report</div>
     <h1>حفظ پروگریس رپورٹ</h1>
-    <div class="sub">روزانہ سبق، مکمل قرآنِ پاک اور تکمیل کی متوقع تاریخ</div>
-    <div class="version-tag">Hpr118tu0300pm</div>
+    <div class="sub">روزانہ سبق، سبقی، منزل اور مکمل قرآنِ پاک کی متوقع تاریخ</div>
+    <div class="version-tag">Hpr188tu0300pm</div>
   </div>
   <div id="root"><div class="loading">لوڈ ہو رہا ہے…</div></div>
 </div>
@@ -183,36 +163,30 @@
 <script>
 /* ---------------- constants ---------------- */
 const LINES_PER_PAGE = 16;
+const TOTAL_PAGES = 547; /* 16 سطری حفظی مصحف */
+const DEFAULT_TOTAL = {para:30, ruku:540, lines:LINES_PER_PAGE*TOTAL_PAGES};
 const UNITS = [
-  {key:'para',  label:'پارے',   icon:'📿'},
-  {key:'pao',   label:'پاؤ',    icon:'🕋'},
-  {key:'ruku',  label:'رکوع',   icon:'🕌'},
-  {key:'safha', label:'صفحات', icon:'📄'},
-  {key:'lines', label:'لائنیں', icon:'✒️'},
+  {key:'para',  label:'پارے'},
+  {key:'ruku',  label:'رکوع'},
+  {key:'lines', label:'لائنیں'},
 ];
-const FILTERS = [
-  {key:'today', label:'آج'},
-  {key:'week',  label:'اس ہفتے'},
-  {key:'month', label:'اس مہینے'},
-  {key:'all',   label:'مکمل ریکارڈ'},
+const CATS = [
+  {key:'sabaq',  label:'سبق',  hint:'آج کا نیا سبق'},
+  {key:'sabqi',  label:'سبقی', hint:'حالیہ سبقوں کا اعادہ'},
+  {key:'manzil', label:'منزل', hint:'پرانی منزل کا اعادہ'},
 ];
 const URDU_MONTHS = ['جنوری','فروری','مارچ','اپریل','مئی','جون','جولائی','اگست','ستمبر','اکتوبر','نومبر','دسمبر'];
 const URDU_WEEKDAYS = ['اتوار','پیر','منگل','بدھ','جمعرات','جمعہ','ہفتہ'];
-const DEFAULT_TOTAL = {para:30, pao:120, ruku:540, safha:0, lines:0};
-const TABS = [
-  {key:'entry', label:'روزانہ اندراج'},
-  {key:'estimate', label:'تخمینہ'},
-  {key:'report', label:'رپورٹ'},
-];
 
 /* ---------------- state ---------------- */
 let state = {
   students: [], activeId: null, student: null,
-  filter: 'week', unitView: 'lines', showSettings: false, chart: null,
-  tab: 'entry', editIdx: null,
+  view: 'main', /* 'main' | 'settings' */
+  editDate: null,
+  monthCursor: null, /* {y,m} 0-indexed month */
 };
 
-/* ---------------- storage helpers (localStorage — works when file is opened directly in a browser) ---------------- */
+/* ---------------- storage helpers (localStorage) ---------------- */
 const LS_PREFIX = 'hifz_progress_report:';
 async function getJSON(key){
   try{
@@ -242,32 +216,9 @@ function fmtDate(s){
   const d=parseISO(s);
   return String(d.getDate()).padStart(2,'0')+' '+URDU_MONTHS[d.getMonth()]+' '+d.getFullYear();
 }
-function getRange(filterKey, ref=new Date()){
-  if(filterKey==='today'){ const t=iso(ref); return {start:t,end:t}; }
-  if(filterKey==='week'){ return {start:iso(addDays(ref,-6)), end:iso(ref)}; }
-  if(filterKey==='month'){
-    const first=new Date(ref.getFullYear(),ref.getMonth(),1);
-    const last=new Date(ref.getFullYear(),ref.getMonth()+1,0);
-    return {start:iso(first), end:iso(last)};
-  }
-  return {start:null,end:null};
-}
-function getPrevRange(filterKey, curStart){
-  if(filterKey==='today'){ const p=addDays(parseISO(curStart),-1); return {start:iso(p),end:iso(p)}; }
-  if(filterKey==='week'){ const s=addDays(parseISO(curStart),-7); const e=addDays(parseISO(curStart),-1); return {start:iso(s),end:iso(e)}; }
-  if(filterKey==='month'){
-    const s=parseISO(curStart);
-    const prevLast=new Date(s.getFullYear(),s.getMonth(),0);
-    const prevFirst=new Date(prevLast.getFullYear(),prevLast.getMonth(),1);
-    return {start:iso(prevFirst), end:iso(prevLast)};
-  }
-  return {start:null,end:null};
-}
-function inRange(dateStr,start,end){ if(!start) return true; return dateStr>=start && dateStr<=end; }
-function filterRecords(records,filterKey){
-  const {start,end}=getRange(filterKey);
-  return records.filter(r=>inRange(r.date,start,end)).sort((a,b)=>a.date.localeCompare(b.date));
-}
+function pad2(n){ return String(n).padStart(2,'0'); }
+function isoOf(y,m,d){ return y+'-'+pad2(m+1)+'-'+pad2(d); }
+function daysInMonth(y,m){ return new Date(y,m+1,0).getDate(); }
 
 /* ---------------- boot ---------------- */
 async function boot(){
@@ -278,18 +229,30 @@ async function boot(){
   else if(students.length) state.activeId = students[0].id;
   if(state.activeId) state.student = await getJSON('student:'+state.activeId);
   normalizeStudent();
+  const now=new Date();
+  state.monthCursor = {y:now.getFullYear(), m:now.getMonth()};
   render();
 }
+
+function emptyCat(){ return {para:0,ruku:0,lines:0}; }
+
 function normalizeStudent(){
   if(!state.student) return;
-  if(!state.student.total) state.student.total = {...DEFAULT_TOTAL};
-  if(!state.student.records) state.student.records = [];
-  if(!state.student.baseline) state.student.baseline = {para:0,pao:0,ruku:0,safha:0,lines:0};
+  const st=state.student;
+  if(!st.total) st.total = {...DEFAULT_TOTAL};
+  else st.total = {para: st.total.para||DEFAULT_TOTAL.para, ruku: st.total.ruku||DEFAULT_TOTAL.ruku, lines: st.total.lines||DEFAULT_TOTAL.lines};
+  if(!st.baseline) st.baseline = emptyCat();
+  if(typeof st.baselineSet !== 'boolean') st.baselineSet = !!(st.baseline.para||st.baseline.ruku||st.baseline.lines);
+  if(!st.records) st.records=[];
+  /* migrate legacy flat records (para/ruku/lines directly on record) into sabaq */
+  st.records = st.records.map(r=>{
+    if(r.sabaq || r.sabqi || r.manzil){
+      return {date:r.date, note:r.note||'', sabaq:{...emptyCat(),...(r.sabaq||{})}, sabqi:{...emptyCat(),...(r.sabqi||{})}, manzil:{...emptyCat(),...(r.manzil||{})}};
+    }
+    return {date:r.date, note:r.note||'', sabaq:{para:r.para||0, ruku:r.ruku||0, lines:r.lines||0}, sabqi:emptyCat(), manzil:emptyCat()};
+  });
 }
-function combineWithBaseline(compl, baseline){
-  const c={}; UNITS.forEach(u=>c[u.key]=(compl[u.key]||0)+((baseline||{})[u.key]||0));
-  return c;
-}
+
 async function saveStudentsList(){ await setJSON('students', state.students); }
 async function saveActiveId(){ await setJSON('active-student', state.activeId); }
 async function saveStudent(){ if(state.student) await setJSON('student:'+state.activeId, state.student); }
@@ -303,8 +266,9 @@ async function addStudent(){
   await saveStudentsList();
   state.activeId = id;
   await saveActiveId();
-  state.student = { name:name.trim(), total:{...DEFAULT_TOTAL}, records:[], baseline:{para:0,pao:0,ruku:0,safha:0,lines:0} };
+  state.student = { name:name.trim(), total:{...DEFAULT_TOTAL}, baseline:emptyCat(), baselineSet:false, records:[] };
   await saveStudent();
+  state.view = 'settings';
   toast('نیا طالب علم شامل ہو گیا');
   render();
 }
@@ -313,66 +277,51 @@ async function switchStudent(id){
   await saveActiveId();
   state.student = await getJSON('student:'+id);
   normalizeStudent();
-  state.showSettings = false;
+  state.view = 'main';
+  state.editDate = null;
   render();
 }
-function setTab(t){ state.tab=t; render(); }
 
-/* ---------------- settings: total quran ---------------- */
-function onParaInput(){
-  const para = parseInt(document.getElementById('tot_para').value||'0',10);
-  document.getElementById('tot_pao').value = para*4;
-}
-function onSafhaInput(){
-  const safha = parseInt(document.getElementById('tot_safha').value||'0',10);
-  document.getElementById('tot_lines').value = safha*LINES_PER_PAGE;
-}
-function onBaseParaInput(){
-  const para = parseInt(document.getElementById('base_para').value||'0',10);
-  document.getElementById('base_pao').value = para*4;
-}
-function onBaseSafhaInput(){
-  const safha = parseInt(document.getElementById('base_safha').value||'0',10);
-  document.getElementById('base_lines').value = safha*LINES_PER_PAGE;
-}
-async function saveTotal(){
-  const t = {}; const b = {};
+/* ---------------- settings page (مکمل قرآن پاک + پہلے سے مکمل مقدار) ---------------- */
+function openSettings(){ state.view='settings'; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+function closeSettings(){ state.view='main'; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+async function saveBaseline(){
+  const b={};
   UNITS.forEach(u=>{
-    const el = document.getElementById('tot_'+u.key);
-    t[u.key] = Math.max(0, parseInt(el.value||'0',10));
-    const bel = document.getElementById('base_'+u.key);
-    b[u.key] = bel ? Math.max(0, parseInt(bel.value||'0',10)) : 0;
+    const el=document.getElementById('base_'+u.key);
+    b[u.key]=Math.max(0, parseInt(el.value||'0',10));
   });
-  state.student.total = t;
-  state.student.baseline = b;
-  state.showSettings = false;
+  state.student.baseline=b;
+  state.student.baselineSet=true;
+  state.view='main';
   await saveStudent();
-  toast('مکمل قرآنِ پاک کی تفصیل محفوظ ہو گئی');
+  toast('پہلے سے مکمل مقدار محفوظ ہو گئی');
   render();
 }
 
-/* ---------------- daily entry ---------------- */
+/* ---------------- daily entry (سبق / سبقی / منزل) ---------------- */
+function readCatInputs(catKey){
+  const v={};
+  UNITS.forEach(u=>{
+    const el=document.getElementById('e_'+catKey+'_'+u.key);
+    v[u.key]= el? Math.max(0, parseInt(el.value||'0',10)) : 0;
+  });
+  return v;
+}
 async function addEntry(){
   const dateEl=document.getElementById('entry_date');
   const noteEl=document.getElementById('entry_note');
   const date = dateEl.value || todayISO();
   const note = noteEl.value.trim();
-  const vals={};
-  let any=false;
-  UNITS.forEach(u=>{
-    const el=document.getElementById('entry_'+u.key);
-    const v=Math.max(0, parseInt(el.value||'0',10));
-    vals[u.key]=v;
-    if(v>0) any=true;
-  });
+  const vals={sabaq:readCatInputs('sabaq'), sabqi:readCatInputs('sabqi'), manzil:readCatInputs('manzil')};
+  const any = CATS.some(c=>UNITS.some(u=>vals[c.key][u.key]>0));
   if(!any){ toast('کم از کم ایک خانے میں مقدار درج کریں'); return; }
 
-  if(state.editIdx!=null){
-    /* explicit edit: fully overwrite the selected record */
-    const rec={date, note};
-    UNITS.forEach(u=>rec[u.key]=vals[u.key]);
-    state.student.records[state.editIdx]=rec;
-    state.editIdx=null;
+  if(state.editDate!=null){
+    const idx=state.student.records.findIndex(r=>r.date===state.editDate);
+    const rec={date, note, sabaq:vals.sabaq, sabqi:vals.sabqi, manzil:vals.manzil};
+    if(idx>=0) state.student.records[idx]=rec; else state.student.records.push(rec);
+    state.editDate=null;
     state.student.records.sort((a,b)=>a.date.localeCompare(b.date));
     await saveStudent();
     toast('اندراج اپڈیٹ ہو گیا');
@@ -380,12 +329,10 @@ async function addEntry(){
     return;
   }
 
-  /* normal add: if a record for this date already exists, add the new amounts into it
-     instead of creating a duplicate row for the same day */
   const existingIdx = state.student.records.findIndex(r=>r.date===date);
   if(existingIdx>=0){
     const rec=state.student.records[existingIdx];
-    UNITS.forEach(u=>{ rec[u.key]=(rec[u.key]||0)+vals[u.key]; });
+    CATS.forEach(c=>UNITS.forEach(u=>{ rec[c.key][u.key]=(rec[c.key][u.key]||0)+vals[c.key][u.key]; }));
     if(note) rec.note = rec.note? (rec.note+' — '+note) : note;
     await saveStudent();
     toast('آج کے ریکارڈ میں مقدار شامل کر دی گئی');
@@ -393,50 +340,49 @@ async function addEntry(){
     return;
   }
 
-  const rec={date, note};
-  UNITS.forEach(u=>rec[u.key]=vals[u.key]);
+  const rec={date, note, sabaq:vals.sabaq, sabqi:vals.sabqi, manzil:vals.manzil};
   state.student.records.push(rec);
   state.student.records.sort((a,b)=>a.date.localeCompare(b.date));
   await saveStudent();
-  toast('آج کا سبق محفوظ ہو گیا');
+  toast('آج کا ریکارڈ محفوظ ہو گیا');
   render();
 }
-function editEntry(idx){
-  state.editIdx=idx;
-  state.tab='entry';
+function editEntry(date){
+  state.editDate=date;
   render();
   const card=document.getElementById('entry-form-card');
   if(card) card.scrollIntoView({behavior:'smooth', block:'start'});
 }
-function cancelEdit(){
-  state.editIdx=null;
-  render();
-}
-async function deleteEntry(idx){
-  if(!confirm('کیا یہ اندراج حذف کرنا ہے؟')) return;
-  state.student.records.splice(idx,1);
-  if(state.editIdx===idx) state.editIdx=null;
+function cancelEdit(){ state.editDate=null; render(); }
+async function deleteEntry(date){
+  if(!confirm('کیا اس تاریخ کا اندراج حذف کرنا ہے؟')) return;
+  state.student.records = state.student.records.filter(r=>r.date!==date);
+  if(state.editDate===date) state.editDate=null;
   await saveStudent();
   toast('اندراج حذف ہو گیا');
   render();
 }
 
-/* ---------------- derived stats ---------------- */
-function completedTotals(records){
-  const c={}; UNITS.forEach(u=>c[u.key]=0);
-  records.forEach(r=>UNITS.forEach(u=>c[u.key]+=(r[u.key]||0)));
+/* ---------------- derived stats (based on سبق + baseline only) ---------------- */
+function completedSabaq(records){
+  const c=emptyCat();
+  records.forEach(r=>UNITS.forEach(u=>c[u.key]+=(r.sabaq?.[u.key]||0)));
+  return c;
+}
+function combineWithBaseline(compl, baseline){
+  const c={}; UNITS.forEach(u=>c[u.key]=(compl[u.key]||0)+((baseline||{})[u.key]||0));
   return c;
 }
 function remainingTotals(total, completed){
   const rm={}; UNITS.forEach(u=>rm[u.key]=Math.max(0,(total[u.key]||0)-(completed[u.key]||0)));
   return rm;
 }
-function averagePace(records,key){
-  const active=records.filter(r=>(r[key]||0)>0);
+function averagePaceSabaq(records,key){
+  const active=records.filter(r=>(r.sabaq?.[key]||0)>0);
   if(!active.length) return 0;
-  return active.reduce((a,r)=>a+(r[key]||0),0)/active.length;
+  return active.reduce((a,r)=>a+(r.sabaq[key]||0),0)/active.length;
 }
-function estimateDays(remaining,pace){ if(pace<=0) return null; return Math.ceil(remaining/pace); }
+function estimateDays(remaining,pace){ if(!pace||pace<=0) return null; return Math.ceil(remaining/pace); }
 function daysToMonths(days){
   if(days==null) return 'ریکارڈ درکار ہے';
   const m=Math.floor(days/30), d=days%30;
@@ -450,21 +396,31 @@ function completionDateStr(days){
   return URDU_WEEKDAYS[d.getDay()]+'، '+dateStr;
 }
 function overallEta(records,remaining){
-  const order=['para','lines','safha','ruku','pao'];
+  const order=['lines','para','ruku'];
   for(const key of order){
     const rem=remaining[key]||0;
     if(rem<=0) continue;
-    const pace=averagePace(records,key);
+    const pace=averagePaceSabaq(records,key);
     const days=estimateDays(rem,pace);
     const cdate=completionDateStr(days);
     if(cdate) return cdate;
   }
   return null;
 }
-function setFilter(key){ state.filter=key; render(); }
-function setUnitView(key){ state.unitView=key; render(); }
-function toggleSettings(){ state.showSettings=!state.showSettings; render(); }
-function labelOf(key){ return UNITS.find(u=>u.key===key).label; }
+
+/* ---------------- monthly record ---------------- */
+function shiftMonth(delta){
+  let {y,m}=state.monthCursor;
+  m+=delta;
+  if(m<0){ m=11; y--; } else if(m>11){ m=0; y++; }
+  state.monthCursor={y,m};
+  render();
+}
+function catCellText(cat){
+  const parts=[];
+  UNITS.forEach(u=>{ if(cat && cat[u.key]>0) parts.push(cat[u.key]+' '+u.label); });
+  return parts.length? parts.join('، ') : null;
+}
 
 /* ---------------- render ---------------- */
 function render(){
@@ -490,226 +446,131 @@ function render(){
 
   const st=state.student;
   const total=st.total;
-  const completed=combineWithBaseline(completedTotals(st.records), st.baseline);
+  const completed=combineWithBaseline(completedSabaq(st.records), st.baseline);
   const remaining=remainingTotals(total,completed);
-  const totalSet = UNITS.some(u=>(total[u.key]||0)>0);
 
-  html+=`<div class="tab-bar">${TABS.map(t=>`<button class="tab-btn ${t.key===state.tab?'active':''}" onclick="setTab('${t.key}')">${t.label}</button>`).join('')}</div>`;
-
-  /* settings card (total quran entry) shown whenever incomplete or toggled, regardless of tab */
-  if(!totalSet || state.showSettings){
+  /* ================= SETTINGS PAGE (مکمل قرآنِ پاک + پہلے سے مکمل مقدار) ================= */
+  if(state.view==='settings'){
     html+=`<div class="card">
-      <h2>مکمل قرآنِ پاک — سولہ سطری حفظی مصحف</h2>
-      <p class="hint">اپنے قرآن پاک کے مطابق کل تعداد درج کریں۔ پارے سے پاؤ خودکار بنیں گے، صفحات سے لائنیں خودکار (صفحات × 16) بنیں گی۔ بعد میں تصحیح بھی کر سکتے ہیں۔</p>
-      <div class="form-grid">
-        <div><label>کل پارے</label><input type="number" min="0" id="tot_para" value="${total.para||30}" oninput="onParaInput()"></div>
-        <div><label>کل پاؤ</label><input type="number" min="0" id="tot_pao" value="${total.pao||120}"></div>
-        <div><label>کل رکوع</label><input type="number" min="0" id="tot_ruku" value="${total.ruku||540}"></div>
-        <div><label>کل صفحات</label><input type="number" min="0" id="tot_safha" value="${total.safha||''}" placeholder="آخری صفحہ نمبر دیکھیں" oninput="onSafhaInput()"></div>
-        <div><label>کل لائنیں</label><input type="number" min="0" id="tot_lines" value="${total.lines||''}" placeholder="صفحات × 16"></div>
+      <div class="row" style="justify-content:space-between">
+        <h2 style="margin:0">مکمل قرآنِ پاک — سولہ سطری حفظی مصحف</h2>
+        <button class="btn-mini" onclick="closeSettings()">‹ واپس</button>
       </div>
-      <h2 style="font-size:14px;margin-top:14px">پہلے سے مکمل مقدار (اختیاری)</h2>
-      <p class="hint">اگر طالب علم پہلے سے کچھ حفظ کر چکا ہے تو یہاں درج کریں — یہ خود بخود پیش رفت میں شامل ہو جائے گا</p>
-      <div class="form-grid">
-        <div><label>مکمل پارے</label><input type="number" min="0" id="base_para" value="${st.baseline?.para||''}" oninput="onBaseParaInput()"></div>
-        <div><label>مکمل پاؤ</label><input type="number" min="0" id="base_pao" value="${st.baseline?.pao||''}"></div>
-        <div><label>مکمل رکوع</label><input type="number" min="0" id="base_ruku" value="${st.baseline?.ruku||''}"></div>
-        <div><label>مکمل صفحات</label><input type="number" min="0" id="base_safha" value="${st.baseline?.safha||''}" placeholder="آخری پڑھا ہوا صفحہ نمبر" oninput="onBaseSafhaInput()"></div>
-        <div><label>مکمل لائنیں</label><input type="number" min="0" id="base_lines" value="${st.baseline?.lines||''}" placeholder="صفحات × 16"></div>
-      </div>
-      <button class="btn btn-primary" onclick="saveTotal()">محفوظ کریں</button>
-      ${state.showSettings? `<button class="btn btn-ghost" onclick="toggleSettings()" style="margin-inline-start:8px">منسوخ</button>`:''}
-    </div>`;
-  }
-
-  if(totalSet){
-
-    if(state.tab==='entry'){
-      html+=`<div class="card">
-        <div class="row" style="justify-content:space-between">
-          <h2>پیش رفت</h2>
-          <button class="settings-toggle" onclick="toggleSettings()">ترتیب / تصحیح</button>
-        </div>
-        <table class="qtable">
-          <thead><tr><th></th>${UNITS.map(u=>`<th>${u.label}</th>`).join('')}</tr></thead>
-          <tbody>
-            <tr><td>کل قرآن</td>${UNITS.map(u=>`<td>${total[u.key]||0}</td>`).join('')}</tr>
-            <tr class="row-done"><td>مکمل</td>${UNITS.map(u=>`<td>${completed[u.key]||0}</td>`).join('')}</tr>
-            <tr class="row-left"><td>باقی</td>${UNITS.map(u=>`<td>${remaining[u.key]||0}</td>`).join('')}</tr>
-          </tbody>
-        </table>
-        ${(()=>{ const eta=overallEta(st.records, remaining); const hasRemaining=UNITS.some(u=>(remaining[u.key]||0)>0); if(!hasRemaining) return ''; return `<div class="quran-eta"><div class="eta-label">تخمینہ ختم قرآن</div><div class="eta-value">${eta || 'روزانہ اندراج شروع کریں'}</div></div>`; })()}
-      </div>`;
-
-      html+=`<div class="card" id="entry-form-card">
-        <h2>${state.editIdx!=null? 'اندراج میں ترمیم کریں':'آج کا سبق درج کریں'}</h2>
-        <p class="hint">${state.editIdx!=null? 'مقداریں درست کریں اور اپڈیٹ کر دیں':'جتنی اکائیاں لاگو ہوں وہ بھریں — باقی خالی چھوڑ دیں'}</p>
-        <div class="date-row">
-          <label>تاریخ</label><input type="date" id="entry_date" value="${state.editIdx!=null? state.student.records[state.editIdx].date : todayISO()}">
-        </div>
+      <table class="qtable">
+        <thead><tr><th></th>${UNITS.map(u=>`<th>${u.label}</th>`).join('')}</tr></thead>
+        <tbody><tr><td>کل قرآن</td>${UNITS.map(u=>`<td>${total[u.key]}</td>`).join('')}</tr></tbody>
+      </table>
+      <p class="builtin-note">یہ تعداد سولہ سطری حفظی مصحف کے مطابق خودکار طے شدہ ہے — ${LINES_PER_PAGE} × ${TOTAL_PAGES} صفحات = ${DEFAULT_TOTAL.lines} لائنیں</p>
+      <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)">
+        <h2 style="font-size:14px">پہلے سے مکمل مقدار (اختیاری)</h2>
+        <p class="hint">اگر طالب علم پہلے سے کچھ حفظ کر چکا ہے تو یہاں ایک دفعہ درج کریں</p>
         <div class="form-grid">
-          ${UNITS.map(u=>`<div><label>${u.label}</label><input type="number" min="0" id="entry_${u.key}" placeholder="0" value="${state.editIdx!=null? (state.student.records[state.editIdx][u.key]||''):''}"></div>`).join('')}
+          ${UNITS.map(u=>`<div><label>${u.label}</label><input type="number" min="0" id="base_${u.key}" value="${st.baseline[u.key]||''}"></div>`).join('')}
         </div>
-        <div style="margin-bottom:8px">
-          <label>نوٹ (اختیاری)</label>
-          <input type="text" id="entry_note" placeholder="مثلاً: سورۃ البقرہ کی ابتدا" value="${state.editIdx!=null? escapeHtml(state.student.records[state.editIdx].note||''):''}">
-        </div>
-        <button class="btn btn-primary" onclick="addEntry()">${state.editIdx!=null? 'اپڈیٹ کریں':'محفوظ کریں'}</button>
-        ${state.editIdx!=null? `<button class="btn btn-ghost" onclick="cancelEdit()" style="margin-inline-start:8px">منسوخ</button>`:''}
-      </div>`;
-
-      const sortedAll = st.records.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
-      html+=`<div class="card">
-        <h2>حالیہ اندراجات</h2>
-        ${sortedAll.length? `
-        <table class="mini-log">
-          <thead><tr><th>تاریخ</th>${UNITS.map(u=>`<th>${u.label}</th>`).join('')}<th></th></tr></thead>
-          <tbody>
-            ${sortedAll.map(r=>{
-              const realIdx=st.records.indexOf(r);
-              return `<tr><td>${fmtDate(r.date)}</td>${UNITS.map(u=>`<td>${r[u.key]||'-'}</td>`).join('')}
-                <td class="log-actions">
-                  <button class="btn-mini" onclick="editEntry(${realIdx})">ترمیم</button>
-                  <button class="btn-mini btn-danger" onclick="deleteEntry(${realIdx})">حذف</button>
-                </td>
-              </tr>`;
-            }).join('')}
-          </tbody>
-        </table>` : `<div class="empty">ابھی کوئی اندراج نہیں</div>`}
-      </div>`;
-    }
-
-    if(state.tab==='estimate'){
-      html+=`<div class="card">
-        <h2>تخمینہ تکمیل</h2>
-        <p class="hint">ہر اکائی کی اپنی اوسط رفتار اور متوقع تکمیل کی تاریخ</p>
-        <div class="unit-grid">`;
-      UNITS.forEach(u=>{
-        const rem=remaining[u.key]||0;
-        const pace=averagePace(st.records,u.key);
-        const days=estimateDays(rem,pace);
-        const cdate=completionDateStr(days);
-        const whatRate = pace? Math.max(1,Math.round(pace)) : 1;
-        const whatDays = estimateDays(rem, whatRate);
-        html+=`<div class="unit-card">
-          <div class="u-name">${u.label}</div>
-          <div class="u-remain">${rem} <small>باقی</small></div>
-          <div class="u-est">
-            اوسط روزانہ: <b>${pace? pace.toFixed(1): '—'}</b><br>
-            تخمینہ وقت: <b>${daysToMonths(days)}</b>
-          </div>
-          ${cdate? `<div class="u-date">متوقع تکمیل: <b>${cdate}</b></div>`:''}
-          <div class="whatif">
-            اگر روزانہ
-            <input type="number" min="1" value="${whatRate}" oninput="whatIf('${u.key}', this.value, ${rem})">
-            ${u.label} سنائیں تو:
-          </div>
-          <div class="whatif" id="whatif_${u.key}" style="margin-top:2px">
-            <span class="out">${daysToMonths(whatDays)}</span>${completionDateStr(whatDays)? ` — <span class="out">${completionDateStr(whatDays)}</span>`:''}
-          </div>
-        </div>`;
-      });
-      html+=`</div></div>`;
-    }
-
-    if(state.tab==='report'){
-      const records=st.records;
-      const filtered=filterRecords(records,state.filter);
-      const {start}=getRange(state.filter);
-      const prev=getPrevRange(state.filter, start || (records[0]?records[0].date:todayISO()));
-      const prevFiltered = state.filter==='all' ? [] : records.filter(r=>inRange(r.date,prev.start,prev.end));
-
-      const uv=state.unitView;
-      const total_ = filtered.reduce((a,r)=>a+(r[uv]||0),0);
-      const prevTotal = prevFiltered.reduce((a,r)=>a+(r[uv]||0),0);
-      const activeDays = filtered.filter(r=>(r[uv]||0)>0).length;
-      const avg = activeDays? (total_/activeDays):0;
-      let best=null;
-      filtered.forEach(r=>{ if((r[uv]||0)>0 && (!best||r[uv]>best[uv])) best=r; });
-      const diff=total_-prevTotal;
-      const trendUp=diff>=0;
-
-      const sortedAll = records.slice().sort((a,b)=>a.date.localeCompare(b.date));
-      let compareHtml='';
-      if(sortedAll.length){
-        const last = sortedAll[sortedAll.length-1];
-        const prevOne = sortedAll.length>1 ? sortedAll[sortedAll.length-2] : null;
-        compareHtml = `<div class="compare-line">
-          ${prevOne? `<span>گزشتہ سبق (${fmtDate(prevOne.date)}): <b>${prevOne[uv]||0}</b> ${labelOf(uv)}</span>`:''}
-          <span>تازہ ترین سبق (${fmtDate(last.date)}): <b>${last[uv]||0}</b> ${labelOf(uv)}</span>
-        </div>`;
-      }
-
-      html+=`<div class="card">
-        <div class="row" style="justify-content:space-between;margin-bottom:10px">
-          <h2 style="margin:0">ریکارڈ اور تجزیہ</h2>
-          <select class="unit-select" onchange="setUnitView(this.value)">
-            ${UNITS.map(u=>`<option value="${u.key}" ${u.key===uv?'selected':''}>${u.label}</option>`).join('')}
-          </select>
-        </div>
-        ${compareHtml}
-        <div class="filter-bar">
-          ${FILTERS.map(f=>`<button class="filter-btn ${f.key===state.filter?'active':''}" onclick="setFilter('${f.key}')">${f.label}</button>`).join('')}
-        </div>
-        <div class="stats-grid">
-          <div class="stat-card"><div class="val">${total_}</div><div class="lab">کل ${labelOf(uv)}</div></div>
-          <div class="stat-card"><div class="val">${avg? avg.toFixed(1):0}</div><div class="lab">یومیہ اوسط</div></div>
-          <div class="stat-card"><div class="val">${best? best[uv]:0}</div><div class="lab">بہترین دن${best? ' ('+fmtDate(best.date)+')':''}</div></div>
-          <div class="stat-card">
-            <div class="val ${state.filter==='all'?'':(trendUp?'trend-up':'trend-down')}">${state.filter==='all'?'—':(trendUp?'▲ ':'▼ ')+Math.abs(diff)}</div>
-            <div class="lab">${state.filter==='all'?'رجحان (مکمل ریکارڈ میں لاگو نہیں)':'گزشتہ مدت کے مقابلے میں'}</div>
-          </div>
-        </div>
-        <div class="chart-wrap"><canvas id="hifzChart"></canvas></div>
-        <div class="table-wrap">
-          ${filtered.length? `
-          <table class="log">
-            <thead><tr><th>تاریخ</th>${UNITS.map(u=>`<th>${u.label}</th>`).join('')}<th>نوٹ</th><th></th></tr></thead>
-            <tbody>
-              ${filtered.slice().reverse().map(r=>{
-                const realIdx=records.indexOf(r);
-                return `<tr>
-                  <td>${fmtDate(r.date)}</td>
-                  ${UNITS.map(u=>`<td>${r[u.key]||'-'}</td>`).join('')}
-                  <td>${r.note? escapeHtml(r.note):'-'}</td>
-                  <td class="log-actions"><button class="btn-mini" onclick="editEntry(${realIdx})">ترمیم</button> <button class="btn-mini btn-danger" onclick="deleteEntry(${realIdx})">حذف</button></td>
-                </tr>`;
-              }).join('')}
-            </tbody>
-          </table>` : `<div class="empty">اس مدت میں کوئی ریکارڈ موجود نہیں</div>`}
-        </div>
-      </div>`;
-    }
+        <button class="btn btn-primary" onclick="saveBaseline()">محفوظ کریں</button>
+        <button class="btn btn-ghost" onclick="closeSettings()" style="margin-inline-start:8px">منسوخ</button>
+      </div>
+    </div>`;
+    root.innerHTML=html;
+    return;
   }
+
+  /* ================= MAIN PAGE ================= */
+  html+=`<div class="row" style="justify-content:flex-end;margin-bottom:10px">
+    <button class="settings-toggle" onclick="openSettings()">⚙ مکمل قرآن / پہلے سے مکمل مقدار</button>
+  </div>`;
+
+  /* ---- روزانہ اندراج: سبق / سبقی / منزل (سب سے اوپر) ---- */
+  const editRec = state.editDate!=null ? st.records.find(r=>r.date===state.editDate) : null;
+  html+=`<div class="card" id="entry-form-card">
+    <h2>${editRec? 'اندراج میں ترمیم کریں':'آج کا ریکارڈ درج کریں'}</h2>
+    <p class="hint">${editRec? 'مقداریں درست کریں اور اپڈیٹ کر دیں':'جتنی اکائیاں لاگو ہوں وہ بھریں — باقی خالی چھوڑ دیں'}</p>
+    <div class="date-row">
+      <label>تاریخ</label><input type="date" id="entry_date" value="${editRec? editRec.date : todayISO()}">
+    </div>`;
+  CATS.forEach(c=>{
+    const cv = editRec? editRec[c.key] : emptyCat();
+    html+=`<div class="cat-box ${c.key}">
+      <div class="cat-title">${c.label} <small>${c.hint}</small></div>
+      <div class="form-grid">
+        ${UNITS.map(u=>`<div><label>${u.label}</label><input type="number" min="0" id="e_${c.key}_${u.key}" placeholder="0" value="${cv[u.key]||''}"></div>`).join('')}
+      </div>
+    </div>`;
+  });
+  html+=`<div style="margin-bottom:8px">
+      <label>نوٹ (اختیاری)</label>
+      <input type="text" id="entry_note" placeholder="مثلاً: سورۃ البقرہ کی ابتدا" value="${editRec? escapeHtml(editRec.note||''):''}">
+    </div>
+    <button class="btn btn-primary" onclick="addEntry()">${editRec? 'اپڈیٹ کریں':'محفوظ کریں'}</button>
+    ${editRec? `<button class="btn btn-ghost" onclick="cancelEdit()" style="margin-inline-start:8px">منسوخ</button>`:''}
+  </div>`;
+
+  /* ---- پیش رفت (سبق کی بنیاد پر) + تخمینہ ختم قرآن — روزانہ اندراج کے نیچے ---- */
+  html+=`<div class="card">
+    <h2>پیش رفت (سبق کی بنیاد پر)</h2>
+    <table class="qtable">
+      <thead><tr><th></th>${UNITS.map(u=>`<th>${u.label}</th>`).join('')}</tr></thead>
+      <tbody>
+        <tr><td>کل قرآن</td>${UNITS.map(u=>`<td>${total[u.key]||0}</td>`).join('')}</tr>
+        <tr class="row-done"><td>مکمل</td>${UNITS.map(u=>`<td>${completed[u.key]||0}</td>`).join('')}</tr>
+        <tr class="row-left"><td>باقی</td>${UNITS.map(u=>`<td>${remaining[u.key]||0}</td>`).join('')}</tr>
+      </tbody>
+    </table>
+    ${(()=>{ const eta=overallEta(st.records, remaining); const hasRemaining=UNITS.some(u=>(remaining[u.key]||0)>0); if(!hasRemaining) return '<div class="quran-eta"><div class="eta-label">تخمینہ ختم قرآن</div><div class="eta-value">مبارک ہو، قرآن مکمل! 🎉</div></div>'; return `<div class="quran-eta"><div class="eta-label">تخمینہ ختم قرآن</div><div class="eta-value">${eta || 'روزانہ سبق درج کرنا شروع کریں'}</div></div>`; })()}
+  </div>`;
+
+  /* ---- ماہانہ ریکارڈ ---- */
+  const {y,m}=state.monthCursor;
+  const dim=daysInMonth(y,m);
+  const now=new Date();
+  const isCurrentMonth = (y===now.getFullYear() && m===now.getMonth());
+  const lastDay = isCurrentMonth? now.getDate() : dim;
+  const recMap={}; st.records.forEach(r=>{ recMap[r.date]=r; });
+
+  let rowsHtml='';
+  const totals={sabaq:0,sabqi:0,manzil:0};
+  const naagha={sabaq:0,sabqi:0,manzil:0};
+  for(let d=1; d<=lastDay; d++){
+    const dateStr=isoOf(y,m,d);
+    const rec=recMap[dateStr];
+    const isToday = dateStr===todayISO();
+    rowsHtml+=`<tr class="${isToday?'is-today':''}">
+      <td class="d-date">${pad2(d)} ${URDU_MONTHS[m]}</td>`;
+    CATS.forEach(c=>{
+      const text = rec? catCellText(rec[c.key]) : null;
+      if(text){ totals[c.key]++; rowsHtml+=`<td>${text}</td>`; }
+      else{ naagha[c.key]++; rowsHtml+=`<td class="naagha">ناغہ</td>`; }
+    });
+    rowsHtml+=`<td><button class="btn-mini" onclick="editEntry('${dateStr}')">ترمیم</button> ${rec? `<button class="btn-mini btn-danger" onclick="deleteEntry('${dateStr}')">حذف</button>`:''}</td></tr>`;
+  }
+
+  html+=`<div class="card">
+    <div class="month-nav">
+      <button class="m-btn" onclick="shiftMonth(-1)">›</button>
+      <span class="m-label">${URDU_MONTHS[m]} ${y}</span>
+      <button class="m-btn" onclick="shiftMonth(1)">‹</button>
+    </div>
+    <div class="table-scroll">
+    <table class="month">
+      <thead><tr><th>تاریخ</th>${CATS.map(c=>`<th>${c.label}</th>`).join('')}<th></th></tr></thead>
+      <tbody>${rowsHtml || `<tr><td colspan="5" class="empty">اس مہینے کا کوئی دن نہیں</td></tr>`}</tbody>
+      <tfoot>
+        <tr>
+          <td>سنائی (کل ${lastDay} دن)</td>
+          ${CATS.map(c=>`<td>${totals[c.key]}</td>`).join('')}
+          <td></td>
+        </tr>
+        <tr>
+          <td>ناغہ</td>
+          ${CATS.map(c=>`<td class="naagha-total">${naagha[c.key]}</td>`).join('')}
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+    </div>
+  </div>`;
 
   root.innerHTML=html;
-  if(totalSet && state.tab==='report') drawChart(filterRecords(state.student.records,state.filter));
-}
-
-function whatIf(key,val,remaining){
-  const rate=Math.max(1,parseInt(val||'1',10));
-  const days=estimateDays(remaining,rate);
-  const cdate=completionDateStr(days);
-  const box=document.getElementById('whatif_'+key);
-  if(box) box.innerHTML = `<span class="out">${daysToMonths(days)}</span>${cdate? ` — <span class="out">${cdate}</span>`:''}`;
-}
-
-function drawChart(records){
-  const ctx=document.getElementById('hifzChart');
-  if(!ctx) return;
-  const uv=state.unitView;
-  const labels=records.map(r=>fmtDate(r.date));
-  const data=records.map(r=>r[uv]||0);
-  if(state.chart) state.chart.destroy();
-  state.chart=new Chart(ctx,{
-    type:'bar',
-    data:{labels, datasets:[{label:labelOf(uv), data, backgroundColor:'rgba(11,110,79,0.75)', borderRadius:5, maxBarThickness:30}]},
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{display:false}},
-      scales:{y:{beginAtZero:true, ticks:{precision:0}}, x:{ticks:{autoSkip:true, maxRotation:0}}}
-    }
-  });
 }
 
 function escapeHtml(s){ return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
