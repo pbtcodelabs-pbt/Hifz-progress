@@ -62,10 +62,12 @@
   .header h1{font-size:21px;margin:0 0 2px;font-weight:700}
   .header .sub{font-size:12.5px;color:#DCEFE6}
 
-  .student-bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
-  .chip{padding:6px 13px;border-radius:999px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:13.5px;color:var(--ink)}
-  .chip.active{background:var(--emerald-800);border-color:var(--emerald-800);color:#fff}
-  .chip.add{border-style:dashed;color:var(--emerald-800);font-weight:700;font-size:13px}
+  .student-select-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+  .student-select-row select{flex:1;min-width:0;padding:10px 12px;border-radius:12px;border:1.5px solid var(--line);font-family:inherit;font-size:14.5px;font-weight:700;color:var(--emerald-950);background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%230B6E4F" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>') no-repeat left 10px center;background-size:14px;-webkit-appearance:none;appearance:none}
+  .chip{padding:9px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:13px;color:var(--ink);white-space:nowrap}
+  .chip.add{border-style:dashed;color:var(--emerald-800);font-weight:700}
+  .add-student-inline{display:flex;gap:8px;margin-bottom:10px}
+  .add-student-inline input{flex:1;min-width:0}
 
   .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:12px 12px;margin-bottom:10px;box-shadow:0 3px 14px -10px rgba(43,38,32,.18)}
   .card.compact{padding:10px 10px 8px;margin-bottom:8px}
@@ -197,7 +199,7 @@
     <div class="kicker">Hifz Progress Report</div>
     <h1>حفظ پروگریس رپورٹ</h1>
     <div class="sub">روزانہ سبق، سبقی، منزل اور مکمل قرآنِ پاک کی متوقع تاریخ</div>
-    <div class="version-tag">Hpr18aug0349pm</div>
+    <div class="version-tag">Hpr18aug0356pm</div>
   </div>
   <div id="root"><div class="loading">لوڈ ہو رہا ہے…</div></div>
 </div>
@@ -216,23 +218,7 @@ const UNITS = [
   {key:'pao',   label:'پاؤ'},
   {key:'para',  label:'پارے'},
 ];
-/* کل قرآن کی مکمل تعداد — پاؤ/رکوع/پارہ/لائن کے ساتھ صفحات بھی، تاکہ ایک اکائی درج کرنے پر باقی سب خودکار حساب ہو سکیں */
-const TOTALS_ALL = {pages:TOTAL_PAGES, lines:DEFAULT_TOTAL.lines, ruku:DEFAULT_TOTAL.ruku, pao:DEFAULT_TOTAL.pao, para:DEFAULT_TOTAL.para};
 const UNIT_KEYS = ['lines','ruku','pao','para'];
-const BASELINE_KEYS = ['lines','ruku','pao','para','pages'];
-/* کوئی ایک خانہ (لائنیں/رکوع/پاؤ/پارے/صفحات) درج ہونے پر باقی خانے تناسب کے حساب سے خودکار پُر کر دیتا ہے */
-function autoFillUnits(prefix, keys, changedKey){
-  const el = document.getElementById(prefix+changedKey);
-  if(!el) return;
-  const val = parseInt(el.value||'',10);
-  if(!val || val<=0) return; /* خالی/صفر ہونے پر باقی خانوں کو مت چھیڑو */
-  const ratio = val / TOTALS_ALL[changedKey];
-  keys.forEach(k=>{
-    if(k===changedKey) return;
-    const target=document.getElementById(prefix+k);
-    if(target) target.value = Math.round(ratio*TOTALS_ALL[k]);
-  });
-}
 const CATS = [
   {key:'sabaq',  label:'سبق',  hint:'آج کا نیا سبق'},
   {key:'sabqi',  label:'سبقی', hint:'حالیہ سبقوں کا اعادہ'},
@@ -247,6 +233,7 @@ let state = {
   view: 'main', /* 'main' | 'settings' */
   editDate: null,
   monthCursor: null, /* {y,m} 0-indexed month */
+  showAddStudent: false,
 };
 
 /* ---------------- storage helpers (localStorage) ---------------- */
@@ -321,21 +308,31 @@ async function saveActiveId(){ await setJSON('active-student', state.activeId); 
 async function saveStudent(){ if(state.student) await setJSON('student:'+state.activeId, state.student); }
 
 /* ---------------- student management ---------------- */
-async function addStudent(){
-  const name = prompt('طالب علم کا نام درج کریں:');
-  if(!name || !name.trim()) return;
+function toggleAddStudentForm(){
+  state.showAddStudent = !state.showAddStudent;
+  render();
+  if(state.showAddStudent){
+    setTimeout(()=>{ const el=document.getElementById('newStudentName'); if(el) el.focus(); }, 50);
+  }
+}
+async function confirmAddStudent(){
+  const el=document.getElementById('newStudentName');
+  const name = el? el.value.trim() : '';
+  if(!name){ toast('نام درج کریں'); return; }
   const id = 's_' + Date.now();
-  state.students.push({id, name:name.trim()});
+  state.students.push({id, name});
   await saveStudentsList();
   state.activeId = id;
   await saveActiveId();
-  state.student = { name:name.trim(), total:{...DEFAULT_TOTAL}, baseline:emptyCat(), baselineSet:false, records:[] };
+  state.student = { name, total:{...DEFAULT_TOTAL}, baseline:emptyCat(), baselineSet:false, records:[] };
   await saveStudent();
+  state.showAddStudent = false;
   state.view = 'settings';
   toast('نیا طالب علم شامل ہو گیا');
   render();
 }
 async function switchStudent(id){
+  if(!id) return;
   state.activeId = id;
   await saveActiveId();
   state.student = await getJSON('student:'+id);
@@ -496,17 +493,26 @@ function render(){
       <div class="card" style="text-align:center">
         <h2>خوش آمدید</h2>
         <p class="hint">شروع کرنے کے لیے پہلا طالب علم شامل کریں</p>
-        <button class="btn btn-primary" onclick="addStudent()">+ نیا طالب علم شامل کریں</button>
+        <div class="add-student-inline" style="justify-content:center">
+          <input type="text" id="newStudentName" placeholder="طالب علم کا نام لکھیں" onkeydown="if(event.key==='Enter'){confirmAddStudent();}">
+          <button class="btn btn-primary" onclick="confirmAddStudent()">شامل کریں</button>
+        </div>
       </div>`;
     return;
   }
   let html='';
-  html+=`<div class="student-bar">`;
-  state.students.forEach(s=>{
-    html+=`<button class="chip ${s.id===state.activeId?'active':''}" onclick="switchStudent('${s.id}')">${escapeHtml(s.name)}</button>`;
-  });
-  html+=`<button class="chip add" onclick="addStudent()">+ نیا طالب علم</button>`;
-  html+=`</div>`;
+  html+=`<div class="student-select-row">
+    <select id="studentSelect" onchange="switchStudent(this.value)">
+      ${state.students.map(s=>`<option value="${s.id}" ${s.id===state.activeId?'selected':''}>${escapeHtml(s.name)}</option>`).join('')}
+    </select>
+    <button class="chip add" onclick="toggleAddStudentForm()">${state.showAddStudent? '✕ منسوخ':'+ نیا طالب علم'}</button>
+  </div>`;
+  if(state.showAddStudent){
+    html+=`<div class="add-student-inline">
+      <input type="text" id="newStudentName" placeholder="طالب علم کا نام لکھیں" onkeydown="if(event.key==='Enter'){confirmAddStudent();}">
+      <button class="btn btn-primary" onclick="confirmAddStudent()">شامل کریں</button>
+    </div>`;
+  }
 
   if(!state.student){ root.innerHTML=html+`<div class="loading">لوڈ ہو رہا ہے…</div>`; return; }
 
@@ -529,13 +535,9 @@ function render(){
       <p class="builtin-note">یہ تعداد سولہ سطری حفظی مصحف کے مطابق خودکار طے شدہ ہے — ${LINES_PER_PAGE} × ${TOTAL_PAGES} صفحات = ${DEFAULT_TOTAL.lines} لائنیں</p>
       <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)">
         <h2 style="font-size:14px">پہلے سے مکمل مقدار (اختیاری)</h2>
-        <p class="hint">نیا طالب علم اگر پہلے سے کچھ حفظ کر چکا ہے تو نیچے صرف ایک خانہ (مثلاً پارے) درج کریں — باقی سب (پاؤ، رکوع، لائنیں، صفحات) خود بخود پُر ہو جائیں گے</p>
-        <div class="form-grid" style="grid-template-columns:repeat(2,1fr)">
-          <div><label>پارے</label><input type="number" min="0" id="base_para" value="${st.baseline.para||''}" oninput="autoFillUnits('base_', BASELINE_KEYS, 'para')"></div>
-          <div><label>پاؤ</label><input type="number" min="0" id="base_pao" value="${st.baseline.pao||''}" oninput="autoFillUnits('base_', BASELINE_KEYS, 'pao')"></div>
-          <div><label>رکوع</label><input type="number" min="0" id="base_ruku" value="${st.baseline.ruku||''}" oninput="autoFillUnits('base_', BASELINE_KEYS, 'ruku')"></div>
-          <div><label>صفحات</label><input type="number" min="0" id="base_pages" value="${st.baseline.para? Math.round(st.baseline.para*TOTALS_ALL.pages/TOTALS_ALL.para) : ''}" oninput="autoFillUnits('base_', BASELINE_KEYS, 'pages')"></div>
-          <div><label>لائنیں</label><input type="number" min="0" id="base_lines" value="${st.baseline.lines||''}" oninput="autoFillUnits('base_', BASELINE_KEYS, 'lines')"></div>
+        <p class="hint">نیا طالب علم اگر پہلے سے کچھ حفظ کر چکا ہے تو نیچے ہر خانہ آزادانہ درج کریں — مثلاً 2 پارے مکمل، اس کے بعد 1 پاؤ، 2 رکوع اور 3 لائنیں الگ سے پڑھی ہوں تو وہ سب اپنے اپنے خانے میں لکھیں (خانے ایک دوسرے سے خودکار تبدیل نہیں ہوں گے)</p>
+        <div class="form-grid">
+          ${UNITS.map(u=>`<div><label>${u.label}</label><input type="number" min="0" id="base_${u.key}" value="${st.baseline[u.key]||''}"></div>`).join('')}
         </div>
         <button class="btn btn-primary" onclick="saveBaseline()">محفوظ کریں</button>
         <button class="btn btn-ghost" onclick="closeSettings()" style="margin-inline-start:8px">منسوخ</button>
@@ -570,7 +572,7 @@ function render(){
         <tbody>
           ${UNITS.map(u=>`<tr>
             <th class="u-h">${u.label}</th>
-            ${CATS.map(c=>`<td><input type="number" min="0" id="e_${c.key}_${u.key}" placeholder="0" value="${cvMap[c.key][u.key]||''}" oninput="autoFillUnits('e_${c.key}_', UNIT_KEYS, '${u.key}')"></td>`).join('')}
+            ${CATS.map(c=>`<td><input type="number" min="0" id="e_${c.key}_${u.key}" placeholder="0" value="${cvMap[c.key][u.key]||''}"></td>`).join('')}
           </tr>`).join('')}
         </tbody>
       </table>
