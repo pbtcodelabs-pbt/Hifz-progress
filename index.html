@@ -67,7 +67,8 @@
   .chip.active{background:var(--emerald-800);border-color:var(--emerald-800);color:#fff}
   .chip.add{border-style:dashed;color:var(--emerald-800);font-weight:700;font-size:13px}
 
-  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px 14px;margin-bottom:12px;box-shadow:0 3px 14px -10px rgba(43,38,32,.18)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:12px 12px;margin-bottom:10px;box-shadow:0 3px 14px -10px rgba(43,38,32,.18)}
+  .card.compact{padding:10px 10px 8px;margin-bottom:8px}
   .card h2{font-size:16.5px;margin:0 0 3px;color:var(--emerald-950)}
   .card .hint{font-size:11.5px;color:var(--ink-soft);margin:0 0 10px}
 
@@ -85,8 +86,8 @@
   .builtin-note{font-size:11px;color:var(--ink-soft);margin-top:6px}
 
   .quran-eta{
-    margin-top:12px;position:relative;overflow:hidden;text-align:center;
-    padding:10px 12px;border-radius:14px;
+    margin:0 0 10px;position:relative;overflow:hidden;text-align:center;
+    padding:9px 12px;border-radius:14px;
     background:linear-gradient(90deg,#0F6B4A,#C9A227,#FFF3B0,#7CFFCB,#C9A227,#0F6B4A);
     background-size:300% 100%;
     animation:vtagShift 3.2s linear infinite, vtagGlow 1.6s ease-in-out infinite alternate;
@@ -107,25 +108,36 @@
   .quran-eta .eta-value{position:relative;font-size:23px;font-weight:800;color:#1F1400;letter-spacing:.01em;line-height:1.3}
 
   .form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
-  .date-row{margin-bottom:10px}
+  .date-row{margin-bottom:6px}
   .date-row input[type=date]{max-width:220px}
   label{font-size:11.5px;color:var(--ink-soft);display:block;margin-bottom:2px}
   input[type=number],input[type=date],input[type=text]{width:100%;padding:7px 6px;border-radius:9px;border:1.5px solid var(--line);font-family:inherit;font-size:13.5px;background:#FFFEFB}
   input[type=date]{direction:ltr;text-align:right;padding-inline-end:10px;font-size:14px}
   input[type=date]::-webkit-calendar-picker-indicator{padding:0;margin-inline-start:8px;width:16px;height:16px}
   input:focus{outline:2px solid var(--emerald-700);outline-offset:1px}
-  .btn{border:none;border-radius:10px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:13.5px;cursor:pointer}
+  .btn{border:none;border-radius:10px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:13.5px;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,opacity .12s ease}
+  .btn:active{transform:scale(.96)}
   .btn-primary{background:linear-gradient(160deg,var(--emerald-700),var(--emerald-800));color:#fff;box-shadow:0 6px 14px -8px rgba(11,110,79,.55)}
+  .btn-primary:hover{box-shadow:0 8px 18px -6px rgba(11,110,79,.65);opacity:.96}
   .btn-ghost{background:#fff;color:var(--emerald-800);border:1.5px solid var(--emerald-800)}
-  .btn-mini{background:#fff;color:var(--emerald-800);border:1.5px solid var(--emerald-700);padding:4px 8px;font-size:10.5px;border-radius:7px;font-family:inherit;font-weight:700;cursor:pointer}
+  .btn-ghost:hover{background:var(--emerald-100)}
+  .btn-mini{background:#fff;color:var(--emerald-800);border:1.5px solid var(--emerald-700);padding:4px 8px;font-size:10.5px;border-radius:7px;font-family:inherit;font-weight:700;cursor:pointer;transition:transform .12s ease,background .12s ease}
+  .btn-mini:hover{background:var(--emerald-100)}
+  .btn-mini:active{transform:scale(.94)}
   .btn-mini.btn-danger{color:var(--down);border-color:var(--down)}
+  .btn-mini.btn-danger:hover{background:#FDEDED}
   .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 
-  .cat-section{margin-bottom:10px}
-  .cat-box{border:1.5px solid var(--line);border-radius:12px;padding:10px 10px 8px;margin-bottom:8px;background:var(--parchment-2)}
-  .cat-box.sabaq{border-color:var(--emerald-700);background:var(--emerald-100)}
-  .cat-box .cat-title{font-size:14px;font-weight:700;color:var(--emerald-950);margin-bottom:6px}
-  .cat-box .cat-title small{font-weight:400;color:var(--ink-soft);font-size:11px}
+  .cat-section{margin-bottom:6px}
+  .cat-box{border:1.5px solid var(--line);border-radius:10px;padding:7px 8px 6px;margin-bottom:6px;background:var(--parchment-2);transition:box-shadow .2s}
+  .cat-box.sabaq{border-color:#8FCB9E;background:#E7F6EA}
+  .cat-box.sabqi{border-color:#9BC4E8;background:#E9F2FC}
+  .cat-box.manzil{border-color:#C7C2B8;background:#EDEBE5}
+  .cat-box .cat-title{font-size:12.5px;font-weight:700;color:var(--emerald-950);margin-bottom:4px}
+  .cat-box .cat-title small{font-weight:400;color:var(--ink-soft);font-size:10px}
+  .cat-box .form-grid{gap:4px;margin-bottom:0}
+  .cat-box label{font-size:9.5px;margin-bottom:1px}
+  .cat-box input[type=number]{padding:5px 3px;font-size:12.5px;text-align:center}
 
   .settings-toggle{font-size:11.5px;color:var(--emerald-800);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;font-family:inherit}
   .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--emerald-950);color:#fff;padding:9px 20px;border-radius:999px;font-size:12.5px;box-shadow:var(--shadow);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:50}
@@ -164,11 +176,12 @@
 /* ---------------- constants ---------------- */
 const LINES_PER_PAGE = 16;
 const TOTAL_PAGES = 547; /* 16 سطری حفظی مصحف */
-const DEFAULT_TOTAL = {para:30, ruku:540, lines:LINES_PER_PAGE*TOTAL_PAGES};
+const DEFAULT_TOTAL = {lines:LINES_PER_PAGE*TOTAL_PAGES, ruku:540, pao:120, para:30};
 const UNITS = [
-  {key:'para',  label:'پارے'},
-  {key:'ruku',  label:'رکوع'},
   {key:'lines', label:'لائنیں'},
+  {key:'ruku',  label:'رکوع'},
+  {key:'pao',   label:'پاؤ'},
+  {key:'para',  label:'پارے'},
 ];
 const CATS = [
   {key:'sabaq',  label:'سبق',  hint:'آج کا نیا سبق'},
@@ -234,22 +247,22 @@ async function boot(){
   render();
 }
 
-function emptyCat(){ return {para:0,ruku:0,lines:0}; }
+function emptyCat(){ return {lines:0,ruku:0,pao:0,para:0}; }
 
 function normalizeStudent(){
   if(!state.student) return;
   const st=state.student;
   if(!st.total) st.total = {...DEFAULT_TOTAL};
-  else st.total = {para: st.total.para||DEFAULT_TOTAL.para, ruku: st.total.ruku||DEFAULT_TOTAL.ruku, lines: st.total.lines||DEFAULT_TOTAL.lines};
+  else st.total = {lines: st.total.lines||DEFAULT_TOTAL.lines, ruku: st.total.ruku||DEFAULT_TOTAL.ruku, pao: st.total.pao||DEFAULT_TOTAL.pao, para: st.total.para||DEFAULT_TOTAL.para};
   if(!st.baseline) st.baseline = emptyCat();
   if(typeof st.baselineSet !== 'boolean') st.baselineSet = !!(st.baseline.para||st.baseline.ruku||st.baseline.lines);
   if(!st.records) st.records=[];
   /* migrate legacy flat records (para/ruku/lines directly on record) into sabaq */
   st.records = st.records.map(r=>{
     if(r.sabaq || r.sabqi || r.manzil){
-      return {date:r.date, note:r.note||'', sabaq:{...emptyCat(),...(r.sabaq||{})}, sabqi:{...emptyCat(),...(r.sabqi||{})}, manzil:{...emptyCat(),...(r.manzil||{})}};
+      return {date:r.date, sabaq:{...emptyCat(),...(r.sabaq||{})}, sabqi:{...emptyCat(),...(r.sabqi||{})}, manzil:{...emptyCat(),...(r.manzil||{})}};
     }
-    return {date:r.date, note:r.note||'', sabaq:{para:r.para||0, ruku:r.ruku||0, lines:r.lines||0}, sabqi:emptyCat(), manzil:emptyCat()};
+    return {date:r.date, sabaq:{lines:r.lines||0, ruku:r.ruku||0, pao:r.pao||0, para:r.para||0}, sabqi:emptyCat(), manzil:emptyCat()};
   });
 }
 
@@ -310,16 +323,14 @@ function readCatInputs(catKey){
 }
 async function addEntry(){
   const dateEl=document.getElementById('entry_date');
-  const noteEl=document.getElementById('entry_note');
   const date = dateEl.value || todayISO();
-  const note = noteEl.value.trim();
   const vals={sabaq:readCatInputs('sabaq'), sabqi:readCatInputs('sabqi'), manzil:readCatInputs('manzil')};
   const any = CATS.some(c=>UNITS.some(u=>vals[c.key][u.key]>0));
   if(!any){ toast('کم از کم ایک خانے میں مقدار درج کریں'); return; }
 
   if(state.editDate!=null){
     const idx=state.student.records.findIndex(r=>r.date===state.editDate);
-    const rec={date, note, sabaq:vals.sabaq, sabqi:vals.sabqi, manzil:vals.manzil};
+    const rec={date, sabaq:vals.sabaq, sabqi:vals.sabqi, manzil:vals.manzil};
     if(idx>=0) state.student.records[idx]=rec; else state.student.records.push(rec);
     state.editDate=null;
     state.student.records.sort((a,b)=>a.date.localeCompare(b.date));
@@ -333,14 +344,13 @@ async function addEntry(){
   if(existingIdx>=0){
     const rec=state.student.records[existingIdx];
     CATS.forEach(c=>UNITS.forEach(u=>{ rec[c.key][u.key]=(rec[c.key][u.key]||0)+vals[c.key][u.key]; }));
-    if(note) rec.note = rec.note? (rec.note+' — '+note) : note;
     await saveStudent();
     toast('آج کے ریکارڈ میں مقدار شامل کر دی گئی');
     render();
     return;
   }
 
-  const rec={date, note, sabaq:vals.sabaq, sabqi:vals.sabqi, manzil:vals.manzil};
+  const rec={date, sabaq:vals.sabaq, sabqi:vals.sabqi, manzil:vals.manzil};
   state.student.records.push(rec);
   state.student.records.sort((a,b)=>a.date.localeCompare(b.date));
   await saveStudent();
@@ -396,7 +406,7 @@ function completionDateStr(days){
   return URDU_WEEKDAYS[d.getDay()]+'، '+dateStr;
 }
 function overallEta(records,remaining){
-  const order=['lines','para','ruku'];
+  const order=['lines','ruku','pao','para'];
   for(const key of order){
     const rem=remaining[key]||0;
     if(rem<=0) continue;
@@ -406,6 +416,12 @@ function overallEta(records,remaining){
     if(cdate) return cdate;
   }
   return null;
+}
+function etaBadgeHtml(st, remaining){
+  const eta=overallEta(st.records, remaining);
+  const hasRemaining=UNITS.some(u=>(remaining[u.key]||0)>0);
+  if(!hasRemaining) return '<div class="quran-eta"><div class="eta-label">تخمینہ ختم قرآن</div><div class="eta-value">مبارک ہو، قرآن مکمل! 🎉</div></div>';
+  return `<div class="quran-eta"><div class="eta-label">تخمینہ ختم قرآن</div><div class="eta-value">${eta || 'روزانہ سبق درج کرنا شروع کریں'}</div></div>`;
 }
 
 /* ---------------- monthly record ---------------- */
@@ -480,13 +496,12 @@ function render(){
     <button class="settings-toggle" onclick="openSettings()">⚙ مکمل قرآن / پہلے سے مکمل مقدار</button>
   </div>`;
 
-  /* ---- روزانہ اندراج: سبق / سبقی / منزل (سب سے اوپر) ---- */
+  /* ---- روزانہ اندراج: سبق / سبقی / منزل (سب سے اوپر، کمپیکٹ) ---- */
   const editRec = state.editDate!=null ? st.records.find(r=>r.date===state.editDate) : null;
-  html+=`<div class="card" id="entry-form-card">
-    <h2>${editRec? 'اندراج میں ترمیم کریں':'آج کا ریکارڈ درج کریں'}</h2>
-    <p class="hint">${editRec? 'مقداریں درست کریں اور اپڈیٹ کر دیں':'جتنی اکائیاں لاگو ہوں وہ بھریں — باقی خالی چھوڑ دیں'}</p>
-    <div class="date-row">
-      <label>تاریخ</label><input type="date" id="entry_date" value="${editRec? editRec.date : todayISO()}">
+  html+=`<div class="card compact" id="entry-form-card">
+    <div class="row" style="justify-content:space-between;margin-bottom:2px">
+      <h2 style="margin:0;font-size:14.5px">${editRec? 'اندراج میں ترمیم کریں':'آج کا ریکارڈ درج کریں'}</h2>
+      <input type="date" id="entry_date" style="max-width:132px;padding:5px 6px;font-size:12px" value="${editRec? editRec.date : todayISO()}">
     </div>`;
   CATS.forEach(c=>{
     const cv = editRec? editRec[c.key] : emptyCat();
@@ -497,15 +512,14 @@ function render(){
       </div>
     </div>`;
   });
-  html+=`<div style="margin-bottom:8px">
-      <label>نوٹ (اختیاری)</label>
-      <input type="text" id="entry_note" placeholder="مثلاً: سورۃ البقرہ کی ابتدا" value="${editRec? escapeHtml(editRec.note||''):''}">
-    </div>
-    <button class="btn btn-primary" onclick="addEntry()">${editRec? 'اپڈیٹ کریں':'محفوظ کریں'}</button>
+  html+=`<button class="btn btn-primary" onclick="addEntry()" style="margin-top:2px">${editRec? 'اپڈیٹ کریں':'محفوظ کریں'}</button>
     ${editRec? `<button class="btn btn-ghost" onclick="cancelEdit()" style="margin-inline-start:8px">منسوخ</button>`:''}
   </div>`;
 
-  /* ---- پیش رفت (سبق کی بنیاد پر) + تخمینہ ختم قرآن — روزانہ اندراج کے نیچے ---- */
+  /* ---- چمکتا ہوا تخمینہ ختم قرآن بیج — پہلی سکرین کے اندر ---- */
+  html+= etaBadgeHtml(st, remaining);
+
+  /* ---- پیش رفت (سبق کی بنیاد پر) — بیج کے نیچے، سکرول پر ---- */
   html+=`<div class="card">
     <h2>پیش رفت (سبق کی بنیاد پر)</h2>
     <table class="qtable">
@@ -516,7 +530,6 @@ function render(){
         <tr class="row-left"><td>باقی</td>${UNITS.map(u=>`<td>${remaining[u.key]||0}</td>`).join('')}</tr>
       </tbody>
     </table>
-    ${(()=>{ const eta=overallEta(st.records, remaining); const hasRemaining=UNITS.some(u=>(remaining[u.key]||0)>0); if(!hasRemaining) return '<div class="quran-eta"><div class="eta-label">تخمینہ ختم قرآن</div><div class="eta-value">مبارک ہو، قرآن مکمل! 🎉</div></div>'; return `<div class="quran-eta"><div class="eta-label">تخمینہ ختم قرآن</div><div class="eta-value">${eta || 'روزانہ سبق درج کرنا شروع کریں'}</div></div>`; })()}
   </div>`;
 
   /* ---- ماہانہ ریکارڈ ---- */
