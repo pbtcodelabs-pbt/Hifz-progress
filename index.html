@@ -1318,7 +1318,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD198WE0517PM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD198WE0530PM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -3305,9 +3305,25 @@ function getPdfOptions(fname){
     margin: 4,
     filename: fname,
     image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', letterRendering: false, windowWidth: el.scrollWidth, scrollX: 0, scrollY: 0 },
+    html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', letterRendering: false, windowWidth: el.scrollWidth, scrollX: 0, scrollY: 0, x: 0, y: 0 },
     jsPDF: { unit: 'mm', format: 'a4', orientation: isLand ? 'landscape' : 'portrait' }
   };
+}
+
+// html2canvas سے PDF بناتے وقت #printableWrap کا RTL سمت + overflow-x:auto مل کر کیپچر شدہ
+// تصویر کو غلط پوزیشن پر شفٹ کر دیتے ہیں (خالی جگہ رہ جاتی ہے، ایک طرف مواد کٹ جاتا ہے) —
+// کیپچر سے پہلے wrap کو عارضی طور پر LTR کر دیتے ہیں (اندر موجود #printableArea کی اپنی dir="rtl"
+// متاثر نہیں ہوتی، صرف باہر والے scroll container کی سمت درست ہوتی ہے)، کیپچر کے بعد واپس لگا دیتے ہیں
+function withNeutralWrap(fn){
+  const wrap = document.getElementById('printableWrap');
+  const prevDir = wrap.style.direction;
+  const prevDirAttr = wrap.getAttribute('dir');
+  wrap.style.direction = 'ltr';
+  wrap.setAttribute('dir', 'ltr');
+  return Promise.resolve().then(fn).finally(() => {
+    wrap.style.direction = prevDir;
+    if (prevDirAttr === null) wrap.removeAttribute('dir'); else wrap.setAttribute('dir', prevDirAttr);
+  });
 }
 
 async function waitForFonts(){
@@ -3337,8 +3353,10 @@ async function generateAndPrintPdf(){
   try{
     await waitForFonts();
     const fname = pdfFileName();
-    const worker = html2pdf().set(getPdfOptions(fname)).from(el);
-    const pdfBlob = await worker.outputPdf('blob');
+    const pdfBlob = await withNeutralWrap(async () => {
+      const worker = html2pdf().set(getPdfOptions(fname)).from(el);
+      return await worker.outputPdf('blob');
+    });
     gen.style.display = 'none';
     const blobUrl = URL.createObjectURL(pdfBlob);
     const win = window.open(blobUrl, '_blank');
@@ -3376,8 +3394,10 @@ async function generateAndSharePdf(){
   try{
     await waitForFonts();
     const fname = pdfFileName();
-    const worker = html2pdf().set(getPdfOptions(fname)).from(el);
-    const pdfBlob = await worker.outputPdf('blob');
+    const pdfBlob = await withNeutralWrap(async () => {
+      const worker = html2pdf().set(getPdfOptions(fname)).from(el);
+      return await worker.outputPdf('blob');
+    });
     gen.style.display = 'none';
     const file = new File([pdfBlob], fname, { type: 'application/pdf' });
     if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
