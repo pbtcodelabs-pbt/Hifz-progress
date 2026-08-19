@@ -21,6 +21,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
+/* جمیل نوری نستعلیق — علیحدہ فائل (fonts/Jameel_Noori_Nastaleeq.woff) سے لوڈ ہوتا ہے،
+   اس HTML فائل کے اندر شامل (base64) نہیں کیا گیا، تاکہ یہ فائل بڑی نہ ہو۔
+   سروس ورکر (sw.js) اسے ایک بار ڈاؤن لوڈ کے بعد کیش کر لیتا ہے، اس لیے آف لائن میں بھی کام کرتا ہے۔ */
+@font-face {
+  font-family: 'Jameel Noori Nastaleeq';
+  src: url('./fonts/Jameel_Noori_Nastaleeq.woff') format('woff');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
 :root {
   --green-dark: #0a3d0a;
   --green-mid: #155a15;
@@ -34,7 +44,7 @@
   --border: #b8d4b8;
   --red: #c0392b;
   --blue: #1565c0;
-  --nastaliq: 'Noto Naskh Arabic', 'Jameel Noori Nastaleeq', Arial, sans-serif;
+  --nastaliq: 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', Arial, sans-serif;
   --zoom: 1;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -751,6 +761,41 @@ td.clickable:hover { background: #fff9e6 !important; }
 .modal-btn-restore { background: linear-gradient(180deg,#2980b9,#1a5276); color:#fff; }
 .modal-btn-cancel { background: #eee; color: #555; }
 
+/* POSTER PREVIEW — پورے صفحے پر پیش منظر */
+.poster-preview-overlay { padding: 0; background: rgba(6,20,12,0.94); z-index: 220000; }
+.poster-preview-card {
+  width: 100%; max-width: 480px; height: 100%; max-height: 100vh; max-height: 100dvh;
+  border-radius: 0; padding: 0; margin: 0; background: #eef8ee;
+  display: flex; flex-direction: column; overflow: hidden; animation: slideUp 0.25s ease;
+}
+.poster-preview-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 14px 14px; background: linear-gradient(135deg,#0a3d0a,#1e7e1e); flex: 0 0 auto;
+}
+.poster-preview-header .modal-title { font-size: 14px; line-height: 1.5; }
+.poster-preview-close {
+  flex: 0 0 auto; width: 34px; height: 34px; border-radius: 8px; cursor: pointer;
+  background: rgba(255,255,255,.15); border: 1.5px solid rgba(255,255,255,.4); color: #fff; font-size: 16px;
+}
+.poster-preview-scroll {
+  flex: 1 1 auto; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 16px 14px 10px; display: flex; flex-direction: column; align-items: center;
+}
+.poster-preview-caption {
+  width: 100%; max-width: 440px; text-align: center; font-family: var(--nastaliq);
+  font-size: 14px; font-weight: 700; color: var(--green-dark); background: #fff;
+  border: 1.5px solid var(--green-mid); border-radius: 10px; padding: 8px 10px; margin-bottom: 12px;
+}
+.poster-preview-scroll img#posterPreviewImg {
+  width: 100%; max-width: 440px; display: block; border-radius: 18px;
+  box-shadow: 0 14px 30px -12px rgba(0,0,0,.45);
+}
+.poster-preview-actions {
+  flex: 0 0 auto; padding: 10px 14px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: #fff; border-top: 1px solid #ddd;
+}
+.poster-preview-actions .modal-btn { box-shadow: 0 3px 0 rgba(0,0,0,0.15); }
+
 /* PRINT */
 .print-header {
   display: none;
@@ -826,7 +871,7 @@ td.clickable:hover { background: #fff9e6 !important; }
   *{box-sizing:border-box}
   #hifzScreen{
     background:var(--parchment);
-    font-family:'Noto Naskh Arabic', Arial, sans-serif;
+    font-family: var(--nastaliq);
     color:var(--ink);
     min-height:100vh;
     padding:12px 10px 40px;
@@ -977,11 +1022,19 @@ td.clickable:hover { background: #fff9e6 !important; }
   #hifzScreen table.month td.d-date{font-size:9.5px;padding:5px 2px;white-space:normal;word-break:break-word}
   #hifzScreen table.month .month-actions{display:flex;flex-direction:column;gap:3px;align-items:stretch}
   #hifzScreen table.month .month-actions .btn-mini{width:100%;padding:3px 2px;font-size:9px;border-radius:6px}
+  #hifzScreen table.month .month-actions .btn-inline-done{background:linear-gradient(180deg,#2FCB6B,#0E8F4A);color:#fff;font-weight:800}
+  #hifzScreen table.month tr.is-inline-editing{background:#FFFCEB}
+  #hifzScreen table.month td.inline-edit-td{padding:4px 2px;vertical-align:top}
+  #hifzScreen .inline-edit-cell{display:flex;flex-direction:column;gap:3px}
+  #hifzScreen .inline-edit-cell .ie-field{display:flex;flex-direction:column;align-items:center;gap:1px}
+  #hifzScreen .inline-edit-cell .ie-label{font-size:8px;color:#666;line-height:1}
+  #hifzScreen .inline-edit-cell input{width:100%;max-width:44px;padding:3px 1px;font-size:11px;text-align:center;border:1.5px solid var(--emerald-400,#3fae64);border-radius:5px;background:#fff}
+  #hifzScreen .inline-edit-cell input:focus{outline:none;border-color:#0a7e4a;box-shadow:0 0 0 2px rgba(10,126,74,.2)}
   #hifzScreen .empty{text-align:center;padding:14px 8px;color:var(--ink-soft);font-size:12.5px}
 
   /* ---------------- PDF / پرنٹ رپورٹ (تمام طلبہ) ---------------- */
   #hifzScreen #printReportRoot{display:none}
-  #hifzScreen .pr-page{font-family:'Noto Naskh Arabic', Arial, sans-serif;direction:rtl;color:#141414;box-sizing:border-box}
+  #hifzScreen .pr-page{font-family: var(--nastaliq);direction:rtl;color:#141414;box-sizing:border-box}
   #hifzScreen .pr-header{text-align:center;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #141414}
   #hifzScreen .pr-header h1{font-size:19px;margin:0 0 4px;font-weight:700}
   #hifzScreen .pr-header .sub{font-size:10.5px;color:#555}
@@ -1470,14 +1523,22 @@ td.clickable:hover { background: #fff9e6 !important; }
   </div>
 </div>
 
-<!-- POSTER PREVIEW MODAL — پوسٹر بننے کے بعد پہلے یہاں دکھایا جاتا ہے، پھر شیئر بٹن سے واٹس ایپ پر بھیجا جاتا ہے -->
-<div class="modal-overlay" id="posterPreviewModal">
-  <div class="modal-card" style="max-width:300px;padding:14px;text-align:center;">
-    <div class="modal-title" style="margin-bottom:10px">🖼️ پوسٹر پیش منظر</div>
-    <img id="posterPreviewImg" src="" alt="پوسٹر پیش منظر" style="width:100%;display:block;border-radius:18px;box-shadow:0 14px 30px -12px rgba(0,0,0,.45);margin-bottom:14px;">
-    <button class="modal-btn" id="posterShareBtn" style="width:100%;padding:13px;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:10px;font-family:var(--nastaliq);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:8px;" onclick="confirmSharePoster()">💬 واٹس ایپ پر شیئر کریں</button>
-    <button class="modal-btn" style="width:100%;padding:11px;background:#fff;color:var(--green-dark);border:1.5px solid var(--green-mid);border-radius:10px;font-family:var(--nastaliq);font-size:13.5px;font-weight:700;cursor:pointer;margin-bottom:8px;" onclick="downloadPreviewPoster()">📥 تصویر کے طور پر محفوظ کریں</button>
-    <button class="modal-btn modal-btn-cancel" onclick="closePosterPreview()">بند کریں</button>
+<!-- POSTER PREVIEW MODAL — پوسٹر بننے کے بعد پہلے یہاں پورے صفحے پر دکھایا جاتا ہے، پھر شیئر بٹن سے واٹس ایپ پر بھیجا جاتا ہے -->
+<div class="modal-overlay poster-preview-overlay" id="posterPreviewModal">
+  <div class="modal-card poster-preview-card">
+    <div class="poster-preview-header">
+      <div class="modal-title" style="margin:0;color:#fff;">🖼️ پوسٹر پیش منظر — شیئر کرنے سے پہلے چیک کریں</div>
+      <button type="button" class="poster-preview-close" onclick="closePosterPreview()">✕</button>
+    </div>
+    <div class="poster-preview-scroll">
+      <div id="posterPreviewCaption" class="poster-preview-caption"></div>
+      <img id="posterPreviewImg" src="" alt="پوسٹر پیش منظر">
+    </div>
+    <div class="poster-preview-actions">
+      <button class="modal-btn" id="posterShareBtn" style="background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;font-family:var(--nastaliq);font-size:15px;font-weight:800;" onclick="confirmSharePoster()">💬 واٹس ایپ پر شیئر کریں</button>
+      <button class="modal-btn" style="background:#fff;color:var(--green-dark);border:1.5px solid var(--green-mid);font-family:var(--nastaliq);font-size:13.5px;font-weight:700;" onclick="downloadPreviewPoster()">📥 تصویر کے طور پر محفوظ کریں</button>
+      <button class="modal-btn modal-btn-cancel" onclick="closePosterPreview()">✎ تبدیلی کرنی ہے — بند کریں</button>
+    </div>
   </div>
 </div>
 
@@ -2674,7 +2735,7 @@ function posterWrapText(ctx, text, maxWidth) {
 
 async function buildPosterCanvas(s, instName) {
   await waitForFonts();
-  const NASTALIQ = "'Noto Naskh Arabic', Arial, sans-serif";
+  const NASTALIQ = "'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', Arial, sans-serif";
   const GREEN_DARK = '#0a3d0a', GREEN_MID = '#1e7e1e', GOLD = '#d4af37';
   const SCALE = 3, W = 640, MAXH = 1500, PAD = 16, CX = W / 2;
 
@@ -2826,20 +2887,11 @@ async function shareStudentPoster() {
     const canvas = await buildPosterCanvas(s, instName);
     const blob = await new Promise(res => canvas.toBlob(res, 'image/png', 1));
     if (!blob) throw new Error('canvas blob failed');
-    const fname = `${(s.n || 'student').replace(/[^\u0600-\u06FFa-zA-Z0-9]+/g, '_')}_profile.png`;
-    const file = new File([blob], fname, { type: 'image/png' });
-    if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({ files: [file], title: s.n || 'پروفائل' });
-    } else {
-      const blobUrl = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = blobUrl; a.download = fname; a.click();
-      alert('📥 پوسٹر تصویر کے طور پر محفوظ ہو گئی، اب اسے واٹس ایپ میں خود شیئر کریں');
-    }
+    // براہ راست واٹس ایپ شیئر نہیں — پہلے پورے صفحے پر پیش منظر دکھائیں، صارف چیک کرے کہ نام/تصویر ٹھیک ہیں
+    showPosterPreview(blob, s.n || '');
   } catch (err) {
     console.error('poster share error:', err);
-    if (err && err.name === 'AbortError') { /* صارف نے شیئر منسوخ کی */ }
-    else alert('❌ پوسٹر بنانے میں مشکل ہوئی، دوبارہ کوشش کریں');
+    alert('❌ پوسٹر بنانے میں مشکل ہوئی، دوبارہ کوشش کریں');
   } finally {
     btn.disabled = false; btn.textContent = origText;
   }
@@ -3045,6 +3097,8 @@ async function waitForFonts(){
   try{
     // اردو فونٹ کو زبردستی پری لوڈ کریں تاکہ canvas کھینچنے سے پہلے ligatures مکمل تیار ہوں
     if (document.fonts && document.fonts.load) {
+      await document.fonts.load('900 26px "Jameel Noori Nastaleeq"', 'محمد');
+      await document.fonts.load('600 14px "Jameel Noori Nastaleeq"', 'محمد');
       await document.fonts.load('900 26px "Noto Naskh Arabic"', 'محمد');
       await document.fonts.load('600 14px "Noto Naskh Arabic"', 'محمد');
     }
@@ -3659,6 +3713,10 @@ function showDlProgress(fname,onDone){
 const LINES_PER_PAGE = 16;
 const TOTAL_PAGES = 547; /* 16 سطری حفظی مصحف */
 const DEFAULT_TOTAL = {lines:LINES_PER_PAGE*TOTAL_PAGES, ruku:540, pao:120, para:30};
+/* ایک پورے پارے میں کتنے پاؤ / رکوع / لائنیں بنتی ہیں — پارہ درج کرنے پر باقی خانے خودکار بھرنے کے لیے */
+const PAO_PER_PARA   = DEFAULT_TOTAL.pao   / DEFAULT_TOTAL.para;   /* = 4 */
+const RUKU_PER_PARA  = DEFAULT_TOTAL.ruku  / DEFAULT_TOTAL.para;   /* = 18 */
+const LINES_PER_PARA = DEFAULT_TOTAL.lines / DEFAULT_TOTAL.para;   /* ≈ 291.73 */
 const UNITS = [
   {key:'lines', label:'لائنیں'},
   {key:'ruku',  label:'رکوع'},
@@ -3679,6 +3737,7 @@ let state = {
   students: [], activeId: null, student: null,
   view: 'main', /* 'main' | 'settings' */
   editDate: null,
+  inlineEditDate: null, /* ماہانہ ٹیبل میں براہ راست کالم کے اندر ترمیم کے لیے */
   monthCursor: null, /* {y,m} 0-indexed month */
   showAddStudent: false,
 };
@@ -3811,12 +3870,27 @@ async function switchStudent(id){
   normalizeStudent();
   state.view = 'main';
   state.editDate = null;
+  state.inlineEditDate = null;
   hzRender();
 }
 
 /* ---------------- settings page (مکمل قرآن پاک + پہلے سے مکمل مقدار) ---------------- */
 function openSettings(){ state.view='settings'; hzRender(); window.scrollTo({top:0,behavior:'smooth'}); }
 function closeSettings(){ state.view='main'; hzRender(); window.scrollTo({top:0,behavior:'smooth'}); }
+/* پارے کے خانے میں نمبر لکھتے ہی باقی خانے (پاؤ/رکوع/لائنیں) خودکار اس حساب سے بھر جائیں
+   کہ اتنے پورے پارے مکمل ہونے کا مطلب اتنے پاؤ/رکوع/لائنیں بھی مکمل ہونا ہے۔
+   اگر ان پورے پاروں کے علاوہ کچھ اضافی حصہ بھی پڑھا ہو تو صارف ان خانوں میں مزید نمبر جوڑ سکتا ہے۔ */
+function autoFillBaselineFromPara(){
+  const paraEl = document.getElementById('base_para');
+  if(!paraEl) return;
+  const para = Math.max(0, parseInt(paraEl.value||'0',10));
+  const paoEl   = document.getElementById('base_pao');
+  const rukuEl  = document.getElementById('base_ruku');
+  const linesEl = document.getElementById('base_lines');
+  if(paoEl)   paoEl.value   = Math.round(para * PAO_PER_PARA);
+  if(rukuEl)  rukuEl.value  = Math.round(para * RUKU_PER_PARA);
+  if(linesEl) linesEl.value = Math.round(para * LINES_PER_PARA);
+}
 async function saveBaseline(){
   const b={};
   UNITS.forEach(u=>{
@@ -3883,10 +3957,47 @@ function editEntry(date){
   if(card) card.scrollIntoView({behavior:'smooth', block:'start'});
 }
 function cancelEdit(){ state.editDate=null; hzRender(); }
+
+/* ---------------- ماہانہ ٹیبل میں براہ راست (اِن لائن) ترمیم ---------------- */
+/* "ترمیم" دبانے پر اوپر سکرول نہیں ہوتا — اسی قطار کے سبق/سبقی/منزل خانے
+   وہیں ایڈٹ ایبل بن جاتے ہیں، ہر خانے سے نکلتے ہی (onchange) خودکار محفوظ ہو جاتا ہے۔ */
+function startInlineEdit(dateStr){
+  state.inlineEditDate = dateStr;
+  hzRender();
+}
+function finishInlineEdit(){
+  state.inlineEditDate = null;
+  toast('ریکارڈ محفوظ ہو گیا');
+  hzRender();
+}
+function readInlineCatInputs(dateStr, catKey){
+  const v={};
+  UNITS.forEach(u=>{
+    const el=document.getElementById('ie_'+dateStr+'_'+catKey+'_'+u.key);
+    v[u.key]= el? Math.max(0, parseInt(el.value||'0',10)) : 0;
+  });
+  return v;
+}
+async function saveInlineField(dateStr){
+  const vals={sabaq:readInlineCatInputs(dateStr,'sabaq'), sabqi:readInlineCatInputs(dateStr,'sabqi'), manzil:readInlineCatInputs(dateStr,'manzil')};
+  const any = CATS.some(c=>UNITS.some(u=>vals[c.key][u.key]>0));
+  const idx = state.student.records.findIndex(r=>r.date===dateStr);
+  if(idx>=0){
+    if(any){ state.student.records[idx] = {date:dateStr, sabaq:vals.sabaq, sabqi:vals.sabqi, manzil:vals.manzil}; }
+    else { state.student.records.splice(idx,1); /* سب خانے خالی — دوبارہ ناغہ بن جائے */ }
+  } else if(any){
+    state.student.records.push({date:dateStr, sabaq:vals.sabaq, sabqi:vals.sabqi, manzil:vals.manzil});
+    state.student.records.sort((a,b)=>a.date.localeCompare(b.date));
+  }
+  await saveStudent();
+  /* نوٹ: یہاں hzRender() جان بوجھ کر نہیں بلایا — تاکہ صارف اگلے خانے میں ٹائپ کرتے رہے
+     اور فوکس نہ ٹوٹے۔ "✔ مکمل" دبانے پر پوری قطار اپڈیٹ شدہ خلاصے کے ساتھ دوبارہ دکھائی جائے گی۔ */
+}
 async function deleteEntry(date){
   if(!confirm('کیا اس تاریخ کا اندراج حذف کرنا ہے؟')) return;
   state.student.records = state.student.records.filter(r=>r.date!==date);
   if(state.editDate===date) state.editDate=null;
+  if(state.inlineEditDate===date) state.inlineEditDate=null;
   await saveStudent();
   toast('اندراج حذف ہو گیا');
   hzRender();
@@ -3949,6 +4060,7 @@ function shiftMonth(delta){
   m+=delta;
   if(m<0){ m=11; y--; } else if(m>11){ m=0; y++; }
   state.monthCursor={y,m};
+  state.inlineEditDate = null;
   hzRender();
 }
 function catCellText(cat){
@@ -4009,10 +4121,11 @@ function hzRender(){
       <p class="builtin-note">یہ تعداد سولہ سطری حفظی مصحف کے مطابق خودکار طے شدہ ہے — ${LINES_PER_PAGE} × ${TOTAL_PAGES} صفحات = ${DEFAULT_TOTAL.lines} لائنیں</p>
       <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)">
         <h2 style="font-size:14px">پہلے سے مکمل مقدار (اختیاری)</h2>
-        <p class="hint">نیا طالب علم اگر پہلے سے کچھ حفظ کر چکا ہے تو نیچے ہر خانہ آزادانہ درج کریں — مثلاً 2 پارے مکمل، اس کے بعد 1 پاؤ، 2 رکوع اور 3 لائنیں الگ سے پڑھی ہوں تو وہ سب اپنے اپنے خانے میں لکھیں (خانے ایک دوسرے سے خودکار تبدیل نہیں ہوں گے)</p>
+        <p class="hint">نیا طالب علم اگر پہلے سے کچھ حفظ کر چکا ہے تو یہاں لکھیں — <b>پارے</b> کا خانہ بھرتے ہی پاؤ، رکوع اور لائنیں خودکار اسی حساب سے بھر جائیں گی (چونکہ یہ سب اُنہی مکمل پاروں کا حصہ ہیں)۔ اگر ان پاروں کے علاوہ کچھ اضافی سبق بھی پڑھا ہو تو اس کے متعلقہ خانے میں مزید نمبر جوڑ دیں۔</p>
         <div class="form-grid">
-          ${UNITS.map(u=>`<div><label>${u.label}</label><input type="number" min="0" id="base_${u.key}" value="${st.baseline[u.key]||''}"></div>`).join('')}
+          ${UNITS.map(u=>`<div><label>${u.label}</label><input type="number" min="0" id="base_${u.key}" value="${st.baseline[u.key]||''}" ${u.key==='para'?'oninput="autoFillBaselineFromPara()"':''}></div>`).join('')}
         </div>
+        <button type="button" class="btn-mini" onclick="autoFillBaselineFromPara()" style="margin:6px 0 4px">🔄 پارے کی بنیاد پر پاؤ/رکوع/لائنیں دوبارہ خودکار بھریں</button>
         <button class="btn btn-primary" onclick="saveBaseline()">محفوظ کریں</button>
         <button class="btn btn-ghost" onclick="closeSettings()" style="margin-inline-start:8px">منسوخ</button>
       </div>
@@ -4152,14 +4265,23 @@ function hzRender(){
     const dateStr=isoOf(y,m,d);
     const rec=recMap[dateStr];
     const isToday = dateStr===todayISO();
-    rowsHtml+=`<tr class="${isToday?'is-today':''}">
+    const isEditing = state.inlineEditDate===dateStr;
+    rowsHtml+=`<tr class="${isToday?'is-today':''}${isEditing?' is-inline-editing':''}">
       <td class="d-date">${pad2(d)} ${URDU_MONTHS[m]}</td>`;
     CATS.forEach(c=>{
-      const text = rec? catCellText(rec[c.key]) : null;
-      if(text){ totals[c.key]++; rowsHtml+=`<td class="cat-cell-${c.key}">${text}</td>`; }
-      else{ naagha[c.key]++; rowsHtml+=`<td class="cat-cell-${c.key} naagha">ناغہ</td>`; }
+      if(isEditing){
+        const curr = rec ? rec[c.key] : null;
+        rowsHtml+=`<td class="cat-cell-${c.key} inline-edit-td"><div class="inline-edit-cell">${UNITS.map(u=>`<div class="ie-field"><span class="ie-label">${u.label}</span><input type="number" min="0" inputmode="numeric" id="ie_${dateStr}_${c.key}_${u.key}" value="${(curr && curr[u.key])||''}" placeholder="0" onchange="saveInlineField('${dateStr}')"></div>`).join('')}</div></td>`;
+      } else {
+        const text = rec? catCellText(rec[c.key]) : null;
+        if(text){ totals[c.key]++; rowsHtml+=`<td class="cat-cell-${c.key}">${text}</td>`; }
+        else{ naagha[c.key]++; rowsHtml+=`<td class="cat-cell-${c.key} naagha">ناغہ</td>`; }
+      }
     });
-    rowsHtml+=`<td><div class="month-actions"><button class="btn-mini" onclick="editEntry('${dateStr}')">ترمیم</button>${rec? `<button class="btn-mini btn-danger" onclick="deleteEntry('${dateStr}')">حذف</button>`:''}</div></td></tr>`;
+    rowsHtml+=`<td><div class="month-actions">${isEditing
+      ? `<button class="btn-mini btn-inline-done" onclick="finishInlineEdit()">✔ مکمل</button>`
+      : `<button class="btn-mini" onclick="startInlineEdit('${dateStr}')">ترمیم</button>${rec? `<button class="btn-mini btn-danger" onclick="deleteEntry('${dateStr}')">حذف</button>`:''}`
+    }</div></td></tr>`;
   }
 
   html+=`<div class="card">
@@ -4621,7 +4743,7 @@ async function sharePoster(studentOverride, filterOverride){
   const wrap=document.createElement('div');
   wrap.style.position='fixed'; wrap.style.left='-9999px'; wrap.style.top='0';
   wrap.innerHTML=`
-    <div id="posterCard" style="width:480px;min-height:853px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;font-family:'Noto Naskh Arabic',Arial,sans-serif;direction:rtl;background:linear-gradient(165deg,#12C77A 0%,#0E9D5E 24%,#0A7E4A 50%,#0A4A22 76%,#E6B93A 130%);padding:44px 24px;border-radius:34px;color:#fff;position:relative;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,.55);border:3px solid rgba(255,224,140,.35)">
+    <div id="posterCard" style="width:480px;min-height:853px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;font-family:'Jameel Noori Nastaleeq','Noto Naskh Arabic',Arial,sans-serif;direction:rtl;background:linear-gradient(165deg,#12C77A 0%,#0E9D5E 24%,#0A7E4A 50%,#0A4A22 76%,#E6B93A 130%);padding:44px 24px;border-radius:34px;color:#fff;position:relative;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,.55);border:3px solid rgba(255,224,140,.35)">
       <div style="position:absolute;inset:0;background:radial-gradient(circle at 12% -8%,rgba(255,255,255,.30),transparent 42%),radial-gradient(circle at 108% 6%,rgba(255,255,255,.16),transparent 35%),radial-gradient(circle at 102% 108%,rgba(255,243,176,.4),transparent 50%),radial-gradient(circle at -6% 102%,rgba(255,243,176,.22),transparent 45%)"></div>
       <div style="position:absolute;inset:9px;border:1.5px solid rgba(255,224,140,.55);border-radius:26px;pointer-events:none"></div>
       <div style="position:relative;text-align:center">
@@ -4669,13 +4791,22 @@ async function sharePoster(studentOverride, filterOverride){
 }
 
 /* ---------------- پوسٹر پیش منظر — پہلے سکرین پر دکھائیں، پھر صارف کے بٹن دبانے پر ہی شیئر ہو ---------------- */
+/* نام صاف کریں — کبھی بھی خالی، undefined یا null والا نام سکرین پر یا شیئر ٹیکسٹ میں نظر نہیں آنا چاہیے */
+function safePosterName(name){
+  const n = (name===undefined || name===null) ? '' : String(name).trim();
+  if(!n || n==='undefined' || n==='null') return 'طالب علم';
+  return n;
+}
 function showPosterPreview(blob, studentName){
   if(window.__posterPreviewUrl){ URL.revokeObjectURL(window.__posterPreviewUrl); }
   const url = URL.createObjectURL(blob);
+  const safeName = safePosterName(studentName);
   window.__posterPreviewUrl = url;
-  window.__posterPreviewData = {blob, name: studentName||'طالب علم'};
+  window.__posterPreviewData = {blob, name: safeName};
   const img = document.getElementById('posterPreviewImg');
   if(img) img.src = url;
+  const caption = document.getElementById('posterPreviewCaption');
+  if(caption) caption.textContent = '👤 طالب علم: ' + safeName + ' — پوسٹر پر نام اور تصویر نیچے چیک کریں';
   const modal = document.getElementById('posterPreviewModal');
   if(modal) modal.classList.add('show');
 }
@@ -4686,13 +4817,14 @@ function closePosterPreview(){
 async function confirmSharePoster(){
   const data = window.__posterPreviewData;
   if(!data){ toast('پوسٹر نہیں ملا'); return; }
+  const safeName = safePosterName(data.name);
   const btn = document.getElementById('posterShareBtn');
   const origText = btn ? btn.textContent : '';
   if(btn){ btn.disabled = true; btn.textContent = '⏳ تیار ہو رہا ہے...'; }
   try{
-    const file = new File([data.blob], (data.name||'hifz').replace(/[^\u0600-\u06FFa-zA-Z0-9]+/g,'_')+'-poster.png', {type:'image/png'});
+    const file = new File([data.blob], safeName.replace(/[^\u0600-\u06FFa-zA-Z0-9]+/g,'_')+'-poster.png', {type:'image/png'});
     if(navigator.canShare && navigator.canShare({files:[file]})){
-      try{ await navigator.share({files:[file], title:'حاضری و حفظ رپورٹ', text: data.name+' کی حاضری و حفظ رپورٹ'}); }
+      try{ await navigator.share({files:[file], title:'حاضری و حفظ رپورٹ', text: safeName+' کی حاضری و حفظ رپورٹ'}); }
       catch(e){ /* user cancelled — no toast needed */ }
     } else {
       downloadPreviewPoster();
@@ -4704,9 +4836,10 @@ async function confirmSharePoster(){
 function downloadPreviewPoster(){
   const data = window.__posterPreviewData;
   if(!data){ toast('پوسٹر نہیں ملا'); return; }
+  const safeName = safePosterName(data.name);
   const url = URL.createObjectURL(data.blob);
   const a=document.createElement('a');
-  a.href=url; a.download=(data.name||'hifz').replace(/[^\u0600-\u06FFa-zA-Z0-9]+/g,'_')+'-poster.png';
+  a.href=url; a.download=safeName.replace(/[^\u0600-\u06FFa-zA-Z0-9]+/g,'_')+'-poster.png';
   a.click();
   URL.revokeObjectURL(url);
   toast('پوسٹر تصویر کے طور پر محفوظ ہو گیا');

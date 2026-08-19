@@ -1,10 +1,11 @@
 // جامعہ امتحانی سافٹ ویئر — سروس ورکر (آف لائن سپورٹ)
-const CACHE_NAME = 'jamia-hifz-cache-MD198WE0708AM';
+const CACHE_NAME = 'jamia-hifz-cache-nastaleeq-font-v5';
 const CORE_ASSETS = [
   './index.html',
   './manifest.json',
   './logo.png',
-  './icon-192.png'
+  './icon-192.png',
+  './fonts/Jameel_Noori_Nastaleeq.woff'
 ];
 
 self.addEventListener('install', (event) => {
