@@ -864,12 +864,13 @@ td.clickable:hover { background: #fff9e6 !important; }
   #hifzScreen .card h2{font-size:16.5px;margin:0 0 3px;color:var(--emerald-950)}
   #hifzScreen .card .hint{font-size:11.5px;color:var(--ink-soft);margin:0 0 10px}
 
-  #hifzScreen .qtable{width:100%;border-collapse:separate;border-spacing:0;margin-top:4px;font-size:12.5px}
-  #hifzScreen .qtable th{padding:6px 4px;text-align:center;background:var(--emerald-100);color:var(--emerald-950);font-weight:700;font-size:11.5px}
-  #hifzScreen .qtable th:first-child{border-radius:9px 0 0 0;text-align:right;padding-inline-start:8px}
+  #hifzScreen .qtable-wrap{width:100%;overflow-x:hidden}
+  #hifzScreen .qtable{width:100%;table-layout:fixed;border-collapse:separate;border-spacing:0;margin-top:4px;font-size:12.5px}
+  #hifzScreen .qtable th{padding:6px 2px;text-align:center;background:var(--emerald-100);color:var(--emerald-950);font-weight:700;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #hifzScreen .qtable th:first-child{width:24%;border-radius:9px 0 0 0;text-align:right;padding-inline-start:6px}
   #hifzScreen .qtable th:last-child{border-radius:0 9px 0 0}
-  #hifzScreen .qtable td{padding:8px 4px;text-align:center;font-size:14px;font-weight:700;border-bottom:1px solid var(--line)}
-  #hifzScreen .qtable td:first-child{text-align:right;padding-inline-start:8px;font-weight:400;color:var(--ink-soft);font-size:12.5px}
+  #hifzScreen .qtable td{padding:8px 2px;text-align:center;font-size:12.5px;font-weight:700;border-bottom:1px solid var(--line);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #hifzScreen .qtable td:first-child{text-align:right;padding-inline-start:6px;font-weight:400;color:var(--ink-soft);font-size:11.5px}
   #hifzScreen .qtable tr.row-done td{color:var(--emerald-800)}
   #hifzScreen .qtable tr.row-left td{color:var(--maroon);background:#FDF4EC}
   #hifzScreen .qtable tr.row-left td:first-child{border-radius:0 0 0 9px}
@@ -920,20 +921,26 @@ td.clickable:hover { background: #fff9e6 !important; }
   #hifzScreen .btn-mini.btn-danger:hover{background:#FDEDED}
   #hifzScreen .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 
-  #hifzScreen .entry-table-wrap{overflow-x:auto;border-radius:14px}
-  #hifzScreen .entry-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 6px 20px -12px rgba(43,38,32,.28);border:1px solid var(--line)}
-  #hifzScreen .entry-table th, #hifzScreen .entry-table td{padding:8px 5px;text-align:center}
-  #hifzScreen .entry-table thead th{font-size:12.5px;font-weight:700;color:var(--emerald-950);padding:9px 4px 7px;vertical-align:bottom}
-  #hifzScreen .entry-table thead th.corner{background:var(--parchment-2)}
-  #hifzScreen .entry-table thead th small{display:block;font-weight:400;font-size:9px;color:var(--ink-soft);margin-top:2px}
-  #hifzScreen .entry-table thead th.sabaq{background:linear-gradient(180deg,#EFFBF2,#E7F6EA);border-bottom:3px solid #6FBF83}
-  #hifzScreen .entry-table thead th.sabqi{background:linear-gradient(180deg,#EEF6FE,#E9F2FC);border-bottom:3px solid #7BAEE0}
-  #hifzScreen .entry-table thead th.manzil{background:linear-gradient(180deg,#F2F0EA,#EDEBE5);border-bottom:3px solid #B4AC9C}
-  #hifzScreen .entry-table tbody th.u-h{background:var(--emerald-100);color:var(--emerald-950);font-size:12px;font-weight:700;text-align:center;white-space:nowrap;border-inline-end:1px solid var(--line)}
-  #hifzScreen .entry-table tbody tr:nth-child(even) td{background:#FBF9F3}
+  #hifzScreen .entry-table-wrap{overflow-x:hidden;border-radius:14px}
+  #hifzScreen .entry-table{width:100%;table-layout:fixed;border-collapse:separate;border-spacing:0;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 6px 20px -12px rgba(43,38,32,.28);border:1px solid var(--line)}
+  #hifzScreen .entry-table th, #hifzScreen .entry-table td{padding:6px 2px;text-align:center}
+  #hifzScreen .entry-table col.col-u{width:19%}
+  #hifzScreen .entry-table thead th{font-size:11.5px;font-weight:700;color:var(--emerald-950);padding:8px 2px 6px;vertical-align:bottom;overflow:hidden}
+  #hifzScreen .entry-table thead th.corner{background:var(--gold-400);width:19%}
+  #hifzScreen .entry-table thead th small{display:block;font-weight:400;font-size:8.3px;color:var(--ink-soft);margin-top:2px;white-space:normal;line-height:1.25}
+  #hifzScreen .entry-table thead th.sabaq{background:linear-gradient(180deg,#BEEBC9,#8FD9A2);border-bottom:3px solid #2F9E4F;color:#0B4A22}
+  #hifzScreen .entry-table thead th.sabqi{background:linear-gradient(180deg,#C6E3FB,#9CC9F2);border-bottom:3px solid #2E7BC4;color:#0B3D66}
+  #hifzScreen .entry-table thead th.manzil{background:linear-gradient(180deg,#E9D9F5,#D3B7E8);border-bottom:3px solid #8C4FB2;color:#4A1D63}
+  #hifzScreen .entry-table tbody th.u-h{background:linear-gradient(180deg,var(--gold-400),var(--gold-600));color:#2B1D02;font-size:12px;font-weight:800;text-align:center;white-space:nowrap;border-inline-end:1px solid var(--line);overflow:hidden;text-overflow:ellipsis}
   #hifzScreen .entry-table tbody td{border-top:1px solid var(--line)}
   #hifzScreen .entry-table tbody th{border-top:1px solid var(--line)}
-  #hifzScreen .entry-table input[type=number]{width:100%;min-width:52px;padding:7px 3px;text-align:center;border-radius:9px;border:1.4px solid var(--line);font-family:inherit;font-size:13.5px;font-weight:700;background:#FFFEFB;color:var(--ink)}
+  #hifzScreen .entry-table tbody td.sabaq{background:#EEFAF0}
+  #hifzScreen .entry-table tbody td.sabqi{background:#ECF5FE}
+  #hifzScreen .entry-table tbody td.manzil{background:#F5EDFA}
+  #hifzScreen .entry-table input[type=number]{width:100%;max-width:56px;padding:6px 2px;text-align:center;border-radius:8px;border:1.4px solid var(--line);font-family:inherit;font-size:13px;font-weight:800;background:#FFFEFB;color:var(--ink);box-sizing:border-box}
+  #hifzScreen .entry-table td.sabaq input{border-color:#6FBF83}
+  #hifzScreen .entry-table td.sabqi input{border-color:#7BAEE0}
+  #hifzScreen .entry-table td.manzil input{border-color:#B98CD6}
   #hifzScreen .entry-table input[type=number]:focus{outline:2px solid var(--emerald-700);outline-offset:1px}
 
   #hifzScreen .settings-toggle{font-size:11.5px;color:var(--emerald-800);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;font-family:inherit}
@@ -953,7 +960,17 @@ td.clickable:hover { background: #fff9e6 !important; }
   #hifzScreen table.month tr.is-today{background:#FDF6E3}
   #hifzScreen table.month tfoot td{font-weight:700;background:var(--emerald-100);color:var(--emerald-950);border-bottom:none}
   #hifzScreen table.month tfoot td.naagha-total{color:var(--down)}
-  #hifzScreen .table-scroll{overflow-x:auto}
+  #hifzScreen .table-scroll{overflow-x:hidden}
+  /* عالمی table{min-width:700px} کو یہاں منسوخ کریں تاکہ حفظ سکرین کے ٹیبل ہمیشہ صفحے کے اندر رہیں، لیفٹ رائٹ سکرول نہ ہو */
+  #hifzScreen table{min-width:0; max-width:100%}
+  #hifzScreen table.month th:nth-child(1), #hifzScreen table.month td:nth-child(1){width:19%}
+  #hifzScreen table.month th:nth-child(2), #hifzScreen table.month td:nth-child(2){width:15%}
+  #hifzScreen table.month th:nth-child(3), #hifzScreen table.month td:nth-child(3){width:15%}
+  #hifzScreen table.month th:nth-child(4), #hifzScreen table.month td:nth-child(4){width:15%}
+  #hifzScreen table.month th:nth-child(5), #hifzScreen table.month td:nth-child(5){width:36%}
+  #hifzScreen table.month td.d-date{font-size:9.5px;padding:5px 2px;white-space:normal;word-break:break-word}
+  #hifzScreen table.month .month-actions{display:flex;flex-direction:column;gap:3px;align-items:stretch}
+  #hifzScreen table.month .month-actions .btn-mini{width:100%;padding:3px 2px;font-size:9px;border-radius:6px}
   #hifzScreen .empty{text-align:center;padding:14px 8px;color:var(--ink-soft);font-size:12.5px}
 
   /* ---------------- PDF / پرنٹ رپورٹ (تمام طلبہ) ---------------- */
@@ -978,9 +995,44 @@ td.clickable:hover { background: #fff9e6 !important; }
     .app{display:none !important}
     #hifzScreen .toast{display:none !important}
     #hifzScreen #printReportRoot{display:block !important}
-    #hifzScreen @page{ size:A4; margin:12mm 10mm; }
     #hifzScreen .pr-card{box-shadow:none}
   }
+
+  /* ---------------- کالموں کے مستقل رنگ: سبق (سبز) / سبقی (نیلا) / منزل (جامنی) — روزانہ اندراج، ماہانہ ریکارڈ اور رپورٹ میں ایک جیسے ---------------- */
+  #hifzScreen .cat-h-sabaq{background:linear-gradient(180deg,#BEEBC9,#8FD9A2) !important;border-bottom:3px solid #2F9E4F !important;color:#0B4A22 !important}
+  #hifzScreen .cat-h-sabqi{background:linear-gradient(180deg,#C6E3FB,#9CC9F2) !important;border-bottom:3px solid #2E7BC4 !important;color:#0B3D66 !important}
+  #hifzScreen .cat-h-manzil{background:linear-gradient(180deg,#E9D9F5,#D3B7E8) !important;border-bottom:3px solid #8C4FB2 !important;color:#4A1D63 !important}
+  #hifzScreen .cat-cell-sabaq{background:#EEFAF0 !important}
+  #hifzScreen .cat-cell-sabqi{background:#ECF5FE !important}
+  #hifzScreen .cat-cell-manzil{background:#F5EDFA !important}
+  #hifzScreen .cat-cell-sabaq.naagha, #hifzScreen .cat-cell-sabqi.naagha, #hifzScreen .cat-cell-manzil.naagha{color:var(--down);font-weight:700}
+
+  /* ---------------- حاضری رپورٹ (فلٹر پینل) ---------------- */
+  #hifzScreen .att-mode-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+  #hifzScreen .chip.active{background:var(--emerald-800);color:#fff;border-color:var(--emerald-800)}
+  #hifzScreen .att-sub-row{margin-top:10px}
+
+  /* ---------------- طلبہ حاضری درجہ بندی (لسٹ) ---------------- */
+  #hifzScreen .rank-row{display:flex;align-items:center;gap:8px;padding:10px 6px;border-bottom:1px solid var(--line);cursor:pointer;flex-wrap:wrap;transition:background .12s}
+  #hifzScreen .rank-row:last-child{border-bottom:none}
+  #hifzScreen .rank-row:active{background:var(--parchment-2)}
+  #hifzScreen .rank-idx{width:20px;text-align:center;color:var(--ink-soft);font-size:11px;font-weight:700;flex-shrink:0}
+  #hifzScreen .rank-name{flex:1 1 auto;min-width:70px;font-weight:700;font-size:13px;color:var(--emerald-950)}
+  #hifzScreen .rank-cats{display:flex;gap:5px;flex-wrap:wrap}
+  #hifzScreen .rank-cat{font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+  #hifzScreen .rank-cat.cat-sabaq{background:#DFF3E3;color:#0B4A22}
+  #hifzScreen .rank-cat.cat-sabqi{background:#DCEBFB;color:#0B3D66}
+  #hifzScreen .rank-cat.cat-manzil{background:#EDE0F6;color:#4A1D63}
+  #hifzScreen .rank-naagha{font-size:10.5px;font-weight:700;color:var(--down);white-space:nowrap}
+  #hifzScreen .rank-quran{flex:1 0 100%;font-size:10.5px;color:var(--ink-soft);margin-top:2px}
+  #hifzScreen .rank-tap-hint{width:100%;text-align:center;font-size:10.5px;color:var(--ink-soft);margin-top:6px}
+  #hifzScreen .rank-actions{flex:1 0 100%;display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  #hifzScreen .rank-actions .btn-mini{flex:1;min-width:80px}
+
+  /* ---------------- پرنٹ رپورٹ میں حاضری ٹیبل ---------------- */
+  #hifzScreen .att-table td:first-child, #hifzScreen .att-table th:first-child{text-align:right;padding-inline-start:8px}
+  #hifzScreen .att-table tfoot td{font-weight:700;border-top:2px solid #222;border-bottom:none}
+  #hifzScreen .pr-quran-sub{font-size:12.5px;font-weight:700;margin:14px 0 6px;color:var(--emerald-950)}
 
 </style>
 </head><body>
@@ -1215,7 +1267,7 @@ td.clickable:hover { background: #fff9e6 !important; }
     </div>
   </div>
 </div>
-<div id="mainApp" style="display: block;">
+<div id="mainApp" style="display: none;">
   <div class="designer-bar no-print" onclick="openDevChat()" style="cursor:pointer;">💬 ڈویلپر سے رابطہ کریں</div>
 
   <header class="app-header no-print">
@@ -1373,6 +1425,8 @@ td.clickable:hover { background: #fff9e6 !important; }
   </div>
   <div id="root"><div class="loading">لوڈ ہو رہا ہے…</div></div>
 </div>
+<div id="toast" class="toast"></div>
+<div id="printReportRoot"></div>
 </div>
 
 
@@ -1798,8 +1852,11 @@ function checkExpiry() {
 
 function unlockApp() {
   document.getElementById('lockScreen').style.display = 'none';
+  document.getElementById('mainApp').style.display = 'none';
+  document.getElementById('hifzScreen').style.display = 'none';
   document.getElementById('homeScreen').style.display = 'flex';
   updateSubInfo();
+  updateLiveVersionBadge();
 }
 function openExam(){
   document.getElementById('homeScreen').style.display = 'none';
@@ -1876,11 +1933,16 @@ function initLock() {
   }
 
   const status = checkExpiry();
-  if (status === 'active' || status === 'trial') {
-    unlockApp();
-  } else if (status === 'trial_expired') {
+  if (status === 'trial_expired') {
+    document.getElementById('lockScreen').style.display = 'flex';
+    document.getElementById('mainApp').style.display = 'none';
+    document.getElementById('hifzScreen').style.display = 'none';
+    document.getElementById('homeScreen').style.display = 'none';
     document.getElementById('lockMsg').className = 'err';
     document.getElementById('lockMsg').textContent = '⛔ ٹرائل مدت ختم — ایکٹیویشن کوڈ حاصل کریں';
+  } else {
+    // 'active', 'trial', یا 'none' — ہر صورت میں پہلے ہوم سکرین ہی ڈیفالٹ پر آئے
+    unlockApp();
   }
 }
 
@@ -3667,6 +3729,9 @@ async function hzBoot(){
   normalizeStudent();
   const now=new Date();
   state.monthCursor = {y:now.getFullYear(), m:now.getMonth()};
+  if(!state.attFilter) state.attFilter = {mode:'month', y:now.getFullYear(), m:now.getMonth(), from:null, to:null};
+  if(!state.posterFilter) state.posterFilter = {mode:'last30', from:null, to:null};
+  if(!state.attSort) state.attSort = 'best';
   hzRender();
 }
 
@@ -3887,10 +3952,10 @@ function hzRender(){
         <h2 style="margin:0">مکمل قرآنِ پاک — سولہ سطری حفظی مصحف</h2>
         <button class="btn-mini" onclick="closeSettings()">‹ واپس</button>
       </div>
-      <table class="qtable">
+      <div class="qtable-wrap"><table class="qtable">
         <thead><tr><th></th>${UNITS.map(u=>`<th>${u.label}</th>`).join('')}</tr></thead>
         <tbody><tr><td>کل قرآن</td>${UNITS.map(u=>`<td>${total[u.key]}</td>`).join('')}</tr></tbody>
-      </table>
+      </table></div>
       <p class="builtin-note">یہ تعداد سولہ سطری حفظی مصحف کے مطابق خودکار طے شدہ ہے — ${LINES_PER_PAGE} × ${TOTAL_PAGES} صفحات = ${DEFAULT_TOTAL.lines} لائنیں</p>
       <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)">
         <h2 style="font-size:14px">پہلے سے مکمل مقدار (اختیاری)</h2>
@@ -3906,9 +3971,53 @@ function hzRender(){
     return;
   }
 
+  /* ================= حاضری رپورٹ (فلٹر + درجہ بندی) ================= */
+  if(state.view==='attendance'){
+    const f=state.attFilter;
+    html+=`<div class="card">
+      <div class="row" style="justify-content:space-between">
+        <h2 style="margin:0">حاضری رپورٹ</h2>
+        <button class="btn-mini" onclick="closeAttendance()">‹ واپس</button>
+      </div>
+      <p class="hint" style="margin-top:4px">مدت منتخب کریں، پھر نیچے موجودہ طالب علم کی رپورٹ بنائیں یا تمام طلبہ کی درجہ بندی دیکھیں</p>
+      <div class="att-mode-row">
+        ${[['last15','آخری 15 دن'],['last30','آخری 30 دن'],['month','مہینہ'],['week','ہفتہ (7 دن)'],['year','سال'],['last10','پچھلے 10 دن'],['custom','کسٹم تاریخ']].map(([v,l])=>`<button class="chip ${f.mode===v?'active':''}" onclick="setAttMode('${v}')">${l}</button>`).join('')}
+      </div>
+      ${f.mode==='month'? `<div class="month-nav att-sub-row">
+          <button class="m-btn" onclick="shiftAttMonth(-1)">›</button>
+          <span class="m-label">${URDU_MONTHS[f.m]} ${f.y}</span>
+          <button class="m-btn" onclick="shiftAttMonth(1)">‹</button>
+        </div>` : ''}
+      ${f.mode==='year'? `<div class="form-grid att-sub-row" style="grid-template-columns:1fr"><div><label>سال</label><input type="number" id="attYearInput" value="${f.y}" onchange="setAttYear(this.value)"></div></div>` : ''}
+      ${f.mode==='custom'? `<div class="form-grid att-sub-row" style="grid-template-columns:1fr 1fr">
+          <div><label>سے</label><input type="date" id="attFromInput" value="${f.from||todayISO()}"></div>
+          <div><label>تک</label><input type="date" id="attToInput" value="${f.to||todayISO()}"></div>
+        </div>
+        <button class="btn btn-ghost" onclick="applyAttCustom()" style="margin-top:6px">لاگو کریں</button>` : ''}
+      <button class="btn btn-primary att-sub-row" style="width:100%" onclick="printStudentAttendance(state.activeId)">📋 موجودہ طالب علم کی حاضری رپورٹ</button>
+    </div>`;
+
+    html+=`<div class="card">
+      <h2 style="font-size:14.5px">تمام طلبہ — حاضری درجہ بندی</h2>
+      <p class="hint">جس کی سب سے زیادہ حاضری یا سب سے زیادہ ناغے ہیں، اسے اوپر لانے کے لیے ترتیب منتخب کریں</p>
+      <div class="row">
+        <button class="chip ${state.attSort==='best'?'active':''}" onclick="setAttSort('best')">زیادہ حاضری اوپر</button>
+        <button class="chip ${state.attSort==='worst'?'active':''}" onclick="setAttSort('worst')">زیادہ ناغہ اوپر</button>
+      </div>
+      <button class="btn btn-primary" style="margin-top:10px;width:100%" onclick="buildAttRanking()">درجہ بندی بنائیں</button>
+      <div id="attRankBox"></div>
+    </div>`;
+
+    root.innerHTML=html;
+    if(state.attRankRows) renderAttRankBox();
+    return;
+  }
+
   /* ================= MAIN PAGE ================= */
   html+=`<div class="row" style="justify-content:space-between;margin-bottom:10px;flex-wrap:wrap">
-    <button class="settings-toggle" onclick="generateAllStudentsReport()">📄 تمام طلبہ کی PDF رپورٹ</button>
+    <button class="settings-toggle" onclick="generateAllStudentsReport('portrait')">📄 تمام طلبہ کی PDF رپورٹ (پورٹریٹ)</button>
+    <button class="settings-toggle" onclick="generateAllStudentsReport('landscape')">📄 تمام طلبہ کی PDF رپورٹ (لینڈسکیپ)</button>
+    <button class="settings-toggle" onclick="openAttendance()">📋 حاضری رپورٹ</button>
     <button class="settings-toggle" onclick="openSettings()">⚙ مکمل قرآن / پہلے سے مکمل مقدار</button>
   </div>`;
 
@@ -3922,6 +4031,10 @@ function hzRender(){
     </div>
     <div class="entry-table-wrap">
       <table class="entry-table">
+        <colgroup>
+          <col class="col-u">
+          ${CATS.map(()=>`<col>`).join('')}
+        </colgroup>
         <thead>
           <tr>
             <th class="corner"></th>
@@ -3931,7 +4044,7 @@ function hzRender(){
         <tbody>
           ${UNITS.map(u=>`<tr>
             <th class="u-h">${u.label}</th>
-            ${CATS.map(c=>`<td><input type="number" min="0" id="e_${c.key}_${u.key}" placeholder="0" value="${cvMap[c.key][u.key]||''}"></td>`).join('')}
+            ${CATS.map(c=>`<td class="cat-td ${c.key}"><input type="number" min="0" id="e_${c.key}_${u.key}" placeholder="0" value="${cvMap[c.key][u.key]||''}"></td>`).join('')}
           </tr>`).join('')}
         </tbody>
       </table>
@@ -3942,19 +4055,33 @@ function hzRender(){
 
   /* ---- چمکتا ہوا تخمینہ ختم قرآن بیج — پہلی سکرین کے اندر ---- */
   html+= etaBadgeHtml(st, remaining);
+  const pf = state.posterFilter || {mode:'last30'};
 
   /* ---- پیش رفت (سبق کی بنیاد پر) — بیج کے نیچے، سکرول پر ---- */
   html+=`<div class="card">
     <h2>پیش رفت (سبق کی بنیاد پر)</h2>
-    <table class="qtable">
+    <div class="qtable-wrap"><table class="qtable">
       <thead><tr><th></th>${UNITS.map(u=>`<th>${u.label}</th>`).join('')}</tr></thead>
       <tbody>
         <tr><td>کل قرآن</td>${UNITS.map(u=>`<td>${total[u.key]||0}</td>`).join('')}</tr>
         <tr class="row-done"><td>مکمل</td>${UNITS.map(u=>`<td>${completed[u.key]||0}</td>`).join('')}</tr>
         <tr class="row-left"><td>باقی</td>${UNITS.map(u=>`<td>${remaining[u.key]||0}</td>`).join('')}</tr>
       </tbody>
-    </table>
-    <button class="btn btn-ghost" onclick="sharePoster()" style="margin-top:10px;width:100%">🖼️ پوسٹر شیئر کریں (واٹس ایپ)</button>
+    </table></div>
+    <div class="hint" style="margin:12px 0 6px">پوسٹر / رپورٹ کے لیے مدت منتخب کریں:</div>
+    <div class="att-mode-row">
+      ${[['last15','آخری 15 دن'],['last30','آخری 30 دن'],['month','اس مہینہ'],['custom','کسٹم تاریخ']].map(([v,l])=>`<button class="chip ${pf.mode===v?'active':''}" onclick="setPosterMode('${v}')">${l}</button>`).join('')}
+    </div>
+    ${pf.mode==='custom'? `<div class="row" style="gap:6px;margin-top:8px;flex-wrap:wrap">
+      <input type="date" id="posterFromInput" value="${pf.from||todayISO()}" style="flex:1;min-width:0">
+      <input type="date" id="posterToInput" value="${pf.to||todayISO()}" style="flex:1;min-width:0">
+      <button class="btn-mini" onclick="applyPosterCustom()">لاگو کریں</button>
+    </div>`:''}
+    <button class="btn btn-primary" onclick="sharePoster()" style="margin-top:12px;width:100%">🖼️ رنگین پوسٹر بنائیں (واٹس ایپ)</button>
+    <div class="row" style="gap:8px;margin-top:8px">
+      <button class="btn btn-ghost" onclick="printPosterReport('portrait')" style="flex:1">🖨️ PDF — پورٹریٹ</button>
+      <button class="btn btn-ghost" onclick="printPosterReport('landscape')" style="flex:1">🖨️ PDF — لینڈسکیپ</button>
+    </div>
   </div>`;
 
   /* ---- ماہانہ ریکارڈ ---- */
@@ -3976,10 +4103,10 @@ function hzRender(){
       <td class="d-date">${pad2(d)} ${URDU_MONTHS[m]}</td>`;
     CATS.forEach(c=>{
       const text = rec? catCellText(rec[c.key]) : null;
-      if(text){ totals[c.key]++; rowsHtml+=`<td>${text}</td>`; }
-      else{ naagha[c.key]++; rowsHtml+=`<td class="naagha">ناغہ</td>`; }
+      if(text){ totals[c.key]++; rowsHtml+=`<td class="cat-cell-${c.key}">${text}</td>`; }
+      else{ naagha[c.key]++; rowsHtml+=`<td class="cat-cell-${c.key} naagha">ناغہ</td>`; }
     });
-    rowsHtml+=`<td><button class="btn-mini" onclick="editEntry('${dateStr}')">ترمیم</button> ${rec? `<button class="btn-mini btn-danger" onclick="deleteEntry('${dateStr}')">حذف</button>`:''}</td></tr>`;
+    rowsHtml+=`<td><div class="month-actions"><button class="btn-mini" onclick="editEntry('${dateStr}')">ترمیم</button>${rec? `<button class="btn-mini btn-danger" onclick="deleteEntry('${dateStr}')">حذف</button>`:''}</div></td></tr>`;
   }
 
   html+=`<div class="card">
@@ -3990,17 +4117,17 @@ function hzRender(){
     </div>
     <div class="table-scroll">
     <table class="month">
-      <thead><tr><th>تاریخ</th>${CATS.map(c=>`<th>${c.label}</th>`).join('')}<th></th></tr></thead>
+      <thead><tr><th>تاریخ</th>${CATS.map(c=>`<th class="cat-h-${c.key}">${c.label}</th>`).join('')}<th></th></tr></thead>
       <tbody>${rowsHtml || `<tr><td colspan="5" class="empty">اس مہینے کا کوئی دن نہیں</td></tr>`}</tbody>
       <tfoot>
         <tr>
           <td>سنائی (کل ${lastDay} دن)</td>
-          ${CATS.map(c=>`<td>${totals[c.key]}</td>`).join('')}
+          ${CATS.map(c=>`<td class="cat-cell-${c.key}">${totals[c.key]}</td>`).join('')}
           <td></td>
         </tr>
         <tr>
           <td>ناغہ</td>
-          ${CATS.map(c=>`<td class="naagha-total">${naagha[c.key]}</td>`).join('')}
+          ${CATS.map(c=>`<td class="cat-cell-${c.key} naagha-total naagha">${naagha[c.key]}</td>`).join('')}
           <td></td>
         </tr>
       </tfoot>
@@ -4012,6 +4139,306 @@ function hzRender(){
 }
 
 function escapeHtml(s){ return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ================= حاضری رپورٹ (Attendance Report) ================= */
+
+/* مدت کے مطابق تاریخوں کی فہرست بنائیں */
+function attRangeDates(filter){
+  const now=new Date();
+  const today=todayISO();
+  let dates=[], label='';
+  if(filter.mode==='month'){
+    const y=filter.y, m=filter.m;
+    const dim=daysInMonth(y,m);
+    const isCur=(y===now.getFullYear() && m===now.getMonth());
+    const last= isCur? now.getDate() : dim;
+    for(let d=1; d<=last; d++) dates.push(isoOf(y,m,d));
+    label = URDU_MONTHS[m]+' '+y;
+  } else if(filter.mode==='week'){
+    for(let i=6;i>=0;i--) dates.push(iso(addDays(now,-i)));
+    label='پچھلے 7 دن';
+  } else if(filter.mode==='last10'){
+    for(let i=9;i>=0;i--) dates.push(iso(addDays(now,-i)));
+    label='پچھلے 10 دن';
+  } else if(filter.mode==='last15'){
+    for(let i=14;i>=0;i--) dates.push(iso(addDays(now,-i)));
+    label='آخری 15 دن';
+  } else if(filter.mode==='last30'){
+    for(let i=29;i>=0;i--) dates.push(iso(addDays(now,-i)));
+    label='آخری 30 دن';
+  } else if(filter.mode==='year'){
+    const y=filter.y || now.getFullYear();
+    const isCur = y===now.getFullYear();
+    const endM = isCur? now.getMonth() : 11;
+    for(let m=0; m<=endM; m++){
+      const dim = (isCur && m===endM)? now.getDate() : daysInMonth(y,m);
+      for(let d=1; d<=dim; d++) dates.push(isoOf(y,m,d));
+    }
+    label='سال '+y;
+  } else if(filter.mode==='custom'){
+    let from=filter.from||today, to=filter.to||today;
+    if(from>to){ const t=from; from=to; to=t; }
+    let cur=parseISO(from);
+    const end=parseISO(to);
+    while(cur<=end){ dates.push(iso(cur)); cur=addDays(cur,1); }
+    label = fmtDate(from)+' — '+fmtDate(to);
+  }
+  return {dates, label};
+}
+
+/* دی گئی تاریخوں کے دوران کسی طالب علم کے ریکارڈ کی حاضری/ناغہ اعداد */
+function attStatsForStudent(records, dates){
+  const recMap={}; records.forEach(r=>{ recMap[r.date]=r; });
+  const present={sabaq:0,sabqi:0,manzil:0};
+  const naagha={sabaq:0,sabqi:0,manzil:0};
+  const rows=dates.map(dateStr=>{
+    const rec=recMap[dateStr];
+    const cells={};
+    CATS.forEach(c=>{
+      const text = rec? catCellText(rec[c.key]) : null;
+      if(text){ present[c.key]++; cells[c.key]={naagha:false, text}; }
+      else{ naagha[c.key]++; cells[c.key]={naagha:true, text:'ناغہ'}; }
+    });
+    return {date:dateStr, cells};
+  });
+  return {rows, present, naagha};
+}
+
+/* ---------------- سکرین کنٹرولز ---------------- */
+function openAttendance(){ state.view='attendance'; state.attRankRows=null; hzRender(); window.scrollTo({top:0,behavior:'smooth'}); }
+function closeAttendance(){ state.view='main'; state.attRankRows=null; hzRender(); window.scrollTo({top:0,behavior:'smooth'}); }
+function setAttMode(mode){
+  state.attFilter.mode=mode;
+  if(mode==='month' && (!state.attFilter.y || state.attFilter.m==null)){ const n=new Date(); state.attFilter.y=n.getFullYear(); state.attFilter.m=n.getMonth(); }
+  if(mode==='year' && !state.attFilter.y) state.attFilter.y=new Date().getFullYear();
+  state.attRankRows=null;
+  hzRender();
+}
+function shiftAttMonth(delta){
+  let {y,m}=state.attFilter; m+=delta;
+  if(m<0){ m=11; y--; } else if(m>11){ m=0; y++; }
+  state.attFilter.y=y; state.attFilter.m=m;
+  state.attRankRows=null;
+  hzRender();
+}
+function setAttYear(v){ state.attFilter.y=parseInt(v,10)||new Date().getFullYear(); state.attRankRows=null; }
+function applyAttCustom(){
+  const f=document.getElementById('attFromInput'), t=document.getElementById('attToInput');
+  state.attFilter.from = f? f.value : todayISO();
+  state.attFilter.to = t? t.value : todayISO();
+  state.attRankRows=null;
+  hzRender();
+}
+function setPosterMode(mode){
+  state.posterFilter.mode=mode;
+  hzRender();
+}
+function applyPosterCustom(){
+  const f=document.getElementById('posterFromInput'), t=document.getElementById('posterToInput');
+  state.posterFilter.from = f? f.value : todayISO();
+  state.posterFilter.to = t? t.value : todayISO();
+  hzRender();
+}
+function getStudentPhotoByName(name){
+  try{
+    const jmaDb = JSON.parse(localStorage.getItem('jamia_data_v4')) || [];
+    const rec = jmaDb.find(x=>x && x.n && x.n.trim()===String(name||'').trim());
+    return (rec && rec.photo) ? rec.photo : '';
+  }catch(e){ return ''; }
+}
+function setAttSort(v){
+  state.attSort=v;
+  if(state.attRankRows) buildAttRanking(); else hzRender();
+}
+
+/* ---------------- تمام طلبہ کی حاضری درجہ بندی (ساتھ میں حفظ پیش رفت) ---------------- */
+async function buildAttRanking(){
+  if(!state.students.length){ toast('کوئی طالب علم رجسٹرڈ نہیں ہے'); return; }
+  const {dates,label} = attRangeDates(state.attFilter);
+  if(!dates.length){ toast('کوئی دن منتخب نہیں'); return; }
+  const rows=[];
+  for(const s of state.students){
+    const raw = (s.id===state.activeId && state.student) ? state.student : await getJSON('student:'+s.id);
+    if(!raw) continue;
+    const {total, baseline, records} = normalizeStudentData(raw);
+    const stats = attStatsForStudent(records, dates);
+    const presentTotal = stats.present.sabaq+stats.present.sabqi+stats.present.manzil;
+    const naaghaTotal = stats.naagha.sabaq+stats.naagha.sabqi+stats.naagha.manzil;
+    const completed = combineWithBaseline(completedSabaq(records), baseline);
+    const remaining = remainingTotals(total, completed);
+    const hasRemaining = UNITS.some(u=>(remaining[u.key]||0)>0);
+    rows.push({id:s.id, name: raw.name || s.name || '—', stats, presentTotal, naaghaTotal, completed, remaining, hasRemaining});
+  }
+  if(!rows.length){ toast('کوئی ریکارڈ نہیں ملا'); return; }
+  rows.sort((a,b)=> state.attSort==='best' ? (b.presentTotal-a.presentTotal) : (b.naaghaTotal-a.naaghaTotal));
+  state.attRankRows=rows;
+  state.attRankLabel=label;
+  state.attRankDates=dates;
+  renderAttRankBox();
+}
+function renderAttRankBox(){
+  const box=document.getElementById('attRankBox');
+  if(!box) return;
+  const rows=state.attRankRows||[];
+  const totalDays=(state.attRankDates||[]).length;
+  box.innerHTML = `<div class="hint" style="margin:10px 0 4px">مدت: ${state.attRankLabel} • کل دن: ${totalDays}</div>` +
+    rows.map((r,i)=>{
+      const idEsc = r.id.replace(/'/g,"\\'");
+      return `
+      <div class="rank-row">
+        <span class="rank-idx">${i+1}</span>
+        <span class="rank-name" onclick="printStudentAttendance('${idEsc}')">${escapeHtml(r.name)}</span>
+        <span class="rank-cats">
+          <span class="rank-cat cat-sabaq">سبق ${r.stats.present.sabaq}/${totalDays}</span>
+          <span class="rank-cat cat-sabqi">سبقی ${r.stats.present.sabqi}/${totalDays}</span>
+          <span class="rank-cat cat-manzil">منزل ${r.stats.present.manzil}/${totalDays}</span>
+        </span>
+        <span class="rank-naagha">کل ناغہ: ${r.naaghaTotal}</span>
+        <span class="rank-quran">حفظ: مکمل ${unitsLine(r.completed)} • باقی ${r.hasRemaining? unitsLine(r.remaining) : 'مکمل ✓'}</span>
+        <span class="rank-actions">
+          <button class="btn-mini" onclick="event.stopPropagation();printStudentAttendance('${idEsc}','portrait')">🖨️ پورٹریٹ</button>
+          <button class="btn-mini" onclick="event.stopPropagation();printStudentAttendance('${idEsc}','landscape')">🖨️ لینڈسکیپ</button>
+          <button class="btn-mini" onclick="event.stopPropagation();shareRankedStudentPoster('${idEsc}')">🖼️ پوسٹر</button>
+        </span>
+      </div>`;
+    }).join('') + (rows.length? `<div class="rank-tap-hint">👆 نام پر تھپتھپائیں تاکہ فوری پورٹریٹ رپورٹ پرنٹ ہو، یا نیچے دیے بٹن استعمال کریں</div>` : '');
+}
+
+/* ---------------- پرنٹ / PDF — پورٹریٹ یا لینڈسکیپ منتخب کر کے سفید بلیک اینڈ وائٹ صفحہ پرنٹ/محفوظ کریں ---------------- */
+function doPrintReport(orientation){
+  let style = document.getElementById('dynPageStyle');
+  if(!style){ style=document.createElement('style'); style.id='dynPageStyle'; document.head.appendChild(style); }
+  style.textContent = `@page{ size:A4 ${orientation==='landscape'?'landscape':'portrait'}; margin:12mm 10mm; }`;
+  setTimeout(()=>window.print(), 150);
+}
+function prReportHeaderPhotoHtml(photo, name){
+  if(!photo) return '';
+  return `<img src="${photo}" alt="" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid #222;display:block;margin:0 auto 8px">`;
+}
+
+/* ---------------- ایک طالب علم کی مکمل حاضری + حفظ پیش رفت — پرنٹ رپورٹ ---------------- */
+async function printStudentAttendance(id, orientation){
+  if(!id){ toast('طالب علم منتخب نہیں'); return; }
+  const s = state.students.find(x=>x.id===id);
+  if(!s){ toast('طالب علم نہیں ملا'); return; }
+  const raw = (id===state.activeId && state.student) ? state.student : await getJSON('student:'+id);
+  if(!raw){ toast('ریکارڈ نہیں ملا'); return; }
+  const {total, baseline, records} = normalizeStudentData(raw);
+  const {dates, label} = attRangeDates(state.attFilter);
+  if(!dates.length){ toast('کوئی دن منتخب نہیں'); return; }
+  const stats = attStatsForStudent(records, dates);
+  const completed = combineWithBaseline(completedSabaq(records), baseline);
+  const remaining = remainingTotals(total, completed);
+  const hasRemaining = UNITS.some(u=>(remaining[u.key]||0)>0);
+  const eta = hasRemaining ? overallEta(records, remaining) : null;
+  const photo = getStudentPhotoByName(raw.name || s.name);
+
+  const rowsHtml = stats.rows.map(row=>`
+    <tr>
+      <td>${fmtDate(row.date)}</td>
+      ${CATS.map(c=>`<td class="cat-cell-${c.key} ${row.cells[c.key].naagha?'naagha':''}">${row.cells[c.key].text}</td>`).join('')}
+    </tr>`).join('');
+
+  const root=document.getElementById('printReportRoot');
+  root.innerHTML=`
+    <div class="pr-page">
+      <div class="pr-header">
+        ${prReportHeaderPhotoHtml(photo, raw.name || s.name)}
+        <h1>حاضری رپورٹ — ${escapeHtml(raw.name || s.name)}</h1>
+        <div class="sub">مدت: ${label} • کل دن: ${dates.length} • تیار کردہ: ${fmtDate(todayISO())}</div>
+      </div>
+
+      <div class="pr-card">
+        <table class="pr-table att-table">
+          <thead><tr><th style="width:26%">تاریخ</th>${CATS.map(c=>`<th class="cat-h-${c.key}">${c.label}</th>`).join('')}</tr></thead>
+          <tbody>${rowsHtml || `<tr><td colspan="4" class="empty">اس مدت میں کوئی دن نہیں</td></tr>`}</tbody>
+          <tfoot>
+            <tr>
+              <td>حاضری (کل)</td>
+              ${CATS.map(c=>`<td class="cat-cell-${c.key}">${stats.present[c.key]}</td>`).join('')}
+            </tr>
+            <tr>
+              <td>ناغہ (کل)</td>
+              ${CATS.map(c=>`<td class="cat-cell-${c.key} naagha">${stats.naagha[c.key]}</td>`).join('')}
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="pr-quran-sub">حفظ قرآن پیش رفت (سبق کی بنیاد پر)</div>
+      <div class="pr-card">
+        <table class="pr-table">
+          <thead><tr><th></th>${UNITS.map(u=>`<th>${u.label}</th>`).join('')}</tr></thead>
+          <tbody>
+            <tr><td class="pr-name" style="width:auto">کل قرآن</td>${UNITS.map(u=>`<td>${total[u.key]||0}</td>`).join('')}</tr>
+            <tr><td class="pr-name" style="width:auto">مکمل</td>${UNITS.map(u=>`<td>${completed[u.key]||0}</td>`).join('')}</tr>
+            <tr><td class="pr-name" style="width:auto">باقی</td>${UNITS.map(u=>`<td>${remaining[u.key]||0}</td>`).join('')}</tr>
+          </tbody>
+        </table>
+        <div style="text-align:center;padding:10px 6px;font-weight:700">${hasRemaining ? 'تخمینہ ختم قرآن: '+(eta||'روزانہ سبق درج کرنا شروع کریں') : 'مبارک ہو، قرآن مکمل! 🎉'}</div>
+      </div>
+
+      <div class="pr-footer">Attendance & Hifz Progress Report — سولہ سطری حفظی مصحف کے مطابق</div>
+    </div>`;
+
+  doPrintReport(orientation||'portrait');
+}
+
+/* ---------------- موجودہ (ایکٹو) طالب علم کی PDF رپورٹ — posterFilter کی مدت کے ساتھ ---------------- */
+async function printPosterReport(orientation){
+  if(!state.student || !state.activeId){ toast('پہلے طالب علم منتخب کریں'); return; }
+  const s = state.students.find(x=>x.id===state.activeId);
+  const raw = state.student;
+  const {total, baseline, records} = normalizeStudentData(raw);
+  const {dates, label} = attRangeDates(state.posterFilter);
+  if(!dates.length){ toast('کوئی دن منتخب نہیں'); return; }
+  const stats = attStatsForStudent(records, dates);
+  const completed = combineWithBaseline(completedSabaq(records), baseline);
+  const remaining = remainingTotals(total, completed);
+  const hasRemaining = UNITS.some(u=>(remaining[u.key]||0)>0);
+  const eta = hasRemaining ? overallEta(records, remaining) : null;
+  const photo = getStudentPhotoByName(raw.name || (s&&s.name));
+  const totalPresent = stats.present.sabaq+stats.present.sabqi+stats.present.manzil;
+  const totalNaagha = stats.naagha.sabaq+stats.naagha.sabqi+stats.naagha.manzil;
+
+  const root=document.getElementById('printReportRoot');
+  root.innerHTML=`
+    <div class="pr-page">
+      <div class="pr-header">
+        ${prReportHeaderPhotoHtml(photo, raw.name||(s&&s.name))}
+        <h1>حاضری و حفظ رپورٹ — ${escapeHtml(raw.name || (s&&s.name) || '—')}</h1>
+        <div class="sub">مدت: ${label} • کل دن: ${dates.length} • تیار کردہ: ${fmtDate(todayISO())}</div>
+      </div>
+
+      <div class="pr-quran-sub">حاضری خلاصہ (منتخب مدت میں)</div>
+      <div class="pr-card">
+        <table class="pr-table">
+          <thead><tr><th></th>${CATS.map(c=>`<th class="cat-h-${c.key}">${c.label}</th>`).join('')}<th>مجموعی</th></tr></thead>
+          <tbody>
+            <tr><td class="pr-name" style="width:auto">حاضر دن</td>${CATS.map(c=>`<td class="cat-cell-${c.key}">${stats.present[c.key]}/${dates.length}</td>`).join('')}<td>${totalPresent}</td></tr>
+            <tr><td class="pr-name" style="width:auto">ناغہ دن</td>${CATS.map(c=>`<td class="cat-cell-${c.key} naagha">${stats.naagha[c.key]}</td>`).join('')}<td>${totalNaagha}</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pr-quran-sub">حفظ قرآن پیش رفت (اب تک، کل ریکارڈ کی بنیاد پر)</div>
+      <div class="pr-card">
+        <table class="pr-table">
+          <thead><tr><th></th>${UNITS.map(u=>`<th>${u.label}</th>`).join('')}</tr></thead>
+          <tbody>
+            <tr><td class="pr-name" style="width:auto">کل قرآن</td>${UNITS.map(u=>`<td>${total[u.key]||0}</td>`).join('')}</tr>
+            <tr><td class="pr-name" style="width:auto">مکمل</td>${UNITS.map(u=>`<td>${completed[u.key]||0}</td>`).join('')}</tr>
+            <tr><td class="pr-name" style="width:auto">باقی</td>${UNITS.map(u=>`<td>${remaining[u.key]||0}</td>`).join('')}</tr>
+          </tbody>
+        </table>
+        <div style="text-align:center;padding:10px 6px;font-weight:700">${hasRemaining ? 'تخمینہ ختم قرآن: '+(eta||'روزانہ سبق درج کرنا شروع کریں') : 'مبارک ہو، قرآن مکمل! 🎉'}</div>
+      </div>
+
+      <div class="pr-footer">Attendance & Hifz Progress Report — سولہ سطری حفظی مصحف کے مطابق</div>
+    </div>`;
+
+  doPrintReport(orientation||'portrait');
+}
 
 /* ---------------- پرنٹ / PDF رپورٹ (تمام طلبہ) ---------------- */
 const REPORT_UNIT_ORDER = ['para','pao','ruku','lines'];
@@ -4031,7 +4458,7 @@ function normalizeStudentData(stu){
   });
   return {total, baseline, records};
 }
-async function generateAllStudentsReport(){
+async function generateAllStudentsReport(orientation){
   if(!state.students.length){ toast('کوئی طالب علم رجسٹرڈ نہیں ہے'); return; }
   const rows=[];
   for(const s of state.students){
@@ -4077,7 +4504,7 @@ async function generateAllStudentsReport(){
       <div class="pr-footer">Hifz Progress Report — سولہ سطری حفظی مصحف کے مطابق</div>
     </div>`;
 
-  setTimeout(()=>window.print(), 150);
+  doPrintReport(orientation||'portrait');
 }
 window.addEventListener('afterprint', ()=>{
   const root=document.getElementById('printReportRoot');
@@ -4085,50 +4512,95 @@ window.addEventListener('afterprint', ()=>{
 });
 
 /* ---------------- پوسٹر شیئر کریں (واٹس ایپ) ---------------- */
-async function sharePoster(){
-  if(!state.student) return;
+async function shareRankedStudentPoster(id){
+  const s = state.students.find(x=>x.id===id);
+  if(!s){ toast('طالب علم نہیں ملا'); return; }
+  const raw = (id===state.activeId && state.student) ? state.student : await getJSON('student:'+id);
+  if(!raw){ toast('ریکارڈ نہیں ملا'); return; }
+  const {total, baseline, records} = normalizeStudentData(raw);
+  await sharePoster({name: raw.name||s.name, total, baseline, records}, state.attFilter);
+}
+async function sharePoster(studentOverride, filterOverride){
+  if(!studentOverride && !state.student) return;
   if(typeof html2canvas==='undefined'){ toast('پوسٹر فیچر لوڈ نہیں ہو سکا — انٹرنیٹ چیک کریں'); return; }
-  const st=state.student;
+  const st = studentOverride || state.student;
   const total=st.total;
   const completed=combineWithBaseline(completedSabaq(st.records), st.baseline);
   const remaining=remainingTotals(total,completed);
   const eta=overallEta(st.records,remaining);
   const hasRemaining=UNITS.some(u=>(remaining[u.key]||0)>0);
 
+  const {dates, label} = attRangeDates(filterOverride || state.posterFilter || {mode:'last30'});
+  const stats = attStatsForStudent(st.records||[], dates);
+  const totalDays = dates.length;
+  const photo = getStudentPhotoByName(st.name);
+  const instName = (document.getElementById('madrasaName') ? document.getElementById('madrasaName').textContent.trim() : '') || 'گلشن فاروقی جامعہ تعلیم القرآن';
+
+  const catMeta = {
+    sabaq:  {label:'سبق',  grad:'linear-gradient(160deg,#2FCB6B,#0E8F4A)',  ring:'#1EAE5C'},
+    sabqi:  {label:'سبقی', grad:'linear-gradient(160deg,#3FA9F5,#1565C0)',  ring:'#2489DD'},
+    manzil: {label:'منزل', grad:'linear-gradient(160deg,#C084F5,#7C3AAE)',  ring:'#9A4FCF'},
+  };
+  const catCardsHtml = CATS.map(c=>{
+    const meta = catMeta[c.key];
+    const present = stats.present[c.key]||0;
+    const naagha = stats.naagha[c.key]||0;
+    return `<div style="flex:1;min-width:0;background:${meta.grad};border-radius:18px;padding:14px 6px;text-align:center;box-shadow:0 10px 20px -10px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.35),inset 0 -3px 8px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.35)">
+      <div style="font-size:14px;font-weight:800;color:#fff;text-shadow:0 1px 0 rgba(255,255,255,.35),0 2px 4px rgba(0,0,0,.35);margin-bottom:6px">${meta.label}</div>
+      <div style="font-size:24px;font-weight:900;color:#fff;text-shadow:0 1px 0 rgba(255,255,255,.4),0 3px 6px rgba(0,0,0,.4)">${present}<span style="font-size:13px;opacity:.85">/${totalDays}</span></div>
+      <div style="font-size:11px;font-weight:700;color:#FFE9E9;margin-top:5px;text-shadow:0 1px 3px rgba(0,0,0,.4)">ناغہ: ${naagha}</div>
+    </div>`;
+  }).join('');
+
+  const photoHtml = photo
+    ? `<div style="width:118px;height:118px;margin:0 auto 14px;border-radius:50%;padding:5px;background:linear-gradient(140deg,#FFF3B0,#E6C55A,#FFF3B0);box-shadow:0 10px 24px -8px rgba(0,0,0,.5),0 0 0 4px rgba(255,255,255,.25)">
+         <div style="width:100%;height:100%;border-radius:50%;overflow:hidden;border:3px solid #fff"><img src="${photo}" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+       </div>`
+    : `<div style="width:118px;height:118px;margin:0 auto 14px;border-radius:50%;background:linear-gradient(140deg,#FFF3B0,#E6C55A);display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:900;color:#7A5A00;box-shadow:0 10px 24px -8px rgba(0,0,0,.5),0 0 0 4px rgba(255,255,255,.25)">${escapeHtml((st.name||'?').trim().charAt(0))}</div>`;
+
   const wrap=document.createElement('div');
   wrap.style.position='fixed'; wrap.style.left='-9999px'; wrap.style.top='0';
   wrap.innerHTML=`
-    <div id="posterCard" style="width:640px;font-family:'Noto Naskh Arabic',Arial,sans-serif;direction:rtl;background:linear-gradient(160deg,#0B6E4F,#08352A);padding:30px;border-radius:24px;color:#fff;position:relative;overflow:hidden">
-      <div style="position:absolute;inset:0;background:radial-gradient(circle at 85% 8%,rgba(230,197,90,.22),transparent 55%)"></div>
+    <div id="posterCard" style="width:720px;font-family:'Noto Naskh Arabic',Arial,sans-serif;direction:rtl;background:linear-gradient(155deg,#12B36E 0%,#0E9D5E 30%,#0A7E4A 62%,#E6B93A 130%);padding:36px 30px;border-radius:32px;color:#fff;position:relative;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)">
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 12% -6%,rgba(255,255,255,.28),transparent 45%),radial-gradient(circle at 100% 105%,rgba(255,243,176,.35),transparent 50%)"></div>
       <div style="position:relative;text-align:center">
-        <div style="font-size:12px;letter-spacing:.14em;color:#E6C55A;text-transform:uppercase;margin-bottom:6px">Hifz Progress Report</div>
-        <div style="font-size:26px;font-weight:700;margin-bottom:3px">حفظ پروگریس رپورٹ</div>
-        <div style="font-size:16px;color:#DCEFE6;margin-bottom:18px">${escapeHtml(st.name)}</div>
-        <div style="display:inline-block;background:#fff;color:#08352A;padding:11px 28px;border-radius:16px;font-weight:800;font-size:15px;margin-bottom:20px;box-shadow:0 8px 18px -8px rgba(0,0,0,.35)">
+        <div style="font-size:12px;letter-spacing:.16em;color:#FFF6D8;text-transform:uppercase;margin-bottom:4px;text-shadow:0 2px 4px rgba(0,0,0,.35)">Attendance & Hifz Report</div>
+        <div style="font-size:19px;font-weight:800;color:#fff;margin-bottom:16px;text-shadow:0 2px 4px rgba(0,0,0,.35)">${escapeHtml(instName)}</div>
+
+        ${photoHtml}
+        <div style="font-size:25px;font-weight:900;margin-bottom:4px;color:#fff;text-shadow:0 2px 0 rgba(255,255,255,.3),0 4px 8px rgba(0,0,0,.4)">${escapeHtml(st.name||'—')}</div>
+
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.22);backdrop-filter:blur(2px);border:1px solid rgba(255,255,255,.4);color:#fff;padding:7px 20px;border-radius:999px;font-weight:800;font-size:13px;margin:8px 0 18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)">📅 مدت: ${label} • ${totalDays} دن</div>
+
+        <div style="display:flex;gap:10px;margin-bottom:16px">${catCardsHtml}</div>
+
+        <div style="display:inline-block;background:#fff;color:#08352A;padding:11px 26px;border-radius:16px;font-weight:800;font-size:14.5px;margin-bottom:18px;box-shadow:0 10px 20px -8px rgba(0,0,0,.4)">
           ${hasRemaining? (eta? 'تخمینہ ختم قرآن: '+eta : 'روزانہ سبق درج کرنا شروع کریں') : 'مبارک ہو، قرآن مکمل! 🎉'}
         </div>
-        <table style="width:100%;border-collapse:collapse;background:rgba(255,255,255,.09);border-radius:14px;overflow:hidden;font-size:14px">
+
+        <table style="width:100%;border-collapse:collapse;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);border-radius:16px;overflow:hidden;font-size:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)">
           <thead><tr>
             <th style="padding:10px 4px"></th>
-            ${UNITS.map(u=>`<th style="padding:10px 4px;color:#E6C55A;font-size:13px">${u.label}</th>`).join('')}
+            ${UNITS.map(u=>`<th style="padding:10px 4px;color:#FFF6D8;font-size:13px;text-shadow:0 1px 3px rgba(0,0,0,.35)">${u.label}</th>`).join('')}
           </tr></thead>
           <tbody>
-            <tr style="border-top:1px solid rgba(255,255,255,.18)"><td style="padding:9px 4px;color:#DCEFE6;text-align:right;padding-inline-start:14px">کل قرآن</td>${UNITS.map(u=>`<td style="padding:9px 4px;font-weight:700">${total[u.key]||0}</td>`).join('')}</tr>
-            <tr style="border-top:1px solid rgba(255,255,255,.18)"><td style="padding:9px 4px;color:#DCEFE6;text-align:right;padding-inline-start:14px">مکمل</td>${UNITS.map(u=>`<td style="padding:9px 4px;font-weight:700;color:#7CFFCB">${completed[u.key]||0}</td>`).join('')}</tr>
-            <tr style="border-top:1px solid rgba(255,255,255,.18)"><td style="padding:9px 4px;color:#DCEFE6;text-align:right;padding-inline-start:14px">باقی</td>${UNITS.map(u=>`<td style="padding:9px 4px;font-weight:700;color:#FFD3A6">${remaining[u.key]||0}</td>`).join('')}</tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.25)"><td style="padding:9px 4px;color:#fff;text-align:right;padding-inline-start:14px;font-weight:700">کل قرآن</td>${UNITS.map(u=>`<td style="padding:9px 4px;font-weight:800;color:#fff">${total[u.key]||0}</td>`).join('')}</tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.25)"><td style="padding:9px 4px;color:#fff;text-align:right;padding-inline-start:14px;font-weight:700">مکمل</td>${UNITS.map(u=>`<td style="padding:9px 4px;font-weight:800;color:#B9FFDA;text-shadow:0 1px 3px rgba(0,0,0,.35)">${completed[u.key]||0}</td>`).join('')}</tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.25)"><td style="padding:9px 4px;color:#fff;text-align:right;padding-inline-start:14px;font-weight:700">باقی</td>${UNITS.map(u=>`<td style="padding:9px 4px;font-weight:800;color:#FFE1AE;text-shadow:0 1px 3px rgba(0,0,0,.35)">${remaining[u.key]||0}</td>`).join('')}</tr>
           </tbody>
         </table>
-        <div style="margin-top:18px;font-size:11.5px;color:#B9D8CB">${fmtDate(todayISO())}</div>
+
+        <div style="margin-top:18px;font-size:11.5px;color:#FFF6D8;text-shadow:0 1px 3px rgba(0,0,0,.3)">تیار کردہ: ${fmtDate(todayISO())}</div>
       </div>
     </div>`;
   document.body.appendChild(wrap);
   try{
-    const canvas = await html2canvas(wrap.querySelector('#posterCard'), {scale:2, backgroundColor:null});
+    const canvas = await html2canvas(wrap.querySelector('#posterCard'), {scale:2, backgroundColor:null, useCORS:true});
     canvas.toBlob(async (blob)=>{
       if(!blob){ toast('پوسٹر بنانے میں مسئلہ ہوا'); document.body.removeChild(wrap); return; }
       const file = new File([blob], (st.name||'hifz')+'-poster.png', {type:'image/png'});
       if(navigator.canShare && navigator.canShare({files:[file]})){
-        try{ await navigator.share({files:[file], title:'حفظ پروگریس رپورٹ', text: st.name+' کی حفظ پروگریس رپورٹ'}); }
+        try{ await navigator.share({files:[file], title:'حاضری و حفظ رپورٹ', text: st.name+' کی حاضری و حفظ رپورٹ'}); }
         catch(e){ /* user cancelled — no toast needed */ }
       } else {
         const url=URL.createObjectURL(blob);
