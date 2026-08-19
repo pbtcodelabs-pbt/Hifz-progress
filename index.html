@@ -1318,7 +1318,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD198WE1026AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD198WE0438PM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -2693,7 +2693,11 @@ function updMr(i, field, v) {
 }
 
 function del(i) {
-  if (confirm('کیا آپ اس طالب علم کا ریکارڈ حذف کرنا چاہتے ہیں؟')) {
+  const s = db[i];
+  const name = s ? (s.n || '') : '';
+  const father = s ? (s.w || '') : '';
+  const label = name ? ('طالب علم "' + name + (father ? ('، ولد ' + father) : '') + '"') : 'اس طالب علم';
+  if (confirm('کیا آپ ' + label + ' کا ریکارڈ حذف کرنا چاہتے ہیں؟')) {
     db.splice(i, 1);
     localStorage.setItem(SK, JSON.stringify(db));
     renderCurrent(); updateStats();
@@ -2705,12 +2709,32 @@ function del(i) {
 // SORT
 // ============================================================
 function calcScore(text) {
-  if (!text) return 0;
-  const t = text.toLowerCase();
-  if (t.includes('مکمل') || t.includes('قرآن') || t.includes('قران')) return 1000;
-  if (t.includes('قاعدہ') || t.includes('تختی') || t.includes('کلمہ')) return -100;
+  if (!text) return -3000;
+  const t = text;
+
+  // درجہ 1 (سب سے اوپر): مکمل قرآن پاک
+  if (t.includes('مکمل') && (t.includes('قرآن') || t.includes('قران'))) return 100000;
+
+  // تختیاں — سب سے آخر میں، مگر انہی میں زیادہ تختیاں اوپر رہیں
+  if (t.includes('تختی')) {
+    const nums = t.match(/\d+/g);
+    const n = nums ? nums.reduce((a, x) => a + parseInt(x, 10), 0) : 0;
+    return -3000 + n;
+  }
+
+  // نورانی قاعدہ / کلمہ — تختیوں سے اوپر، ناظرہ سے نیچے
+  if (t.includes('نورانی') || t.includes('قاعدہ') || t.includes('کلمہ')) return -2000;
+
+  // ناظرہ — ہمیشہ تمام حفظ (سپارے/سورتیں) کے نیچے، اندر موجود کسی بھی نمبر سے بےتعلق
+  if (t.includes('ناظرہ') || t.includes('ناظره')) return -1000;
+
+  // درجہ 2: حفظ کے سپارے/سورتیں — زیادہ سپارے اوپر، پھر تھوڑے، پھر آدھا سپارہ، پھر سورتیں
+  if (t.includes('آدھا') || t.includes('ادھا')) return 0.5;
   const nums = t.match(/\d+/g);
-  return nums ? nums.reduce((a, n) => a + parseInt(n, 10), 0) : 0;
+  if (nums) return nums.reduce((a, n) => a + parseInt(n, 10), 0);
+  if (t.includes('سورت') || t.includes('سورہ') || t.includes('سوره')) return 0.1;
+
+  return 0;
 }
 
 function sortList() {
