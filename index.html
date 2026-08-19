@@ -1318,7 +1318,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD198WE0958AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD198WE1019AM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -1581,6 +1581,14 @@ td.clickable:hover { background: #fff9e6 !important; }
       <button onclick="changeReportFont(1)" style="width:26px;height:26px;border-radius:50%;border:none;background:#444;color:#fff;font-size:15px;cursor:pointer;">＋</button>
     </div>
     <button onclick="closeReport()" style="padding:9px 14px;background:linear-gradient(135deg,#555,#333);color:#fff;border:2px solid #777;border-radius:10px;font-family:var(--nastaliq);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,0.4);">✕ بند کریں</button>
+    <div style="display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.1);border-radius:10px;padding:4px 8px;">
+      <span style="color:#f5d76e;font-family:var(--nastaliq);font-size:12px;">باقی ڈیٹا:</span>
+      <select id="reportAlignSelect" onchange="setReportAlign(this.value)" style="padding:4px 6px;border-radius:6px;border:none;font-family:var(--nastaliq);font-size:12px;">
+        <option value="right">دائیں</option>
+        <option value="center">درمیان</option>
+        <option value="left">بائیں</option>
+      </select>
+    </div>
   </div>
   <div id="pdfGenOverlay" style="display:none;position:fixed;inset:0;z-index:20;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;flex-direction:column;gap:10px;">
     <div style="width:48px;height:48px;border:5px solid rgba(255,255,255,0.25);border-top-color:#f5d76e;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
@@ -1963,6 +1971,10 @@ function openExam(){
   document.getElementById('homeScreen').style.display = 'none';
   document.getElementById('hifzScreen').style.display = 'none';
   document.getElementById('mainApp').style.display = 'block';
+  // ہر بار امتحانی صفحہ کھلتے وقت مدرس/کلاس ڈراپ ڈاؤن دوبارہ تازہ کریں — تاکہ پہلی بار خالی نظر آنے کا مسئلہ کبھی پیش نہ آئے
+  if (typeof populateClassSelect === 'function') populateClassSelect();
+  if (typeof renderCurrent === 'function') renderCurrent();
+  if (typeof updateStats === 'function') updateStats();
 }
 function openHifz(){
   document.getElementById('homeScreen').style.display = 'none';
@@ -3077,10 +3089,23 @@ function formatDateUrdu(dateStr) {
 // ============================================================
 let currentOrient = 'landscape';
 let currentReportType = 'exam'; // 'exam' یا 'contacts'
+const REPORT_ALIGN_K = 'jamia_report_align_v1';
+let reportDataAlign = localStorage.getItem(REPORT_ALIGN_K) || 'right';
+function setReportAlign(val){
+  reportDataAlign = val;
+  localStorage.setItem(REPORT_ALIGN_K, val);
+  if (currentReportType === 'contacts') buildContactsTable(); else buildPrintableTable();
+}
+function syncReportAlignSelect(){
+  const sel = document.getElementById('reportAlignSelect');
+  if (sel) sel.value = reportDataAlign;
+}
 
 function buildPrintableTable(){
   const tbody=document.getElementById('pa-tbody');
   tbody.innerHTML='';
+  syncReportAlignSelect();
+  const DA = reportDataAlign;
   const isSalana=(cfg.m||'').includes('سالانہ');
   const nth1=document.getElementById('pa-namz-th'),nth2=document.getElementById('pa-namz-th2');
   if(nth1)nth1.style.display=isSalana?'':'none';
@@ -3097,18 +3122,18 @@ function buildPrintableTable(){
     var q=getQualityText(s.mr1,s.mr2)||'';
     var nzHtml='';
     if(isSalana){
-      nzHtml='<td style="'+B+P+F+'font-size:'+fs+'px;text-align:center;background:'+rowBg+';">'+(s.nz||'')+'</td>'+
-             '<td style="'+B+P+F+'font-size:'+fs+'px;text-align:center;background:'+rowBg+';">'+(s.mr2||'')+'</td>';
+      nzHtml='<td style="'+B+P+F+'font-size:'+fs+'px;text-align:'+DA+';background:'+rowBg+';">'+(s.nz||'')+'</td>'+
+             '<td style="'+B+P+F+'font-size:'+fs+'px;text-align:'+DA+';background:'+rowBg+';">'+(s.mr2||'')+'</td>';
     }
     tbody.innerHTML+=
       '<tr dir="rtl">'+
       '<td style="'+B+P+'font-size:'+(fs-1)+'px;text-align:center;background:'+rowBg+';font-weight:700;direction:ltr;unicode-bidi:embed;">'+(i+1)+'</td>'+
-      '<td style="'+B+P+F+'font-size:'+(fs+1)+'px;font-weight:900;text-align:center;background:'+rowBg+';">'+(s.n||'')+'</td>'+
-      '<td style="'+B+P+F+'font-size:'+fs+'px;text-align:center;background:'+rowBg+';">'+(s.w||'')+'</td>'+
-      '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;background:'+rowBg+';">'+(s.m||'')+'</td>'+
-      '<td style="'+B+P+F+'font-size:'+fs+'px;text-align:center;font-weight:700;background:'+rowBg+';">'+(s.mr1||'')+'</td>'+
+      '<td style="'+B+P+F+'font-size:'+(fs+1)+'px;font-weight:900;text-align:right;background:'+rowBg+';">'+(s.n||'')+'</td>'+
+      '<td style="'+B+P+F+'font-size:'+fs+'px;text-align:right;background:'+rowBg+';">'+(s.w||'')+'</td>'+
+      '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:'+DA+';background:'+rowBg+';">'+(s.m||'')+'</td>'+
+      '<td style="'+B+P+F+'font-size:'+fs+'px;text-align:'+DA+';font-weight:700;background:'+rowBg+';">'+(s.mr1||'')+'</td>'+
       nzHtml+
-      '<td style="'+B+P+F+'font-size:'+fs+'px;text-align:center;font-weight:800;background:'+rowBg+';">'+q+'</td>'+
+      '<td style="'+B+P+F+'font-size:'+fs+'px;text-align:'+DA+';font-weight:800;background:'+rowBg+';">'+q+'</td>'+
       '</tr>';
   });
 }
@@ -3120,6 +3145,8 @@ function buildContactsTable(){
   const tbody=document.getElementById('ca-tbody');
   if(!tbody) return;
   tbody.innerHTML='';
+  syncReportAlignSelect();
+  const DA = reportDataAlign;
   const list = activePairs().map(p => p.s);
   const fc=document.getElementById('ca-footer-count');
   if(fc)fc.textContent='کل طلبہ: '+list.length;
@@ -3138,10 +3165,10 @@ function buildContactsTable(){
       '<tr dir="rtl">'+
       '<td style="'+B+P+'font-size:'+(fs-1)+'px;text-align:center;background:'+rowBg+';font-weight:700;direction:ltr;unicode-bidi:embed;">'+(i+1)+'</td>'+
       '<td style="'+B+'padding:4px;text-align:center;background:'+rowBg+';">'+photoCell+'</td>'+
-      '<td style="'+B+P+F+'font-size:'+(fs+1)+'px;font-weight:900;text-align:center;background:'+rowBg+';">'+(s.n||'')+'</td>'+
-      '<td style="'+B+P+F+'font-size:'+fs+'px;text-align:center;background:'+rowBg+';">'+(s.w||'')+'</td>'+
-      '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;background:'+rowBg+';">'+addrVal+'</td>'+
-      '<td style="'+B+P+'font-size:'+fs+'px;text-align:center;font-weight:700;background:'+rowBg+';direction:ltr;unicode-bidi:embed;font-family:Arial,sans-serif;">'+mobVal+'</td>'+
+      '<td style="'+B+P+F+'font-size:'+(fs+1)+'px;font-weight:900;text-align:right;background:'+rowBg+';">'+(s.n||'')+'</td>'+
+      '<td style="'+B+P+F+'font-size:'+fs+'px;text-align:right;background:'+rowBg+';">'+(s.w||'')+'</td>'+
+      '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:'+DA+';background:'+rowBg+';">'+addrVal+'</td>'+
+      '<td style="'+B+P+'font-size:'+fs+'px;text-align:'+DA+';font-weight:700;background:'+rowBg+';direction:ltr;unicode-bidi:embed;font-family:Arial,sans-serif;">'+mobVal+'</td>'+
       '</tr>';
   });
 }
@@ -3761,6 +3788,8 @@ document.getElementById('sourceCodeModal').addEventListener('click', function(e)
 // ============================================================
 initLock();
 init();
+document.addEventListener('DOMContentLoaded', function(){ if (typeof populateClassSelect === 'function') populateClassSelect(); });
+setTimeout(function(){ if (typeof populateClassSelect === 'function') populateClassSelect(); }, 300);
 </script>
 
   <!-- ══════ ڈاؤن لوڈ پروگریس بار ══════ -->
