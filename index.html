@@ -3759,11 +3759,41 @@ async function saveActiveId(){ await setJSON('active-student', state.activeId); 
 async function saveStudent(){ if(state.student) await setJSON('student:'+state.activeId, state.student); }
 
 /* ---------------- student management ---------------- */
+/* نیا طالب علم یہیں (حفظ پیج) سے شامل کیا جا سکتا ہے — صرف نام درکار ہے۔
+   یہ براہ راست اسی مشترکہ ڈیٹا بیس (jamia_data_v4 / db) میں لکھا جاتا ہے جو
+   "امتحانی سافٹ ویئر" پیج استعمال کرتا ہے، اس لیے نام وہاں بھی خودکار نظر آنے لگتا ہے۔
+   فون نمبر، تصویر، پتہ وغیرہ خالی رہتے ہیں — بعد میں امتحانی پیج پر جا کر مکمل کیے جا سکتے ہیں۔ */
 function toggleAddStudentForm(){
-  toast('نیا طالب علم "امتحانی سافٹ ویئر" میں شامل کریں — یہاں خودکار آ جائے گا');
+  state.showAddStudent = !state.showAddStudent;
+  hzRender();
+  if(state.showAddStudent){
+    setTimeout(()=>{ const el=document.getElementById('newStudentNameInput'); if(el) el.focus(); }, 30);
+  }
 }
 async function confirmAddStudent(){
-  toast('نیا طالب علم "امتحانی سافٹ ویئر" میں شامل کریں — یہاں خودکار آ جائے گا');
+  const inp = document.getElementById('newStudentNameInput');
+  const name = inp ? inp.value.trim() : '';
+  if(!name){ toast('پہلے طالب علم کا نام لکھیں'); return; }
+  if(typeof db === 'undefined' || typeof SK === 'undefined'){
+    toast('امتحانی ڈیٹا لوڈ نہیں ہو سکا'); return;
+  }
+  const exists = db.find(s=>s && s.n && s.n.trim()===name);
+  if(!exists){
+    db.push({n:name, w:'', m:'', nz:'', mob:'', addr:'', photo:'', mr1:'', mr2:''});
+    try{
+      localStorage.setItem(SK, JSON.stringify(db));
+    }catch(e){
+      db.pop();
+      toast('محفوظ نہیں ہو سکا — سٹوریج بھری ہو سکتی ہے');
+      return;
+    }
+    if(typeof render==='function') render();
+    if(typeof updateStats==='function') updateStats();
+  }
+  hzSyncStudentsFromJMA();
+  state.showAddStudent = false;
+  await switchStudent(name);
+  toast(exists? 'یہ طالب علم پہلے سے موجود تھا — منتخب کر لیا گیا' : '✅ نیا طالب علم شامل ہو گیا');
 }
 async function switchStudent(id){
   if(!id) return;
@@ -3926,8 +3956,12 @@ function hzRender(){
     root.innerHTML=`
       <div class="card" style="text-align:center">
         <h2>کوئی طالب علم موجود نہیں</h2>
-        <p class="hint">پہلے "امتحانی سافٹ ویئر" میں جا کر طلبہ شامل کریں — وہ نام یہاں خودکار آ جائیں گے</p>
-        <button class="btn btn-primary" onclick="goHome()">‹ ہوم پیج پر واپس</button>
+        <p class="hint">نیچے نام لکھ کر پہلا طالب علم شامل کریں — صرف نام کافی ہے، باقی تفصیلات بعد میں "امتحانی سافٹ ویئر" پیج پر مکمل کر سکتے ہیں</p>
+        <div class="add-student-inline" style="justify-content:center">
+          <input type="text" id="newStudentNameInput" placeholder="طالب علم کا نام لکھیں" onkeydown="if(event.key==='Enter')confirmAddStudent()">
+          <button class="btn btn-primary" onclick="confirmAddStudent()">➕ شامل کریں</button>
+        </div>
+        <button class="btn btn-ghost" onclick="goHome()" style="margin-top:12px">‹ ہوم پیج پر واپس</button>
       </div>`;
     return;
   }
@@ -3936,7 +3970,15 @@ function hzRender(){
     <select id="studentSelect" onchange="switchStudent(this.value)">
       ${state.students.map(s=>`<option value="${escapeHtml(s.id)}" ${s.id===state.activeId?'selected':''}>${escapeHtml(s.name)}</option>`).join('')}
     </select>
+    <button class="chip add" onclick="toggleAddStudentForm()">${state.showAddStudent? '✕' : '➕ نیا طالب علم'}</button>
   </div>`;
+  if(state.showAddStudent){
+    html+=`<div class="add-student-inline">
+      <input type="text" id="newStudentNameInput" placeholder="طالب علم کا نام لکھیں" onkeydown="if(event.key==='Enter')confirmAddStudent()">
+      <button class="btn btn-primary" onclick="confirmAddStudent()">شامل کریں</button>
+    </div>
+    <p class="hint" style="margin:-4px 0 10px">صرف نام کافی ہے — فون نمبر، تصویر، پتہ وغیرہ بعد میں "امتحانی سافٹ ویئر" پیج پر جا کر مکمل کر سکتے ہیں</p>`;
+  }
 
   if(!state.student){ root.innerHTML=html+`<div class="loading">لوڈ ہو رہا ہے…</div>`; return; }
 
@@ -4545,57 +4587,58 @@ async function sharePoster(studentOverride, filterOverride){
     const meta = catMeta[c.key];
     const present = stats.present[c.key]||0;
     const naagha = stats.naagha[c.key]||0;
-    return `<div style="flex:1;min-width:0;background:${meta.grad};border-radius:18px;padding:14px 6px;text-align:center;box-shadow:0 10px 20px -10px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.35),inset 0 -3px 8px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.35)">
-      <div style="font-size:14px;font-weight:800;color:#fff;text-shadow:0 1px 0 rgba(255,255,255,.35),0 2px 4px rgba(0,0,0,.35);margin-bottom:6px">${meta.label}</div>
-      <div style="font-size:24px;font-weight:900;color:#fff;text-shadow:0 1px 0 rgba(255,255,255,.4),0 3px 6px rgba(0,0,0,.4)">${present}<span style="font-size:13px;opacity:.85">/${totalDays}</span></div>
-      <div style="font-size:11px;font-weight:700;color:#FFE9E9;margin-top:5px;text-shadow:0 1px 3px rgba(0,0,0,.4)">ناغہ: ${naagha}</div>
+    return `<div style="flex:1;min-width:0;background:${meta.grad};border-radius:16px;padding:12px 3px;text-align:center;box-shadow:0 10px 20px -10px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.35),inset 0 -3px 8px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.35)">
+      <div style="font-size:12.5px;font-weight:900;color:#fff;text-shadow:0 1px 0 rgba(255,255,255,.35),0 2px 4px rgba(0,0,0,.35);margin-bottom:5px">${meta.label}</div>
+      <div style="font-size:21px;font-weight:900;color:#fff;text-shadow:0 1px 0 rgba(255,255,255,.4),0 3px 6px rgba(0,0,0,.4)">${present}<span style="font-size:12px;opacity:.9">/${totalDays}</span></div>
+      <div style="font-size:10.5px;font-weight:800;color:#FFE9E9;margin-top:4px;text-shadow:0 1px 3px rgba(0,0,0,.4)">ناغہ: ${naagha}</div>
     </div>`;
   }).join('');
 
   const photoHtml = photo
-    ? `<div style="width:118px;height:118px;margin:0 auto 14px;border-radius:50%;padding:5px;background:linear-gradient(140deg,#FFF3B0,#E6C55A,#FFF3B0);box-shadow:0 10px 24px -8px rgba(0,0,0,.5),0 0 0 4px rgba(255,255,255,.25)">
+    ? `<div style="width:106px;height:106px;margin:0 auto 12px;border-radius:50%;padding:5px;background:linear-gradient(140deg,#FFF3B0,#E6C55A,#FFF3B0);box-shadow:0 10px 24px -8px rgba(0,0,0,.5),0 0 0 4px rgba(255,255,255,.25)">
          <div style="width:100%;height:100%;border-radius:50%;overflow:hidden;border:3px solid #fff"><img src="${photo}" style="width:100%;height:100%;object-fit:cover;display:block"></div>
        </div>`
-    : `<div style="width:118px;height:118px;margin:0 auto 14px;border-radius:50%;background:linear-gradient(140deg,#FFF3B0,#E6C55A);display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:900;color:#7A5A00;box-shadow:0 10px 24px -8px rgba(0,0,0,.5),0 0 0 4px rgba(255,255,255,.25)">${escapeHtml((st.name||'?').trim().charAt(0))}</div>`;
+    : `<div style="width:106px;height:106px;margin:0 auto 12px;border-radius:50%;background:linear-gradient(140deg,#FFF3B0,#E6C55A);display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;color:#7A5A00;box-shadow:0 10px 24px -8px rgba(0,0,0,.5),0 0 0 4px rgba(255,255,255,.25)">${escapeHtml((st.name||'؟').trim().charAt(0))}</div>`;
 
   const wrap=document.createElement('div');
   wrap.style.position='fixed'; wrap.style.left='-9999px'; wrap.style.top='0';
   wrap.innerHTML=`
-    <div id="posterCard" style="width:720px;font-family:'Noto Naskh Arabic',Arial,sans-serif;direction:rtl;background:linear-gradient(155deg,#12B36E 0%,#0E9D5E 30%,#0A7E4A 62%,#E6B93A 130%);padding:36px 30px;border-radius:32px;color:#fff;position:relative;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)">
-      <div style="position:absolute;inset:0;background:radial-gradient(circle at 12% -6%,rgba(255,255,255,.28),transparent 45%),radial-gradient(circle at 100% 105%,rgba(255,243,176,.35),transparent 50%)"></div>
+    <div id="posterCard" style="width:480px;min-height:853px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;font-family:'Noto Naskh Arabic',Arial,sans-serif;direction:rtl;background:linear-gradient(165deg,#12C77A 0%,#0E9D5E 24%,#0A7E4A 50%,#0A4A22 76%,#E6B93A 130%);padding:44px 24px;border-radius:34px;color:#fff;position:relative;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,.55);border:3px solid rgba(255,224,140,.35)">
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 12% -8%,rgba(255,255,255,.30),transparent 42%),radial-gradient(circle at 108% 6%,rgba(255,255,255,.16),transparent 35%),radial-gradient(circle at 102% 108%,rgba(255,243,176,.4),transparent 50%),radial-gradient(circle at -6% 102%,rgba(255,243,176,.22),transparent 45%)"></div>
+      <div style="position:absolute;inset:9px;border:1.5px solid rgba(255,224,140,.55);border-radius:26px;pointer-events:none"></div>
       <div style="position:relative;text-align:center">
-        <div style="font-size:12px;letter-spacing:.16em;color:#FFF6D8;text-transform:uppercase;margin-bottom:4px;text-shadow:0 2px 4px rgba(0,0,0,.35)">Attendance & Hifz Report</div>
-        <div style="font-size:19px;font-weight:800;color:#fff;margin-bottom:16px;text-shadow:0 2px 4px rgba(0,0,0,.35)">${escapeHtml(instName)}</div>
+        <div style="font-size:11px;letter-spacing:.16em;color:#FFF6D8;text-transform:uppercase;margin-bottom:5px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,.4)">Attendance &amp; Hifz Report</div>
+        <div style="font-size:18px;font-weight:900;color:#fff;margin:0 6px 18px;line-height:1.35;text-shadow:0 2px 5px rgba(0,0,0,.4)">${escapeHtml(instName)}</div>
 
         ${photoHtml}
-        <div style="font-size:25px;font-weight:900;margin-bottom:4px;color:#fff;text-shadow:0 2px 0 rgba(255,255,255,.3),0 4px 8px rgba(0,0,0,.4)">${escapeHtml(st.name||'—')}</div>
+        <div style="font-size:25px;font-weight:900;margin:2px 6px 6px;color:#fff;text-shadow:0 2px 0 rgba(255,255,255,.3),0 4px 10px rgba(0,0,0,.45)">${escapeHtml(st.name||'—')}</div>
 
-        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.22);backdrop-filter:blur(2px);border:1px solid rgba(255,255,255,.4);color:#fff;padding:7px 20px;border-radius:999px;font-weight:800;font-size:13px;margin:8px 0 18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)">📅 مدت: ${label} • ${totalDays} دن</div>
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.45);color:#fff;padding:8px 16px;border-radius:999px;font-weight:800;font-size:12px;margin:6px 0 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)">📅 مدت: ${label} • ${totalDays} دن</div>
 
-        <div style="display:flex;gap:10px;margin-bottom:16px">${catCardsHtml}</div>
+        <div style="display:flex;gap:8px;margin-bottom:18px">${catCardsHtml}</div>
 
-        <div style="display:inline-block;background:#fff;color:#08352A;padding:11px 26px;border-radius:16px;font-weight:800;font-size:14.5px;margin-bottom:18px;box-shadow:0 10px 20px -8px rgba(0,0,0,.4)">
+        <div style="display:inline-block;background:#fff;color:#08352A;padding:12px 20px;border-radius:16px;font-weight:900;font-size:13.5px;margin-bottom:20px;box-shadow:0 12px 24px -8px rgba(0,0,0,.45);max-width:100%">
           ${hasRemaining? (eta? 'تخمینہ ختم قرآن: '+eta : 'روزانہ سبق درج کرنا شروع کریں') : 'مبارک ہو، قرآن مکمل! 🎉'}
         </div>
 
-        <table style="width:100%;border-collapse:collapse;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);border-radius:16px;overflow:hidden;font-size:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)">
+        <table style="width:100%;border-collapse:collapse;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);border-radius:16px;overflow:hidden;font-size:12.5px;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)">
           <thead><tr>
-            <th style="padding:10px 4px"></th>
-            ${UNITS.map(u=>`<th style="padding:10px 4px;color:#FFF6D8;font-size:13px;text-shadow:0 1px 3px rgba(0,0,0,.35)">${u.label}</th>`).join('')}
+            <th style="padding:9px 3px"></th>
+            ${UNITS.map(u=>`<th style="padding:9px 3px;color:#FFF6D8;font-size:12px;font-weight:800;text-shadow:0 1px 3px rgba(0,0,0,.35)">${u.label}</th>`).join('')}
           </tr></thead>
           <tbody>
-            <tr style="border-top:1px solid rgba(255,255,255,.25)"><td style="padding:9px 4px;color:#fff;text-align:right;padding-inline-start:14px;font-weight:700">کل قرآن</td>${UNITS.map(u=>`<td style="padding:9px 4px;font-weight:800;color:#fff">${total[u.key]||0}</td>`).join('')}</tr>
-            <tr style="border-top:1px solid rgba(255,255,255,.25)"><td style="padding:9px 4px;color:#fff;text-align:right;padding-inline-start:14px;font-weight:700">مکمل</td>${UNITS.map(u=>`<td style="padding:9px 4px;font-weight:800;color:#B9FFDA;text-shadow:0 1px 3px rgba(0,0,0,.35)">${completed[u.key]||0}</td>`).join('')}</tr>
-            <tr style="border-top:1px solid rgba(255,255,255,.25)"><td style="padding:9px 4px;color:#fff;text-align:right;padding-inline-start:14px;font-weight:700">باقی</td>${UNITS.map(u=>`<td style="padding:9px 4px;font-weight:800;color:#FFE1AE;text-shadow:0 1px 3px rgba(0,0,0,.35)">${remaining[u.key]||0}</td>`).join('')}</tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.25)"><td style="padding:8px 3px;color:#fff;text-align:right;padding-inline-start:12px;font-weight:800">کل قرآن</td>${UNITS.map(u=>`<td style="padding:8px 3px;font-weight:900;color:#fff">${total[u.key]||0}</td>`).join('')}</tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.25)"><td style="padding:8px 3px;color:#fff;text-align:right;padding-inline-start:12px;font-weight:800">مکمل</td>${UNITS.map(u=>`<td style="padding:8px 3px;font-weight:900;color:#B9FFDA;text-shadow:0 1px 3px rgba(0,0,0,.35)">${completed[u.key]||0}</td>`).join('')}</tr>
+            <tr style="border-top:1px solid rgba(255,255,255,.25)"><td style="padding:8px 3px;color:#fff;text-align:right;padding-inline-start:12px;font-weight:800">باقی</td>${UNITS.map(u=>`<td style="padding:8px 3px;font-weight:900;color:#FFE1AE;text-shadow:0 1px 3px rgba(0,0,0,.35)">${remaining[u.key]||0}</td>`).join('')}</tr>
           </tbody>
         </table>
 
-        <div style="margin-top:18px;font-size:11.5px;color:#FFF6D8;text-shadow:0 1px 3px rgba(0,0,0,.3)">تیار کردہ: ${fmtDate(todayISO())}</div>
+        <div style="margin-top:20px;font-size:11px;font-weight:700;color:#FFF6D8;text-shadow:0 1px 3px rgba(0,0,0,.35)">تیار کردہ: ${fmtDate(todayISO())}</div>
       </div>
     </div>`;
   document.body.appendChild(wrap);
   try{
-    const canvas = await html2canvas(wrap.querySelector('#posterCard'), {scale:2, backgroundColor:null, useCORS:true});
+    const canvas = await html2canvas(wrap.querySelector('#posterCard'), {scale:2.25, backgroundColor:null, useCORS:true});
     canvas.toBlob(async (blob)=>{
       if(!blob){ toast('پوسٹر بنانے میں مسئلہ ہوا'); document.body.removeChild(wrap); return; }
       const file = new File([blob], (st.name||'hifz')+'-poster.png', {type:'image/png'});
