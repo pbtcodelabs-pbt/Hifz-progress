@@ -944,6 +944,12 @@ td.clickable:hover { background: #fff9e6 !important; }
   #hifzScreen .entry-table input[type=number]:focus{outline:2px solid var(--emerald-700);outline-offset:1px}
 
   #hifzScreen .settings-toggle{font-size:11.5px;color:var(--emerald-800);cursor:pointer;text-decoration:underline;background:none;border:none;padding:0;font-family:inherit}
+  #hifzScreen .reports-menu-wrap{margin-bottom:10px}
+  #hifzScreen .reports-menu-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px}
+  #hifzScreen .reports-menu-btn .rm-arrow{font-size:10px}
+  #hifzScreen .reports-menu-panel{margin-top:6px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:6px;display:flex;flex-direction:column;gap:4px;box-shadow:0 6px 18px -12px rgba(43,38,32,.3)}
+  #hifzScreen .rm-item{text-align:right;background:var(--parchment-2);border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-family:inherit;font-size:13px;font-weight:700;color:var(--emerald-950);cursor:pointer}
+  #hifzScreen .rm-item:active{transform:scale(.98)}
   #hifzScreen .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--emerald-950);color:#fff;padding:9px 20px;border-radius:999px;font-size:12.5px;box-shadow:var(--shadow);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:50}
   #hifzScreen .toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
   #hifzScreen .loading{text-align:center;padding:40px 8px;color:var(--ink-soft)}
@@ -1255,7 +1261,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD198WE0423AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD198WE0708AM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -1461,6 +1467,17 @@ td.clickable:hover { background: #fff9e6 !important; }
     <button class="modal-btn" style="width:100%;padding:13px;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:10px;font-family:var(--nastaliq);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:8px;" onclick="openWaSpecific('com.whatsapp')">💬 واٹس ایپ (عام)</button>
     <button class="modal-btn" style="width:100%;padding:13px;background:linear-gradient(135deg,#128c7e,#0a3d0a);color:#fff;border:none;border-radius:10px;font-family:var(--nastaliq);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:8px;" onclick="openWaSpecific('com.whatsapp.w4b')">💼 واٹس ایپ بزنس</button>
     <button class="modal-btn modal-btn-cancel" onclick="closeWaChooser()">منسوخ کریں</button>
+  </div>
+</div>
+
+<!-- POSTER PREVIEW MODAL — پوسٹر بننے کے بعد پہلے یہاں دکھایا جاتا ہے، پھر شیئر بٹن سے واٹس ایپ پر بھیجا جاتا ہے -->
+<div class="modal-overlay" id="posterPreviewModal">
+  <div class="modal-card" style="max-width:300px;padding:14px;text-align:center;">
+    <div class="modal-title" style="margin-bottom:10px">🖼️ پوسٹر پیش منظر</div>
+    <img id="posterPreviewImg" src="" alt="پوسٹر پیش منظر" style="width:100%;display:block;border-radius:18px;box-shadow:0 14px 30px -12px rgba(0,0,0,.45);margin-bottom:14px;">
+    <button class="modal-btn" id="posterShareBtn" style="width:100%;padding:13px;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:10px;font-family:var(--nastaliq);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:8px;" onclick="confirmSharePoster()">💬 واٹس ایپ پر شیئر کریں</button>
+    <button class="modal-btn" style="width:100%;padding:11px;background:#fff;color:var(--green-dark);border:1.5px solid var(--green-mid);border-radius:10px;font-family:var(--nastaliq);font-size:13.5px;font-weight:700;cursor:pointer;margin-bottom:8px;" onclick="downloadPreviewPoster()">📥 تصویر کے طور پر محفوظ کریں</button>
+    <button class="modal-btn modal-btn-cancel" onclick="closePosterPreview()">بند کریں</button>
   </div>
 </div>
 
@@ -1856,7 +1873,6 @@ function unlockApp() {
   document.getElementById('hifzScreen').style.display = 'none';
   document.getElementById('homeScreen').style.display = 'flex';
   updateSubInfo();
-  updateLiveVersionBadge();
 }
 function openExam(){
   document.getElementById('homeScreen').style.display = 'none';
@@ -2311,27 +2327,15 @@ document.addEventListener('DOMContentLoaded', function() {
     stage.addEventListener('pointercancel', peOnPointerUp);
     stage.addEventListener('pointerleave', peOnPointerUp);
   }
-  updateLiveVersionBadge();
-  setInterval(updateLiveVersionBadge, 60000);
 });
 
 /* ============================================================
-   لائیو ورژن کوڈ — فکسڈ نہیں، ہر بار موجودہ (تازہ ترین) وقت کے
-   آخری چار ہندسوں کے ساتھ خودکار بنتا ہے، مستقل اپڈیٹ ہوتا رہتا ہے
+   ورژن کوڈ — فکسڈ ہے، اس فائل کے تیار ہونے کے وقت کے مطابق ایک ہی بار
+   لکھا گیا ہے (اوپر HTML میں id="homeVersionBadge")۔ یہ لائیو گھڑی کی
+   طرح خودکار اپڈیٹ نہیں ہوتا — تاکہ اس نمبر سے یہ پتہ چل سکے کہ
+   یہ فائل کب بنی/اپلوڈ ہوئی تھی، نہ کہ ابھی کیا وقت ہے۔
+   نیا ورژن بنانا ہو تو نیچے HTML میں homeVersionBadge کی ویلیو ہاتھ سے بدلیں۔
    ============================================================ */
-function buildLiveVersionCode() {
-  const d = new Date();
-  let h = d.getHours();
-  const ampm = h >= 12 ? 'PM' : 'AM';
-  h = h % 12; if (h === 0) h = 12;
-  const hh = String(h).padStart(2, '0');
-  const mm = String(d.getMinutes()).padStart(2, '0');
-  return 'MD198WE' + hh + mm + ampm;
-}
-function updateLiveVersionBadge() {
-  const el = document.getElementById('homeVersionBadge');
-  if (el) el.textContent = buildLiveVersionCode();
-}
 
 function savePhotoEdit() {
   if (!peSrcImg) return;
@@ -3795,6 +3799,10 @@ async function confirmAddStudent(){
   await switchStudent(name);
   toast(exists? 'یہ طالب علم پہلے سے موجود تھا — منتخب کر لیا گیا' : '✅ نیا طالب علم شامل ہو گیا');
 }
+function toggleReportsMenu(){
+  state.showReportsMenu = !state.showReportsMenu;
+  hzRender();
+}
 async function switchStudent(id){
   if(!id) return;
   state.activeId = id;
@@ -4056,11 +4064,14 @@ function hzRender(){
   }
 
   /* ================= MAIN PAGE ================= */
-  html+=`<div class="row" style="justify-content:space-between;margin-bottom:10px;flex-wrap:wrap">
-    <button class="settings-toggle" onclick="generateAllStudentsReport('portrait')">📄 تمام طلبہ کی PDF رپورٹ (پورٹریٹ)</button>
-    <button class="settings-toggle" onclick="generateAllStudentsReport('landscape')">📄 تمام طلبہ کی PDF رپورٹ (لینڈسکیپ)</button>
-    <button class="settings-toggle" onclick="openAttendance()">📋 حاضری رپورٹ</button>
-    <button class="settings-toggle" onclick="openSettings()">⚙ مکمل قرآن / پہلے سے مکمل مقدار</button>
+  html+=`<div class="reports-menu-wrap">
+    <button class="btn btn-ghost reports-menu-btn" onclick="toggleReportsMenu()">⚙ رپورٹس اور سیٹنگز <span class="rm-arrow">${state.showReportsMenu?'▲':'▼'}</span></button>
+    ${state.showReportsMenu? `<div class="reports-menu-panel">
+      <button class="rm-item" onclick="generateAllStudentsReport('portrait')">📄 تمام طلبہ کی PDF رپورٹ — پورٹریٹ</button>
+      <button class="rm-item" onclick="generateAllStudentsReport('landscape')">📄 تمام طلبہ کی PDF رپورٹ — لینڈسکیپ</button>
+      <button class="rm-item" onclick="openAttendance()">📋 حاضری رپورٹ</button>
+      <button class="rm-item" onclick="openSettings()">🕋 مکمل قرآن / پہلے سے مکمل مقدار</button>
+    </div>` : ''}
   </div>`;
 
   /* ---- روزانہ اندراج: ایک ہی ٹیبل — کالم: سبق/سبقی/منزل، قطاریں: لائنیں/رکوع/پاؤ/پارہ ---- */
@@ -4565,7 +4576,14 @@ async function shareRankedStudentPoster(id){
 async function sharePoster(studentOverride, filterOverride){
   if(!studentOverride && !state.student) return;
   if(typeof html2canvas==='undefined'){ toast('پوسٹر فیچر لوڈ نہیں ہو سکا — انٹرنیٹ چیک کریں'); return; }
-  const st = studentOverride || state.student;
+  let st = studentOverride || state.student;
+  if(!st.name){
+    /* state.student کے پاس نام محفوظ نہیں ہوتا (وہ صرف حفظ ریکارڈ رکھتا ہے)،
+       اس لیے موجودہ منتخب طالب علم کا نام students لسٹ سے لیا جاتا ہے تاکہ
+       پوسٹر پر نام اور اس کی (امتحانی صفحہ والی) تصویر دونوں صحیح آئیں */
+    const activeMeta = state.students.find(x=>x.id===state.activeId);
+    st = Object.assign({}, st, {name: (activeMeta && activeMeta.name) || state.activeId || ''});
+  }
   const total=st.total;
   const completed=combineWithBaseline(completedSabaq(st.records), st.baseline);
   const remaining=remainingTotals(total,completed);
@@ -4639,25 +4657,59 @@ async function sharePoster(studentOverride, filterOverride){
   document.body.appendChild(wrap);
   try{
     const canvas = await html2canvas(wrap.querySelector('#posterCard'), {scale:2.25, backgroundColor:null, useCORS:true});
-    canvas.toBlob(async (blob)=>{
-      if(!blob){ toast('پوسٹر بنانے میں مسئلہ ہوا'); document.body.removeChild(wrap); return; }
-      const file = new File([blob], (st.name||'hifz')+'-poster.png', {type:'image/png'});
-      if(navigator.canShare && navigator.canShare({files:[file]})){
-        try{ await navigator.share({files:[file], title:'حاضری و حفظ رپورٹ', text: st.name+' کی حاضری و حفظ رپورٹ'}); }
-        catch(e){ /* user cancelled — no toast needed */ }
-      } else {
-        const url=URL.createObjectURL(blob);
-        const a=document.createElement('a'); a.href=url; a.download=file.name; a.click();
-        URL.revokeObjectURL(url);
-        toast('پوسٹر ڈاؤن لوڈ ہو گیا — واٹس ایپ پر شیئر کریں');
-      }
-      document.body.removeChild(wrap);
-    }, 'image/png');
+    const blob = await new Promise(resolve=>canvas.toBlob(resolve, 'image/png'));
+    document.body.removeChild(wrap);
+    if(!blob){ toast('پوسٹر بنانے میں مسئلہ ہوا'); return; }
+    showPosterPreview(blob, st.name);
   }catch(e){
     console.error(e);
     toast('پوسٹر بنانے میں مسئلہ ہوا');
-    document.body.removeChild(wrap);
+    if(wrap.parentNode) document.body.removeChild(wrap);
   }
+}
+
+/* ---------------- پوسٹر پیش منظر — پہلے سکرین پر دکھائیں، پھر صارف کے بٹن دبانے پر ہی شیئر ہو ---------------- */
+function showPosterPreview(blob, studentName){
+  if(window.__posterPreviewUrl){ URL.revokeObjectURL(window.__posterPreviewUrl); }
+  const url = URL.createObjectURL(blob);
+  window.__posterPreviewUrl = url;
+  window.__posterPreviewData = {blob, name: studentName||'طالب علم'};
+  const img = document.getElementById('posterPreviewImg');
+  if(img) img.src = url;
+  const modal = document.getElementById('posterPreviewModal');
+  if(modal) modal.classList.add('show');
+}
+function closePosterPreview(){
+  const modal = document.getElementById('posterPreviewModal');
+  if(modal) modal.classList.remove('show');
+}
+async function confirmSharePoster(){
+  const data = window.__posterPreviewData;
+  if(!data){ toast('پوسٹر نہیں ملا'); return; }
+  const btn = document.getElementById('posterShareBtn');
+  const origText = btn ? btn.textContent : '';
+  if(btn){ btn.disabled = true; btn.textContent = '⏳ تیار ہو رہا ہے...'; }
+  try{
+    const file = new File([data.blob], (data.name||'hifz').replace(/[^\u0600-\u06FFa-zA-Z0-9]+/g,'_')+'-poster.png', {type:'image/png'});
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      try{ await navigator.share({files:[file], title:'حاضری و حفظ رپورٹ', text: data.name+' کی حاضری و حفظ رپورٹ'}); }
+      catch(e){ /* user cancelled — no toast needed */ }
+    } else {
+      downloadPreviewPoster();
+    }
+  } finally {
+    if(btn){ btn.disabled = false; btn.textContent = origText; }
+  }
+}
+function downloadPreviewPoster(){
+  const data = window.__posterPreviewData;
+  if(!data){ toast('پوسٹر نہیں ملا'); return; }
+  const url = URL.createObjectURL(data.blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=(data.name||'hifz').replace(/[^\u0600-\u06FFa-zA-Z0-9]+/g,'_')+'-poster.png';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('پوسٹر تصویر کے طور پر محفوظ ہو گیا');
 }
 
 /* hzBoot() is called from openHifz() when the user opens the Hifz screen — not auto-run here */
