@@ -1318,7 +1318,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD198WE0822PM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD198WE0836PM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -1604,17 +1604,14 @@ td.clickable:hover { background: #fff9e6 !important; }
         <div style="font-family:var(--nastaliq);font-size:13px;color:#333;margin-top:2px;direction:rtl;unicode-bidi:embed;">امتحانی رپورٹ</div>
       </div>
 
-      <!-- معلومات — table کی شکل میں (flex کی بجائے)، تاکہ پرنٹ انجن پر بھی ہمیشہ درست اور مکمل نظر آئے۔
-           لیبل اور ویلیو ایک ہی بولڈ یونٹ میں (کوئی الگ سے باریک/دھندلا لیبل نہیں) -->
+      <!-- معلومات — تینوں (کلاس نمبر/امتحان/تاریخ) ایک ساتھ جڑے ہوئے، پیج کے بالکل درمیان میں -->
       <table style="width:100%;border-collapse:collapse;background:#fff;border-bottom:1px solid #999;direction:rtl;unicode-bidi:embed;">
         <tr>
-          <td style="width:33.34%;text-align:right;padding:7px 12px 7px 4px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
+          <td style="text-align:center;padding:8px 10px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
             <span id="pa-teacher" style="font-family:var(--nastaliq);font-size:17px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;"></span>
-          </td>
-          <td style="width:33.33%;text-align:center;padding:7px 4px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
+            <span style="display:inline-block;width:22px;"></span>
             <span id="pa-method" style="font-family:var(--nastaliq);font-size:17px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;"></span>
-          </td>
-          <td style="width:33.33%;text-align:left;padding:7px 4px 7px 12px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
+            <span style="display:inline-block;width:22px;"></span>
             <span id="pa-date" style="font-family:var(--nastaliq);font-size:17px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;"></span>
           </td>
         </tr>
@@ -1660,10 +1657,9 @@ td.clickable:hover { background: #fff9e6 !important; }
            لیبل اور ویلیو ایک ہی بولڈ یونٹ میں (کوئی الگ سے باریک/دھندلا لیبل نہیں) -->
       <table style="width:100%;border-collapse:collapse;background:#fff;border-bottom:1px solid #999;direction:rtl;unicode-bidi:embed;">
         <tr>
-          <td style="width:50%;text-align:right;padding:7px 12px 7px 4px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
+          <td style="text-align:center;padding:8px 10px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
             <span id="ca-teacher" style="font-family:var(--nastaliq);font-size:16px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;"></span>
-          </td>
-          <td style="width:50%;text-align:left;padding:7px 4px 7px 12px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
+            <span style="display:inline-block;width:22px;"></span>
             <span id="ca-date" style="font-family:var(--nastaliq);font-size:16px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;"></span>
           </td>
         </tr>
