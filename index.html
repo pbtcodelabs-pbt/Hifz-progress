@@ -217,13 +217,15 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
   background: linear-gradient(180deg, rgba(255,255,255,0.36) 0%, rgba(255,255,255,0.1) 100%);
   box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.5), inset 0 -2px 4px rgba(0,0,0,0.18), 0 0 0 2px rgba(249,215,110,0.6), 0 4px 9px rgba(0,0,0,0.4);
 }
-.hf-box input {
+.hf-box input, .hf-box select {
   flex: 1; min-width: 0; height: 100%;
   padding: 0 11px; border: none; background: transparent; color: #fff;
   font-size: calc(14px * var(--zoom, 1)); font-family: var(--nastaliq); font-weight: 700;
   outline: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   width: 100%; box-sizing: border-box; position: relative; z-index: 1;
 }
+.hf-box select { cursor: pointer; -webkit-appearance: none; appearance: none; }
+.hf-box select option { color: #000; }
 .hf-box input::placeholder { color: rgba(255,255,255,0.55); }
 
 .hf-box-date { padding: 0 10px 0 6px; gap: 6px; cursor: pointer; }
@@ -1316,7 +1318,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD198WE0932AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD198WE0945AM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -1336,7 +1338,7 @@ td.clickable:hover { background: #fff9e6 !important; }
     <div class="header-fields">
       <div class="hf-item">
         <label class="hf-cap">👤 مدرس:</label>
-        <div class="hf-box"><input id="teacher" oninput="saveCfg()" placeholder="مدرس کا نام"></div>
+        <div class="hf-box"><select id="teacher" onchange="onClassSelect(this.value)"></select></div>
       </div>
       <div class="hf-item">
         <label class="hf-cap">📝 امتحان:</label>
@@ -2062,7 +2064,6 @@ function initLock() {
 // INIT
 // ============================================================
 function init() {
-  document.getElementById('teacher').value = cfg.t || '';
   document.getElementById('method').value = cfg.m || '';
   document.getElementById('date').value = cfg.d || '';
   document.getElementById('madrasaName').textContent = cfg.name || 'گلشن فاروقی جامعہ تعلیم القرآن';
@@ -2144,8 +2145,9 @@ function changeReportFont(dir) {
 
 function saveCfg() {
   const fs = cfg.reportFontSize;
+  const activeCls = classes.find(c => c.id === currentClassId);
   cfg = {
-    t: document.getElementById('teacher').value,
+    t: activeCls ? (activeCls.incharge || '') : (cfg.t || ''),
     m: document.getElementById('method').value,
     d: document.getElementById('date').value,
     name: document.getElementById('madrasaName').textContent.trim(),
@@ -2243,22 +2245,22 @@ function renderCurrent(){
   render(pairs.map(p => p.s), pairs.map(p => p.i));
 }
 function populateClassSelect(){
-  const sel = document.getElementById('classSelect');
-  if (!sel) return;
-  sel.innerHTML = classes.map(c =>
-    `<option value="${c.id}">${escapeHtml(c.name)}${c.incharge ? ' — ' + escapeHtml(c.incharge) : ''}</option>`
+  const optsHtml = classes.map(c =>
+    `<option value="${c.id}">${escapeHtml(c.incharge ? c.incharge : c.name)}</option>`
   ).join('');
-  sel.value = currentClassId;
+  ['teacher','classSelect'].forEach(elId => {
+    const sel = document.getElementById(elId);
+    if (!sel) return;
+    sel.innerHTML = optsHtml;
+    sel.value = currentClassId;
+  });
 }
 function onClassSelect(id){
   if (!classes.find(c => c.id === id)) return;
   currentClassId = id;
   localStorage.setItem(CUR_CLASS_K, currentClassId);
-  const cls = classes.find(c => c.id === id);
-  if (cls) {
-    document.getElementById('teacher').value = cls.incharge || '';
-    saveCfg();
-  }
+  populateClassSelect();
+  saveCfg();
   document.getElementById('searchInput').value = '';
   document.getElementById('searchClear').style.display = 'none';
   document.getElementById('suggestions').style.display = 'none';
@@ -2287,9 +2289,8 @@ function addClass(){
   const cls = { id: genClassId(), name: name.trim(), incharge: incharge.trim() };
   classes.push(cls);
   localStorage.setItem(CLASSES_K, JSON.stringify(classes));
-  populateClassSelect();
   onClassSelect(cls.id);
-  alert('✅ نئی کلاس شامل ہو گئی: ' + cls.name);
+  alert('✅ نئی کلاس شامل ہو گئی: ' + cls.name + '\n(یہ نئی کلاس ابھی خالی ہے — نیچے "＋ نیا" بٹن سے اس میں طلبہ شامل کریں)');
 }
 function editClass(){
   const cls = classes.find(c => c.id === currentClassId);
@@ -2303,7 +2304,6 @@ function editClass(){
   cls.incharge = incharge.trim();
   localStorage.setItem(CLASSES_K, JSON.stringify(classes));
   populateClassSelect();
-  document.getElementById('teacher').value = cls.incharge || '';
   saveCfg();
   alert('✅ کلاس کی تفصیل اپڈیٹ ہو گئی');
 }
@@ -3164,7 +3164,7 @@ function prepareContactsReport(){
   const madName = (madrasa ? madrasa.textContent.trim() : '') || cfg.name || 'جامعہ';
   const m=document.getElementById('ca-madrasa'),t=document.getElementById('ca-teacher'),d=document.getElementById('ca-date');
   if(m) m.textContent = madName;
-  if(t) t.textContent = cfg.t || document.getElementById('teacher').value || '';
+  if(t) t.textContent = cfg.t || '';
   if(d) d.textContent = cfg.d || document.getElementById('date').value || '';
   const orientStyle = document.getElementById('printOrientStyle');
   if(orientStyle) orientStyle.textContent = '@media print { @page { size: portrait; margin: 4mm; } }';
@@ -3183,7 +3183,7 @@ function prepareReport(orient){
   const m=document.getElementById('pa-madrasa'),t=document.getElementById('pa-teacher'),
         me=document.getElementById('pa-method'),d=document.getElementById('pa-date');
   if(m) m.textContent = madName;
-  if(t) t.textContent = cfg.t || document.getElementById('teacher').value || '';
+  if(t) t.textContent = cfg.t || '';
   if(me) me.textContent = cfg.m || document.getElementById('method').value || '';
   if(d) d.textContent = cfg.d || document.getElementById('date').value || '';
   const orientStyle = document.getElementById('printOrientStyle');
