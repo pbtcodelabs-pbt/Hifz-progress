@@ -44,7 +44,9 @@
   --border: #b8d4b8;
   --red: #c0392b;
   --blue: #1565c0;
-  --nastaliq: 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', Arial, sans-serif;
+  --font-nastaliq: 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', Arial, sans-serif;
+  --font-arial: 'Arial', 'Noto Naskh Arabic', sans-serif;
+  --nastaliq: var(--font-nastaliq);
   --zoom: 1;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1314,7 +1316,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD198WE0708AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD198TU0805AM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -1398,6 +1400,11 @@ td.clickable:hover { background: #fff9e6 !important; }
     <button class="zoom-btn" onclick="changeZoom(-1)">－</button>
     <span class="zoom-val" id="zoomVal">120%</span>
     <button class="zoom-btn" onclick="changeZoom(1)">＋</button>
+  </div>
+
+  <div class="zoom-bar no-print">
+    <span class="zoom-label">فونٹ اسٹائل:</span>
+    <select id="fontStyleSelect" class="reports-dd" onchange="setFontStyle(this.value)" style="flex:1;min-width:130px;"></select>
   </div>
 
   <div class="search-wrap no-print">
@@ -2036,6 +2043,7 @@ function init() {
   render();
   updateStats();
   loadZoom();
+  loadFontStyle();
   applyReportFont(parseInt(localStorage.getItem(REPORT_FONT_K), 10) || cfg.reportFontSize || 13);
 }
 
@@ -2056,6 +2064,35 @@ function applyZoom(z) {
 function changeZoom(dir) {
   const current = parseFloat(localStorage.getItem(ZOOM_K)) || 1;
   applyZoom(current + (dir * 0.1));
+}
+
+// ============================================================
+// فونٹ اسٹائل (نستعلیق / ایریل — مستقبل میں نئے فونٹ یہاں شامل کریں)
+// ============================================================
+const FONT_STYLE_K = 'jamia_font_style_v1';
+const FONT_OPTIONS = [
+  { id: 'nastaliq', label: 'جمیل نوری نستعلیق', value: "var(--font-nastaliq)" },
+  { id: 'arial',    label: 'اردو ایریل',        value: "var(--font-arial)" }
+  // نیا فونٹ شامل کرنے کے لیے: (1) اوپر css میں --font-xyz ویری ایبل بنائیں،
+  // (2) یہاں { id:'xyz', label:'...', value:'var(--font-xyz)' } کی ایک اور لائن شامل کریں
+];
+function populateFontStyleSelect() {
+  const sel = document.getElementById('fontStyleSelect');
+  if (!sel) return;
+  sel.innerHTML = FONT_OPTIONS.map(f => `<option value="${f.id}">${f.label}</option>`).join('');
+}
+function applyFontStyle(id) {
+  const opt = FONT_OPTIONS.find(f => f.id === id) || FONT_OPTIONS[0];
+  document.documentElement.style.setProperty('--nastaliq', opt.value);
+  localStorage.setItem(FONT_STYLE_K, opt.id);
+  const sel = document.getElementById('fontStyleSelect');
+  if (sel) sel.value = opt.id;
+}
+function setFontStyle(id) { applyFontStyle(id); }
+function loadFontStyle() {
+  populateFontStyleSelect();
+  const saved = localStorage.getItem(FONT_STYLE_K) || 'nastaliq';
+  applyFontStyle(saved);
 }
 
 const REPORT_FONT_K = 'jamia_report_font';
