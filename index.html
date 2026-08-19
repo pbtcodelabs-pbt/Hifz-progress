@@ -790,7 +790,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 .print-header {
   display: none;
 }
-@media print{body>*{display:none!important;}#reportOverlay{display:block!important;position:static!important;background:none!important;padding:0!important;margin:0!important;overflow:visible!important;}#reportOverlay>.no-print{display:none!important;}#printableWrap{display:block!important;padding:0!important;}#printableArea,#contactsArea{width:100%!important;max-width:100%!important;box-shadow:none!important;margin:0!important;padding:0!important;}#printableArea{display:block!important;}#contactsArea{display:none!important;}#printableWrap.show-contacts #printableArea{display:none!important;}#printableWrap.show-contacts #contactsArea{display:block!important;}table{width:100%!important;}thead{display:table-header-group!important;}tr{page-break-inside:avoid!important;}@page{margin:4mm;}}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+@media print{body>*{display:none!important;}#reportOverlay{display:block!important;position:static!important;background:none!important;padding:0!important;margin:0!important;overflow:visible!important;}#reportOverlay>.no-print{display:none!important;}#printableWrap{display:block!important;padding:0!important;}#printableArea,#contactsArea{width:100%!important;max-width:100%!important;box-shadow:none!important;margin:0!important;padding:0!important;}#printableArea{display:block!important;}#contactsArea{display:none!important;}#printableWrap.show-contacts #printableArea{display:none!important;}#printableWrap.show-contacts #contactsArea{display:block!important;}table{width:100%!important;}thead{display:table-header-group!important;}tr{page-break-inside:avoid!important;}}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
 
 /* ================= HOME SCREEN ================= */
 #homeScreen{
@@ -1318,7 +1318,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD198WE0451PM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD198WE0517PM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -3359,7 +3359,13 @@ async function generateAndPrintPdf(){
 
 // براہ راست native پرنٹ — html2canvas بالکل استعمال نہیں ہوتا، اس لیے اردو حروف
 // ہمیشہ صحیح اور جڑے ہوئے (ligature کے ساتھ) نظر آتے ہیں، browser کا اپنا print engine استعمال ہوتا ہے
+// نوٹ: لینڈ اسکیپ رپورٹ میں، Android کا پرنٹ/Save-as-PDF سسٹم بعض اوقات صفحے کی سمت (orientation) کو
+// حتمی فائل میں درست طور پر محفوظ نہیں کرتا، چاہے پریویو میں لینڈ اسکیپ ہی نظر آ رہی ہو — یہ Android کی
+// اپنی ایک معروف محدودیت ہے، ایپ کے کوڈ کا مسئلہ نہیں۔ اس لیے یہاں صارف کو یاد دہانی کرائی جاتی ہے۔
 function doNativePrint(){
+  if (currentOrient === 'landscape') {
+    alert('⚠️ یاد رہے: پرنٹ ڈائیلاگ میں "Paper orientation" پر ٹیپ کر کے یقینی بنائیں کہ "Landscape" منتخب ہے۔\n\nاگر پھر بھی محفوظ شدہ PDF پورٹریٹ میں آئے تو "📤 واٹس ایپ شیئر" بٹن استعمال کریں — وہ لینڈ اسکیپ ہمیشہ درست دیتا ہے۔');
+  }
   window.print();
 }
 
