@@ -763,24 +763,44 @@ td.clickable:hover { background: #fff9e6 !important; }
   align-items:center; justify-content:center; padding:28px 16px; text-align:center;
 }
 .home-wrap{ max-width:420px; width:100%; }
-.home-logo{ width:150px; height:150px; border-radius:26px; box-shadow:0 12px 34px rgba(0,0,0,.45); margin-bottom:16px; }
+.home-logo-wrap{
+  position:relative; width:150px; height:150px; margin:0 auto 18px; border-radius:30px; padding:5px;
+  background:linear-gradient(120deg,#0F6B4A,#C9A227,#FFF3B0,#7CFFCB,#E6C55A,#0F6B4A);
+  background-size:300% 300%;
+  animation:homeLogoShift 4s ease infinite, homeLogoPulse 2.2s ease-in-out infinite alternate;
+}
+@keyframes homeLogoShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes homeLogoPulse{from{box-shadow:0 0 10px rgba(230,197,90,.55),0 0 20px rgba(230,197,90,.3),0 12px 34px rgba(0,0,0,.45)}to{box-shadow:0 0 22px rgba(255,243,176,.95),0 0 40px rgba(124,255,203,.6),0 12px 34px rgba(0,0,0,.45)}}
+.home-logo{ display:block; width:100%; height:100%; border-radius:26px; }
 .home-title{ color:#fff; font-family:var(--nastaliq); font-size:21px; font-weight:800; margin-bottom:10px; line-height:1.7; }
 .home-version-badge{
   display:inline-block; margin-bottom:24px; padding:6px 18px; border-radius:20px;
   font-size:12px; font-weight:800; letter-spacing:.05em; color:#1F1400; font-family:Arial;
-  background:linear-gradient(90deg,#0F6B4A,#C9A227,#FFF3B0,#7CFFCB,#C9A227,#0F6B4A);
-  background-size:300% 100%;
-  animation:homeVtagShift 3.2s linear infinite, homeVtagGlow 1.6s ease-in-out infinite alternate;
+  background:#E6C55A;
   box-shadow:0 0 0 1px rgba(201,162,39,.35);
 }
-@keyframes homeVtagShift{0%{background-position:0% 50%}100%{background-position:300% 50%}}
-@keyframes homeVtagGlow{from{box-shadow:0 0 6px rgba(230,197,90,.55),0 0 12px rgba(230,197,90,.3)}to{box-shadow:0 0 16px rgba(255,243,176,.95),0 0 30px rgba(124,255,203,.55)}}
 .home-btns{ display:flex; flex-direction:column; gap:14px; }
 .home-btn{ padding:18px; border:none; border-radius:16px; font-family:var(--nastaliq); font-size:18px; font-weight:800; cursor:pointer; box-shadow:0 6px 0 rgba(0,0,0,.28); transition:transform .1s ease; }
 .home-btn:active{ transform:scale(.97); box-shadow:0 3px 0 rgba(0,0,0,.28); }
 .home-btn-hifz{ background:linear-gradient(180deg,#f5d76e,#c9a227); color:#1a1a1a; }
 .home-btn-exam{ background:linear-gradient(180deg,#2e9e4f,#0a3d0a); color:#fff; }
 .home-foot{ margin-top:22px; color:#bcd9bc; font-size:11px; font-family:Arial; }
+.dev-chat-bubble{
+  position:relative; display:inline-flex; align-items:center; gap:7px;
+  margin-top:12px; padding:10px 20px; border-radius:22px 22px 22px 6px;
+  background:linear-gradient(135deg,#25d366,#128c3e); color:#fff;
+  font-family:Arial; font-size:12.5px; font-weight:700; letter-spacing:.02em;
+  box-shadow:0 6px 16px -6px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.12) inset;
+  cursor:pointer; transition:transform .12s ease, box-shadow .12s ease;
+  animation:dcbFloat 2.6s ease-in-out infinite;
+}
+.dev-chat-bubble:active{ transform:scale(.95); }
+.dev-chat-bubble .dcb-icon{ font-size:15px; }
+.dev-chat-bubble .dcb-tail{
+  position:absolute; left:14px; bottom:-6px; width:12px; height:12px;
+  background:#128c3e; border-radius:0 0 12px 0; transform:rotate(45deg);
+}
+@keyframes dcbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 
 /* ================= HIFZ SCREEN (scoped) ================= */
 #hifzScreen{ display:none; }
@@ -969,7 +989,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 <div id="lockScreen" style="display: none;">
   <div class="lock-card">
     <div class="lock-madrasa" id="lockMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="lock-sub">Jamia Exam Software — by Abdul Hafeez</div>
+    <div class="lock-sub">Madrasa software by pbtcodelabs</div>
 
     <div class="trial-badge" id="trialBadge">⏳ ٹرائل موڈ — <span id="trialDaysLeft"></span> دن باقی ہیں</div>
 
@@ -1179,14 +1199,20 @@ td.clickable:hover { background: #fff9e6 !important; }
 <!-- ========== MAIN APP ========== -->
 <div id="homeScreen">
   <div class="home-wrap">
-    <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
+    <div class="home-logo-wrap">
+      <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
+    </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge">MD198WE0423AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD198WE0423AM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
     </div>
-    <div class="home-foot">Jamia Exam Software — by Abdul Hafeez</div>
+    <div class="home-foot">Madrasa software by pbtcodelabs</div>
+    <div class="dev-chat-bubble" onclick="openDevChat()">
+      <span class="dcb-icon">💬</span> Chat with developer
+      <span class="dcb-tail"></span>
+    </div>
   </div>
 </div>
 <div id="mainApp" style="display: block;">
@@ -1344,7 +1370,6 @@ td.clickable:hover { background: #fff9e6 !important; }
     <div class="kicker">Hifz Progress Report</div>
     <h1>حفظ پروگریس رپورٹ</h1>
     <div class="sub">روزانہ سبق، سبقی، منزل اور مکمل قرآنِ پاک کی متوقع تاریخ</div>
-    <div class="version-tag">MD198WE0423AM</div>
   </div>
   <div id="root"><div class="loading">لوڈ ہو رہا ہے…</div></div>
 </div>
@@ -2224,7 +2249,27 @@ document.addEventListener('DOMContentLoaded', function() {
     stage.addEventListener('pointercancel', peOnPointerUp);
     stage.addEventListener('pointerleave', peOnPointerUp);
   }
+  updateLiveVersionBadge();
+  setInterval(updateLiveVersionBadge, 60000);
 });
+
+/* ============================================================
+   لائیو ورژن کوڈ — فکسڈ نہیں، ہر بار موجودہ (تازہ ترین) وقت کے
+   آخری چار ہندسوں کے ساتھ خودکار بنتا ہے، مستقل اپڈیٹ ہوتا رہتا ہے
+   ============================================================ */
+function buildLiveVersionCode() {
+  const d = new Date();
+  let h = d.getHours();
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12; if (h === 0) h = 12;
+  const hh = String(h).padStart(2, '0');
+  const mm = String(d.getMinutes()).padStart(2, '0');
+  return 'MD198WE' + hh + mm + ampm;
+}
+function updateLiveVersionBadge() {
+  const el = document.getElementById('homeVersionBadge');
+  if (el) el.textContent = buildLiveVersionCode();
+}
 
 function savePhotoEdit() {
   if (!peSrcImg) return;
@@ -3151,6 +3196,9 @@ const ADMIN_LINK_KEY = 'jamia_admin_link_v1';     // لائیو لنک
 const DEV_SMS_KEY = 'jamia_dev_sms_v1';           // ڈویلپر میسج (SMS) نمبر
 const DEV_WA_KEY = 'jamia_dev_wa_v1';             // ڈویلپر واٹس ایپ نمبر
 const DEV_MAIL_KEY = 'jamia_dev_mail_v1';         // ڈویلپر جی میل
+const DEV_SMS_DEFAULT = '+923206793793';
+const DEV_WA_DEFAULT = '+923206793793';
+const DEV_MAIL_DEFAULT = 'pbtcodelabs@gmail.com';
 
 function showSharePanel() {
   const info = document.getElementById('shareModeInfo');
@@ -3275,9 +3323,9 @@ function openAdminPanel() {
   const mode = localStorage.getItem(ADMIN_MODE_KEY) || 'link';
   document.getElementById('admHtmlInput').value = localStorage.getItem(ADMIN_HTML_KEY) || '';
   document.getElementById('admLinkInput').value = localStorage.getItem(ADMIN_LINK_KEY) || '';
-  document.getElementById('admDevSms').value = localStorage.getItem(DEV_SMS_KEY) || '';
-  document.getElementById('admDevWa').value = localStorage.getItem(DEV_WA_KEY) || '';
-  document.getElementById('admDevMail').value = localStorage.getItem(DEV_MAIL_KEY) || '';
+  document.getElementById('admDevSms').value = localStorage.getItem(DEV_SMS_KEY) || DEV_SMS_DEFAULT;
+  document.getElementById('admDevWa').value = localStorage.getItem(DEV_WA_KEY) || DEV_WA_DEFAULT;
+  document.getElementById('admDevMail').value = localStorage.getItem(DEV_MAIL_KEY) || DEV_MAIL_DEFAULT;
   setAdminMode(mode);
   document.getElementById('admStatusLine').textContent = '';
   document.getElementById('adminPanelModal').classList.add('show');
@@ -3328,13 +3376,10 @@ function saveAdminSettings() {
 // چیٹ ود ڈویلپر — SMS / واٹس ایپ / جی میل
 // ============================================================
 function openDevChat() {
-  const hasSms = !!localStorage.getItem(DEV_SMS_KEY);
-  const hasWa = !!localStorage.getItem(DEV_WA_KEY);
-  const hasMail = !!localStorage.getItem(DEV_MAIL_KEY);
-  document.getElementById('devChatSmsBtn').style.display = hasSms ? 'block' : 'none';
-  document.getElementById('devChatWaBtn').style.display = hasWa ? 'block' : 'none';
-  document.getElementById('devChatMailBtn').style.display = hasMail ? 'block' : 'none';
-  document.getElementById('devChatEmptyMsg').style.display = (!hasSms && !hasWa && !hasMail) ? 'block' : 'none';
+  document.getElementById('devChatSmsBtn').style.display = 'block';
+  document.getElementById('devChatWaBtn').style.display = 'block';
+  document.getElementById('devChatMailBtn').style.display = 'block';
+  document.getElementById('devChatEmptyMsg').style.display = 'none';
   document.getElementById('devChatModal').classList.add('show');
 }
 function closeDevChat() {
@@ -3344,17 +3389,14 @@ function devContactAction(type) {
   const madrasa = document.getElementById('lockMadrasaName') ? document.getElementById('lockMadrasaName').textContent : '';
   const msg = `السلام علیکم، مجھے "${madrasa}" کے جامعہ امتحان سافٹ ویئر کے بارے میں رابطہ کرنا ہے۔`;
   if (type === 'sms') {
-    const num = (localStorage.getItem(DEV_SMS_KEY) || '').replace(/\s+/g, '');
-    if (!num) return;
+    const num = (localStorage.getItem(DEV_SMS_KEY) || DEV_SMS_DEFAULT).replace(/\s+/g, '');
     window.location.href = `sms:${num}?body=${encodeURIComponent(msg)}`;
   } else if (type === 'wa') {
-    const raw = (localStorage.getItem(DEV_WA_KEY) || '').replace(/\D/g, '');
-    if (!raw) return;
+    const raw = (localStorage.getItem(DEV_WA_KEY) || DEV_WA_DEFAULT).replace(/\D/g, '');
     const intl = raw.startsWith('0') ? '92' + raw.slice(1) : raw;
     window.open(`https://wa.me/${intl}?text=${encodeURIComponent(msg)}`, '_blank');
   } else if (type === 'mail') {
-    const mail = localStorage.getItem(DEV_MAIL_KEY) || '';
-    if (!mail) return;
+    const mail = localStorage.getItem(DEV_MAIL_KEY) || DEV_MAIL_DEFAULT;
     window.location.href = `mailto:${mail}?subject=${encodeURIComponent('جامعہ امتحان سافٹ ویئر — رابطہ')}&body=${encodeURIComponent(msg)}`;
   }
   closeDevChat();
@@ -3620,7 +3662,7 @@ async function hzBoot(){
   const active = await getJSON('active-student');
   if(active && state.students.find(s=>s.id===active)) state.activeId = active;
   else if(state.students.length) state.activeId = state.students[0].id;
-  if(state.activeId) state.student = await getJSON('student:'+state.activeId);
+  if(state.activeId) state.student = (await getJSON('student:'+state.activeId)) || {};
   else state.student = null;
   normalizeStudent();
   const now=new Date();
@@ -3662,7 +3704,7 @@ async function switchStudent(id){
   if(!id) return;
   state.activeId = id;
   await saveActiveId();
-  state.student = await getJSON('student:'+id);
+  state.student = (await getJSON('student:'+id)) || {};
   normalizeStudent();
   state.view = 'main';
   state.editDate = null;
