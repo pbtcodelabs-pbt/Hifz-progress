@@ -1318,7 +1318,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD198WE0438PM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD198WE0451PM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -2728,11 +2728,21 @@ function calcScore(text) {
   // ناظرہ — ہمیشہ تمام حفظ (سپارے/سورتیں) کے نیچے، اندر موجود کسی بھی نمبر سے بےتعلق
   if (t.includes('ناظرہ') || t.includes('ناظره')) return -1000;
 
-  // درجہ 2: حفظ کے سپارے/سورتیں — زیادہ سپارے اوپر، پھر تھوڑے، پھر آدھا سپارہ، پھر سورتیں
+  // درجہ 2: حفظ کے سپارے — زیادہ سپارے اوپر، پھر تھوڑے، پھر آدھا سپارہ
+  if (t.includes('ڈھائی')) return 2.5;
+  if (t.includes('ڈیڑھ')) return 1.5;
   if (t.includes('آدھا') || t.includes('ادھا')) return 0.5;
+
+  // سورتیں — ہمیشہ سپارے (اور آدھا سپارہ) سے نیچے، اندر موجود نمبر کو سپارہ شمار نہ کریں،
+  // بس سورتوں کی اپنی تعداد کے حساب سے ہلکا سا فرق رکھیں (زیادہ سورتیں تھوڑی اوپر)
+  if (t.includes('سورت') || t.includes('سورہ') || t.includes('سوره')) {
+    const snums = t.match(/\d+/g);
+    const sc = snums ? snums.reduce((a, n) => a + parseInt(n, 10), 0) : 0;
+    return 0.1 + (sc / 1000);
+  }
+
   const nums = t.match(/\d+/g);
   if (nums) return nums.reduce((a, n) => a + parseInt(n, 10), 0);
-  if (t.includes('سورت') || t.includes('سورہ') || t.includes('سوره')) return 0.1;
 
   return 0;
 }
