@@ -31,6 +31,20 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'DecoType Thuluth';
+  src: url('./fonts/DecoType_Thuluth_Regular.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Jameel Noori Nastaleeq Kasheeda';
+  src: url('./fonts/Jameel_Noori_Nastaleeq_Kasheeda.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
 :root {
   --green-dark: #0a3d0a;
   --green-mid: #155a15;
@@ -46,6 +60,8 @@
   --blue: #1565c0;
   --font-nastaliq: 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', Arial, sans-serif;
   --font-arial: 'Arial', 'Noto Naskh Arabic', sans-serif;
+  --font-thuluth: 'DecoType Thuluth', 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', Arial, sans-serif;
+  --font-kasheeda: 'Jameel Noori Nastaleeq Kasheeda', 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', Arial, sans-serif;
   --nastaliq: var(--font-nastaliq);
   --zoom: 1;
 }
@@ -1318,7 +1334,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD198WE0836PM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD198WE0915PM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -1600,19 +1616,19 @@ td.clickable:hover { background: #fff9e6 !important; }
 
       <!-- ہیڈر -->
       <div style="border-bottom:2px solid #000;padding:8px 12px;text-align:center;background:#fff;direction:rtl;unicode-bidi:embed;">
-        <div id="pa-madrasa" style="font-family:var(--nastaliq);font-size:27px;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;letter-spacing:0.3px;direction:rtl;unicode-bidi:embed;"></div>
+        <div id="pa-madrasa" style="font-family:var(--font-kasheeda);font-size:28px;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;letter-spacing:0.3px;direction:rtl;unicode-bidi:embed;"></div>
         <div style="font-family:var(--nastaliq);font-size:13px;color:#333;margin-top:2px;direction:rtl;unicode-bidi:embed;">امتحانی رپورٹ</div>
       </div>
 
-      <!-- معلومات — تینوں (کلاس نمبر/امتحان/تاریخ) ایک ساتھ جڑے ہوئے، پیج کے بالکل درمیان میں -->
+      <!-- معلومات — تینوں (کلاس نمبر/امتحان/تاریخ) ایک ساتھ جڑے ہوئے، پیج کے بالکل درمیان میں، درمیان اچھا خالی فاصلہ -->
       <table style="width:100%;border-collapse:collapse;background:#fff;border-bottom:1px solid #999;direction:rtl;unicode-bidi:embed;">
         <tr>
-          <td style="text-align:center;padding:8px 10px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
-            <span id="pa-teacher" style="font-family:var(--nastaliq);font-size:17px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;"></span>
-            <span style="display:inline-block;width:22px;"></span>
-            <span id="pa-method" style="font-family:var(--nastaliq);font-size:17px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;"></span>
-            <span style="display:inline-block;width:22px;"></span>
-            <span id="pa-date" style="font-family:var(--nastaliq);font-size:17px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;"></span>
+          <td style="text-align:center;padding:9px 10px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
+            <span id="pa-teacher" style="font-family:var(--font-kasheeda);font-size:18px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;"></span>
+            <span style="display:inline-block;width:48px;"></span>
+            <span id="pa-method" style="font-family:var(--font-kasheeda);font-size:18px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;"></span>
+            <span style="display:inline-block;width:48px;"></span>
+            <span id="pa-date" style="font-family:var(--font-kasheeda);font-size:18px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;"></span>
           </td>
         </tr>
       </table>
@@ -1622,14 +1638,14 @@ td.clickable:hover { background: #fff9e6 !important; }
       <table dir="rtl" style="width:100%;border-collapse:collapse;margin-top:0;table-layout:fixed;direction:rtl;unicode-bidi:embed;">
         <thead>
           <tr style="background:#222;">
-            <th style="border:1px solid #000;padding:6px 4px;font-family:var(--nastaliq);font-size:12px;font-weight:900;color:#fff;text-align:center;width:5%;direction:rtl;unicode-bidi:embed;">#</th>
-            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--nastaliq);font-size:12px;font-weight:900;color:#fff;text-align:center;width:18%;direction:rtl;unicode-bidi:embed;">نام طالب علم</th>
-            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--nastaliq);font-size:12px;font-weight:900;color:#fff;text-align:center;width:14%;direction:rtl;unicode-bidi:embed;">ولدیت</th>
-            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--nastaliq);font-size:12px;font-weight:900;color:#fff;text-align:center;width:20%;direction:rtl;unicode-bidi:embed;">مقدار خواندگی</th>
-            <th style="border:1px solid #000;padding:6px 4px;font-family:var(--nastaliq);font-size:12px;font-weight:900;color:#fff;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">نمبر</th>
-            <th id="pa-namz-th" style="border:1px solid #000;padding:6px 6px;font-family:var(--nastaliq);font-size:12px;font-weight:900;color:#fff;text-align:center;width:16%;direction:rtl;unicode-bidi:embed;">نماز حنفی</th>
-            <th id="pa-namz-th2" style="border:1px solid #000;padding:6px 4px;font-family:var(--nastaliq);font-size:12px;font-weight:900;color:#fff;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">نمبر</th>
-            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--nastaliq);font-size:12px;font-weight:900;color:#fff;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">کیفیت</th>
+            <th style="border:1px solid #000;padding:6px 4px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:5%;direction:rtl;unicode-bidi:embed;">#</th>
+            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:18%;direction:rtl;unicode-bidi:embed;">نام طالب علم</th>
+            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:14%;direction:rtl;unicode-bidi:embed;">ولدیت</th>
+            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:20%;direction:rtl;unicode-bidi:embed;">مقدار خواندگی</th>
+            <th style="border:1px solid #000;padding:6px 4px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">نمبر</th>
+            <th id="pa-namz-th" style="border:1px solid #000;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:16%;direction:rtl;unicode-bidi:embed;">نماز حنفی</th>
+            <th id="pa-namz-th2" style="border:1px solid #000;padding:6px 4px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">نمبر</th>
+            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">کیفیت</th>
           </tr>
         </thead>
         <tbody id="pa-tbody"></tbody>
@@ -1649,7 +1665,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 
       <!-- ہیڈر -->
       <div style="border-bottom:2px solid #000;padding:8px 12px;text-align:center;background:#fff;direction:rtl;unicode-bidi:embed;">
-        <div id="ca-madrasa" style="font-family:var(--nastaliq);font-size:25px;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;letter-spacing:0.3px;direction:rtl;unicode-bidi:embed;"></div>
+        <div id="ca-madrasa" style="font-family:var(--font-kasheeda);font-size:26px;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;letter-spacing:0.3px;direction:rtl;unicode-bidi:embed;"></div>
         <div style="font-family:var(--nastaliq);font-size:13px;color:#333;margin-top:2px;direction:rtl;unicode-bidi:embed;">طلباء کے رابطہ نمبر کی رپورٹ</div>
       </div>
 
@@ -1657,10 +1673,10 @@ td.clickable:hover { background: #fff9e6 !important; }
            لیبل اور ویلیو ایک ہی بولڈ یونٹ میں (کوئی الگ سے باریک/دھندلا لیبل نہیں) -->
       <table style="width:100%;border-collapse:collapse;background:#fff;border-bottom:1px solid #999;direction:rtl;unicode-bidi:embed;">
         <tr>
-          <td style="text-align:center;padding:8px 10px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
-            <span id="ca-teacher" style="font-family:var(--nastaliq);font-size:16px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;"></span>
-            <span style="display:inline-block;width:22px;"></span>
-            <span id="ca-date" style="font-family:var(--nastaliq);font-size:16px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;"></span>
+          <td style="text-align:center;padding:9px 10px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
+            <span id="ca-teacher" style="font-family:var(--font-kasheeda);font-size:17px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;"></span>
+            <span style="display:inline-block;width:48px;"></span>
+            <span id="ca-date" style="font-family:var(--font-kasheeda);font-size:17px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;"></span>
           </td>
         </tr>
       </table>
@@ -1670,12 +1686,12 @@ td.clickable:hover { background: #fff9e6 !important; }
       <table dir="rtl" style="width:100%;border-collapse:collapse;margin-top:0;table-layout:fixed;direction:rtl;unicode-bidi:embed;">
         <thead>
           <tr style="background:#222;">
-            <th style="border:1px solid #000;padding:6px 4px;font-family:var(--nastaliq);font-size:12px;font-weight:900;color:#fff;text-align:center;width:5%;direction:rtl;unicode-bidi:embed;">#</th>
-            <th style="border:1px solid #000;padding:6px 4px;font-family:var(--nastaliq);font-size:12px;font-weight:900;color:#fff;text-align:center;width:13%;direction:rtl;unicode-bidi:embed;">تصویر</th>
-            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--nastaliq);font-size:12px;font-weight:900;color:#fff;text-align:center;width:21%;direction:rtl;unicode-bidi:embed;">نام طالب علم</th>
-            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--nastaliq);font-size:12px;font-weight:900;color:#fff;text-align:center;width:19%;direction:rtl;unicode-bidi:embed;">ولدیت</th>
-            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--nastaliq);font-size:12px;font-weight:900;color:#fff;text-align:center;width:22%;direction:rtl;unicode-bidi:embed;">پتہ</th>
-            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--nastaliq);font-size:12px;font-weight:900;color:#fff;text-align:center;width:20%;direction:ltr;unicode-bidi:embed;">رابطہ نمبر</th>
+            <th style="border:1px solid #000;padding:6px 4px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:5%;direction:rtl;unicode-bidi:embed;">#</th>
+            <th style="border:1px solid #000;padding:6px 4px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:13%;direction:rtl;unicode-bidi:embed;">تصویر</th>
+            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:21%;direction:rtl;unicode-bidi:embed;">نام طالب علم</th>
+            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:19%;direction:rtl;unicode-bidi:embed;">ولدیت</th>
+            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:22%;direction:rtl;unicode-bidi:embed;">پتہ</th>
+            <th style="border:1px solid #000;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:20%;direction:ltr;unicode-bidi:embed;">رابطہ نمبر</th>
           </tr>
         </thead>
         <tbody id="ca-tbody"></tbody>
@@ -2109,7 +2125,9 @@ function changeZoom(dir) {
 const FONT_STYLE_K = 'jamia_font_style_v1';
 const FONT_OPTIONS = [
   { id: 'nastaliq', label: 'جمیل نوری نستعلیق', value: "var(--font-nastaliq)" },
-  { id: 'arial',    label: 'اردو ایریل',        value: "var(--font-arial)" }
+  { id: 'arial',    label: 'اردو ایریل',        value: "var(--font-arial)" },
+  { id: 'thuluth',  label: 'ثلث (Thuluth)',     value: "var(--font-thuluth)" },
+  { id: 'kasheeda', label: 'نستعلیق کشیدہ',      value: "var(--font-kasheeda)" }
   // نیا فونٹ شامل کرنے کے لیے: (1) اوپر css میں --font-xyz ویری ایبل بنائیں،
   // (2) یہاں { id:'xyz', label:'...', value:'var(--font-xyz)' } کی ایک اور لائن شامل کریں
 ];
