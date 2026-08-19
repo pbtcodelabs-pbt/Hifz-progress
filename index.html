@@ -1334,7 +1334,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD198WE0915PM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD198WE0931PM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -3357,15 +3357,25 @@ function getPdfOptions(fname){
 // تصویر کو غلط پوزیشن پر شفٹ کر دیتے ہیں (خالی جگہ رہ جاتی ہے، ایک طرف مواد کٹ جاتا ہے) —
 // کیپچر سے پہلے wrap کو عارضی طور پر LTR کر دیتے ہیں (اندر موجود #printableArea کی اپنی dir="rtl"
 // متاثر نہیں ہوتی، صرف باہر والے scroll container کی سمت درست ہوتی ہے)، کیپچر کے بعد واپس لگا دیتے ہیں
+// html2canvas اردو کے پیچیدہ کشیدہ/ثلث حروف کے جوڑ (ligatures) صحیح طور پر نہیں بنا پاتا —
+// نتیجہ: واٹس ایپ شیئر کی PDF میں ٹائٹل/عنوانات ٹوٹے پھوٹے/بکھرے حروف میں آ جاتے ہیں،
+// جبکہ اصل پرنٹ (window.print) میں یہ مسئلہ نہیں ہوتا کیونکہ وہ براؤزر کا اصل رینڈرنگ انجن استعمال کرتا ہے۔
+// اس لیے html2canvas کیپچر کے دوران عارضی طور پر کشیدہ/ثلث کو عام نستعلیق پر واپس کر دیتے ہیں —
+// آن-اسکرین پریویو اور اصل پرنٹ میں خوبصورت کشیدہ فونٹ ہی نظر آتا رہے گا، صرف WhatsApp-PDF میں پڑھنے کے قابل رہے گا۔
 function withNeutralWrap(fn){
   const wrap = document.getElementById('printableWrap');
   const prevDir = wrap.style.direction;
   const prevDirAttr = wrap.getAttribute('dir');
   wrap.style.direction = 'ltr';
   wrap.setAttribute('dir', 'ltr');
+  const root = document.documentElement;
+  root.style.setProperty('--font-kasheeda', 'var(--font-nastaliq)');
+  root.style.setProperty('--font-thuluth', 'var(--font-nastaliq)');
   return Promise.resolve().then(fn).finally(() => {
     wrap.style.direction = prevDir;
     if (prevDirAttr === null) wrap.removeAttribute('dir'); else wrap.setAttribute('dir', prevDirAttr);
+    root.style.removeProperty('--font-kasheeda');
+    root.style.removeProperty('--font-thuluth');
   });
 }
 
