@@ -1316,7 +1316,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD198TU0805AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD198WE0932AM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -1405,6 +1405,14 @@ td.clickable:hover { background: #fff9e6 !important; }
   <div class="zoom-bar no-print">
     <span class="zoom-label">فونٹ اسٹائل:</span>
     <select id="fontStyleSelect" class="reports-dd" onchange="setFontStyle(this.value)" style="flex:1;min-width:130px;"></select>
+  </div>
+
+  <div class="zoom-bar no-print" style="flex-wrap:wrap;">
+    <span class="zoom-label">🏫 کلاس:</span>
+    <select id="classSelect" class="reports-dd" onchange="onClassSelect(this.value)" style="flex:1;min-width:130px;"></select>
+    <button class="zoom-btn" onclick="addClass()" title="نئی کلاس ایڈ کریں" style="width:auto;height:32px;border-radius:16px;padding:0 12px;font-size:13px;font-family:var(--nastaliq);white-space:nowrap;">＋ کلاس</button>
+    <button class="zoom-btn" onclick="editClass()" title="کلاس/انچارج میں ترمیم" style="width:auto;height:32px;border-radius:16px;padding:0 12px;font-size:13px;font-family:var(--nastaliq);white-space:nowrap;">✎ ترمیم</button>
+    <button class="zoom-btn" onclick="deleteClass()" title="یہ کلاس حذف کریں" style="width:auto;height:32px;border-radius:16px;padding:0 12px;font-size:13px;font-family:var(--nastaliq);white-space:nowrap;background:linear-gradient(180deg,#c0392b,#7a2015);">🗑 حذف</button>
   </div>
 
   <div class="search-wrap no-print">
@@ -1694,6 +1702,8 @@ const CFG_K = 'jamia_cfg_v4';
 const ACT_K = 'jamia_act_v4';  // {code, expiry, uid}
 const TRIAL_K = 'jamia_trial_v4'; // {start}
 const UID_K = 'jamia_uid_v4';
+const CLASSES_K = 'jamia_classes_v1';
+const CUR_CLASS_K = 'jamia_current_class_v1';
 
 // ============================================================
 // آواز سے لکھتے وقت نمبروں کو خودکار درست انگلش ہندسوں میں بدلنا
@@ -1854,6 +1864,24 @@ if (!cfg.epText) cfg.epText = '';
 let currentPopupIdx = -1;
 let searchMode = false;
 let filteredIdx = [];
+
+// ============================================================
+// کلاسز — ایک ہی سافٹ ویئر میں الگ الگ کلاسیں + ہر کلاس کا انچارج
+// ============================================================
+function genClassId(){ return 'c_' + Date.now() + '_' + Math.random().toString(36).slice(2,7); }
+let classes = JSON.parse(localStorage.getItem(CLASSES_K)) || [];
+if (!classes.length) {
+  // پرانی سنگل-کلاس سیٹ اپ کو خودکار پہلی کلاس میں منتقل کرنا — موجودہ استاد کا نام اسی کلاس کا انچارج بن جاتا ہے
+  classes = [{ id: genClassId(), name: 'کلاس اول', incharge: cfg.t || '' }];
+  localStorage.setItem(CLASSES_K, JSON.stringify(classes));
+}
+let currentClassId = localStorage.getItem(CUR_CLASS_K) || classes[0].id;
+if (!classes.find(c => c.id === currentClassId)) currentClassId = classes[0].id;
+// موجودہ تمام طلبہ جن کے پاس classId نہیں، وہ پہلی/ڈیفالٹ کلاس میں شمار ہوں گے (کچھ بھی غائب/خراب نہیں ہو گا)
+if (db.some(s => !s.classId)) {
+  db = db.map(s => s.classId ? s : Object.assign({}, s, { classId: classes[0].id }));
+  localStorage.setItem(SK, JSON.stringify(db));
+}
 
 // ============================================================
 // UID — obfuscated storage
@@ -2040,7 +2068,8 @@ function init() {
   document.getElementById('madrasaName').textContent = cfg.name || 'گلشن فاروقی جامعہ تعلیم القرآن';
   var _hn = document.getElementById('homeMadrasaName'); if (_hn) _hn.textContent = cfg.name || 'گلشن فاروقی جامعہ تعلیم القرآن';
   document.getElementById('lockMadrasaName') && (document.getElementById('lockMadrasaName').textContent = cfg.name || 'گلشن فاروقی جامعہ تعلیم القرآن');
-  render();
+  populateClassSelect();
+  renderCurrent();
   updateStats();
   loadZoom();
   loadFontStyle();
@@ -2189,10 +2218,11 @@ function render(list, idxMap) {
 
 function updateStats() {
   const bar = document.getElementById('statsBar');
-  const total = db.length;
-  const withMarks = db.filter(s => calcTotal(s.mr1, s.mr2) !== null).length;
-  const passed = db.filter(s => calcTotal(s.mr1, s.mr2) !== null && calcTotal(s.mr1, s.mr2) >= 120).length;
-  const sumAll = db.reduce((a, s) => { const t = calcTotal(s.mr1, s.mr2); return a + (t !== null ? t : 0); }, 0);
+  const curList = activePairs().map(p => p.s);
+  const total = curList.length;
+  const withMarks = curList.filter(s => calcTotal(s.mr1, s.mr2) !== null).length;
+  const passed = curList.filter(s => calcTotal(s.mr1, s.mr2) !== null && calcTotal(s.mr1, s.mr2) >= 120).length;
+  const sumAll = curList.reduce((a, s) => { const t = calcTotal(s.mr1, s.mr2); return a + (t !== null ? t : 0); }, 0);
   const avg = withMarks ? Math.round(sumAll / withMarks) : 0;
   bar.innerHTML = `
     <div class="stat-chip">کل طلباء: <span>${total}</span></div>
@@ -2200,6 +2230,99 @@ function updateStats() {
     <div class="stat-chip">کامیاب: <span>${passed}</span></div>
     ${withMarks ? `<div class="stat-chip">اوسط: <span>${avg}</span></div>` : ''}
   `;
+}
+
+// ============================================================
+// کلاس کے مطابق فلٹرنگ — db میں انڈیکس درست رکھتے ہوئے
+// ============================================================
+function activePairs(){
+  return db.map((s, i) => ({ s, i })).filter(p => (p.s.classId || classes[0].id) === currentClassId);
+}
+function renderCurrent(){
+  const pairs = activePairs();
+  render(pairs.map(p => p.s), pairs.map(p => p.i));
+}
+function populateClassSelect(){
+  const sel = document.getElementById('classSelect');
+  if (!sel) return;
+  sel.innerHTML = classes.map(c =>
+    `<option value="${c.id}">${escapeHtml(c.name)}${c.incharge ? ' — ' + escapeHtml(c.incharge) : ''}</option>`
+  ).join('');
+  sel.value = currentClassId;
+}
+function onClassSelect(id){
+  if (!classes.find(c => c.id === id)) return;
+  currentClassId = id;
+  localStorage.setItem(CUR_CLASS_K, currentClassId);
+  const cls = classes.find(c => c.id === id);
+  if (cls) {
+    document.getElementById('teacher').value = cls.incharge || '';
+    saveCfg();
+  }
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchClear').style.display = 'none';
+  document.getElementById('suggestions').style.display = 'none';
+  renderCurrent();
+  updateStats();
+  // حفظ پروگریس صفحے کی طالب علم لسٹ کو بھی اسی کلاس کے مطابق فوراً ہم آہنگ کریں
+  if (typeof state !== 'undefined' && typeof hzSyncStudentsFromJMA === 'function') {
+    hzSyncStudentsFromJMA();
+    if (!state.students.find(s => s.id === state.activeId)) {
+      if (state.students.length) {
+        if (typeof switchStudent === 'function') switchStudent(state.students[0].id);
+      } else {
+        state.activeId = null;
+        state.student = null;
+        if (typeof hzRender === 'function') hzRender();
+      }
+    } else if (typeof hzRender === 'function') {
+      hzRender();
+    }
+  }
+}
+function addClass(){
+  const name = prompt('نئی کلاس کا نام لکھیں:');
+  if (!name || !name.trim()) return;
+  const incharge = prompt('اس کلاس کے انچارج (استاد) کا نام لکھیں:') || '';
+  const cls = { id: genClassId(), name: name.trim(), incharge: incharge.trim() };
+  classes.push(cls);
+  localStorage.setItem(CLASSES_K, JSON.stringify(classes));
+  populateClassSelect();
+  onClassSelect(cls.id);
+  alert('✅ نئی کلاس شامل ہو گئی: ' + cls.name);
+}
+function editClass(){
+  const cls = classes.find(c => c.id === currentClassId);
+  if (!cls) return;
+  const name = prompt('کلاس کا نام:', cls.name);
+  if (name === null) return;
+  if (!name.trim()) { alert('⚠️ کلاس کا نام خالی نہیں ہو سکتا'); return; }
+  const incharge = prompt('انچارج (استاد) کا نام:', cls.incharge || '');
+  if (incharge === null) return;
+  cls.name = name.trim();
+  cls.incharge = incharge.trim();
+  localStorage.setItem(CLASSES_K, JSON.stringify(classes));
+  populateClassSelect();
+  document.getElementById('teacher').value = cls.incharge || '';
+  saveCfg();
+  alert('✅ کلاس کی تفصیل اپڈیٹ ہو گئی');
+}
+function deleteClass(){
+  if (classes.length <= 1) { alert('⚠️ کم از کم ایک کلاس ہونا ضروری ہے — یہ آخری کلاس حذف نہیں ہو سکتی'); return; }
+  const cls = classes.find(c => c.id === currentClassId);
+  if (!cls) return;
+  const studentCount = db.filter(s => (s.classId || classes[0].id) === currentClassId).length;
+  if (studentCount > 0) {
+    alert('⚠️ اس کلاس میں ' + studentCount + ' طالب علم موجود ہیں۔ پہلے انہیں حذف کریں یا کسی اور کلاس میں منتقل کریں، پھر یہ کلاس حذف کریں۔');
+    return;
+  }
+  if (!confirm('کیا آپ واقعی کلاس "' + cls.name + '" حذف کرنا چاہتے ہیں؟')) return;
+  classes = classes.filter(c => c.id !== currentClassId);
+  localStorage.setItem(CLASSES_K, JSON.stringify(classes));
+  currentClassId = classes[0].id;
+  localStorage.setItem(CUR_CLASS_K, currentClassId);
+  populateClassSelect();
+  onClassSelect(currentClassId);
 }
 
 // ============================================================
@@ -2499,8 +2622,10 @@ function saveData() {
   const idx = parseInt(document.getElementById('editIdx').value, 10);
   if (idx > -1) {
     obj.mr1 = db[idx].mr1; obj.mr2 = db[idx].mr2;
+    obj.classId = db[idx].classId || currentClassId;
     db[idx] = obj;
   } else {
+    obj.classId = currentClassId;
     db.push(obj);
   }
   try {
@@ -2522,7 +2647,7 @@ function saveData() {
   ['fName','fWald','fMiqd','fNamz','fMob','fAddr'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('entryForm').style.display = 'none';
   document.getElementById('epnViewBtn').style.display = 'none';
-  render(); updateStats();
+  renderCurrent(); updateStats();
 }
 
 function rowClick(i) {
@@ -2567,7 +2692,7 @@ function del(i) {
   if (confirm('کیا آپ اس طالب علم کا ریکارڈ حذف کرنا چاہتے ہیں؟')) {
     db.splice(i, 1);
     localStorage.setItem(SK, JSON.stringify(db));
-    render(); updateStats();
+    renderCurrent(); updateStats();
     clearSearch();
   }
 }
@@ -2588,7 +2713,7 @@ function sortList() {
   if (!db.length) return;
   db.sort((a, b) => calcScore(b.m) - calcScore(a.m));
   localStorage.setItem(SK, JSON.stringify(db));
-  render(); updateStats();
+  renderCurrent(); updateStats();
   alert('✅ لسٹ ترتیب دے دی گئی');
 }
 
@@ -2601,9 +2726,9 @@ function doSearch() {
   const sugg = document.getElementById('suggestions');
   clear.style.display = q ? 'block' : 'none';
 
-  if (!q) { sugg.style.display = 'none'; render(); updateStats(); return; }
+  if (!q) { sugg.style.display = 'none'; renderCurrent(); updateStats(); return; }
 
-  const matches = db.map((s, i) => ({ s, i })).filter(({ s }) =>
+  const matches = activePairs().filter(({ s }) =>
     (s.n||'').includes(q) || (s.w||'').includes(q) || (s.m||'').includes(q)
   );
 
@@ -2637,7 +2762,7 @@ function clearSearch() {
   document.getElementById('searchInput').value = '';
   document.getElementById('searchClear').style.display = 'none';
   document.getElementById('suggestions').style.display = 'none';
-  render(); updateStats();
+  renderCurrent(); updateStats();
 }
 
 // ============================================================
@@ -2968,13 +3093,14 @@ function buildPrintableTable(){
   const nth1=document.getElementById('pa-namz-th'),nth2=document.getElementById('pa-namz-th2');
   if(nth1)nth1.style.display=isSalana?'':'none';
   if(nth2)nth2.style.display=isSalana?'':'none';
+  const list = activePairs().map(p => p.s);
   const fc=document.getElementById('pa-footer-count');
-  if(fc)fc.textContent='کل طلبہ: '+db.length;
+  if(fc)fc.textContent='کل طلبہ: '+list.length;
   const fs = cfg.reportFontSize || 13;
   const F='font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;';
   const P='padding:4px 4px;';
   const B='border:1px solid #ccc;';
-  db.forEach(function(s,i){
+  list.forEach(function(s,i){
     var rowBg=i%2===0?'#ffffff':'#f8f8f8';
     var q=getQualityText(s.mr1,s.mr2)||'';
     var nzHtml='';
@@ -3002,13 +3128,14 @@ function buildContactsTable(){
   const tbody=document.getElementById('ca-tbody');
   if(!tbody) return;
   tbody.innerHTML='';
+  const list = activePairs().map(p => p.s);
   const fc=document.getElementById('ca-footer-count');
-  if(fc)fc.textContent='کل طلبہ: '+db.length;
+  if(fc)fc.textContent='کل طلبہ: '+list.length;
   const fs = cfg.reportFontSize || 13;
   const F='font-family:var(--nastaliq);line-height:1.2;direction:rtl;unicode-bidi:embed;';
   const P='padding:6px 5px;';
   const B='border:1px solid #ccc;';
-  db.forEach(function(s,i){
+  list.forEach(function(s,i){
     var rowBg=i%2===0?'#ffffff':'#f8f8f8';
     var mobVal = s.mob || '—';
     var addrVal = s.addr || '—';
@@ -3222,7 +3349,7 @@ function closeBackup() {
 function buildBackupPayload() {
   const num = makeFileNumber();
   const fname = `Jamia_exam_${num}.json`;
-  const payload = JSON.stringify({ db: db, cfg, version: 5, saved: num, app: 'jamia_exam' });
+  const payload = JSON.stringify({ db: db, cfg, classes: classes, currentClassId: currentClassId, version: 6, saved: num, app: 'jamia_exam' });
   return { fname, payload };
 }
 
@@ -3316,8 +3443,18 @@ function applyRestoreData(data, sourceLabel) {
     return s;
   });
   if (data.cfg) { cfg = data.cfg; }
+  // کلاسیں بحال کریں — پرانی (کلاس فیچر سے پہلے کی) بیک اپ فائل ہو تو ایک ڈیفالٹ کلاس بنا دیں
+  if (Array.isArray(data.classes) && data.classes.length) {
+    classes = data.classes;
+  } else {
+    classes = [{ id: genClassId(), name: 'کلاس اول', incharge: cfg.t || '' }];
+  }
+  db = db.map(s => (s.classId && classes.find(c => c.id === s.classId)) ? s : Object.assign({}, s, { classId: classes[0].id }));
+  currentClassId = (data.currentClassId && classes.find(c => c.id === data.currentClassId)) ? data.currentClassId : classes[0].id;
   localStorage.setItem(SK, JSON.stringify(db));
   localStorage.setItem(CFG_K, JSON.stringify(cfg));
+  localStorage.setItem(CLASSES_K, JSON.stringify(classes));
+  localStorage.setItem(CUR_CLASS_K, currentClassId);
   init();
   closeBackup();
   alert('✅ ڈیٹا کامیابی سے واپس آ گیا — ' + studentCount + ' طلباء کا ریکارڈ بحال ہو گیا');
@@ -3817,7 +3954,12 @@ function daysInMonth(y,m){ return new Date(y,m+1,0).getDate(); }
 function hzSyncStudentsFromJMA(){
   let jmaDb = [];
   try{ jmaDb = JSON.parse(localStorage.getItem('jamia_data_v4')) || []; }catch(e){ jmaDb = []; }
-  state.students = jmaDb.filter(s=>s && s.n && s.n.trim()).map(s=>({id: s.n.trim(), name: s.n.trim()}));
+  const clsId = (typeof currentClassId !== 'undefined' && currentClassId) ? currentClassId : null;
+  const defaultClsId = (typeof classes !== 'undefined' && classes.length) ? classes[0].id : null;
+  const filtered = clsId
+    ? jmaDb.filter(s => s && s.n && s.n.trim() && (s.classId || defaultClsId) === clsId)
+    : jmaDb.filter(s => s && s.n && s.n.trim());
+  state.students = filtered.map(s=>({id: s.n.trim(), name: s.n.trim()}));
 }
 async function hzBoot(){
   hzSyncStudentsFromJMA();
@@ -3879,7 +4021,7 @@ async function confirmAddStudent(){
   }
   const exists = db.find(s=>s && s.n && s.n.trim()===name);
   if(!exists){
-    db.push({n:name, w:'', m:'', nz:'', mob:'', addr:'', photo:'', mr1:'', mr2:''});
+    db.push({n:name, w:'', m:'', nz:'', mob:'', addr:'', photo:'', mr1:'', mr2:'', classId: (typeof currentClassId!=='undefined' ? currentClassId : undefined)});
     try{
       localStorage.setItem(SK, JSON.stringify(db));
     }catch(e){
@@ -3887,7 +4029,7 @@ async function confirmAddStudent(){
       toast('محفوظ نہیں ہو سکا — سٹوریج بھری ہو سکتی ہے');
       return;
     }
-    if(typeof render==='function') render();
+    if(typeof renderCurrent==='function') renderCurrent();
     if(typeof updateStats==='function') updateStats();
   }
   hzSyncStudentsFromJMA();
