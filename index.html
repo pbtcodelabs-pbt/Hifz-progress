@@ -1336,7 +1336,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD218FR0321AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD218FR0404AM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -1608,6 +1608,26 @@ td.clickable:hover { background: #fff9e6 !important; }
   </div>
 </div>
 
+<!-- SHARE CONFIRM MODAL — واٹس ایپ پر شیئر کرنے سے پہلے آخری موقع کہ ڈیٹا کی الائنمنٹ (دائیں/درمیان/بائیں) چیک/تبدیل کر لیں -->
+<div class="modal-overlay" id="shareConfirmModal">
+  <div class="modal-card">
+    <div class="modal-title">📤 شیئر کرنے سے پہلے چیک کریں</div>
+    <div style="font-size:13px;color:#555;font-family:var(--nastaliq);text-align:center;margin-bottom:12px;line-height:1.8;">
+      پیچھے پیش منظر میں رپورٹ دیکھ لیں۔ اگر ڈیٹا کی الائنمنٹ بدلنی ہو تو نیچے سے منتخب کریں — تبدیلی فوراً پیش منظر میں نظر آئے گی، پھر شیئر کریں۔
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;background:#f0f4f0;border-radius:10px;padding:10px 12px;margin-bottom:16px;">
+      <span style="color:#0a3d0a;font-family:var(--nastaliq);font-size:14px;font-weight:700;">ڈیٹا الائنمنٹ:</span>
+      <select id="shareConfirmAlignSelect" onchange="setReportAlign(this.value)" style="padding:6px 10px;border-radius:6px;border:1px solid #ccc;font-family:var(--nastaliq);font-size:14px;">
+        <option value="right">دائیں</option>
+        <option value="center">درمیان</option>
+        <option value="left">بائیں</option>
+      </select>
+    </div>
+    <button class="modal-btn" style="width:100%;padding:13px;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:10px;font-family:var(--nastaliq);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:8px;" onclick="confirmWaShare()">💬 اب واٹس ایپ پر شیئر کریں</button>
+    <button class="modal-btn modal-btn-cancel" onclick="closeShareConfirm()">✎ پیش منظر میں واپس جائیں</button>
+  </div>
+</div>
+
 <!-- BACKUP MODAL -->
 <div class="modal-overlay" id="backupModal">
   <div class="modal-card">
@@ -1636,7 +1656,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 <div id="reportOverlay" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.92);overflow-y:auto;">
   <div class="no-print" style="position:sticky;top:0;z-index:10;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);padding:10px 10px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;">
     <button onclick="doNativePrint()" style="padding:9px 14px;background:linear-gradient(135deg,#1e7e1e,#0a3d0a);color:#fff;border:2px solid #27ae60;border-radius:10px;font-family:var(--nastaliq);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,0.4);">🖨️ پرنٹ</button>
-    <button onclick="generateAndSharePdf()" style="padding:9px 14px;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:2px solid #1ebe5d;border-radius:10px;font-family:var(--nastaliq);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,0.4);">📤 واٹس ایپ شیئر</button>
+    <button onclick="openShareConfirm()" style="padding:9px 14px;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:2px solid #1ebe5d;border-radius:10px;font-family:var(--nastaliq);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,0.4);">📤 واٹس ایپ شیئر</button>
     <div style="display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.1);border-radius:10px;padding:4px 8px;">
       <span style="color:#f5d76e;font-family:var(--nastaliq);font-size:12px;">سائز:</span>
       <button onclick="changeReportFont(-1)" style="width:26px;height:26px;border-radius:50%;border:none;background:#444;color:#fff;font-size:15px;cursor:pointer;">－</button>
@@ -3899,6 +3919,25 @@ function doNativePrint(){
     alert('⚠️ یاد رہے: پرنٹ ڈائیلاگ میں "Paper orientation" پر ٹیپ کر کے یقینی بنائیں کہ "Landscape" منتخب ہے۔\n\nاگر پھر بھی محفوظ شدہ PDF پورٹریٹ میں آئے تو "📤 واٹس ایپ شیئر" بٹن استعمال کریں — وہ لینڈ اسکیپ ہمیشہ درست دیتا ہے۔');
   }
   window.print();
+}
+
+// واٹس ایپ شیئر بٹن دبانے پر فوراً OS شیئر شیٹ نہیں کھلتی — پہلے یہ تصدیقی مرحلہ آتا ہے
+// تاکہ صارف پیش منظر میں ڈیٹا کی الائنمنٹ (دائیں/درمیان/بائیں) آخری بار چیک/تبدیل کر سکے
+function openShareConfirm(){
+  const sel = document.getElementById('shareConfirmAlignSelect');
+  if (sel) sel.value = reportDataAlign;
+  const modal = document.getElementById('shareConfirmModal');
+  if (modal) modal.classList.add('show');
+}
+
+function closeShareConfirm(){
+  const modal = document.getElementById('shareConfirmModal');
+  if (modal) modal.classList.remove('show');
+}
+
+function confirmWaShare(){
+  closeShareConfirm();
+  generateAndSharePdf();
 }
 
 async function generateAndSharePdf(){
