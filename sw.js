@@ -1,50 +1,58 @@
-// ======================================================================
-// 🔄 AIO POS — Service Worker (آف لائن سپورٹ + خودکار اپڈیٹ)
-// ======================================================================
-const CACHE_NAME = 'AIODR218FR0337AM';
+// جامعہ امتحانی سافٹ ویئر — سروس ورکر (آف لائن سپورٹ)
+const CACHE_NAME = 'jamia-hifz-cache-nastaleeq-font-MD218FR0321AM';
 const CORE_ASSETS = [
-  './',
   './index.html',
   './manifest.json',
+  './logo.png',
   './icon-192.png',
-  './icon-512.png',
-  './icon-512-maskable.png'
+  './fonts/Jameel_Noori_Nastaleeq.woff'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(CORE_ASSETS))
-      .catch(() => {})
-      .then(() => self.skipWaiting())
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS)).catch(() => {})
   );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
-      )
-    ).then(() => self.clients.claim())
+      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+    )
   );
+  self.clients.claim();
 });
 
+// Network-first for HTML (so updates are picked up quickly when online),
+// cache-first fallback for everything else (so the app works fully offline).
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
-  event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        const clone = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-        return response;
-      })
-      .catch(() =>
-        caches.match(event.request).then((cached) => cached || caches.match('./index.html'))
-      )
-  );
-});
+  const req = event.request;
+  if (req.method !== 'GET') return;
 
-self.addEventListener('message', (event) => {
-  if (event.data === 'SKIP_WAITING') self.skipWaiting();
+  if (req.mode === 'navigate' || (req.headers.get('accept') || '').includes('text/html')) {
+    event.respondWith(
+      fetch(req)
+        .then((res) => {
+          const resClone = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+          return res;
+        })
+        .catch(() => caches.match(req).then((cached) => cached || caches.match('./index.html')))
+    );
+    return;
+  }
+
+  event.respondWith(
+    caches.match(req).then((cached) => {
+      if (cached) return cached;
+      return fetch(req)
+        .then((res) => {
+          const resClone = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+          return res;
+        })
+        .catch(() => cached);
+    })
+  );
 });
