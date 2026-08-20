@@ -1336,7 +1336,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD208TH0357PM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD208TH0452PM</div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -2532,7 +2532,8 @@ function onMiqdSuwarChange(which){
     e = parseInt(enEl.value || '0', 10) || 0;
   }
   const parts = [];
-  if (s) parts.push('سورتیں شروع سے ' + s);
+  if (s || e) parts.push('سورتیں');
+  if (s) parts.push('شروع سے ' + s);
   if (e) parts.push('آخر سے ' + e);
   inp.value = parts.join(' ');
 }
@@ -2552,7 +2553,8 @@ function onMiqdNaziraChange(which){
     e = parseInt(enEl.value || '0', 10) || 0;
   }
   const parts = [];
-  if (s) parts.push('ناظرہ شروع سے ' + s);
+  if (s || e) parts.push('ناظرہ');
+  if (s) parts.push('شروع سے ' + s);
   if (e) parts.push('آخر سے ' + e);
   inp.value = parts.join(' ');
 }
