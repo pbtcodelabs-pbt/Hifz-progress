@@ -1463,32 +1463,40 @@ td.clickable:hover { background: #fff9e6 !important; }
         <select id="fMiqdType" onchange="onMiqdTypeChange()" style="width:100%;">
           <option value="">— منتخب کریں —</option>
           <option value="complete">مکمل قرآن پاک</option>
-          <option value="sapara">سپارے (حفظ)</option>
-          <option value="suwar">سورتیں</option>
-          <option value="nazira">ناظرہ</option>
+          <option value="sapara">حفظ سپارے</option>
+          <option value="suwar">حفظ سورتیں</option>
+          <option value="nazira">ناظرہ سپارے</option>
+          <option value="nazirasuwar">ناظرہ سورتیں</option>
           <option value="noorani">نورانی قاعدہ مکمل</option>
           <option value="takhti">تختیاں</option>
         </select>
       </div>
       <div class="ef-field ef-full" id="miqdSaparaWrap" style="display:none;">
-        <label>سپارے (حفظ) — شروع سے / آخر سے</label>
+        <label>حفظ سپارے — شروع سے / آخر سے</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <select id="fMiqdStart" onchange="onMiqdSaparaChange('start')" style="flex:1 1 120px;min-width:110px;"><option value="">شروع سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="1 پاؤ">1 پاؤ</option><option value="2 پاؤ">2 پاؤ</option><option value="3 پاؤ">3 پاؤ</option></select>
           <select id="fMiqdEnd" onchange="onMiqdSaparaChange('end')" style="flex:1 1 120px;min-width:110px;"><option value="">آخر سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="1 پاؤ">1 پاؤ</option><option value="2 پاؤ">2 پاؤ</option><option value="3 پاؤ">3 پاؤ</option></select>
         </div>
       </div>
       <div class="ef-field ef-full" id="miqdSuwarWrap" style="display:none;">
-        <label>سورتیں — شروع سے / آخر سے</label>
+        <label>حفظ سورتیں — شروع سے / آخر سے</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <select id="fMiqdSuwarStart" onchange="onMiqdSuwarChange('start')" style="flex:1 1 120px;min-width:110px;"><option value="">شروع سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="105">105</option><option value="106">106</option><option value="107">107</option><option value="108">108</option><option value="109">109</option><option value="110">110</option><option value="111">111</option><option value="112">112</option><option value="113">113</option><option value="114">114</option><option value="1 پاؤ">1 پاؤ</option><option value="2 پاؤ">2 پاؤ</option><option value="3 پاؤ">3 پاؤ</option></select>
           <select id="fMiqdSuwarEnd" onchange="onMiqdSuwarChange('end')" style="flex:1 1 120px;min-width:110px;"><option value="">آخر سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="105">105</option><option value="106">106</option><option value="107">107</option><option value="108">108</option><option value="109">109</option><option value="110">110</option><option value="111">111</option><option value="112">112</option><option value="113">113</option><option value="114">114</option><option value="1 پاؤ">1 پاؤ</option><option value="2 پاؤ">2 پاؤ</option><option value="3 پاؤ">3 پاؤ</option></select>
         </div>
       </div>
       <div class="ef-field ef-full" id="miqdNaziraWrap" style="display:none;">
-        <label>ناظرہ — شروع سے / آخر سے (سپارے)</label>
+        <label>ناظرہ سپارے — شروع سے / آخر سے</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <select id="fMiqdNaziraStart" onchange="onMiqdNaziraChange('start')" style="flex:1 1 120px;min-width:110px;"><option value="">شروع سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="1 پاؤ">1 پاؤ</option><option value="2 پاؤ">2 پاؤ</option><option value="3 پاؤ">3 پاؤ</option></select>
           <select id="fMiqdNaziraEnd" onchange="onMiqdNaziraChange('end')" style="flex:1 1 120px;min-width:110px;"><option value="">آخر سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="1 پاؤ">1 پاؤ</option><option value="2 پاؤ">2 پاؤ</option><option value="3 پاؤ">3 پاؤ</option></select>
+        </div>
+      </div>
+      <div class="ef-field ef-full" id="miqdNaziraSuwarWrap" style="display:none;">
+        <label>ناظرہ سورتیں — شروع سے / آخر سے</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <select id="fMiqdNaziraSuwarStart" onchange="onMiqdNaziraSuwarChange('start')" style="flex:1 1 120px;min-width:110px;"><option value="">شروع سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="105">105</option><option value="106">106</option><option value="107">107</option><option value="108">108</option><option value="109">109</option><option value="110">110</option><option value="111">111</option><option value="112">112</option><option value="113">113</option><option value="114">114</option><option value="1 پاؤ">1 پاؤ</option><option value="2 پاؤ">2 پاؤ</option><option value="3 پاؤ">3 پاؤ</option></select>
+          <select id="fMiqdNaziraSuwarEnd" onchange="onMiqdNaziraSuwarChange('end')" style="flex:1 1 120px;min-width:110px;"><option value="">آخر سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="105">105</option><option value="106">106</option><option value="107">107</option><option value="108">108</option><option value="109">109</option><option value="110">110</option><option value="111">111</option><option value="112">112</option><option value="113">113</option><option value="114">114</option><option value="1 پاؤ">1 پاؤ</option><option value="2 پاؤ">2 پاؤ</option><option value="3 پاؤ">3 پاؤ</option></select>
         </div>
       </div>
       <div class="ef-field" id="miqdTakhtiWrap" style="display:none;">
@@ -1687,9 +1695,9 @@ td.clickable:hover { background: #fff9e6 !important; }
             <th rowspan="2" style="border:1px solid #000;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#fff;text-align:center;width:8%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>
           </tr>
           <tr style="background:#2c2c2c;">
-            <th style="border:1px solid #000;padding:4px 2px;font-family:var(--font-kasheeda);font-size:9px;font-weight:900;color:#fff;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">مکمل قرآن پاک</th>
-            <th style="border:1px solid #000;padding:4px 3px;font-family:var(--font-kasheeda);font-size:9px;font-weight:900;color:#fff;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">شروع سے کتنے سپارے</th>
-            <th style="border:1px solid #000;padding:4px 3px;font-family:var(--font-kasheeda);font-size:9px;font-weight:900;color:#fff;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">آخر سے کتنے سپارے</th>
+            <th style="border:1px solid #000;padding:4px 2px;font-family:var(--font-kasheeda);font-size:9px;font-weight:900;color:#fff;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">تفصیل</th>
+            <th style="border:1px solid #000;padding:4px 3px;font-family:var(--font-kasheeda);font-size:9px;font-weight:900;color:#fff;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">شروع سے</th>
+            <th style="border:1px solid #000;padding:4px 3px;font-family:var(--font-kasheeda);font-size:9px;font-weight:900;color:#fff;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">آخر سے</th>
           </tr>
         </thead>
         <tbody id="pa-tbody"></tbody>
@@ -1783,9 +1791,9 @@ td.clickable:hover { background: #fff9e6 !important; }
             <th rowspan="2" style="border:1px solid #000;padding:5px 4px;font-family:var(--font-kasheeda);font-size:11px;font-weight:900;color:#fff;text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>
           </tr>
           <tr style="background:#2c2c2c;">
-            <th style="border:1px solid #000;padding:4px 2px;font-family:var(--font-kasheeda);font-size:8.5px;font-weight:900;color:#fff;text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">مکمل قرآن پاک</th>
-            <th style="border:1px solid #000;padding:4px 2px;font-family:var(--font-kasheeda);font-size:8.5px;font-weight:900;color:#fff;text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">شروع سے کتنے سپارے</th>
-            <th style="border:1px solid #000;padding:4px 2px;font-family:var(--font-kasheeda);font-size:8.5px;font-weight:900;color:#fff;text-align:center;width:11.34%;direction:rtl;unicode-bidi:embed;">آخر سے کتنے سپارے</th>
+            <th style="border:1px solid #000;padding:4px 2px;font-family:var(--font-kasheeda);font-size:8.5px;font-weight:900;color:#fff;text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">تفصیل</th>
+            <th style="border:1px solid #000;padding:4px 2px;font-family:var(--font-kasheeda);font-size:8.5px;font-weight:900;color:#fff;text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">شروع سے</th>
+            <th style="border:1px solid #000;padding:4px 2px;font-family:var(--font-kasheeda);font-size:8.5px;font-weight:900;color:#fff;text-align:center;width:11.34%;direction:rtl;unicode-bidi:embed;">آخر سے</th>
           </tr>
         </thead>
         <tbody id="ea-tbody"></tbody>
@@ -2457,14 +2465,14 @@ function deleteClass(){
 // "مقدار خواندگی" کی قسم منتخب کرنے پر متعلقہ ڈراپ ڈاؤن دکھائے/چھپائے جاتے ہیں
 // (اصل ڈیٹا اب بھی صرف ایک ہی فیلڈ s.m میں محفوظ ہوتا ہے، تاکہ ترتیب کا فارمولا calcScore اور رپورٹ کی parseMiqdarSplit بالکل نہ بدلے)
 function hideAllMiqdWraps(){
-  ['miqdSaparaWrap','miqdSuwarWrap','miqdNaziraWrap','miqdTakhtiWrap'].forEach(function(id){
+  ['miqdSaparaWrap','miqdSuwarWrap','miqdNaziraWrap','miqdNaziraSuwarWrap','miqdTakhtiWrap'].forEach(function(id){
     const el = document.getElementById(id);
     if (el) el.style.display = 'none';
   });
 }
 
 function clearMiqdSubFields(){
-  ['fMiqdStart','fMiqdEnd','fMiqdSuwarStart','fMiqdSuwarEnd','fMiqdNaziraStart','fMiqdNaziraEnd','fMiqdTakhti'].forEach(function(id){
+  ['fMiqdStart','fMiqdEnd','fMiqdSuwarStart','fMiqdSuwarEnd','fMiqdNaziraStart','fMiqdNaziraEnd','fMiqdNaziraSuwarStart','fMiqdNaziraSuwarEnd','fMiqdTakhti'].forEach(function(id){
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
@@ -2486,6 +2494,9 @@ function onMiqdTypeChange(){
     inp.value = '';
   } else if (type === 'nazira') {
     document.getElementById('miqdNaziraWrap').style.display = '';
+    inp.value = '';
+  } else if (type === 'nazirasuwar') {
+    document.getElementById('miqdNaziraSuwarWrap').style.display = '';
     inp.value = '';
   } else if (type === 'noorani') {
     inp.value = 'نورانی قاعدہ مکمل';
@@ -2512,12 +2523,13 @@ function onMiqdSaparaChange(which){
     e = parseInt(enEl.value || '0', 10) || 0;
   }
   const parts = [];
+  if (s || e) parts.push('حفظ سپارے');
   if (s) parts.push('شروع سے ' + s);
   if (e) parts.push('آخر سے ' + e);
   inp.value = parts.join(' ');
 }
 
-// سورتیں — شروع سے / آخر سے، مجموعہ 114 سورتوں سے زیادہ نہیں ہو سکتا
+// حفظ سورتیں — شروع سے / آخر سے، مجموعہ 114 سورتوں سے زیادہ نہیں ہو سکتا
 function onMiqdSuwarChange(which){
   const stEl = document.getElementById('fMiqdSuwarStart');
   const enEl = document.getElementById('fMiqdSuwarEnd');
@@ -2532,13 +2544,13 @@ function onMiqdSuwarChange(which){
     e = parseInt(enEl.value || '0', 10) || 0;
   }
   const parts = [];
-  if (s || e) parts.push('سورتیں');
+  if (s || e) parts.push('حفظ سورتیں');
   if (s) parts.push('شروع سے ' + s);
   if (e) parts.push('آخر سے ' + e);
   inp.value = parts.join(' ');
 }
 
-// ناظرہ — شروع سے / آخر سے (سپارے)، مجموعہ 30 سے زیادہ نہیں ہو سکتا
+// ناظرہ سپارے — شروع سے / آخر سے، مجموعہ 30 سے زیادہ نہیں ہو سکتا
 function onMiqdNaziraChange(which){
   const stEl = document.getElementById('fMiqdNaziraStart');
   const enEl = document.getElementById('fMiqdNaziraEnd');
@@ -2553,7 +2565,28 @@ function onMiqdNaziraChange(which){
     e = parseInt(enEl.value || '0', 10) || 0;
   }
   const parts = [];
-  if (s || e) parts.push('ناظرہ');
+  if (s || e) parts.push('ناظرہ سپارے');
+  if (s) parts.push('شروع سے ' + s);
+  if (e) parts.push('آخر سے ' + e);
+  inp.value = parts.join(' ');
+}
+
+// ناظرہ سورتیں — شروع سے / آخر سے، مجموعہ 114 سورتوں سے زیادہ نہیں ہو سکتا
+function onMiqdNaziraSuwarChange(which){
+  const stEl = document.getElementById('fMiqdNaziraSuwarStart');
+  const enEl = document.getElementById('fMiqdNaziraSuwarEnd');
+  const inp = document.getElementById('fMiqd');
+  if (!stEl || !enEl || !inp) return;
+  let s = parseInt(stEl.value || '0', 10) || 0;
+  let e = parseInt(enEl.value || '0', 10) || 0;
+  if (s + e > 114) {
+    alert('⚠️ قرآن پاک میں کل 114 سورتیں ہیں — شروع اور آخر کا مجموعہ 114 سے زیادہ نہیں ہو سکتا۔');
+    if (which === 'start') stEl.value = ''; else enEl.value = '';
+    s = parseInt(stEl.value || '0', 10) || 0;
+    e = parseInt(enEl.value || '0', 10) || 0;
+  }
+  const parts = [];
+  if (s || e) parts.push('ناظرہ سورتیں');
   if (s) parts.push('شروع سے ' + s);
   if (e) parts.push('آخر سے ' + e);
   inp.value = parts.join(' ');
@@ -2592,7 +2625,17 @@ function prefillMiqdFields(m){
     document.getElementById('fMiqdType').value = 'noorani';
     return;
   }
-  if (/ناظرہ|ناظره/.test(text)) {
+  const isNazira = /ناظرہ|ناظره/.test(text);
+  const isSuwar = /سورت|سورہ|سوره/.test(text);
+  if (isNazira && isSuwar) {
+    document.getElementById('fMiqdType').value = 'nazirasuwar';
+    const mq = parseMiqdarSplit(text);
+    document.getElementById('fMiqdNaziraSuwarStart').value = /^\d+(\s*پاؤ)?$/.test(mq.start) ? mq.start : '';
+    document.getElementById('fMiqdNaziraSuwarEnd').value = /^\d+(\s*پاؤ)?$/.test(mq.end) ? mq.end : '';
+    document.getElementById('miqdNaziraSuwarWrap').style.display = '';
+    return;
+  }
+  if (isNazira) {
     document.getElementById('fMiqdType').value = 'nazira';
     const mq = parseMiqdarSplit(text);
     document.getElementById('fMiqdNaziraStart').value = /^\d+(\s*پاؤ)?$/.test(mq.start) ? mq.start : '';
@@ -2600,7 +2643,7 @@ function prefillMiqdFields(m){
     document.getElementById('miqdNaziraWrap').style.display = '';
     return;
   }
-  if (/سورت|سورہ|سوره/.test(text)) {
+  if (isSuwar) {
     document.getElementById('fMiqdType').value = 'suwar';
     const mq = parseMiqdarSplit(text);
     document.getElementById('fMiqdSuwarStart').value = /^\d+(\s*پاؤ)?$/.test(mq.start) ? mq.start : '';
@@ -2609,7 +2652,7 @@ function prefillMiqdFields(m){
     return;
   }
   const mq = parseMiqdarSplit(text);
-  if (mq.mode === 'para') {
+  if (mq.mode === 'split') {
     document.getElementById('fMiqdType').value = 'sapara';
     document.getElementById('fMiqdStart').value = /^\d+(\s*پاؤ)?$/.test(mq.start) ? mq.start : '';
     document.getElementById('fMiqdEnd').value = /^\d+(\s*پاؤ)?$/.test(mq.end) ? mq.end : '';
@@ -3431,36 +3474,42 @@ function syncReportAlignSelect(){
 // نمبر الگ کرنا — یہ صرف پرنٹ رپورٹ کی نمائش کے لیے ہے، اصل ڈیٹا (s.m) اور ترتیب کا فارمولا (calcScore) نہیں بدلتا
 function parseMiqdarSplit(text){
   const raw = (text || '').trim();
-  if (!raw) return { mode:'empty', start:'', end:'', full:'', label:'' };
+  if (!raw) return { mode:'empty', start:'', end:'', full:'', label:'', unit:'' };
 
   // مکمل قرآن پاک
   if (/مکمل/.test(raw) && /(قرآن|قران)/.test(raw)) {
-    return { mode:'complete', start:'', end:'', full: raw, label: raw };
+    return { mode:'complete', start:'', end:'', full: raw, label: raw, unit:'' };
   }
   // تختیاں — صرف ایک تعداد، شروع/آخر نہیں
   if (/تختی/.test(raw)) {
-    return { mode:'single', start:'', end:'', full: raw, label: raw };
+    return { mode:'single', start:'', end:'', full: raw, label: raw, unit:'' };
   }
   // نورانی قاعدہ / کلمہ — صرف ایک لیبل، شروع/آخر نہیں
   if (/نورانی|قاعدہ|کلمہ/.test(raw)) {
-    return { mode:'single', start:'', end:'', full: raw, label: raw };
+    return { mode:'single', start:'', end:'', full: raw, label: raw, unit:'' };
   }
   // شروع سے / آخر سے کے نمبر نکالنا (پاؤ کے اضافی لفظ کے ساتھ بھی، مثلاً "1 پاؤ")
   const startM = raw.match(/شروع\s*سے\s*([^\s,،]+(?:\s*پاؤ)?)/);
   const endM = raw.match(/(?:آخر|اخر)\s*سے\s*([^\s,،]+(?:\s*پاؤ)?)/);
-  // ناظرہ — شروع سے / آخر سے
-  if (/ناظرہ|ناظره/.test(raw)) {
-    return { mode:'split', start: startM ? startM[1] : '', end: endM ? endM[1] : '', full: raw, label: 'ناظرہ' };
+  const isNazira = /ناظرہ|ناظره/.test(raw);
+  const isSuwar = /سورت|سورہ|سوره/.test(raw);
+  // ناظرہ سورتیں — شروع سے / آخر سے (سورتوں میں)
+  if (isNazira && isSuwar) {
+    return { mode:'split', start: startM ? startM[1] : '', end: endM ? endM[1] : '', full: raw, label: 'ناظرہ سورتیں', unit: 'سورتیں' };
   }
-  // سورتیں — شروع سے / آخر سے
-  if (/سورت|سورہ|سوره/.test(raw)) {
-    return { mode:'split', start: startM ? startM[1] : '', end: endM ? endM[1] : '', full: raw, label: 'سورتیں' };
+  // ناظرہ سپارے — شروع سے / آخر سے (سپاروں میں)
+  if (isNazira) {
+    return { mode:'split', start: startM ? startM[1] : '', end: endM ? endM[1] : '', full: raw, label: 'ناظرہ سپارے', unit: 'سپارے' };
   }
-  // پارے (حفظ) — بغیر کسی سابقے کے صرف "شروع سے X آخر سے Y"
+  // حفظ سورتیں — شروع سے / آخر سے
+  if (isSuwar) {
+    return { mode:'split', start: startM ? startM[1] : '', end: endM ? endM[1] : '', full: raw, label: 'حفظ سورتیں', unit: 'سورتیں' };
+  }
+  // حفظ سپارے — بغیر کسی خاص سابقے کے صرف "شروع سے X آخر سے Y" (پرانا محفوظ شدہ ڈیٹا بھی یہیں آ جائے گا)
   if (startM || endM) {
-    return { mode:'para', start: startM ? startM[1] : '', end: endM ? endM[1] : '', full: raw, label:'' };
+    return { mode:'split', start: startM ? startM[1] : '', end: endM ? endM[1] : '', full: raw, label: 'حفظ سپارے', unit: 'سپارے' };
   }
-  return { mode:'other', start:'', end:'', full: raw, label: raw };
+  return { mode:'other', start:'', end:'', full: raw, label: raw, unit:'' };
 }
 
 function buildPrintableTable(){
@@ -3489,26 +3538,20 @@ function buildPrintableTable(){
              '<td style="'+B+P+F+'font-size:'+fs+'px;text-align:'+DA+';background:'+rowBg+';">'+(s.mr2||'')+'</td>';
     }
     var mq = parseMiqdarSplit(s.m);
-    var mqHasPao = (mq.start && mq.start.indexOf('پاؤ') > -1) || (mq.end && mq.end.indexOf('پاؤ') > -1);
     var miqdHtml;
     if (mq.mode === 'complete' || mq.mode === 'single') {
-      // مکمل قرآن پاک / نورانی قاعدہ / تختیاں — لیبل پہلے کالم میں، باقی دو خالی
+      // مکمل قرآن پاک / نورانی قاعدہ / تختیاں — لیبل (تفصیل) پہلے کالم میں، باقی دو خالی
       miqdHtml =
         '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;font-weight:800;background:'+rowBg+';">'+(mq.label||mq.full)+'</td>'+
         '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;color:#999;background:'+rowBg+';">—</td>'+
         '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;color:#999;background:'+rowBg+';">—</td>';
     } else if (mq.mode === 'split') {
-      // سورتیں / ناظرہ — لیبل پہلے کالم میں (پاؤ منتخب ہو تو "پاؤ" لکھا آئے گا)، شروع/آخر کے نمبر اگلے دو کالموں میں
+      // حفظ سپارے / حفظ سورتیں / ناظرہ سپارے / ناظرہ سورتیں — تفصیل کالم میں قسم کا نام،
+      // شروع/آخر کالموں میں نمبر کے ساتھ اسی چیز کا نام بھی لکھا جائے گا (مثلاً "3 سپارے" یا "2 سورتیں")
       miqdHtml =
-        '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;font-weight:800;background:'+rowBg+';">'+(mqHasPao ? 'پاؤ' : mq.label)+'</td>'+
-        '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;background:'+rowBg+';">'+(mq.start? (mq.start+' '+mq.label) : '—')+'</td>'+
-        '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;background:'+rowBg+';">'+(mq.end? (mq.end+' '+mq.label) : '—')+'</td>';
-    } else if (mq.mode === 'para') {
-      // پارے (حفظ) — پہلے کالم میں "سپارے" کا لفظ (پاؤ منتخب ہو تو "پاؤ")، شروع/آخر کے پارے اگلے دو کالموں میں (بغیر لفظ، کیونکہ کالم کا عنوان خود سپارے ہے)
-      miqdHtml =
-        '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;font-weight:800;background:'+rowBg+';">'+(mqHasPao ? 'پاؤ' : 'سپارے')+'</td>'+
-        '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;background:'+rowBg+';">'+(mq.start||'—')+'</td>'+
-        '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;background:'+rowBg+';">'+(mq.end||'—')+'</td>';
+        '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;font-weight:800;background:'+rowBg+';">'+mq.label+'</td>'+
+        '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;background:'+rowBg+';">'+(mq.start? (mq.start+' '+mq.unit) : '—')+'</td>'+
+        '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;background:'+rowBg+';">'+(mq.end? (mq.end+' '+mq.unit) : '—')+'</td>';
     } else if (mq.mode === 'other') {
       miqdHtml =
         '<td style="'+B+P+F+'font-size:'+(fs-1)+'px;text-align:center;color:#999;background:'+rowBg+';">—</td>'+
