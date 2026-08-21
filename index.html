@@ -71,6 +71,24 @@
   --report-font-body: var(--font-nastaliq);
   --zoom: 1;
 }
+/* کمپیکٹ تھیم+فونٹ پل ویجٹ — گول بٹن، دبانے پر اندر سے پینل کھلے */
+.tf-pill-wrap { display: inline-flex; align-items: center; gap: 6px; position: relative; z-index: 300; }
+.tf-pill-btn {
+  width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35); flex-shrink: 0; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--nastaliq); font-size: 13px; font-weight: 900; color: #fff;
+}
+.tf-panel {
+  display: none; position: absolute; top: 34px; z-index: 400;
+  background: #1a1a1a; border-radius: 10px; padding: 8px; width: 170px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.15);
+}
+.tf-panel.show { display: block; }
+.tf-swatch-row { display: flex; gap: 6px; justify-content: center; margin-bottom: 6px; }
+.tf-swatch { width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; padding: 0; }
+.tf-light-slider { width: 100%; height: 12px; }
+.tf-font-select { width: 100%; padding: 5px 6px; border-radius: 6px; border: none; font-family: var(--nastaliq); font-size: 12px; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body {
   width: 100%;
@@ -1350,25 +1368,8 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD218FR0900PM</div>
-    <div style="max-width:280px;margin:8px auto 4px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.25);border-radius:10px;padding:8px 10px;">
-      <div style="font-family:var(--nastaliq);font-size:12px;color:#dceedc;text-align:center;margin-bottom:6px;">🎨 تھیم رنگ منتخب کریں</div>
-      <div id="themeSwatchRow" style="display:flex;justify-content:center;gap:8px;margin-bottom:6px;">
-        <button type="button" onclick="setTheme('green')" data-theme-btn="green" style="width:30px;height:30px;border-radius:50%;background:#1e7e1e;border:2px solid transparent;cursor:pointer;"></button>
-        <button type="button" onclick="setTheme('blue')" data-theme-btn="blue" style="width:30px;height:30px;border-radius:50%;background:#2e7fd6;border:2px solid transparent;cursor:pointer;"></button>
-        <button type="button" onclick="setTheme('gray')" data-theme-btn="gray" style="width:30px;height:30px;border-radius:50%;background:#5a5a5a;border:2px solid transparent;cursor:pointer;"></button>
-        <button type="button" onclick="setTheme('red')" data-theme-btn="red" style="width:30px;height:30px;border-radius:50%;background:#a51c1c;border:2px solid transparent;cursor:pointer;"></button>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;">
-        <span style="font-size:10px;color:#dceedc;white-space:nowrap;">🌑 گہرا</span>
-        <input type="range" id="themeLightSlider" min="-30" max="30" step="2" value="0" oninput="setThemeLightness(this.value)" style="flex:1;height:12px;">
-        <span style="font-size:10px;color:#dceedc;white-space:nowrap;">ہلکا ☀️</span>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0 6px;">
-      <span style="font-family:var(--nastaliq);font-size:12px;color:#dceedc;">🖋️ فونٹ اسٹائل:</span>
-      <select id="fontStyleSelect" onchange="setFontStyle(this.value)" style="padding:5px 8px;border-radius:6px;border:1.5px solid #4a7a4a;background:#0a3d0a;color:#fff;font-family:var(--nastaliq);font-size:12px;"><option value="nastaliq">جمیل نوری نستعلیق</option><option value="arial">اردو ایریل</option><option value="thuluth">ثلث (Thuluth)</option><option value="kasheeda">نستعلیق کشیدہ</option></select>
-    </div>
+    <div class="home-version-badge" id="homeVersionBadge">MD218FR0926PM</div>
+    <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
@@ -1464,6 +1465,7 @@ td.clickable:hover { background: #fff9e6 !important; }
   </div>
 
   <button class="no-print" onclick="openAdminGate()" title="کنٹرول پینل" style="position:fixed;top:10px;left:10px;z-index:5000;width:40px;height:40px;border-radius:50%;border:2px solid var(--gold);background:linear-gradient(180deg,#444,#1a1a1a);color:#f5d76e;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.4);">⚙️</button>
+  <div id="tfWidgetExam" class="no-print" style="position:fixed;top:10px;right:12px;z-index:5000;"></div>
 
   <div class="no-print" style="position:sticky;top:0;z-index:90;background:#0a3d0a;border-bottom:2px solid var(--gold);padding:4px 14px;display:flex;align-items:center;gap:8px;">
     <span style="font-family:var(--nastaliq);font-size:11px;color:#fff;white-space:nowrap;flex-shrink:0;">🖋️ سائز:</span>
@@ -1601,6 +1603,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 <div class="app">
   <div class="header">
     <button onclick="goHome()" style="position:absolute;top:10px;right:12px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:8px;padding:6px 12px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;">🏠 ہوم</button>
+    <div id="tfWidgetHifz" style="position:absolute;top:10px;right:80px;"></div>
     <div class="kicker">Hifz Progress Report</div>
     <h1>حفظ پروگریس رپورٹ</h1>
     <div class="sub">روزانہ سبق، سبقی، منزل اور مکمل قرآنِ پاک کی متوقع تاریخ</div>
@@ -2227,6 +2230,7 @@ function init() {
   loadZoom();
   hzLoadZoom();
   loadReportFontStyle();
+  renderTFWidgets();
   loadTheme();
   loadFontStyle();
   applyReportFont(parseInt(localStorage.getItem(REPORT_FONT_K), 10) || cfg.reportFontSize || 13);
@@ -2291,16 +2295,15 @@ const FONT_OPTIONS = [
   // (2) یہاں { id:'xyz', label:'...', value:'var(--font-xyz)' } کی ایک اور لائن شامل کریں
 ];
 function populateFontStyleSelect() {
-  const sel = document.getElementById('fontStyleSelect');
-  if (!sel) return;
-  sel.innerHTML = FONT_OPTIONS.map(f => `<option value="${f.id}">${f.label}</option>`).join('');
+  document.querySelectorAll('.font-style-select').forEach(sel => {
+    sel.innerHTML = FONT_OPTIONS.map(f => `<option value="${f.id}">${f.label}</option>`).join('');
+  });
 }
 function applyFontStyle(id) {
   const opt = FONT_OPTIONS.find(f => f.id === id) || FONT_OPTIONS[0];
   document.documentElement.style.setProperty('--nastaliq', opt.value);
   localStorage.setItem(FONT_STYLE_K, opt.id);
-  const sel = document.getElementById('fontStyleSelect');
-  if (sel) sel.value = opt.id;
+  document.querySelectorAll('.font-style-select').forEach(sel => { sel.value = opt.id; });
 }
 function setFontStyle(id) { applyFontStyle(id); }
 function loadFontStyle() {
@@ -2308,6 +2311,50 @@ function loadFontStyle() {
   const saved = localStorage.getItem(FONT_STYLE_K) || 'nastaliq';
   applyFontStyle(saved);
 }
+
+// ============================================================
+// کمپیکٹ تھیم+فونٹ پل ویجٹ — ہوم/امتحانی/حفظ تینوں صفحوں پر ایک ہی طرز
+// ============================================================
+function tfWidgetHtml(pageId){
+  return '<div class="tf-pill-wrap">'
+    + '<button type="button" class="tf-pill-btn" data-theme-pill="' + pageId + '" onclick="toggleTFPanel(\'theme\',\'' + pageId + '\')" title="تھیم رنگ">🎨</button>'
+    + '<div class="tf-panel" id="themePanel_' + pageId + '">'
+    +   '<div class="tf-swatch-row">'
+    +     '<button type="button" class="tf-swatch" data-theme-btn="green" onclick="setTheme(\'green\')" style="background:#1e7e1e;"></button>'
+    +     '<button type="button" class="tf-swatch" data-theme-btn="blue" onclick="setTheme(\'blue\')" style="background:#2e7fd6;"></button>'
+    +     '<button type="button" class="tf-swatch" data-theme-btn="gray" onclick="setTheme(\'gray\')" style="background:#767676;"></button>'
+    +     '<button type="button" class="tf-swatch" data-theme-btn="red" onclick="setTheme(\'red\')" style="background:#c62f2f;"></button>'
+    +   '</div>'
+    +   '<input type="range" class="tf-light-slider theme-light-slider" min="-30" max="30" step="2" value="0" oninput="setThemeLightness(this.value)">'
+    + '</div>'
+    + '<button type="button" class="tf-pill-btn" style="background:#444;" onclick="toggleTFPanel(\'font\',\'' + pageId + '\')" title="فونٹ اسٹائل">Aa</button>'
+    + '<div class="tf-panel" id="fontPanel_' + pageId + '">'
+    +   '<select class="tf-font-select font-style-select" onchange="setFontStyle(this.value)"></select>'
+    + '</div>'
+    + '</div>';
+}
+function renderTFWidgets(){
+  ['tfWidgetHome','tfWidgetExam','tfWidgetHifz'].forEach(containerId => {
+    const el = document.getElementById(containerId);
+    if (el && !el.dataset.rendered) {
+      const pageId = containerId.replace('tfWidget','').toLowerCase();
+      el.innerHTML = tfWidgetHtml(pageId);
+      el.dataset.rendered = '1';
+    }
+  });
+}
+function toggleTFPanel(kind, pageId){
+  const panel = document.getElementById(kind + 'Panel_' + pageId);
+  if (!panel) return;
+  const willOpen = !panel.classList.contains('show');
+  document.querySelectorAll('.tf-panel.show').forEach(p => { if (p !== panel) p.classList.remove('show'); });
+  panel.classList.toggle('show', willOpen);
+}
+document.addEventListener('click', function(e){
+  if (!e.target.closest('.tf-pill-wrap')) {
+    document.querySelectorAll('.tf-panel.show').forEach(p => p.classList.remove('show'));
+  }
+});
 
 const REPORT_FONT_K = 'jamia_report_font';
 function applyReportFont(fs) {
@@ -3639,6 +3686,15 @@ function applyTheme(themeId, lightDelta){
   // ہوم/لاک اسکرین کا گہرا پس منظر بھی اسی تھیم اور ہلکا/گہرا سلائیڈر کے ساتھ بدلے گا
   root.style.setProperty('--home-bg-1', adjustLightness(preset.dark, lightDelta - 12));
   root.style.setProperty('--home-bg-2', adjustLightness(preset.mid, lightDelta - 4));
+  // حفظ پروگریس صفحہ اپنے علیحدہ رنگ ویری ایبلز (--emerald-*) استعمال کرتا ہے،
+  // یہ صرف #hifzScreen پر مقامی طور پر دوبارہ متعین ہوتے ہیں، اس لیے وہیں براہ راست سیٹ کرنا ضروری ہے
+  const hifzEl = document.getElementById('hifzScreen');
+  if (hifzEl) {
+    hifzEl.style.setProperty('--emerald-950', adjustLightness(preset.dark, lightDelta));
+    hifzEl.style.setProperty('--emerald-800', adjustLightness(preset.mid, lightDelta));
+    hifzEl.style.setProperty('--emerald-700', adjustLightness(preset.light, lightDelta));
+    hifzEl.style.setProperty('--emerald-100', adjustLightness(preset.box, lightDelta));
+  }
   localStorage.setItem(THEME_K, themeId);
   localStorage.setItem(THEME_LIGHT_K, lightDelta);
   // منتخب شدہ رنگ کے گرد نمایاں بارڈر
@@ -3646,8 +3702,11 @@ function applyTheme(themeId, lightDelta){
     btn.style.border = (btn.dataset.themeBtn === themeId) ? '3px solid #fff' : '2px solid transparent';
     btn.style.boxShadow = (btn.dataset.themeBtn === themeId) ? '0 0 0 2px ' + preset.mid : 'none';
   });
-  const slider = document.getElementById('themeLightSlider');
-  if (slider) slider.value = lightDelta;
+  // پل بٹن کا اپنا رنگ بھی منتخب تھیم دکھائے
+  document.querySelectorAll('[data-theme-pill]').forEach(btn => {
+    btn.style.background = adjustLightness(preset.mid, lightDelta);
+  });
+  document.querySelectorAll('.theme-light-slider').forEach(slider => { slider.value = lightDelta; });
 }
 function setTheme(themeId){ applyTheme(themeId, currentThemeLight); }
 function setThemeLightness(delta){ applyTheme(currentThemeId, parseInt(delta, 10) || 0); }
