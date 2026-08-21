@@ -53,6 +53,8 @@
   --gold-light: #f5d76e;
   --box-bg: #f4faf4;
   --box-border: #b8d4b8;
+  --home-bg-1: #061f06;
+  --home-bg-2: #0d4f2e;
   --white: #ffffff;
   --bg: #eef2ee;
   --card: #ffffff;
@@ -90,7 +92,7 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
 /* ========== LOCK SCREEN ========== */
 #lockScreen {
   position: fixed; inset: 0; z-index: 99999;
-  background: linear-gradient(160deg, #061f06 0%, #0f4d0f 50%, #061f06 100%);
+  background: linear-gradient(160deg, var(--home-bg-1) 0%, var(--home-bg-2) 50%, var(--home-bg-1) 100%);
   display: flex; align-items: center; justify-content: center;
   padding: 16px; overflow-y: auto;
 }
@@ -442,26 +444,30 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
   font-weight: 800; color: var(--gold-light);
   text-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
-.entry-panel-body { padding: 10px; }
+.entry-panel-body { padding: 10px; background: var(--box-bg); }
 .entry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 8px; margin-bottom: 6px; min-width: 0; }
 .ef-field { display: flex; flex-direction: row; align-items: center; gap: 6px; min-width: 0; }
-.ef-field label { font-size: calc(11px * var(--zoom, 1)); color: var(--green-dark); font-family: var(--nastaliq); font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+.ef-field label {
+  font-size: calc(11px * var(--zoom, 1)); color: var(--green-dark); font-family: var(--nastaliq); font-weight: 900;
+  white-space: nowrap; flex-shrink: 0;
+  background: rgba(255,255,255,0.55); padding: 2px 6px; border-radius: 6px;
+}
 .ef-field input {
   padding: 6px 8px; border: 1.5px solid var(--box-border); border-radius: 8px;
   font-family: var(--nastaliq); font-size: calc(13px * var(--zoom, 1)); font-weight: 600; outline: none;
-  transition: all 0.2s; background: var(--box-bg); color: var(--text);
+  transition: all 0.2s; background: #ffffff; color: #000000;
   flex: 1; min-width: 0; box-sizing: border-box;
 }
 .ef-field textarea {
   padding: 5px 8px; border: 1.5px solid var(--box-border); border-radius: 8px;
   font-family: var(--nastaliq); font-size: calc(13px * var(--zoom, 1)); font-weight: 600; outline: none;
-  transition: all 0.2s; background: var(--box-bg); color: var(--text);
+  transition: all 0.2s; background: #ffffff; color: #000000;
   flex: 1; min-width: 0; box-sizing: border-box; resize: vertical; line-height: 1.3;
 }
 .ef-field select {
   padding: 6px 8px; border: 1.5px solid var(--box-border); border-radius: 8px;
   font-family: var(--nastaliq); font-size: calc(13px * var(--zoom, 1)); font-weight: 600; outline: none;
-  transition: all 0.2s; background: var(--box-bg); color: var(--text);
+  transition: all 0.2s; background: #ffffff; color: #000000;
   flex: 1; min-width: 0; box-sizing: border-box;
 }
 .ef-field select:focus { border-color: var(--green-mid); background: #f4fbf4; box-shadow: 0 0 0 3px rgba(30,126,30,0.12); }
@@ -822,7 +828,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 
 /* ================= HOME SCREEN ================= */
 #homeScreen{
-  display:none; min-height:100vh; background:linear-gradient(160deg,#061f06 0%, #0d4f2e 55%, #061f06 100%);
+  display:none; min-height:100vh; background:linear-gradient(160deg, var(--home-bg-1) 0%, var(--home-bg-2) 55%, var(--home-bg-1) 100%);
   align-items:center; justify-content:center; padding:28px 16px; text-align:center;
 }
 .home-wrap{ max-width:420px; width:100%; }
@@ -1344,7 +1350,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD218FR0730PM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD218FR0900PM</div>
     <div style="max-width:280px;margin:8px auto 4px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.25);border-radius:10px;padding:8px 10px;">
       <div style="font-family:var(--nastaliq);font-size:12px;color:#dceedc;text-align:center;margin-bottom:6px;">🎨 تھیم رنگ منتخب کریں</div>
       <div id="themeSwatchRow" style="display:flex;justify-content:center;gap:8px;margin-bottom:6px;">
@@ -3630,6 +3636,9 @@ function applyTheme(themeId, lightDelta){
   root.style.setProperty('--gold-light', adjustLightness(preset.goldLight, lightDelta));
   root.style.setProperty('--box-bg', adjustLightness(preset.box, lightDelta));
   root.style.setProperty('--box-border', adjustLightness(preset.border, lightDelta));
+  // ہوم/لاک اسکرین کا گہرا پس منظر بھی اسی تھیم اور ہلکا/گہرا سلائیڈر کے ساتھ بدلے گا
+  root.style.setProperty('--home-bg-1', adjustLightness(preset.dark, lightDelta - 12));
+  root.style.setProperty('--home-bg-2', adjustLightness(preset.mid, lightDelta - 4));
   localStorage.setItem(THEME_K, themeId);
   localStorage.setItem(THEME_LIGHT_K, lightDelta);
   // منتخب شدہ رنگ کے گرد نمایاں بارڈر
