@@ -63,6 +63,8 @@
   --font-thuluth: 'DecoType Thuluth', 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', Arial, sans-serif;
   --font-kasheeda: 'Jameel Noori Nastaleeq Kasheeda', 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', Arial, sans-serif;
   --nastaliq: var(--font-nastaliq);
+  --report-font-title: var(--font-kasheeda);
+  --report-font-body: var(--font-nastaliq);
   --zoom: 1;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -184,16 +186,16 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
 /* HEADER */
 .app-header {
   background: linear-gradient(180deg, #0a3d0a 0%, #155a15 100%);
-  padding: 14px 7px 10px;
+  padding: 8px 7px 6px;
   border-bottom: 3px solid var(--gold);
   position: relative;
 }
 .madrasa-title {
   font-family: var(--nastaliq);
-  font-size: calc(22px * var(--zoom, 1)); font-weight: 700;
+  font-size: calc(18px * var(--zoom, 1)); font-weight: 700;
   color: var(--gold-light);
   text-align: center;
-  line-height: 1.4; margin-bottom: 8px;
+  line-height: 1.3; margin-bottom: 3px;
   text-shadow: 0 2px 4px rgba(0,0,0,0.4);
   cursor: text;
   word-break: break-word;
@@ -201,13 +203,13 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
 }
 .madrasa-title:focus { outline: 2px dashed var(--gold); border-radius: 4px; background: rgba(255,255,255,0.07); }
 
-.header-fields { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 7px; min-width: 0; margin-top: 9px; }
-.hf-item { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.hf-cap { color: var(--gold-light); font-size: calc(11.5px * var(--zoom, 1)); white-space: nowrap; font-family: var(--nastaliq); font-weight: 700; opacity: 0.95; padding: 0 3px; text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
+.header-fields { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 5px; min-width: 0; margin-top: 5px; }
+.hf-item { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.hf-cap { color: var(--gold-light); font-size: calc(11px * var(--zoom, 1)); white-space: nowrap; font-family: var(--nastaliq); font-weight: 700; opacity: 0.95; padding: 0 3px; text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
 
 /* 3D خانے — اوپر چمکدار روشنی، نیچے گہرا سایہ، تاکہ خوب ابھرے ہوئے نظر آئیں */
 .hf-box {
-  width: 100%; height: calc(46px * var(--zoom, 1)); box-sizing: border-box;
+  width: 100%; height: calc(38px * var(--zoom, 1)); box-sizing: border-box;
   display: flex; align-items: center; min-width: 0;
   border-radius: 12px;
   border: 1.5px solid var(--gold);
@@ -478,14 +480,15 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
 .ef-photo-box:active { transform: scale(0.96); }
 .ef-photo-box.has-photo { border-style: solid; border-color: var(--green-mid); }
 .ef-photo-box img { width: 100%; height: 100%; object-fit: cover; }
-.ef-photo-box .ef-photo-icon { font-size: 26px; opacity: 0.5; }
+.ef-photo-box .ef-photo-icon { font-size: 32px; opacity: 0.85; font-weight: 900; }
 .ef-photo-info { flex: 1; min-width: 0; }
 .ef-photo-info .ef-photo-label { font-size: calc(12px * var(--zoom, 1)); color: var(--green-dark); font-family: var(--nastaliq); font-weight: 700; display: block; margin-bottom: 4px; }
-.ef-photo-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.ef-photo-btns { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
 .ef-photo-btn {
   font-size: 11px; font-family: var(--nastaliq); font-weight: 700;
   padding: 5px 10px; border-radius: 7px; border: 1px solid var(--green-mid);
   background: #fff; color: var(--green-dark); cursor: pointer;
+  width: 100%;
 }
 .ef-photo-btn.danger { border-color: #c0392b; color: #c0392b; }
 .ef-save-btn {
@@ -861,7 +864,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 @keyframes dcbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 
 /* ================= HIFZ SCREEN (scoped) ================= */
-#hifzScreen{ display:none; }
+#hifzScreen{ display:none; zoom: var(--hzZoom, 1); }
 
   #hifzScreen{
     --emerald-950:#08352A;
@@ -1211,11 +1214,12 @@ td.clickable:hover { background: #fff9e6 !important; }
 
     <div style="border-bottom:2px dashed #ddd;margin-bottom:10px;padding-bottom:10px;">
       <div style="font-size:13px;color:#0a3d0a;font-weight:800;font-family:var(--nastaliq);margin-bottom:6px;">🖋️ فونٹ سائز</div>
-      <div style="display:flex;align-items:center;gap:8px;background:#f0f4f0;border-radius:8px;padding:7px 10px;">
-        <span style="font-family:var(--nastaliq);font-size:13px;color:#333;flex-shrink:0;">پورا صفحہ:</span>
-        <button class="zoom-btn" onclick="changeZoom(-1)" style="width:26px;height:26px;font-size:14px;">－</button>
-        <span class="zoom-val" id="zoomVal" style="flex:1;text-align:center;">100%</span>
-        <button class="zoom-btn" onclick="changeZoom(1)" style="width:26px;height:26px;font-size:14px;">＋</button>
+      <div style="background:#f0f4f0;border-radius:8px;padding:9px 10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+          <span style="font-family:var(--nastaliq);font-size:13px;color:#333;">پورا صفحہ:</span>
+          <span class="zoom-val" id="zoomVal" style="font-weight:800;color:var(--green-dark);">100%</span>
+        </div>
+        <input type="range" id="zoomSlider" min="70" max="200" step="5" value="100" oninput="applyZoom(this.value/100)" style="width:100%;accent-color:var(--green-mid);">
       </div>
     </div>
 
@@ -1338,7 +1342,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD218FR0404PM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD218FR0503PM</div>
     <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0 6px;">
       <span style="font-family:var(--nastaliq);font-size:12px;color:#dceedc;">🖋️ فونٹ اسٹائل:</span>
       <select id="fontStyleSelect" onchange="setFontStyle(this.value)" style="padding:5px 8px;border-radius:6px;border:1.5px solid #4a7a4a;background:#0a3d0a;color:#fff;font-family:var(--nastaliq);font-size:12px;"><option value="nastaliq">جمیل نوری نستعلیق</option><option value="arial">اردو ایریل</option><option value="thuluth">ثلث (Thuluth)</option><option value="kasheeda">نستعلیق کشیدہ</option></select>
@@ -1355,6 +1359,7 @@ td.clickable:hover { background: #fff9e6 !important; }
   </div>
 </div>
 <div id="mainApp" style="display: none;">
+  <div id="examTopBar">
   <div class="designer-bar no-print" onclick="openDevChat()" style="cursor:pointer;">💬 ڈویلپر سے رابطہ کریں</div>
 
   <header class="app-header no-print">
@@ -1403,7 +1408,6 @@ td.clickable:hover { background: #fff9e6 !important; }
   <style id="printOrientStyle">@media print { @page { size: landscape; margin: 4mm; } }</style>
 
   <div class="toolbar no-print">
-    <button class="tb-btn tb-add" onclick="toggleForm()">＋ نیا</button>
     <button class="tb-btn tb-sort" onclick="sortList()">📊 ترتیب</button>
     <div class="reports-dd-wrap">
       <label class="reports-dd-cap" for="reportsSelect">📑 رپورٹس</label>
@@ -1416,7 +1420,6 @@ td.clickable:hover { background: #fff9e6 !important; }
       </select>
     </div>
     <button class="tb-btn tb-backup" onclick="showBackup()">💾 بیک اپ</button>
-    <button class="tb-btn tb-admin" onclick="openAdminGate()">⚙️ کنٹرول</button>
     <button class="tb-btn" onclick="goHome()" style="background:linear-gradient(180deg,#555,#222);color:#fff;">🏠 ہوم</button>
   </div>
 
@@ -1425,32 +1428,36 @@ td.clickable:hover { background: #fff9e6 !important; }
     <select id="classSelect" class="reports-dd" onchange="onClassSelect(this.value)" style="flex:1;min-width:130px;"><option value="c_1787266583528_id1q5">کلاس اول</option></select>
     <button class="zoom-btn" onclick="addClass()" title="نئی کلاس ایڈ کریں" style="width:auto;height:32px;border-radius:16px;padding:0 12px;font-size:13px;font-family:var(--nastaliq);white-space:nowrap;">＋ کلاس</button>
     <button class="zoom-btn" onclick="editClass()" title="کلاس/انچارج میں ترمیم" style="width:auto;height:32px;border-radius:16px;padding:0 12px;font-size:13px;font-family:var(--nastaliq);white-space:nowrap;">✎ ترمیم</button>
-    <button class="zoom-btn" onclick="deleteClass()" title="یہ کلاس حذف کریں" style="width:auto;height:32px;border-radius:16px;padding:0 12px;font-size:13px;font-family:var(--nastaliq);white-space:nowrap;background:linear-gradient(180deg,#c0392b,#7a2015);">🗑 حذف</button>
   </div>
 
-  <div class="search-wrap no-print">
-    <div class="search-box">
-      <input class="search-input" id="searchInput" placeholder="طالب علم تلاش کریں..." oninput="doSearch()" onblur="hideSuggestionsDelay()">
-      <span class="search-icon">🔍</span>
-      <span class="search-clear" id="searchClear" onclick="clearSearch()">×</span>
-      <div class="suggestions" id="suggestions" style="display: none;"></div>
-    </div>
+  <div class="no-print" style="display:flex;align-items:center;gap:6px;margin:6px 8px;">
+    <button onclick="toggleForm()" style="flex:0 0 auto;height:34px;border-radius:17px;padding:0 16px;font-size:13px;font-family:var(--nastaliq);font-weight:800;white-space:nowrap;border:none;background:linear-gradient(180deg,#2ecc71,#1e8449);color:#fff;cursor:pointer;">＋ نیا</button>
+    <button onclick="showListView()" style="flex:1;min-width:0;height:34px;border-radius:17px;padding:0 10px;font-size:12.5px;font-family:var(--nastaliq);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:none;background:linear-gradient(180deg,#1565c0,#0d47a1);color:#fff;cursor:pointer;">📋 مکمل لسٹ</button>
+    <button onclick="deleteClass()" title="یہ کلاس حذف کریں" style="flex:0 0 auto;height:34px;border-radius:17px;padding:0 16px;font-size:13px;font-family:var(--nastaliq);font-weight:800;white-space:nowrap;border:none;background:linear-gradient(180deg,#c0392b,#7a2015);color:#fff;cursor:pointer;">🗑 حذف</button>
   </div>
 
+  <button class="no-print" onclick="openAdminGate()" title="کنٹرول پینل" style="position:fixed;top:10px;left:10px;z-index:5000;width:40px;height:40px;border-radius:50%;border:2px solid var(--gold);background:linear-gradient(180deg,#444,#1a1a1a);color:#f5d76e;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.4);">⚙️</button>
+
+  <div class="no-print" style="position:sticky;top:0;z-index:90;background:#0a3d0a;border-bottom:2px solid var(--gold);padding:4px 14px;display:flex;align-items:center;gap:8px;">
+    <span style="font-family:var(--nastaliq);font-size:11px;color:#fff;white-space:nowrap;flex-shrink:0;">🖋️ سائز:</span>
+    <input type="range" id="zoomSliderMain" min="70" max="200" step="5" value="100" oninput="applyZoom(this.value/100)" style="flex:1;height:14px;accent-color:#f5d76e;">
+    <span id="zoomValMain" style="font-family:var(--nastaliq);font-size:11px;font-weight:800;color:#f5d76e;white-space:nowrap;flex-shrink:0;">100%</span>
+  </div>
+  </div>
+
+  <div id="entryPageView">
   <div class="entry-panel no-print" id="entryForm" style="display: block;">
     <div class="entry-panel-header">
       <span class="epn-icon" id="epnIcon">📝</span>
       <span class="epn-title" id="epnTitle">نیا طالب علم درج کریں</span>
-      <button type="button" id="epnViewBtn" style="display:none;margin-right:auto;background:#075e54;color:#fff;border:none;border-radius:6px;padding:5px 10px;font-family:var(--nastaliq);font-weight:700;font-size:12px;cursor:pointer;" onclick="showStudent(parseInt(document.getElementById('editIdx').value,10))">👁 پروفائل</button>
+      <button type="button" id="epnViewBtn" style="display:none;margin-right:8px;background:#075e54;color:#fff;border:none;border-radius:6px;padding:5px 10px;font-family:var(--nastaliq);font-weight:700;font-size:12px;cursor:pointer;" onclick="showStudent(parseInt(document.getElementById('editIdx').value,10))">👁 پروفائل</button>
+      <button type="button" onclick="saveData()" style="margin-right:auto;background:linear-gradient(180deg,#2ecc71,#1e8449);color:#fff;border:none;border-radius:6px;padding:6px 12px;font-family:var(--nastaliq);font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 2px 0 #145a32;">✅ محفوظ کریں</button>
     </div>
     <div class="entry-panel-body">
     <input type="hidden" id="editIdx" value="-1">
     <input type="hidden" id="fPhoto" value="">
     <div class="entry-grid">
       <div class="ef-photo-wrap">
-        <div class="ef-photo-box" id="efPhotoBox" onclick="document.getElementById('fPhotoInputCamera').click()"><span class="ef-photo-icon" id="efPhotoIcon">📷</span></div>
-        <input type="file" id="fPhotoInputCamera" accept="image/*" capture="environment" style="display:none" onchange="onPhotoSelected(event)">
-        <input type="file" id="fPhotoInputGallery" accept="image/*" style="display:none" onchange="onPhotoSelected(event)">
         <div class="ef-photo-info">
           <span class="ef-photo-label">طالب علم کی تصویر</span>
           <div class="ef-photo-btns">
@@ -1459,12 +1466,14 @@ td.clickable:hover { background: #fff9e6 !important; }
             <button type="button" class="ef-photo-btn danger" id="efPhotoRemoveBtn" style="display:none;" onclick="removePhoto()">🗑️ ہٹائیں</button>
           </div>
         </div>
+        <div class="ef-photo-box" id="efPhotoBox" onclick="document.getElementById('fPhotoInputCamera').click()"><span class="ef-photo-icon" id="efPhotoIcon">📷</span></div>
+        <input type="file" id="fPhotoInputCamera" accept="image/*" capture="environment" style="display:none" onchange="onPhotoSelected(event)">
+        <input type="file" id="fPhotoInputGallery" accept="image/*" style="display:none" onchange="onPhotoSelected(event)">
       </div>
       <div class="ef-field"><label>نام طالب علم *</label><input id="fName" placeholder="مثلاً: محمد احمد"></div>
-      <div class="ef-field"><label>والد کا نام</label><input id="fWald" placeholder="مثلاً: محمد علی"></div>
-      <div class="ef-field ef-full">
+      <div class="ef-field">
         <label>مقدار خواندگی — قسم منتخب کریں</label>
-        <select id="fMiqdType" onchange="onMiqdTypeChange()" style="width:100%;">
+        <select id="fMiqdType" onchange="onMiqdTypeChange()">
           <option value="">— منتخب کریں —</option>
           <option value="complete">مکمل قرآن پاک</option>
           <option value="sapara">حفظ سپارے</option>
@@ -1475,6 +1484,8 @@ td.clickable:hover { background: #fff9e6 !important; }
           <option value="takhti">تختیاں</option>
         </select>
       </div>
+      <div class="ef-field"><label>والد کا نام</label><input id="fWald" placeholder="مثلاً: محمد علی"></div>
+      <div class="ef-field"><label>دیگر / اضافی نوٹ</label><input id="fMiqd" placeholder=""></div>
       <div class="ef-field ef-full" id="miqdSaparaWrap" style="">
         <label>حفظ سپارے — شروع سے / آخر سے</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -1507,23 +1518,28 @@ td.clickable:hover { background: #fff9e6 !important; }
         <label>تختیاں کی تعداد</label>
         <select id="fMiqdTakhti" onchange="onMiqdTakhtiChange()"><option value="">— منتخب کریں —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option></select>
       </div>
-      <div class="ef-field ef-full"><label>دیگر / اضافی نوٹ (اختیاری — خودکار بھرے گا، یا دستی لکھیں)</label><input id="fMiqd" placeholder="اوپر سے قسم منتخب کریں تو یہ خودکار بھر جائے گا"></div>
       <div class="ef-field"><label>موبائل نمبر</label><input id="fMob" placeholder="مثلاً: 0300-1234567" inputmode="tel"></div>
-      <div class="ef-field compact ef-full"><label>نماز / دعائیں</label><input id="fNamz" placeholder="مثلاً: مکمل"></div>
-      <div class="ef-field ef-full"><label>گھر کا پتہ</label><textarea id="fAddr" rows="3" placeholder="مثلاً: محلہ / گلی / وارڈ نمبر / شہر"></textarea></div>
+      <div class="ef-field"><label>گھر کا پتہ</label><textarea id="fAddr" rows="5" placeholder="مثلاً: محلہ / گلی / وارڈ نمبر / شہر"></textarea></div>
     </div>
     <button class="ef-save-btn" onclick="saveData()">✅ محفوظ کریں</button>
     </div>
   </div>
-
-  <div class="stats-bar no-print" id="statsBar">
-    <div class="stat-chip">کل طلباء: <span>4</span></div>
-    <div class="stat-chip">نمبر درج: <span>0</span></div>
-    <div class="stat-chip">کامیاب: <span>0</span></div>
-    
   </div>
 
-  <div class="scroll-hint no-print">↔️ ٹیبل کو دائیں/بائیں سرکائیں</div>
+  <div id="listPageView" style="display:none;">
+  <div class="no-print" style="position:sticky;top:0;z-index:90;background:#fff;border-bottom:2px solid var(--green-mid);padding:8px;display:flex;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <button class="no-print" onclick="showEntryView()" style="padding:10px 24px;background:linear-gradient(180deg,#2ecc71,#1e8449);color:#fff;border:none;border-radius:10px;font-family:var(--nastaliq);font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 3px 0 #145a32;">✕ لسٹ بند کریں — واپس</button>
+  </div>
+
+  <div class="search-wrap no-print">
+    <div class="search-box">
+      <input class="search-input" id="searchInput" placeholder="طالب علم تلاش کریں..." oninput="doSearch()" onblur="hideSuggestionsDelay()">
+      <span class="search-icon">🔍</span>
+      <span class="search-clear" id="searchClear" onclick="clearSearch()">×</span>
+      <div class="suggestions" id="suggestions" style="display: none;"></div>
+    </div>
+  </div>
+
   <div class="table-wrap">
     <div>
       <table>
@@ -1544,6 +1560,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       </table>
     </div>
   </div>
+  </div>
 </div>
 <div id="hifzScreen" style="display: none;">
 <div class="app">
@@ -1552,6 +1569,11 @@ td.clickable:hover { background: #fff9e6 !important; }
     <div class="kicker">Hifz Progress Report</div>
     <h1>حفظ پروگریس رپورٹ</h1>
     <div class="sub">روزانہ سبق، سبقی، منزل اور مکمل قرآنِ پاک کی متوقع تاریخ</div>
+  </div>
+  <div style="position:sticky;top:0;z-index:500;background:#0a3d0a;border-bottom:2px solid var(--gold);padding:4px 14px;display:flex;align-items:center;gap:8px;">
+    <span style="font-size:11px;color:#fff;white-space:nowrap;flex-shrink:0;">🖋️ سائز:</span>
+    <input type="range" id="hzZoomSlider" min="70" max="200" step="5" value="100" oninput="hzApplyZoom(this.value/100)" style="flex:1;height:14px;accent-color:#f5d76e;">
+    <span id="hzZoomVal" style="font-size:11px;font-weight:800;color:#f5d76e;white-space:nowrap;flex-shrink:0;">100%</span>
   </div>
   <div id="root"><div class="loading">لوڈ ہو رہا ہے…</div></div>
 </div>
@@ -1654,6 +1676,15 @@ td.clickable:hover { background: #fff9e6 !important; }
       <button type="button" onclick="setReportAlign('center')" data-align-btn="center" style="padding:5px 10px;border-radius:6px;border:1.5px solid rgba(255,255,255,0.4);background:#666;color:#fff;font-family:var(--nastaliq);font-size:12px;font-weight:700;cursor:pointer;">⬍ درمیان</button>
       <button type="button" onclick="setReportAlign('left')" data-align-btn="left" style="padding: 5px 10px; border-radius: 6px; border: 1.5px solid rgb(245, 215, 110); background: linear-gradient(135deg, rgb(245, 215, 110), rgb(224, 169, 47)); color: rgb(58, 42, 0); font-family: var(--nastaliq); font-size: 12px; font-weight: 700; cursor: pointer;">⬅️ بائیں</button>
     </div>
+    <div style="display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.1);border-radius:10px;padding:4px 8px;">
+      <span style="color:#f5d76e;font-family:var(--nastaliq);font-size:12px;">رپورٹ کا فونٹ:</span>
+      <select id="reportFontSelect" onchange="setReportFont(this.value)" style="padding:5px 8px;border-radius:6px;border:none;font-family:var(--nastaliq);font-size:12px;">
+        <option value="kasheeda">کشیدہ (عنوان) + نستعلیق</option>
+        <option value="nastaliq">نستعلیق (پورا)</option>
+        <option value="thuluth">ثلث</option>
+        <option value="arial">اردو ایریل</option>
+      </select>
+    </div>
   </div>
   <div id="pdfGenOverlay" style="display:none;position:fixed;inset:0;z-index:20;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;flex-direction:column;gap:10px;">
     <div style="width:48px;height:48px;border:5px solid rgba(255,255,255,0.25);border-top-color:#f5d76e;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
@@ -1665,7 +1696,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 
       <!-- ہیڈر -->
       <div style="border-bottom:2px solid #000;padding:8px 12px;text-align:center;background:#fff;direction:rtl;unicode-bidi:embed;">
-        <div id="pa-madrasa" style="font-family:var(--font-kasheeda);font-size:28px;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;letter-spacing:0.3px;direction:rtl;unicode-bidi:embed;">گلشن فاروقی جامعہ تعلیم القرآن</div>
+        <div id="pa-madrasa" style="font-family:var(--report-font-title);font-size:28px;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;letter-spacing:0.3px;direction:rtl;unicode-bidi:embed;">گلشن فاروقی جامعہ تعلیم القرآن</div>
         <div style="font-family:var(--nastaliq);font-size:13px;color:#333;margin-top:2px;direction:rtl;unicode-bidi:embed;">امتحانی رپورٹ</div>
       </div>
 
@@ -1673,11 +1704,11 @@ td.clickable:hover { background: #fff9e6 !important; }
       <table style="width:100%;border-collapse:collapse;background:#fff;border-bottom:1px solid #999;direction:rtl;unicode-bidi:embed;">
         <tbody><tr>
           <td style="text-align:center;padding:9px 10px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
-            <span id="pa-teacher" style="font-family:var(--font-kasheeda);font-size:18px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;">کلاس نمبر: —</span>
+            <span id="pa-teacher" style="font-family:var(--report-font-title);font-size:18px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;">کلاس نمبر: —</span>
             <span style="display:inline-block;width:48px;"></span>
-            <span id="pa-method" style="font-family:var(--font-kasheeda);font-size:18px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;">امتحان: ششماہی امتحان</span>
+            <span id="pa-method" style="font-family:var(--report-font-title);font-size:18px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;">امتحان: ششماہی امتحان</span>
             <span style="display:inline-block;width:48px;"></span>
-            <span id="pa-date" style="font-family:var(--font-kasheeda);font-size:18px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;">تاریخ: —</span>
+            <span id="pa-date" style="font-family:var(--report-font-title);font-size:18px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;">تاریخ: —</span>
           </td>
         </tr>
       </tbody></table>
@@ -1687,19 +1718,19 @@ td.clickable:hover { background: #fff9e6 !important; }
       <table dir="rtl" style="width:100%;border-collapse:collapse;margin-top:0;table-layout:fixed;direction:rtl;unicode-bidi:embed;">
         <thead>
           <tr style="background:#d7e9d7;">
-            <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:5%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">#</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:17%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نام طالب علم</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:12%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">ولدیت</th>
-            <th colspan="3" style="border:1px solid #333;border-bottom:2px solid #0a3d0a;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:27%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">مقدار خواندگی</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
-            <th id="pa-namz-th" rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نماز حنفی</th>
-            <th id="pa-namz-th2" rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:8%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:5%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">#</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:17%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نام طالب علم</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:12%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">ولدیت</th>
+            <th colspan="3" style="border:1px solid #333;border-bottom:2px solid #0a3d0a;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:27%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">مقدار خواندگی</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
+            <th id="pa-namz-th" rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نماز حنفی</th>
+            <th id="pa-namz-th2" rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:8%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>
           </tr>
           <tr style="background:#eef6ee;">
-            <th style="border:1px solid #333;padding:4px 2px;font-family:var(--font-kasheeda);font-size:9px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">تفصیل</th>
-            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--font-kasheeda);font-size:9px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">شروع سے</th>
-            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--font-kasheeda);font-size:9px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">آخر سے</th>
+            <th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:9px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">تفصیل</th>
+            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--report-font-title);font-size:9px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">شروع سے</th>
+            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--report-font-title);font-size:9px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">آخر سے</th>
           </tr>
         </thead>
         <tbody id="pa-tbody"><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#ffffff;font-weight:700;direction:ltr;unicode-bidi:embed;">1</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#ffffff;">عبدالحفیظ</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#ffffff;">عبدالعزیز</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;font-weight:800;background:#ffffff;">حفظ سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">3 سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">8 سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#ffffff;"></td></tr><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#f2f8f2;font-weight:700;direction:ltr;unicode-bidi:embed;">2</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#f2f8f2;">محمد</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#f2f8f2;">عبدالحفیظ</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;font-weight:800;background:#f2f8f2;">ناظرہ سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#f2f8f2;">8 سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#f2f8f2;"></td></tr><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#ffffff;font-weight:700;direction:ltr;unicode-bidi:embed;">3</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#ffffff;">اسلم</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#ffffff;">اکرم</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;font-weight:800;background:#ffffff;">ناظرہ سورتیں</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">16 سورتیں</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#ffffff;"></td></tr><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#f2f8f2;font-weight:700;direction:ltr;unicode-bidi:embed;">4</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#f2f8f2;">بھالو</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;color:#999;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;color:#999;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;color:#999;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#f2f8f2;"></td></tr></tbody>
@@ -1719,7 +1750,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 
       <!-- ہیڈر -->
       <div style="border-bottom:2px solid #000;padding:8px 12px;text-align:center;background:#fff;direction:rtl;unicode-bidi:embed;">
-        <div id="ca-madrasa" style="font-family:var(--font-kasheeda);font-size:26px;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;letter-spacing:0.3px;direction:rtl;unicode-bidi:embed;"></div>
+        <div id="ca-madrasa" style="font-family:var(--report-font-title);font-size:26px;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;letter-spacing:0.3px;direction:rtl;unicode-bidi:embed;"></div>
         <div style="font-family:var(--nastaliq);font-size:13px;color:#333;margin-top:2px;direction:rtl;unicode-bidi:embed;">طلباء کے رابطہ نمبر کی رپورٹ</div>
       </div>
 
@@ -1728,9 +1759,9 @@ td.clickable:hover { background: #fff9e6 !important; }
       <table style="width:100%;border-collapse:collapse;background:#fff;border-bottom:1px solid #999;direction:rtl;unicode-bidi:embed;">
         <tbody><tr>
           <td style="text-align:center;padding:9px 10px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
-            <span id="ca-teacher" style="font-family:var(--font-kasheeda);font-size:17px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;"></span>
+            <span id="ca-teacher" style="font-family:var(--report-font-title);font-size:17px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;"></span>
             <span style="display:inline-block;width:48px;"></span>
-            <span id="ca-date" style="font-family:var(--font-kasheeda);font-size:17px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;"></span>
+            <span id="ca-date" style="font-family:var(--report-font-title);font-size:17px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;"></span>
           </td>
         </tr>
       </tbody></table>
@@ -1740,12 +1771,12 @@ td.clickable:hover { background: #fff9e6 !important; }
       <table dir="rtl" style="width:100%;border-collapse:collapse;margin-top:0;table-layout:fixed;direction:rtl;unicode-bidi:embed;">
         <thead>
           <tr style="background:#d7e9d7;">
-            <th style="border:1px solid #333;padding:6px 4px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:5%;direction:rtl;unicode-bidi:embed;">#</th>
-            <th style="border:1px solid #333;padding:6px 4px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:13%;direction:rtl;unicode-bidi:embed;">تصویر</th>
-            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:21%;direction:rtl;unicode-bidi:embed;">نام طالب علم</th>
-            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:19%;direction:rtl;unicode-bidi:embed;">ولدیت</th>
-            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:22%;direction:rtl;unicode-bidi:embed;">پتہ</th>
-            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--font-kasheeda);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:20%;direction:ltr;unicode-bidi:embed;">رابطہ نمبر</th>
+            <th style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:5%;direction:rtl;unicode-bidi:embed;">#</th>
+            <th style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:13%;direction:rtl;unicode-bidi:embed;">تصویر</th>
+            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:21%;direction:rtl;unicode-bidi:embed;">نام طالب علم</th>
+            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:19%;direction:rtl;unicode-bidi:embed;">ولدیت</th>
+            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:22%;direction:rtl;unicode-bidi:embed;">پتہ</th>
+            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:20%;direction:ltr;unicode-bidi:embed;">رابطہ نمبر</th>
           </tr>
         </thead>
         <tbody id="ca-tbody"></tbody>
@@ -1762,52 +1793,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 
 <!-- ====== امتحانی اندراج فارم — مکمل خالی (ہاتھ سے پُر کرنے کے لیے)، صرف A4 پورٹریٹ ====== -->
 <div id="enrollArea" dir="rtl" style="display:none;background:#fff;padding:0;box-sizing:border-box;font-family:var(--nastaliq);width:100%;max-width:794px;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,0.4);direction:rtl;unicode-bidi:embed;">
-
-      <!-- ہیڈر -->
-      <div style="border-bottom:2px solid #000;padding:8px 12px;text-align:center;background:#fff;direction:rtl;unicode-bidi:embed;">
-        <div id="ea-madrasa" style="font-family:var(--font-kasheeda);font-size:26px;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;letter-spacing:0.3px;direction:rtl;unicode-bidi:embed;"></div>
-        <div style="font-family:var(--nastaliq);font-size:13px;color:#333;margin-top:2px;direction:rtl;unicode-bidi:embed;">امتحانی اندراج فارم</div>
-      </div>
-
-      <!-- معلومات — کلاس نمبر/تاریخ -->
-      <table style="width:100%;border-collapse:collapse;background:#fff;border-bottom:1px solid #999;direction:rtl;unicode-bidi:embed;">
-        <tbody><tr>
-          <td style="text-align:center;padding:9px 10px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
-            <span id="ea-teacher" style="font-family:var(--font-kasheeda);font-size:17px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;"></span>
-            <span style="display:inline-block;width:48px;"></span>
-            <span id="ea-date" style="font-family:var(--font-kasheeda);font-size:17px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;"></span>
-          </td>
-        </tr>
-      </tbody></table>
-
-      <!-- ٹیبل -->
-      <div style="border:1.5px solid #0a3d0a;border-radius:10px;overflow:hidden;margin:0;">
-      <table dir="rtl" style="width:100%;border-collapse:collapse;margin-top:0;table-layout:fixed;direction:rtl;unicode-bidi:embed;">
-        <thead>
-          <tr style="background:#d7e9d7;">
-            <th rowspan="2" style="border:1px solid #333;padding:5px 3px;font-family:var(--font-kasheeda);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:6%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">#</th>
-            <th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--font-kasheeda);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:19%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نام طالب علم</th>
-            <th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--font-kasheeda);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:16%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">ولدیت</th>
-            <th colspan="3" style="border:1px solid #333;border-bottom:2px solid #0a3d0a;padding:5px 4px;font-family:var(--font-kasheeda);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:34%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">مقدار خواندگی</th>
-            <th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--font-kasheeda);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:12%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نماز حنفی</th>
-            <th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--font-kasheeda);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>
-          </tr>
-          <tr style="background:#eef6ee;">
-            <th style="border:1px solid #333;padding:4px 2px;font-family:var(--font-kasheeda);font-size:8.5px;font-weight:900;color:#0a3d0a;text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">تفصیل</th>
-            <th style="border:1px solid #333;padding:4px 2px;font-family:var(--font-kasheeda);font-size:8.5px;font-weight:900;color:#0a3d0a;text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">شروع سے</th>
-            <th style="border:1px solid #333;padding:4px 2px;font-family:var(--font-kasheeda);font-size:8.5px;font-weight:900;color:#0a3d0a;text-align:center;width:11.34%;direction:rtl;unicode-bidi:embed;">آخر سے</th>
-          </tr>
-        </thead>
-        <tbody id="ea-tbody"></tbody>
-      </table>
-      </div>
-
-      <!-- فوٹر -->
-      <table style="width:100%;border-collapse:collapse;border-top:1px solid #000;background:#fff;direction:rtl;unicode-bidi:embed;">
-        <tbody><tr>
-          <td style="text-align:center;padding:4px 10px;font-family:var(--nastaliq);font-size:11px;color:#333;direction:rtl;unicode-bidi:embed;" id="ea-footer-count"></td>
-        </tr>
-      </tbody></table>
+<div id="ea-pages"></div>
 </div>
 
 <!-- ====== حاضری / پوسٹر / تمام طلبہ کی حفظ رپورٹس — یہ اسی مشترکہ پریویو، پرنٹ اور واٹس ایپ شیئر نظام سے گزرتی ہیں ====== -->
@@ -1991,7 +1977,6 @@ let filteredIdx = [];
 // کلاسز — ایک ہی سافٹ ویئر میں الگ الگ کلاسیں + ہر کلاس کا انچارج
 // ============================================================
 function genClassId(){ return 'c_' + Date.now() + '_' + Math.random().toString(36).slice(2,7); }
-function _escHtml(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 let classes = JSON.parse(localStorage.getItem(CLASSES_K)) || [];
 if (!classes.length) {
   // پرانی سنگل-کلاس سیٹ اپ کو خودکار پہلی کلاس میں منتقل کرنا — موجودہ استاد کا نام اسی کلاس کا انچارج بن جاتا ہے
@@ -2101,12 +2086,14 @@ function openExam(){
   if (typeof populateClassSelect === 'function') populateClassSelect();
   if (typeof renderCurrent === 'function') renderCurrent();
   if (typeof updateStats === 'function') updateStats();
+  if (typeof showEntryView === 'function') showEntryView();
 }
 function openHifz(){
   document.getElementById('homeScreen').style.display = 'none';
   document.getElementById('mainApp').style.display = 'none';
   document.getElementById('hifzScreen').style.display = 'block';
   if (typeof hzBoot === 'function') hzBoot();
+  if (typeof hzLoadZoom === 'function') hzLoadZoom();
 }
 function goHome(){
   document.getElementById('mainApp').style.display = 'none';
@@ -2203,6 +2190,8 @@ function init() {
   renderCurrent();
   updateStats();
   loadZoom();
+  hzLoadZoom();
+  loadReportFontStyle();
   loadFontStyle();
   applyReportFont(parseInt(localStorage.getItem(REPORT_FONT_K), 10) || cfg.reportFontSize || 13);
 }
@@ -2218,12 +2207,39 @@ function loadZoom() {
 function applyZoom(z) {
   z = Math.min(2, Math.max(0.7, z));
   document.documentElement.style.setProperty('--zoom', z);
-  document.getElementById('zoomVal').textContent = Math.round(z * 100) + '%';
+  const pct = Math.round(z * 100);
+  const zoomVal = document.getElementById('zoomVal');
+  if (zoomVal) zoomVal.textContent = pct + '%';
+  const slider = document.getElementById('zoomSlider');
+  if (slider) slider.value = pct;
+  const valMain = document.getElementById('zoomValMain');
+  if (valMain) valMain.textContent = pct + '%';
+  const sliderMain = document.getElementById('zoomSliderMain');
+  if (sliderMain) sliderMain.value = pct;
   localStorage.setItem(ZOOM_K, z);
 }
 function changeZoom(dir) {
   const current = parseFloat(localStorage.getItem(ZOOM_K)) || 1;
   applyZoom(current + (dir * 0.1));
+}
+
+// ============================================================
+// حفظ پروگریس صفحے کا اپنا علیحدہ زوم (پورے #hifzScreen پر CSS zoom لگاتے ہیں،
+// چونکہ اس صفحے میں 140+ الگ الگ سٹائل رولز ہیں، ہر ایک کو انفرادی طور پر --zoom نہیں دیا جا سکتا)
+// ============================================================
+const HZ_ZOOM_K = 'jamia_hz_zoom_v1';
+function hzApplyZoom(z){
+  z = Math.min(2, Math.max(0.7, z));
+  document.documentElement.style.setProperty('--hzZoom', z);
+  const val = document.getElementById('hzZoomVal');
+  if (val) val.textContent = Math.round(z * 100) + '%';
+  const slider = document.getElementById('hzZoomSlider');
+  if (slider) slider.value = Math.round(z * 100);
+  localStorage.setItem(HZ_ZOOM_K, z);
+}
+function hzLoadZoom(){
+  const saved = parseFloat(localStorage.getItem(HZ_ZOOM_K)) || 1;
+  hzApplyZoom(saved);
 }
 
 // ============================================================
@@ -2351,19 +2367,8 @@ function render(list, idxMap) {
 }
 
 function updateStats() {
-  const bar = document.getElementById('statsBar');
-  const curList = activePairs().map(p => p.s);
-  const total = curList.length;
-  const withMarks = curList.filter(s => calcTotal(s.mr1, s.mr2) !== null).length;
-  const passed = curList.filter(s => calcTotal(s.mr1, s.mr2) !== null && calcTotal(s.mr1, s.mr2) >= 120).length;
-  const sumAll = curList.reduce((a, s) => { const t = calcTotal(s.mr1, s.mr2); return a + (t !== null ? t : 0); }, 0);
-  const avg = withMarks ? Math.round(sumAll / withMarks) : 0;
-  bar.innerHTML = `
-    <div class="stat-chip">کل طلباء: <span>${total}</span></div>
-    <div class="stat-chip">نمبر درج: <span>${withMarks}</span></div>
-    <div class="stat-chip">کامیاب: <span>${passed}</span></div>
-    ${withMarks ? `<div class="stat-chip">اوسط: <span>${avg}</span></div>` : ''}
-  `;
+  // اسٹیٹس بار ہٹا دیا گیا ہے — یہ فنکشن خالی رکھا ہے تاکہ دوسری جگہوں پر موجود کالز نہ ٹوٹیں
+  return;
 }
 
 // ============================================================
@@ -2663,23 +2668,32 @@ function prefillMiqdFields(m){
   // ورنہ پرانا متن fMiqd میں موجود رہے گا، دستی ترمیم ہو سکتی ہے
 }
 
+function showListView(){
+  document.getElementById('examTopBar').style.display = 'none';
+  document.getElementById('entryPageView').style.display = 'none';
+  document.getElementById('listPageView').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+function showEntryView(){
+  document.getElementById('listPageView').style.display = 'none';
+  document.getElementById('examTopBar').style.display = 'block';
+  document.getElementById('entryPageView').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
 function toggleForm() {
-  const p = document.getElementById('entryForm');
-  const showing = p.style.display === 'block';
-  p.style.display = showing ? 'none' : 'block';
-  if (!showing) {
-    document.getElementById('editIdx').value = '-1';
-    ['fName','fWald','fMiqd','fNamz','fMob','fAddr'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('fMiqdType').value = '';
-    clearMiqdSubFields();
-    hideAllMiqdWraps();
-    document.getElementById('fPhoto').value = '';
-    showPhotoPreview('');
-    document.getElementById('epnIcon').textContent = '📝';
-    document.getElementById('epnTitle').textContent = 'نیا طالب علم درج کریں';
-    document.getElementById('epnViewBtn').style.display = 'none';
-    document.getElementById('fName').focus();
-  }
+  showEntryView();
+  document.getElementById('editIdx').value = '-1';
+  ['fName','fWald','fMiqd','fMob','fAddr'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('fMiqdType').value = '';
+  clearMiqdSubFields();
+  hideAllMiqdWraps();
+  document.getElementById('fPhoto').value = '';
+  showPhotoPreview('');
+  document.getElementById('epnIcon').textContent = '📝';
+  document.getElementById('epnTitle').textContent = 'نیا طالب علم درج کریں';
+  document.getElementById('epnViewBtn').style.display = 'none';
+  document.getElementById('fName').focus();
 }
 
 // ============================================================
@@ -2951,7 +2965,6 @@ function saveData() {
     n: name,
     w: document.getElementById('fWald').value.trim(),
     m: document.getElementById('fMiqd').value.trim(),
-    nz: document.getElementById('fNamz').value.trim(),
     mob: document.getElementById('fMob').value.trim(),
     addr: document.getElementById('fAddr').value.trim(),
     photo: document.getElementById('fPhoto').value || '',
@@ -2982,7 +2995,7 @@ function saveData() {
   document.getElementById('editIdx').value = '-1';
   document.getElementById('fPhoto').value = '';
   showPhotoPreview('');
-  ['fName','fWald','fMiqd','fNamz','fMob','fAddr'].forEach(id => document.getElementById(id).value = '');
+  ['fName','fWald','fMiqd','fMob','fAddr'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('fMiqdType').value = '';
   clearMiqdSubFields();
   hideAllMiqdWraps();
@@ -3000,7 +3013,6 @@ function edit(i) {
   document.getElementById('fName').value = s.n || '';
   document.getElementById('fWald').value = s.w || '';
   prefillMiqdFields(s.m || '');
-  document.getElementById('fNamz').value = s.nz || '';
   document.getElementById('fMob').value = s.mob || '';
   document.getElementById('fAddr').value = s.addr || '';
   document.getElementById('fPhoto').value = s.photo || '';
@@ -3010,7 +3022,7 @@ function edit(i) {
   document.getElementById('epnTitle').textContent = 'طالب علم کا ریکارڈ تبدیل کریں — ' + (s.n || '');
   document.getElementById('epnViewBtn').style.display = 'inline-block';
   document.getElementById('entryForm').style.display = 'block';
-  window.scrollTo(0, 0);
+  showEntryView();
   document.getElementById('fName').focus();
 }
 
@@ -3462,6 +3474,38 @@ let currentOrient = 'landscape';
 let currentReportType = 'exam'; // 'exam' یا 'contacts' یا 'enroll'
 const REPORT_ALIGN_K = 'jamia_report_align_v1';
 let reportDataAlign = localStorage.getItem(REPORT_ALIGN_K) || 'right';
+// ============================================================
+// رپورٹ کا اپنا علیحدہ فونٹ — پرنٹ کے وقت منتخب کریں، مرکزی ایپ کے فونٹ سے الگ
+// ============================================================
+const REPORT_FONT_STYLE_K = 'jamia_report_font_style_v1';
+let reportFontStyle = localStorage.getItem(REPORT_FONT_STYLE_K) || 'kasheeda';
+function applyReportFontStyle(id){
+  reportFontStyle = id;
+  localStorage.setItem(REPORT_FONT_STYLE_K, id);
+  const root = document.documentElement;
+  if (id === 'kasheeda') {
+    // ڈیفالٹ حالت: عنوان/ہیڈر کشیدہ میں، باقی ڈیٹا معمول کے نستعلیق میں
+    root.style.setProperty('--report-font-title', 'var(--font-kasheeda)');
+    root.style.setProperty('--report-font-body', 'var(--font-nastaliq)');
+  } else {
+    // منتخب فونٹ پورے پیج پر یکساں — عنوان اور ڈیٹا دونوں
+    const map = { nastaliq: 'var(--font-nastaliq)', arial: 'var(--font-arial)', thuluth: 'var(--font-thuluth)' };
+    const val = map[id] || 'var(--font-nastaliq)';
+    root.style.setProperty('--report-font-title', val);
+    root.style.setProperty('--report-font-body', val);
+  }
+  const sel = document.getElementById('reportFontSelect');
+  if (sel) sel.value = id;
+  // موجودہ کھلی رپورٹ کو نئے فونٹ کے ساتھ دوبارہ بنائیں
+  if (currentReportType === 'contacts') buildContactsTable();
+  else if (currentReportType === 'enroll') buildEnrollTable();
+  else if (currentReportType === 'exam') buildPrintableTable();
+}
+function setReportFont(id){ applyReportFontStyle(id); }
+function loadReportFontStyle(){
+  applyReportFontStyle(localStorage.getItem(REPORT_FONT_STYLE_K) || 'kasheeda');
+}
+
 function setReportAlign(val){
   reportDataAlign = val;
   localStorage.setItem(REPORT_ALIGN_K, val);
@@ -3539,7 +3583,7 @@ function buildPrintableTable(){
   const fc=document.getElementById('pa-footer-count');
   if(fc)fc.textContent='کل طلبہ: '+list.length;
   const fs = cfg.reportFontSize || 13;
-  const F='font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;';
+  const F='font-family:var(--report-font-body);line-height:1.15;direction:rtl;unicode-bidi:embed;';
   const P='padding:4px 4px;';
   const B='border:1px solid #ccc;';
   list.forEach(function(s,i){
@@ -3547,7 +3591,8 @@ function buildPrintableTable(){
     var q=getQualityText(s.mr1,s.mr2)||'';
     var nzHtml='';
     if(showNamaz){
-      nzHtml='<td style="'+B+P+F+'font-size:'+fs+'px;text-align:'+DA+';background:'+rowBg+';">'+(s.nz||'')+'</td>'+
+      // نماز حنفی کالم ہمیشہ خالی رہے گا (پرنٹ کے بعد ہاتھ سے بھرا جاتا ہے) — کسی ڈیٹا سے فیڈ نہیں ہوتا
+      nzHtml='<td style="'+B+P+F+'font-size:'+fs+'px;text-align:'+DA+';background:'+rowBg+';">'+''+'</td>'+
              '<td style="'+B+P+F+'font-size:'+fs+'px;text-align:'+DA+';background:'+rowBg+';">'+(s.mr2||'')+'</td>';
     }
     var mq = parseMiqdarSplit(s.m);
@@ -3601,7 +3646,7 @@ function buildContactsTable(){
   const fc=document.getElementById('ca-footer-count');
   if(fc)fc.textContent='کل طلبہ: '+list.length;
   const fs = cfg.reportFontSize || 13;
-  const F='font-family:var(--nastaliq);line-height:1.2;direction:rtl;unicode-bidi:embed;';
+  const F='font-family:var(--report-font-body);line-height:1.2;direction:rtl;unicode-bidi:embed;';
   const P='padding:6px 5px;';
   const B='border:1px solid #ccc;';
   list.forEach(function(s,i){
@@ -3626,45 +3671,89 @@ function buildContactsTable(){
 // ============================================================
 // امتحانی اندراج فارم — مکمل خالی، صرف نمبر شمار پرنٹ ہوتا ہے (نام/ولدیت/باقی سب خانے ہاتھ سے پُر کرنے کے لیے خالی)
 // ============================================================
-const ENROLL_ROWS = 35;
+const ENROLL_ROWS = 75; // 25 فی صفحہ کے حساب سے 3 صفحے
+const ENROLL_ROWS_PER_PAGE = 25;
 function buildEnrollTable(){
-  const tbody = document.getElementById('ea-tbody');
-  if (!tbody) return;
-  tbody.innerHTML = '';
-  const F = 'font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;';
-  const P = 'padding:2px 3px;height:26px;';
+  const pagesWrap = document.getElementById('ea-pages');
+  if (!pagesWrap) return;
+  const madrasa = document.getElementById('madrasaName');
+  const madName = (madrasa ? madrasa.textContent.trim() : '') || cfg.name || 'جامعہ';
+  const teacherLabel = printClassLabel();
+  const dateLabel = fmtPrintDate(cfg.d || document.getElementById('date').value || '');
+  const totalPages = Math.ceil(ENROLL_ROWS / ENROLL_ROWS_PER_PAGE);
+  const F = 'font-family:var(--report-font-body);line-height:1.15;direction:rtl;unicode-bidi:embed;';
+  const P = 'padding:4px 4px;height:34px;box-sizing:border-box;'; // لائنیں چوڑی — ہاتھ سے لکھنے کے لیے مناسب جگہ، مگر ٹھیک 25 لائنیں ایک صفحے میں فٹ رہیں
   const B = 'border:1px solid #ccc;';
-  let html = '';
-  for (let i = 0; i < ENROLL_ROWS; i++) {
-    const rowBg = i % 2 === 0 ? '#ffffff' : '#f2f8f2';
-    html +=
-      '<tr dir="rtl">' +
-      '<td style="' + B + P + 'font-size:11px;text-align:center;background:' + rowBg + ';font-weight:700;direction:ltr;unicode-bidi:embed;">' + (i + 1) + '</td>' +
-      '<td style="' + B + P + F + '"></td>' +
-      '<td style="' + B + P + F + '"></td>' +
-      '<td style="' + B + P + F + '"></td>' +
-      '<td style="' + B + P + F + '"></td>' +
-      '<td style="' + B + P + F + '"></td>' +
-      '<td style="' + B + P + F + '"></td>' +
-      '<td style="' + B + P + F + '"></td>' +
-      '</tr>';
+
+  let allHtml = '';
+  for (let p = 0; p < totalPages; p++) {
+    const rowsThisPage = Math.min(ENROLL_ROWS_PER_PAGE, ENROLL_ROWS - p * ENROLL_ROWS_PER_PAGE);
+    const startNum = p * ENROLL_ROWS_PER_PAGE + 1;
+    const isLastPage = (p === totalPages - 1);
+
+    let rowsHtml = '';
+    for (let r = 0; r < rowsThisPage; r++) {
+      const num = startNum + r;
+      const rowBg = r % 2 === 0 ? '#ffffff' : '#f2f8f2';
+      rowsHtml +=
+        '<tr dir="rtl">' +
+        '<td style="' + B + P + 'font-size:11px;text-align:center;background:' + rowBg + ';font-weight:700;direction:ltr;unicode-bidi:embed;">' + num + '</td>' +
+        '<td style="' + B + P + F + '"></td>' +
+        '<td style="' + B + P + F + '"></td>' +
+        '<td style="' + B + P + F + '"></td>' +
+        '<td style="' + B + P + F + '"></td>' +
+        '<td style="' + B + P + F + '"></td>' +
+        '<td style="' + B + P + F + '"></td>' +
+        '<td style="' + B + P + F + '"></td>' +
+        '</tr>';
+    }
+
+    allHtml += '<div style="' + (isLastPage ? '' : 'page-break-after:always;') + '">' +
+      '<div style="border-bottom:2px solid #000;padding:8px 12px;text-align:center;background:#fff;direction:rtl;unicode-bidi:embed;">' +
+        '<div style="font-family:var(--report-font-title);font-size:26px;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;letter-spacing:0.3px;direction:rtl;unicode-bidi:embed;">' + _escHtml(madName) + '</div>' +
+        '<div style="font-family:var(--nastaliq);font-size:13px;color:#333;margin-top:2px;direction:rtl;unicode-bidi:embed;">امتحانی اندراج فارم — صفحہ ' + (p+1) + ' از ' + totalPages + '</div>' +
+      '</div>' +
+      '<table style="width:100%;border-collapse:collapse;background:#fff;border-bottom:1px solid #999;direction:rtl;unicode-bidi:embed;"><tbody><tr>' +
+        '<td style="text-align:center;padding:9px 10px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">' +
+          '<span style="font-family:var(--report-font-title);font-size:17px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;">' + _escHtml(teacherLabel) + '</span>' +
+          '<span style="display:inline-block;width:48px;"></span>' +
+          '<span style="font-family:var(--report-font-title);font-size:17px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;">' + _escHtml(dateLabel) + '</span>' +
+        '</td>' +
+      '</tr></tbody></table>' +
+      '<div style="border:1.5px solid #0a3d0a;border-radius:10px;overflow:hidden;margin:0;">' +
+      '<table dir="rtl" style="width:100%;border-collapse:collapse;margin-top:0;table-layout:fixed;direction:rtl;unicode-bidi:embed;">' +
+        '<thead>' +
+          '<tr style="background:#d7e9d7;">' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 3px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:6%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">#</th>' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:19%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نام طالب علم</th>' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:16%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">ولدیت</th>' +
+            '<th colspan="3" style="border:1px solid #333;border-bottom:2px solid #0a3d0a;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:34%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">مقدار خواندگی</th>' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:12%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نماز حنفی</th>' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>' +
+          '</tr>' +
+          '<tr style="background:#eef6ee;">' +
+            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:8.5px;font-weight:900;color:#0a3d0a;text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">تفصیل</th>' +
+            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:8.5px;font-weight:900;color:#0a3d0a;text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">شروع سے</th>' +
+            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:8.5px;font-weight:900;color:#0a3d0a;text-align:center;width:11.34%;direction:rtl;unicode-bidi:embed;">آخر سے</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>' + rowsHtml + '</tbody>' +
+      '</table>' +
+      '</div>' +
+      '<table style="width:100%;border-collapse:collapse;border-top:1px solid #000;background:#fff;direction:rtl;unicode-bidi:embed;"><tbody><tr>' +
+        '<td style="text-align:center;padding:4px 10px;font-family:var(--nastaliq);font-size:11px;color:#333;direction:rtl;unicode-bidi:embed;">صفحہ ' + (p+1) + ' — نمبر ' + startNum + ' تا ' + (startNum + rowsThisPage - 1) + '</td>' +
+      '</tr></tbody></table>' +
+    '</div>';
   }
-  tbody.innerHTML = html;
-  const fc = document.getElementById('ea-footer-count');
-  if (fc) fc.textContent = 'کل خانے: ' + ENROLL_ROWS;
+  pagesWrap.innerHTML = allHtml;
 }
+function _escHtml(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
 function prepareEnrollForm(){
   currentOrient = 'portrait';
   currentReportType = 'enroll';
   const ea = document.getElementById('enrollArea');
   if (ea) { ea.style.maxWidth = '794px'; ea.style.width = '794px'; }
-  const madrasa = document.getElementById('madrasaName');
-  const madName = (madrasa ? madrasa.textContent.trim() : '') || cfg.name || 'جامعہ';
-  const m = document.getElementById('ea-madrasa'), t = document.getElementById('ea-teacher'), d = document.getElementById('ea-date');
-  if (m) m.textContent = madName;
-  if (t) t.textContent = printClassLabel();
-  if (d) d.textContent = fmtPrintDate(cfg.d || document.getElementById('date').value || '');
   const orientStyle = document.getElementById('printOrientStyle');
   if (orientStyle) orientStyle.textContent = '@media print { @page { size: portrait; margin: 4mm; } }';
   buildEnrollTable();
