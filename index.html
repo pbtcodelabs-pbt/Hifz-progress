@@ -179,7 +179,7 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
 .lock-btn-primary { background: var(--green-dark); color: #fff; }
 .lock-btn-trial { background: #ff6b35; color: #fff; }
 .lock-btn-share { background: #075e54; color: #fff; width: 100%; margin-top: 8px; }
-.lock-btn-admin { background: linear-gradient(180deg,#444,#1a1a1a); color: #f5d76e; width: 100%; margin-top: 8px; border: 1px solid #555; box-shadow: 0 3px 0 #000; }
+.lock-btn-admin { background: linear-gradient(180deg,#444,#1a1a1a); color: var(--gold-light); width: 100%; margin-top: 8px; border: 1px solid #555; box-shadow: 0 3px 0 #000; }
 
 #lockMsg { text-align: center; font-size: 13px; min-height: 20px; margin-top: 10px; font-weight: bold; font-family: Arial; }
 #lockMsg.err { color: var(--red); }
@@ -207,7 +207,7 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
 
 /* HEADER */
 .app-header {
-  background: linear-gradient(180deg, #0a3d0a 0%, #155a15 100%);
+  background: linear-gradient(180deg, var(--green-dark) 0%, var(--green-mid) 100%);
   padding: 8px 7px 6px;
   border-bottom: 3px solid var(--gold);
   position: relative;
@@ -366,7 +366,7 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
   pointer-events: none;
 }
 .reports-dd-cap {
-  color: #f5d76e; font-family: var(--nastaliq); font-weight: 700;
+  color: var(--gold-light); font-family: var(--nastaliq); font-weight: 700;
   font-size: calc(11.5px * var(--zoom, 1)); white-space: nowrap; flex-shrink: 0;
 }
 .reports-dd {
@@ -399,7 +399,7 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
 .zoom-btn:active { transform: translateY(2px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 1px 0 rgba(0,0,0,0.25); }
 .zoom-val { font-family: Arial; font-size: 13px; font-weight: bold; color: var(--green-dark); min-width: 42px; text-align: center; }
 .tb-backup { background: linear-gradient(180deg,#8e44ad,#6c3483); color:#fff; }
-.tb-admin { background: linear-gradient(180deg,#444,#1a1a1a); color:#f5d76e; }
+.tb-admin { background: linear-gradient(180deg,#444,#1a1a1a); color:var(--gold-light); }
 
 /* SEARCH BAR */
 .search-wrap {
@@ -451,7 +451,7 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
   animation: slideUp 0.25s ease;
 }
 .entry-panel-header {
-  background: linear-gradient(135deg, #0a3d0a 0%, #1e7e1e 100%);
+  background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-light) 100%);
   padding: 8px 14px;
   display: flex; align-items: center; gap: 8px;
   border-bottom: 3px solid var(--gold);
@@ -526,6 +526,10 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
 .ef-photo-btn.danger { border-color: #c0392b; color: #c0392b; }
 .ef-type-big label { font-size: calc(14px * var(--zoom, 1)) !important; font-weight: 900 !important; }
 .ef-type-big select { font-size: calc(15px * var(--zoom, 1)) !important; padding: 9px 10px !important; font-weight: 800 !important; border-width: 2px !important; }
+.ef-inline-pair { flex-direction: row; }
+.ef-inline-pair > label { flex-shrink: 0; }
+.ef-inline-pair > div { flex: 1; min-width: 0; }
+.ef-inline-pair select { font-size: calc(12px * var(--zoom, 1)); padding: 5px 4px; }
 .ef-save-btn {
   width: 100%; padding: 9px;
   background: linear-gradient(180deg,#2ecc71,#1e8449);
@@ -564,7 +568,7 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
   margin: 0 8px 4px; padding: 3px;
 }
 table { width: 100%; min-width: 700px; max-width: none; border-collapse: collapse; table-layout: fixed; }
-thead { background: linear-gradient(180deg,#0a3d0a,#155a15); box-shadow: 0 3px 5px rgba(0,0,0,0.25); position: relative; z-index: 1; }
+thead { background: linear-gradient(180deg,var(--green-dark),var(--green-mid)); box-shadow: 0 3px 5px rgba(0,0,0,0.25); position: relative; z-index: 1; }
 th {
   color: var(--gold-light); font-family: var(--nastaliq);
   font-size: calc(11px * var(--zoom, 1)); padding: 6px 3px; border: 1px solid rgba(255,255,255,0.15);
@@ -637,10 +641,10 @@ td.clickable:hover { background: #fff9e6 !important; }
   }
   .popup-header {
     display: flex; align-items: center; justify-content: space-between;
-    background: linear-gradient(135deg, #0a3d0a 0%, #1e7e1e 100%);
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-light) 100%);
     padding: 16px 18px; border-radius: 20px 20px 0 0;
   }
-  .popup-title { font-family: var(--nastaliq); font-size: 22px; color: #f5d76e; font-weight: 900; line-height: 1.4; }
+  .popup-title { font-family: var(--nastaliq); font-size: 22px; color: var(--gold-light); font-weight: 900; line-height: 1.4; }
   .popup-close {
     font-size: 20px; cursor: pointer; color: rgba(255,255,255,0.85);
     border: none; background: rgba(255,255,255,0.18); border-radius: 50%;
@@ -655,7 +659,7 @@ td.clickable:hover { background: #fff9e6 !important; }
     border-radius: 22px;
     padding: 4px;
     margin: 14px 16px 4px;
-    background-image: linear-gradient(135deg, #d4af37 0%, #f5e7a3 30%, #0a3d0a 60%, #1e7e1e 100%);
+    background-image: linear-gradient(135deg, #d4af37 0%, #f5e7a3 30%, var(--green-dark) 60%, var(--green-light) 100%);
     box-shadow: 0 14px 30px rgba(0,0,0,0.28), 0 3px 8px rgba(0,0,0,0.15);
   }
   .student-poster-inner {
@@ -669,7 +673,7 @@ td.clickable:hover { background: #fff9e6 !important; }
   .student-poster-inner::before, .student-poster-inner::after {
     content: '';
     position: absolute; left: 0; right: 0; height: 6px;
-    background: repeating-linear-gradient(135deg, #d4af37 0 8px, #0a3d0a 8px 16px);
+    background: repeating-linear-gradient(135deg, #d4af37 0 8px, var(--green-dark) 8px 16px);
   }
   .student-poster-inner::before { top: 0; }
   .student-poster-inner::after { bottom: 0; }
@@ -686,7 +690,7 @@ td.clickable:hover { background: #fff9e6 !important; }
     width: 220px; height: 220px; margin: 0 auto 16px;
     border-radius: 50%; overflow: hidden; background: #e6f4e6;
     padding: 5px;
-    background-image: linear-gradient(135deg, #d4af37, #1e7e1e, #1565c0);
+    background-image: linear-gradient(135deg, #d4af37, var(--green-light), #1565c0);
     box-shadow: 0 10px 22px rgba(0,0,0,0.3);
   }
   .poster-photo-box-inner {
@@ -707,7 +711,7 @@ td.clickable:hover { background: #fff9e6 !important; }
   .poster-father { font-family: var(--nastaliq); font-size: 17px; font-weight: 900; color: #333; margin-bottom: 4px; }
   .poster-phone {
     display: inline-flex; align-items: center; gap: 8px; margin-top: 12px;
-    background: linear-gradient(135deg, #1e7e1e, #0a3d0a); color: #fff; text-decoration: none;
+    background: linear-gradient(135deg, var(--green-light), var(--green-dark)); color: #fff; text-decoration: none;
     font-family: var(--nastaliq); font-size: 16px; font-weight: 800;
     padding: 10px 22px; border-radius: 999px; box-shadow: 0 4px 0 #062d06, 0 6px 12px rgba(0,0,0,0.25);
   }
@@ -747,7 +751,7 @@ td.clickable:hover { background: #fff9e6 !important; }
   .popup-row:nth-child(odd)  { background: #f0f7f0; }
   .popup-row:nth-child(even) { background: #e6f4e6; }
   .popup-label { font-family: var(--nastaliq); font-size: 13px; color: #666; font-weight: 700; min-width: 90px; }
-  .popup-val   { font-family: var(--nastaliq); font-size: 17px; font-weight: 900; color: #0a3d0a; flex: 1; text-align: left; padding-right: 8px; }
+  .popup-val   { font-family: var(--nastaliq); font-size: 17px; font-weight: 900; color: var(--green-dark); flex: 1; text-align: left; padding-right: 8px; }
   .popup-wa-btn {
     display: flex; align-items: center; gap: 8px;
     background: linear-gradient(135deg, #25d366, #128c7e); color: #fff;
@@ -821,7 +825,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 }
 .poster-preview-header {
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  padding: 14px 14px; background: linear-gradient(135deg,#0a3d0a,#1e7e1e); flex: 0 0 auto;
+  padding: 14px 14px; background: linear-gradient(135deg,var(--green-dark),var(--green-light)); flex: 0 0 auto;
 }
 .poster-preview-header .modal-title { font-size: 14px; line-height: 1.5; }
 .poster-preview-close {
@@ -878,8 +882,8 @@ td.clickable:hover { background: #fff9e6 !important; }
 .home-btns{ display:flex; flex-direction:column; gap:14px; }
 .home-btn{ padding:18px; border:none; border-radius:16px; font-family:var(--nastaliq); font-size:18px; font-weight:800; cursor:pointer; box-shadow:0 6px 0 rgba(0,0,0,.28); transition:transform .1s ease; }
 .home-btn:active{ transform:scale(.97); box-shadow:0 3px 0 rgba(0,0,0,.28); }
-.home-btn-hifz{ background:linear-gradient(180deg,#f5d76e,#c9a227); color:#1a1a1a; }
-.home-btn-exam{ background:linear-gradient(180deg,#2e9e4f,#0a3d0a); color:#fff; }
+.home-btn-hifz{ background:linear-gradient(180deg,var(--gold-light),var(--gold)); color:#1a1a1a; }
+.home-btn-exam{ background:linear-gradient(180deg,#2e9e4f,var(--green-dark)); color:#fff; }
 .home-foot{ margin-top:22px; color:#bcd9bc; font-size:11px; font-family:Arial; }
 .dev-chat-bubble{
   position:relative; display:inline-flex; align-items:center; gap:7px;
@@ -1101,7 +1105,7 @@ td.clickable:hover { background: #fff9e6 !important; }
   #printReportRoot .pr-table td.pr-eta{text-align:center;font-weight:700;font-size:10.3px;width:17%}
   #printReportRoot .pr-table tr{page-break-inside:avoid;break-inside:avoid}
   #printReportRoot .pr-footer{margin-top:10px;text-align:center;font-size:9.5px;color:#666}
-  #printReportRoot .pr-quran-sub{font-size:12.5px;font-weight:700;margin:14px 0 6px;color:var(--emerald-950,#0a3d0a)}
+  #printReportRoot .pr-quran-sub{font-size:12.5px;font-weight:700;margin:14px 0 6px;color:var(--emerald-950,var(--green-dark))}
 
   /* ---------------- کالموں کے مستقل رنگ: سبق (سبز) / سبقی (نیلا) / منزل (جامنی) — روزانہ اندراج، ماہانہ ریکارڈ اور رپورٹ میں ایک جیسے ---------------- */
   #hifzScreen .cat-h-sabaq, #printReportRoot .cat-h-sabaq{background:linear-gradient(180deg,#BEEBC9,#8FD9A2) !important;border-bottom:3px solid #2F9E4F !important;color:#0B4A22 !important}
@@ -1228,7 +1232,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <input type="password" id="adminPassInput" placeholder="پاسورڈ درج کریں" style="width:100%;padding:12px;border:2px solid #ddd;border-radius:8px;font-size:18px;font-family:Arial;direction:ltr;text-align:center;letter-spacing:4px;outline:none;" inputmode="numeric" onkeydown="if(event.key==='Enter')checkAdminPass()">
       <div id="adminGateMsg" style="text-align:center;font-size:13px;color:#c0392b;font-weight:bold;margin-top:8px;min-height:18px;font-family:var(--nastaliq);"></div>
     </div>
-    <button onclick="checkAdminPass()" style="width:100%;padding:12px;background:linear-gradient(180deg,#2ecc71,#27ae60);color:#fff;border:none;border-radius:8px;font-family:var(--nastaliq);font-size:15px;font-weight:600;cursor:pointer;margin-bottom:8px;box-shadow:0 3px 0 #1e7e1e;">
+    <button onclick="checkAdminPass()" style="width:100%;padding:12px;background:linear-gradient(180deg,#2ecc71,#27ae60);color:#fff;border:none;border-radius:8px;font-family:var(--nastaliq);font-size:15px;font-weight:600;cursor:pointer;margin-bottom:8px;box-shadow:0 3px 0 var(--green-light);">
       ✅ داخل ہوں
     </button>
     <button onclick="closeAdminGate()" style="width:100%;padding:10px;background:#eee;color:#555;border:none;border-radius:8px;font-family:var(--nastaliq);font-size:14px;cursor:pointer;">
@@ -1248,7 +1252,7 @@ td.clickable:hover { background: #fff9e6 !important; }
     <div style="overflow-y:auto;padding:12px 16px;flex:1;min-height:0;">
 
     <div style="border-bottom:2px dashed #ddd;margin-bottom:10px;padding-bottom:10px;">
-      <div style="font-size:13px;color:#0a3d0a;font-weight:800;font-family:var(--nastaliq);margin-bottom:6px;">🖋️ فونٹ سائز</div>
+      <div style="font-size:13px;color:var(--green-dark);font-weight:800;font-family:var(--nastaliq);margin-bottom:6px;">🖋️ فونٹ سائز</div>
       <div style="background:#f0f4f0;border-radius:8px;padding:9px 10px;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
           <span style="font-family:var(--nastaliq);font-size:13px;color:#333;">پورا صفحہ:</span>
@@ -1282,7 +1286,7 @@ td.clickable:hover { background: #fff9e6 !important; }
     <div id="admStatusLine" style="font-size:12px;color:#28a745;font-weight:bold;text-align:center;margin-bottom:8px;font-family:var(--nastaliq);min-height:16px;"></div>
 
     <div style="border-top:2px dashed #ddd;margin:10px 0;padding-top:10px;">
-      <div style="font-size:13px;color:#0a3d0a;font-weight:800;font-family:var(--nastaliq);margin-bottom:6px;">💬 ڈویلپر رابطہ تفصیلات (چیٹ ود ڈویلپر بٹن کے لیے)</div>
+      <div style="font-size:13px;color:var(--green-dark);font-weight:800;font-family:var(--nastaliq);margin-bottom:6px;">💬 ڈویلپر رابطہ تفصیلات (چیٹ ود ڈویلپر بٹن کے لیے)</div>
 
       <label style="font-size:12px;color:#555;display:block;margin-bottom:3px;font-family:var(--nastaliq);">میسج (SMS) نمبر</label>
       <input type="tel" id="admDevSms" placeholder="مثلاً: 03001234567" style="width:100%;padding:8px;border:2px solid #ddd;border-radius:8px;font-size:14px;font-family:Arial;direction:ltr;text-align:left;outline:none;margin-bottom:8px;">
@@ -1295,7 +1299,7 @@ td.clickable:hover { background: #fff9e6 !important; }
     </div>
 
     <div style="border-top:2px dashed #ddd;margin:10px 0;padding-top:10px;">
-      <div style="font-size:13px;color:#0a3d0a;font-weight:800;font-family:var(--nastaliq);margin-bottom:6px;">📄 سورس کوڈ (APK دوبارہ بنانے کے لیے)</div>
+      <div style="font-size:13px;color:var(--green-dark);font-weight:800;font-family:var(--nastaliq);margin-bottom:6px;">📄 سورس کوڈ (APK دوبارہ بنانے کے لیے)</div>
       <div style="font-size:11.5px;color:#777;font-family:var(--nastaliq);line-height:1.6;margin-bottom:6px;">
         اگر کبھی اصل HTML فائل گم ہو جائے یا APK میں خرابی آئے تو یہاں سے پوری سورس کوڈ کسی وقت بھی نکالی جا سکتی ہے۔
       </div>
@@ -1307,7 +1311,7 @@ td.clickable:hover { background: #fff9e6 !important; }
     </div>
 
     <div style="padding:10px 16px 14px;border-top:1px solid #eee;flex-shrink:0;">
-      <button onclick="saveAdminSettings()" style="width:100%;padding:12px;background:linear-gradient(180deg,#2ecc71,#27ae60);color:#fff;border:none;border-radius:8px;font-family:var(--nastaliq);font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 3px 0 #1e7e1e;">
+      <button onclick="saveAdminSettings()" style="width:100%;padding:12px;background:linear-gradient(180deg,#2ecc71,#27ae60);color:#fff;border:none;border-radius:8px;font-family:var(--nastaliq);font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 3px 0 var(--green-light);">
         💾 محفوظ کریں
       </button>
     </div>
@@ -1340,7 +1344,7 @@ td.clickable:hover { background: #fff9e6 !important; }
     <div class="modal-title" style="margin-bottom:10px;">🖼️ تصویر ایڈجسٹ کریں</div>
 
     <div id="peFrameWrap" style="position:relative;width:100%;padding:4px;border-radius:20px;background:#1565c0;box-shadow:0 8px 18px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.5), inset 0 -2px 3px rgba(0,0,0,0.25);margin-bottom:10px;">
-      <div id="peRingGreen" style="position:relative;padding:4px;border-radius:16px;background:#1e7e1e;box-shadow:inset 0 1px 2px rgba(255,255,255,0.4), inset 0 -1px 2px rgba(0,0,0,0.25);">
+      <div id="peRingGreen" style="position:relative;padding:4px;border-radius:16px;background:var(--green-light);box-shadow:inset 0 1px 2px rgba(255,255,255,0.4), inset 0 -1px 2px rgba(0,0,0,0.25);">
       <div id="peRingGold" style="position:relative;padding:4px;border-radius:12px;background:#d4af37;box-shadow:inset 0 1px 2px rgba(255,255,255,0.5), inset 0 -1px 2px rgba(0,0,0,0.25);">
       <div id="peStage" style="position:relative;width:100%;aspect-ratio:1/1;background:#111;border-radius:9px;overflow:hidden;touch-action:none;box-shadow:inset 0 3px 8px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.5);">
         <img id="peImg" draggable="false" style="position:absolute;left:0;top:0;transform-origin:0 0;touch-action:none;cursor:grab;user-select:none;-webkit-user-drag:none;max-width:none !important;max-height:none !important;">
@@ -1364,7 +1368,7 @@ td.clickable:hover { background: #fff9e6 !important; }
     <input type="range" id="peZoom" min="100" max="300" value="100" oninput="updatePePreview()" style="width:100%;margin-bottom:14px;">
 
     <div style="display:flex;gap:8px;">
-      <button onclick="savePhotoEdit()" style="flex:1.4;padding:13px;background:linear-gradient(180deg,#2ecc71,#27ae60);color:#fff;border:none;border-radius:8px;font-family:var(--nastaliq);font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 3px 0 #1e7e1e;">✅ محفوظ کریں</button>
+      <button onclick="savePhotoEdit()" style="flex:1.4;padding:13px;background:linear-gradient(180deg,#2ecc71,#27ae60);color:#fff;border:none;border-radius:8px;font-family:var(--nastaliq);font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 3px 0 var(--green-light);">✅ محفوظ کریں</button>
       <button onclick="cancelPhotoEdit()" style="flex:1;padding:13px;background:#eee;color:#555;border:none;border-radius:8px;font-family:var(--nastaliq);font-size:15px;font-weight:700;cursor:pointer;">❌ منسوخ</button>
     </div>
   </div>
@@ -1378,7 +1382,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD228SA0538AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD228SA0605AM</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -1474,13 +1478,13 @@ td.clickable:hover { background: #fff9e6 !important; }
     <button onclick="deleteClass()" title="یہ کلاس حذف کریں" style="flex:0 0 auto;height:34px;border-radius:17px;padding:0 16px;font-size:13px;font-family:var(--nastaliq);font-weight:800;white-space:nowrap;border:none;background:linear-gradient(180deg,#c0392b,#7a2015);color:#fff;cursor:pointer;">🗑 حذف</button>
   </div>
 
-  <button class="no-print" onclick="openAdminGate()" title="کنٹرول پینل" style="position:fixed;top:10px;left:10px;z-index:5000;width:40px;height:40px;border-radius:50%;border:2px solid var(--gold);background:linear-gradient(180deg,#444,#1a1a1a);color:#f5d76e;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.4);">⚙️</button>
+  <button class="no-print" onclick="openAdminGate()" title="کنٹرول پینل" style="position:fixed;top:10px;left:10px;z-index:5000;width:40px;height:40px;border-radius:50%;border:2px solid var(--gold);background:linear-gradient(180deg,#444,#1a1a1a);color:var(--gold-light);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.4);">⚙️</button>
   <div id="tfWidgetExam" class="no-print" style="position:fixed;top:10px;right:12px;z-index:5000;"></div>
 
-  <div class="no-print" style="position:sticky;top:0;z-index:90;background:#0a3d0a;border-bottom:2px solid var(--gold);padding:4px 14px;display:flex;align-items:center;gap:8px;">
+  <div class="no-print" style="position:sticky;top:0;z-index:90;background:var(--green-dark);border-bottom:2px solid var(--gold);padding:4px 14px;display:flex;align-items:center;gap:8px;">
     <span style="font-family:var(--nastaliq);font-size:11px;color:#fff;white-space:nowrap;flex-shrink:0;">🖋️ سائز:</span>
-    <input type="range" id="zoomSliderMain" min="70" max="200" step="5" value="100" oninput="applyZoom(this.value/100)" style="flex:1;height:14px;accent-color:#f5d76e;">
-    <span id="zoomValMain" style="font-family:var(--nastaliq);font-size:11px;font-weight:800;color:#f5d76e;white-space:nowrap;flex-shrink:0;">100%</span>
+    <input type="range" id="zoomSliderMain" min="70" max="200" step="5" value="100" oninput="applyZoom(this.value/100)" style="flex:1;height:14px;accent-color:var(--gold-light);">
+    <span id="zoomValMain" style="font-family:var(--nastaliq);font-size:11px;font-weight:800;color:var(--gold-light);white-space:nowrap;flex-shrink:0;">100%</span>
   </div>
   </div>
 
@@ -1496,7 +1500,7 @@ td.clickable:hover { background: #fff9e6 !important; }
     <input type="hidden" id="editIdx" value="-1">
     <input type="hidden" id="fPhoto" value="">
     <div class="entry-grid">
-      <div class="ef-photo-wrap">
+      <div class="ef-photo-wrap ef-full">
         <div class="ef-photo-box" id="efPhotoBox" onclick="document.getElementById('fPhotoInputCamera').click()"><span class="ef-photo-icon" id="efPhotoIcon">📷</span></div>
         <div class="ef-photo-btns-compact">
           <button type="button" class="ef-photo-btn-sm" onclick="document.getElementById('fPhotoInputCamera').click()" title="کیمرے سے تصویر لیں">📷</button>
@@ -1506,10 +1510,9 @@ td.clickable:hover { background: #fff9e6 !important; }
         <input type="file" id="fPhotoInputCamera" accept="image/*" capture="environment" style="display:none" onchange="onPhotoSelected(event)">
         <input type="file" id="fPhotoInputGallery" accept="image/*" style="display:none" onchange="onPhotoSelected(event)">
       </div>
-      <div class="ef-field"><label>نام طالب علم *</label><input id="fName" placeholder="مثلاً: محمد احمد"></div>
-      <div class="ef-field"><label>والد کا نام</label><input id="fWald" placeholder="مثلاً: محمد علی"></div>
-      <div class="ef-field"><label>دیگر / اضافی نوٹ</label><input id="fMiqd" placeholder=""></div>
-      <div class="ef-field ef-full ef-type-big">
+      <div class="ef-field ef-full"><label>نام طالب علم *</label><input id="fName" placeholder="مثلاً: محمد احمد"></div>
+      <div class="ef-field ef-full"><label>والد کا نام</label><input id="fWald" placeholder="مثلاً: محمد علی"></div>
+      <div class="ef-field ef-type-big">
         <label>تفصیل</label>
         <select id="fMiqdType" onchange="onMiqdTypeChange()">
           <option value="">— منتخب کریں —</option>
@@ -1523,39 +1526,40 @@ td.clickable:hover { background: #fff9e6 !important; }
           <option value="takhti">تختیاں</option>
         </select>
       </div>
-      <div class="ef-field ef-full" id="miqdSaparaWrap" style="">
+      <div class="ef-field"><label>دیگر / اضافی نوٹ</label><input id="fMiqd" placeholder=""></div>
+      <div class="ef-field ef-full ef-inline-pair" id="miqdSaparaWrap" style="">
         <label>سپارے (شروع/آخر)</label>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <select id="fMiqdStart" onchange="onMiqdSaparaChange('start')" style="flex:1 1 120px;min-width:110px;"><option value="">شروع سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option></select>
-          <select id="fMiqdEnd" onchange="onMiqdSaparaChange('end')" style="flex:1 1 120px;min-width:110px;"><option value="">آخر سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option></select>
+        <div style="display:flex;gap:6px;">
+          <select id="fMiqdStart" onchange="onMiqdSaparaChange('start')" style="flex:1;min-width:0;"><option value="">شروع سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option></select>
+          <select id="fMiqdEnd" onchange="onMiqdSaparaChange('end')" style="flex:1;min-width:0;"><option value="">آخر سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option></select>
         </div>
       </div>
-      <div class="ef-field ef-full" id="miqdPaoWrap" style="display:none;">
+      <div class="ef-field ef-full ef-inline-pair" id="miqdPaoWrap" style="display:none;">
         <label>پاؤ (شروع/آخر)</label>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <select id="fMiqdPaoStart" onchange="onMiqdPaoChange('start')" style="flex:1 1 120px;min-width:110px;"><option value="">شروع سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option></select>
-          <select id="fMiqdPaoEnd" onchange="onMiqdPaoChange('end')" style="flex:1 1 120px;min-width:110px;"><option value="">آخر سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option></select>
+        <div style="display:flex;gap:6px;">
+          <select id="fMiqdPaoStart" onchange="onMiqdPaoChange('start')" style="flex:1;min-width:0;"><option value="">شروع سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option></select>
+          <select id="fMiqdPaoEnd" onchange="onMiqdPaoChange('end')" style="flex:1;min-width:0;"><option value="">آخر سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option></select>
         </div>
       </div>
-      <div class="ef-field ef-full" id="miqdSuwarWrap" style="display:none;">
+      <div class="ef-field ef-full ef-inline-pair" id="miqdSuwarWrap" style="display:none;">
         <label>سورتیں (شروع/آخر)</label>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <select id="fMiqdSuwarStart" onchange="onMiqdSuwarChange('start')" style="flex:1 1 120px;min-width:110px;"><option value="">شروع سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="105">105</option><option value="106">106</option><option value="107">107</option><option value="108">108</option><option value="109">109</option><option value="110">110</option><option value="111">111</option><option value="112">112</option><option value="113">113</option><option value="114">114</option></select>
-          <select id="fMiqdSuwarEnd" onchange="onMiqdSuwarChange('end')" style="flex:1 1 120px;min-width:110px;"><option value="">آخر سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="105">105</option><option value="106">106</option><option value="107">107</option><option value="108">108</option><option value="109">109</option><option value="110">110</option><option value="111">111</option><option value="112">112</option><option value="113">113</option><option value="114">114</option></select>
+        <div style="display:flex;gap:6px;">
+          <select id="fMiqdSuwarStart" onchange="onMiqdSuwarChange('start')" style="flex:1;min-width:0;"><option value="">شروع سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="105">105</option><option value="106">106</option><option value="107">107</option><option value="108">108</option><option value="109">109</option><option value="110">110</option><option value="111">111</option><option value="112">112</option><option value="113">113</option><option value="114">114</option></select>
+          <select id="fMiqdSuwarEnd" onchange="onMiqdSuwarChange('end')" style="flex:1;min-width:0;"><option value="">آخر سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="105">105</option><option value="106">106</option><option value="107">107</option><option value="108">108</option><option value="109">109</option><option value="110">110</option><option value="111">111</option><option value="112">112</option><option value="113">113</option><option value="114">114</option></select>
         </div>
       </div>
-      <div class="ef-field ef-full" id="miqdNaziraWrap" style="display:none;">
+      <div class="ef-field ef-full ef-inline-pair" id="miqdNaziraWrap" style="display:none;">
         <label>ناظرہ سپارے (شروع/آخر)</label>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <select id="fMiqdNaziraStart" onchange="onMiqdNaziraChange('start')" style="flex:1 1 120px;min-width:110px;"><option value="">شروع سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option></select>
-          <select id="fMiqdNaziraEnd" onchange="onMiqdNaziraChange('end')" style="flex:1 1 120px;min-width:110px;"><option value="">آخر سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option></select>
+        <div style="display:flex;gap:6px;">
+          <select id="fMiqdNaziraStart" onchange="onMiqdNaziraChange('start')" style="flex:1;min-width:0;"><option value="">شروع سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option></select>
+          <select id="fMiqdNaziraEnd" onchange="onMiqdNaziraChange('end')" style="flex:1;min-width:0;"><option value="">آخر سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option></select>
         </div>
       </div>
-      <div class="ef-field ef-full" id="miqdNaziraSuwarWrap" style="display:none;">
+      <div class="ef-field ef-full ef-inline-pair" id="miqdNaziraSuwarWrap" style="display:none;">
         <label>ناظرہ سورتیں (شروع/آخر)</label>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <select id="fMiqdNaziraSuwarStart" onchange="onMiqdNaziraSuwarChange('start')" style="flex:1 1 120px;min-width:110px;"><option value="">شروع سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="105">105</option><option value="106">106</option><option value="107">107</option><option value="108">108</option><option value="109">109</option><option value="110">110</option><option value="111">111</option><option value="112">112</option><option value="113">113</option><option value="114">114</option></select>
-          <select id="fMiqdNaziraSuwarEnd" onchange="onMiqdNaziraSuwarChange('end')" style="flex:1 1 120px;min-width:110px;"><option value="">آخر سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="105">105</option><option value="106">106</option><option value="107">107</option><option value="108">108</option><option value="109">109</option><option value="110">110</option><option value="111">111</option><option value="112">112</option><option value="113">113</option><option value="114">114</option></select>
+        <div style="display:flex;gap:6px;">
+          <select id="fMiqdNaziraSuwarStart" onchange="onMiqdNaziraSuwarChange('start')" style="flex:1;min-width:0;"><option value="">شروع سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="105">105</option><option value="106">106</option><option value="107">107</option><option value="108">108</option><option value="109">109</option><option value="110">110</option><option value="111">111</option><option value="112">112</option><option value="113">113</option><option value="114">114</option></select>
+          <select id="fMiqdNaziraSuwarEnd" onchange="onMiqdNaziraSuwarChange('end')" style="flex:1;min-width:0;"><option value="">آخر سے —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="105">105</option><option value="106">106</option><option value="107">107</option><option value="108">108</option><option value="109">109</option><option value="110">110</option><option value="111">111</option><option value="112">112</option><option value="113">113</option><option value="114">114</option></select>
         </div>
       </div>
       <div class="ef-field" id="miqdTakhtiWrap" style="display:none;">
@@ -1615,10 +1619,10 @@ td.clickable:hover { background: #fff9e6 !important; }
     <h1>حفظ پروگریس رپورٹ</h1>
     <div class="sub">روزانہ سبق، سبقی، منزل اور مکمل قرآنِ پاک کی متوقع تاریخ</div>
   </div>
-  <div style="position:sticky;top:0;z-index:500;background:#0a3d0a;border-bottom:2px solid var(--gold);padding:4px 14px;display:flex;align-items:center;gap:8px;">
+  <div style="position:sticky;top:0;z-index:500;background:var(--green-dark);border-bottom:2px solid var(--gold);padding:4px 14px;display:flex;align-items:center;gap:8px;">
     <span style="font-size:11px;color:#fff;white-space:nowrap;flex-shrink:0;">🖋️ سائز:</span>
-    <input type="range" id="hzZoomSlider" min="70" max="200" step="5" value="100" oninput="hzApplyZoom(this.value/100)" style="flex:1;height:14px;accent-color:#f5d76e;">
-    <span id="hzZoomVal" style="font-size:11px;font-weight:800;color:#f5d76e;white-space:nowrap;flex-shrink:0;">100%</span>
+    <input type="range" id="hzZoomSlider" min="70" max="200" step="5" value="100" oninput="hzApplyZoom(this.value/100)" style="flex:1;height:14px;accent-color:var(--gold-light);">
+    <span id="hzZoomVal" style="font-size:11px;font-weight:800;color:var(--gold-light);white-space:nowrap;flex-shrink:0;">100%</span>
   </div>
   <div id="root"><div class="loading">لوڈ ہو رہا ہے…</div></div>
 </div>
@@ -1637,7 +1641,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <div class="student-poster" id="studentPoster"></div>
     </div>
     <div class="poster-contact-row" id="posterContactRow">
-      <a class="poster-contact-btn" id="pcCallBtn" style="background:linear-gradient(135deg,#1e7e1e,#0a3d0a);" href="#"><span>📞</span>کال کریں</a>
+      <a class="poster-contact-btn" id="pcCallBtn" style="background:linear-gradient(135deg,var(--green-light),var(--green-dark));" href="#"><span>📞</span>کال کریں</a>
       <button type="button" class="poster-contact-btn" id="pcWaBtn" style="background:linear-gradient(135deg,#25d366,#128c7e);" onclick="openWaChooser()"><span>💬</span>واٹس ایپ</button>
       <a class="poster-contact-btn" id="pcSmsBtn" style="background:linear-gradient(135deg,#1565c0,#0d47a1);" href="#"><span>✉️</span>ایس ایم ایس</a>
     </div>
@@ -1655,7 +1659,7 @@ td.clickable:hover { background: #fff9e6 !important; }
   <div class="modal-card">
     <div class="modal-title">💬 واٹس ایپ منتخب کریں</div>
     <button class="modal-btn" style="width:100%;padding:13px;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;border-radius:10px;font-family:var(--nastaliq);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:8px;" onclick="openWaSpecific('com.whatsapp')">💬 واٹس ایپ (عام)</button>
-    <button class="modal-btn" style="width:100%;padding:13px;background:linear-gradient(135deg,#128c7e,#0a3d0a);color:#fff;border:none;border-radius:10px;font-family:var(--nastaliq);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:8px;" onclick="openWaSpecific('com.whatsapp.w4b')">💼 واٹس ایپ بزنس</button>
+    <button class="modal-btn" style="width:100%;padding:13px;background:linear-gradient(135deg,#128c7e,var(--green-dark));color:#fff;border:none;border-radius:10px;font-family:var(--nastaliq);font-size:15px;font-weight:800;cursor:pointer;margin-bottom:8px;" onclick="openWaSpecific('com.whatsapp.w4b')">💼 واٹس ایپ بزنس</button>
     <button class="modal-btn modal-btn-cancel" onclick="closeWaChooser()">منسوخ کریں</button>
   </div>
 </div>
@@ -1694,7 +1698,7 @@ td.clickable:hover { background: #fff9e6 !important; }
     <div style="font-size:12px;color:#666;background:#f0f4f0;border-radius:8px;padding:8px 10px;margin-top:-4px;margin-bottom:8px;text-align:center;line-height:1.6;">
       ℹ️ اگر "فائل منتخب کریں" والی سکرین نہ کھلے تو اوپر "کاپی شدہ بیک اپ پیسٹ کریں" کا متبادل طریقہ استعمال کریں
     </div>
-    <div style="font-size:12px;color:#0a3d0a;background:#eafaf1;border:1px solid #00a651;border-radius:8px;padding:8px 10px;margin-bottom:10px;text-align:center;line-height:1.6;">
+    <div style="font-size:12px;color:var(--green-dark);background:#eafaf1;border:1px solid #00a651;border-radius:8px;padding:8px 10px;margin-bottom:10px;text-align:center;line-height:1.6;">
       📷 اب بچوں کی تصاویر بھی بیک اپ فائل میں شامل ہوتی ہیں — فائل تھوڑی بڑی ہو سکتی ہے، مگر ریسٹور کرنے پر تصاویر بھی واپس آ جائیں گی
     </div>
     <input type="file" id="restoreFile" accept=".json,application/json" style="display:none" onchange="doRestore(event)">
@@ -1706,23 +1710,23 @@ td.clickable:hover { background: #fff9e6 !important; }
 <!-- REPORT OVERLAY (پورٹریٹ / لینڈ اسکیپ پرنٹ) -->
 <div id="reportOverlay" style="display: none; position: fixed; inset: 0px; z-index: 9000; background: rgba(0, 0, 0, 0.92); overflow-y: auto;">
   <div class="no-print" style="position:sticky;top:0;z-index:10;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);padding:10px 10px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;">
-    <button onclick="doNativePrint()" style="padding:9px 14px;background:linear-gradient(135deg,#1e7e1e,#0a3d0a);color:#fff;border:2px solid #27ae60;border-radius:10px;font-family:var(--nastaliq);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,0.4);">🖨️ پرنٹ</button>
+    <button onclick="doNativePrint()" style="padding:9px 14px;background:linear-gradient(135deg,var(--green-light),var(--green-dark));color:#fff;border:2px solid #27ae60;border-radius:10px;font-family:var(--nastaliq);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,0.4);">🖨️ پرنٹ</button>
     <button onclick="generateAndSharePdf()" style="padding:9px 14px;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:2px solid #1ebe5d;border-radius:10px;font-family:var(--nastaliq);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,0.4);">📤 واٹس ایپ شیئر</button>
     <div style="display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.1);border-radius:10px;padding:4px 8px;">
-      <span style="color:#f5d76e;font-family:var(--nastaliq);font-size:12px;">سائز:</span>
+      <span style="color:var(--gold-light);font-family:var(--nastaliq);font-size:12px;">سائز:</span>
       <button onclick="changeReportFont(-1)" style="width:26px;height:26px;border-radius:50%;border:none;background:#444;color:#fff;font-size:15px;cursor:pointer;">－</button>
       <span id="reportFontVal" style="color:#fff;font-size:12px;min-width:20px;text-align:center;font-family:Arial;">13</span>
       <button onclick="changeReportFont(1)" style="width:26px;height:26px;border-radius:50%;border:none;background:#444;color:#fff;font-size:15px;cursor:pointer;">＋</button>
     </div>
     <button onclick="closeReport()" style="padding:9px 14px;background:linear-gradient(135deg,#555,#333);color:#fff;border:2px solid #777;border-radius:10px;font-family:var(--nastaliq);font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,0.4);">✕ بند کریں</button>
     <div id="reportAlignWrap" style="display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.1);border-radius:10px;padding:4px 8px;">
-      <span style="color:#f5d76e;font-family:var(--nastaliq);font-size:12px;">باقی ڈیٹا کی الائنمنٹ:</span>
+      <span style="color:var(--gold-light);font-family:var(--nastaliq);font-size:12px;">باقی ڈیٹا کی الائنمنٹ:</span>
       <button type="button" onclick="setReportAlign('right')" data-align-btn="right" style="padding:5px 10px;border-radius:6px;border:1.5px solid rgba(255,255,255,0.4);background:#666;color:#fff;font-family:var(--nastaliq);font-size:12px;font-weight:700;cursor:pointer;">➡️ دائیں</button>
       <button type="button" onclick="setReportAlign('center')" data-align-btn="center" style="padding:5px 10px;border-radius:6px;border:1.5px solid rgba(255,255,255,0.4);background:#666;color:#fff;font-family:var(--nastaliq);font-size:12px;font-weight:700;cursor:pointer;">⬍ درمیان</button>
       <button type="button" onclick="setReportAlign('left')" data-align-btn="left" style="padding: 5px 10px; border-radius: 6px; border: 1.5px solid rgb(245, 215, 110); background: linear-gradient(135deg, rgb(245, 215, 110), rgb(224, 169, 47)); color: rgb(58, 42, 0); font-family: var(--nastaliq); font-size: 12px; font-weight: 700; cursor: pointer;">⬅️ بائیں</button>
     </div>
     <div style="display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.1);border-radius:10px;padding:4px 8px;">
-      <span style="color:#f5d76e;font-family:var(--nastaliq);font-size:12px;">رپورٹ کا فونٹ:</span>
+      <span style="color:var(--gold-light);font-family:var(--nastaliq);font-size:12px;">رپورٹ کا فونٹ:</span>
       <select id="reportFontSelect" onchange="setReportFont(this.value)" style="padding:5px 8px;border-radius:6px;border:none;font-family:var(--nastaliq);font-size:12px;">
         <option value="kasheeda">کشیدہ (عنوان) + نستعلیق</option>
         <option value="nastaliq">نستعلیق (پورا)</option>
@@ -1732,7 +1736,7 @@ td.clickable:hover { background: #fff9e6 !important; }
     </div>
   </div>
   <div id="pdfGenOverlay" style="display:none;position:fixed;inset:0;z-index:20;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;flex-direction:column;gap:10px;">
-    <div style="width:48px;height:48px;border:5px solid rgba(255,255,255,0.25);border-top-color:#f5d76e;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+    <div style="width:48px;height:48px;border:5px solid rgba(255,255,255,0.25);border-top-color:var(--gold-light);border-radius:50%;animation:spin 0.8s linear infinite;"></div>
     <div style="color:#fff;font-family:var(--nastaliq);font-size:15px;font-weight:700;">رپورٹ تیار ہو رہی ہے…</div>
   </div>
   <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
@@ -1759,23 +1763,23 @@ td.clickable:hover { background: #fff9e6 !important; }
       </tbody></table>
 
       <!-- ٹیبل -->
-      <div style="border:1.5px solid #0a3d0a;border-radius:10px;overflow:hidden;margin:0;">
+      <div style="border:1.5px solid var(--green-dark);border-radius:10px;overflow:hidden;margin:0;">
       <table dir="rtl" style="width:100%;border-collapse:collapse;margin-top:0;table-layout:fixed;direction:rtl;unicode-bidi:embed;">
         <thead>
           <tr style="background:#d7e9d7;">
-            <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:5%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">#</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:17%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نام طالب علم</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:12%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">ولدیت</th>
-            <th colspan="3" style="border:1px solid #333;border-bottom:2px solid #0a3d0a;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:27%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">مقدار خواندگی</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
-            <th id="pa-namz-th" rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نماز حنفی</th>
-            <th id="pa-namz-th2" rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:8%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:5%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">#</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:17%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نام طالب علم</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:12%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">ولدیت</th>
+            <th colspan="3" style="border:1px solid #333;border-bottom:2px solid var(--green-dark);padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:27%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">مقدار خواندگی</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
+            <th id="pa-namz-th" rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نماز حنفی</th>
+            <th id="pa-namz-th2" rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:8%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>
           </tr>
           <tr style="background:#eef6ee;">
-            <th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:9px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">تفصیل</th>
-            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--report-font-title);font-size:9px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">شروع سے</th>
-            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--report-font-title);font-size:9px;font-weight:900;color:#0a3d0a;text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">آخر سے</th>
+            <th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:9px;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">تفصیل</th>
+            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--report-font-title);font-size:9px;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">شروع سے</th>
+            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--report-font-title);font-size:9px;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">آخر سے</th>
           </tr>
         </thead>
         <tbody id="pa-tbody"><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#ffffff;font-weight:700;direction:ltr;unicode-bidi:embed;">1</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#ffffff;">عبدالحفیظ</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#ffffff;">عبدالعزیز</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;font-weight:800;background:#ffffff;">حفظ سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">3 سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">8 سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#ffffff;"></td></tr><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#f2f8f2;font-weight:700;direction:ltr;unicode-bidi:embed;">2</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#f2f8f2;">محمد</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#f2f8f2;">عبدالحفیظ</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;font-weight:800;background:#f2f8f2;">ناظرہ سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#f2f8f2;">8 سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#f2f8f2;"></td></tr><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#ffffff;font-weight:700;direction:ltr;unicode-bidi:embed;">3</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#ffffff;">اسلم</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#ffffff;">اکرم</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;font-weight:800;background:#ffffff;">ناظرہ سورتیں</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">16 سورتیں</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#ffffff;"></td></tr><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#f2f8f2;font-weight:700;direction:ltr;unicode-bidi:embed;">4</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#f2f8f2;">بھالو</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;color:#999;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;color:#999;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;color:#999;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#f2f8f2;"></td></tr></tbody>
@@ -1812,16 +1816,16 @@ td.clickable:hover { background: #fff9e6 !important; }
       </tbody></table>
 
       <!-- ٹیبل -->
-      <div style="border:1.5px solid #0a3d0a;border-radius:10px;overflow:hidden;margin:0;">
+      <div style="border:1.5px solid var(--green-dark);border-radius:10px;overflow:hidden;margin:0;">
       <table dir="rtl" style="width:100%;border-collapse:collapse;margin-top:0;table-layout:fixed;direction:rtl;unicode-bidi:embed;">
         <thead>
           <tr style="background:#d7e9d7;">
-            <th style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:5%;direction:rtl;unicode-bidi:embed;">#</th>
-            <th style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:13%;direction:rtl;unicode-bidi:embed;">تصویر</th>
-            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:21%;direction:rtl;unicode-bidi:embed;">نام طالب علم</th>
-            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:19%;direction:rtl;unicode-bidi:embed;">ولدیت</th>
-            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:22%;direction:rtl;unicode-bidi:embed;">پتہ</th>
-            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:#0a3d0a;text-align:center;width:20%;direction:ltr;unicode-bidi:embed;">رابطہ نمبر</th>
+            <th style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:5%;direction:rtl;unicode-bidi:embed;">#</th>
+            <th style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:13%;direction:rtl;unicode-bidi:embed;">تصویر</th>
+            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:21%;direction:rtl;unicode-bidi:embed;">نام طالب علم</th>
+            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:19%;direction:rtl;unicode-bidi:embed;">ولدیت</th>
+            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:22%;direction:rtl;unicode-bidi:embed;">پتہ</th>
+            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:20%;direction:ltr;unicode-bidi:embed;">رابطہ نمبر</th>
           </tr>
         </thead>
         <tbody id="ca-tbody"></tbody>
@@ -2341,7 +2345,7 @@ function tfWidgetHtml(pageId){
     + '<button type="button" class="tf-pill-btn" data-theme-pill="' + pageId + '" onclick="toggleTFPanel(\'theme\',\'' + pageId + '\')" title="تھیم رنگ">🎨</button>'
     + '<div class="tf-panel" id="themePanel_' + pageId + '">'
     +   '<div class="tf-swatch-row">'
-    +     '<button type="button" class="tf-swatch" data-theme-btn="green" onclick="setTheme(\'green\')" style="background:#1e7e1e;"></button>'
+    +     '<button type="button" class="tf-swatch" data-theme-btn="green" onclick="setTheme(\'green\')" style="background:var(--green-light);"></button>'
     +     '<button type="button" class="tf-swatch" data-theme-btn="blue" onclick="setTheme(\'blue\')" style="background:#2e7fd6;"></button>'
     +     '<button type="button" class="tf-swatch" data-theme-btn="gray" onclick="setTheme(\'gray\')" style="background:#767676;"></button>'
     +     '<button type="button" class="tf-swatch" data-theme-btn="red" onclick="setTheme(\'red\')" style="background:#c62f2f;"></button>'
@@ -3422,7 +3426,7 @@ function posterWrapText(ctx, text, maxWidth) {
 async function buildPosterCanvas(s, instName) {
   await waitForFonts();
   const NASTALIQ = "'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', Arial, sans-serif";
-  const GREEN_DARK = '#0a3d0a', GREEN_MID = '#1e7e1e', GOLD = '#d4af37';
+  const GREEN_DARK = 'var(--green-dark)', GREEN_MID = 'var(--green-light)', GOLD = '#d4af37';
   const SCALE = 3, W = 640, MAXH = 1500, PAD = 16, CX = W / 2;
 
   const work = document.createElement('canvas');
@@ -3647,9 +3651,9 @@ function setReportFont(id){ applyReportFontStyle(id); }
 const THEME_K = 'jamia_theme_v1';
 const THEME_LIGHT_K = 'jamia_theme_light_v1';
 const THEME_PRESETS = {
-  green: { dark:'#0a3d0a', mid:'#155a15', light:'#1e7e1e', gold:'#c9a227', goldLight:'#f5d76e', box:'#f4faf4', border:'#b8d4b8' },
+  green: { dark:'var(--green-dark)', mid:'var(--green-mid)', light:'var(--green-light)', gold:'var(--gold)', goldLight:'var(--gold-light)', box:'#f4faf4', border:'#b8d4b8' },
   blue:  { dark:'#0d3868', mid:'#1a5ba3', light:'#2e7fd6', gold:'#f5c542', goldLight:'#ffe08a', box:'#f2f7fc', border:'#b8cfe8' },
-  gray:  { dark:'#333333', mid:'#555555', light:'#767676', gold:'#c9a227', goldLight:'#f5d76e', box:'#f5f5f5', border:'#cccccc' },
+  gray:  { dark:'#333333', mid:'#555555', light:'#767676', gold:'var(--gold)', goldLight:'var(--gold-light)', box:'#f5f5f5', border:'#cccccc' },
   red:   { dark:'#7a1010', mid:'#a51c1c', light:'#c62f2f', gold:'#f5c542', goldLight:'#ffe08a', box:'#fdf3f2', border:'#e3b8b8' }
 };
 
@@ -3707,6 +3711,10 @@ function applyTheme(themeId, lightDelta){
   // ہوم/لاک اسکرین کا گہرا پس منظر بھی اسی تھیم اور ہلکا/گہرا سلائیڈر کے ساتھ بدلے گا
   root.style.setProperty('--home-bg-1', adjustLightness(preset.dark, lightDelta - 12));
   root.style.setProperty('--home-bg-2', adjustLightness(preset.mid, lightDelta - 4));
+  // اضافی تسلی — امتحانی صفحے کے اوپری سبز ہیڈر کو براہ راست بھی رنگ دیں (کسی CSS تنازعے کا امکان ختم کرنے کے لیے)
+  document.querySelectorAll('.app-header').forEach(h => {
+    h.style.background = 'linear-gradient(180deg, ' + adjustLightness(preset.dark, lightDelta) + ' 0%, ' + adjustLightness(preset.mid, lightDelta) + ' 100%)';
+  });
   // حفظ پروگریس صفحہ اپنے علیحدہ رنگ ویری ایبلز (--emerald-*) استعمال کرتا ہے،
   // یہ صرف #hifzScreen پر مقامی طور پر دوبارہ متعین ہوتے ہیں، اس لیے وہیں براہ راست سیٹ کرنا ضروری ہے
   const hifzEl = document.getElementById('hifzScreen');
@@ -3756,9 +3764,9 @@ function syncReportAlignSelect(){
   if (wrap) wrap.style.display = applies ? 'flex' : 'none';
   document.querySelectorAll('#reportAlignWrap [data-align-btn]').forEach(function(btn){
     const active = btn.getAttribute('data-align-btn') === reportDataAlign;
-    btn.style.background = active ? 'linear-gradient(135deg,#f5d76e,#e0a92f)' : '#666';
+    btn.style.background = active ? 'linear-gradient(135deg,var(--gold-light),#e0a92f)' : '#666';
     btn.style.color = active ? '#3a2a00' : '#fff';
-    btn.style.borderColor = active ? '#f5d76e' : 'rgba(255,255,255,0.4)';
+    btn.style.borderColor = active ? 'var(--gold-light)' : 'rgba(255,255,255,0.4)';
   });
 }
 
@@ -3893,7 +3901,7 @@ function buildContactsTable(){
     var mobVal = s.mob || '—';
     var addrVal = s.addr || '—';
     var photoCell = s.photo
-      ? '<img src="'+s.photo+'" alt="" style="width:42px;height:42px;border-radius:6px;object-fit:cover;border:2px solid #0a3d0a;display:block;margin:0 auto;">'
+      ? '<img src="'+s.photo+'" alt="" style="width:42px;height:42px;border-radius:6px;object-fit:cover;border:2px solid var(--green-dark);display:block;margin:0 auto;">'
       : '<div style="width:42px;height:42px;border-radius:6px;border:2px solid #ccc;background:#eee;display:flex;align-items:center;justify-content:center;font-size:18px;margin:0 auto;color:#999;">👤</div>';
     tbody.innerHTML+=
       '<tr dir="rtl">'+
@@ -3959,21 +3967,21 @@ function buildEnrollTable(){
           '<span style="font-family:var(--report-font-title);font-size:17px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;">' + _escHtml(dateLabel) + '</span>' +
         '</td>' +
       '</tr></tbody></table>' +
-      '<div style="border:1.5px solid #0a3d0a;border-radius:10px;overflow:hidden;margin:0;">' +
+      '<div style="border:1.5px solid var(--green-dark);border-radius:10px;overflow:hidden;margin:0;">' +
       '<table dir="rtl" style="width:100%;border-collapse:collapse;margin-top:0;table-layout:fixed;direction:rtl;unicode-bidi:embed;">' +
         '<thead>' +
           '<tr style="background:#d7e9d7;">' +
-            '<th rowspan="2" style="border:1px solid #333;padding:5px 3px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:6%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">#</th>' +
-            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:19%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نام طالب علم</th>' +
-            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:16%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">ولدیت</th>' +
-            '<th colspan="3" style="border:1px solid #333;border-bottom:2px solid #0a3d0a;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:34%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">مقدار خواندگی</th>' +
-            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:12%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نماز حنفی</th>' +
-            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:#0a3d0a;text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 3px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:var(--green-dark);text-align:center;width:6%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">#</th>' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:var(--green-dark);text-align:center;width:19%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نام طالب علم</th>' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:var(--green-dark);text-align:center;width:16%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">ولدیت</th>' +
+            '<th colspan="3" style="border:1px solid #333;border-bottom:2px solid var(--green-dark);padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:var(--green-dark);text-align:center;width:34%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">مقدار خواندگی</th>' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:var(--green-dark);text-align:center;width:12%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نماز حنفی</th>' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:var(--green-dark);text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>' +
           '</tr>' +
           '<tr style="background:#eef6ee;">' +
-            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:8.5px;font-weight:900;color:#0a3d0a;text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">تفصیل</th>' +
-            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:8.5px;font-weight:900;color:#0a3d0a;text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">شروع سے</th>' +
-            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:8.5px;font-weight:900;color:#0a3d0a;text-align:center;width:11.34%;direction:rtl;unicode-bidi:embed;">آخر سے</th>' +
+            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:8.5px;font-weight:900;color:var(--green-dark);text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">تفصیل</th>' +
+            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:8.5px;font-weight:900;color:var(--green-dark);text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">شروع سے</th>' +
+            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:8.5px;font-weight:900;color:var(--green-dark);text-align:center;width:11.34%;direction:rtl;unicode-bidi:embed;">آخر سے</th>' +
           '</tr>' +
         '</thead>' +
         '<tbody>' + rowsHtml + '</tbody>' +
@@ -4573,12 +4581,12 @@ function setAdminMode(mode) {
   const linkBox = document.getElementById('admLinkBox');
   if (mode === 'html') {
     htmlBox.style.display = 'block'; linkBox.style.display = 'none';
-    htmlBtn.style.background = '#0a3d0a'; htmlBtn.style.color = '#fff'; htmlBtn.style.borderColor = '#0a3d0a';
+    htmlBtn.style.background = 'var(--green-dark)'; htmlBtn.style.color = '#fff'; htmlBtn.style.borderColor = 'var(--green-dark)';
     linkBtn.style.background = '#fff'; linkBtn.style.color = '#333'; linkBtn.style.borderColor = '#ccc';
   } else {
     mode = 'link';
     linkBox.style.display = 'block'; htmlBox.style.display = 'none';
-    linkBtn.style.background = '#0a3d0a'; linkBtn.style.color = '#fff'; linkBtn.style.borderColor = '#0a3d0a';
+    linkBtn.style.background = 'var(--green-dark)'; linkBtn.style.color = '#fff'; linkBtn.style.borderColor = 'var(--green-dark)';
     htmlBtn.style.background = '#fff'; htmlBtn.style.color = '#333'; htmlBtn.style.borderColor = '#ccc';
   }
   document.getElementById('adminPanelModal').dataset.mode = mode;
