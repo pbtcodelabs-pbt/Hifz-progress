@@ -110,7 +110,7 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
 /* ========== LOCK SCREEN ========== */
 #lockScreen {
   position: fixed; inset: 0; z-index: 99999;
-  background: linear-gradient(160deg, #061f06 0%, #0d4f2e 50%, #061f06 100%);
+  background: linear-gradient(160deg, var(--home-bg-1) 0%, var(--home-bg-2) 50%, var(--home-bg-1) 100%);
   display: flex; align-items: center; justify-content: center;
   padding: 16px; overflow-y: auto;
 }
@@ -865,7 +865,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 
 /* ================= HOME SCREEN ================= */
 #homeScreen{
-  display:none; min-height:100vh; background:linear-gradient(160deg, #061f06 0%, #0d4f2e 55%, #061f06 100%);
+  display:none; min-height:100vh; background:linear-gradient(160deg, var(--home-bg-1) 0%, var(--home-bg-2) 55%, var(--home-bg-1) 100%);
   align-items:center; justify-content:center; padding:28px 16px; text-align:center;
 }
 .home-wrap{ max-width:420px; width:100%; }
@@ -1388,7 +1388,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD228SA0725AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD228SA0802AM</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -2362,7 +2362,7 @@ function tfWidgetHtml(pageId){
     + '<button type="button" class="tf-pill-btn" data-theme-pill="' + pageId + '" onclick="toggleTFPanel(\'theme\',\'' + pageId + '\')" title="تھیم رنگ">🎨</button>'
     + '<div class="tf-panel" id="themePanel_' + pageId + '">'
     +   '<div class="tf-swatch-row">'
-    +     '<button type="button" class="tf-swatch" data-theme-btn="green" onclick="setTheme(\'green\')" style="background:var(--green-light);"></button>'
+    +     '<button type="button" class="tf-swatch" data-theme-btn="green" onclick="setTheme(\'green\')" style="background:#1e7e1e;"></button>'
     +     '<button type="button" class="tf-swatch" data-theme-btn="blue" onclick="setTheme(\'blue\')" style="background:#2e7fd6;"></button>'
     +     '<button type="button" class="tf-swatch" data-theme-btn="gray" onclick="setTheme(\'gray\')" style="background:#767676;"></button>'
     +     '<button type="button" class="tf-swatch" data-theme-btn="red" onclick="setTheme(\'red\')" style="background:#c62f2f;"></button>'
@@ -3694,9 +3694,9 @@ function setReportFont(id){ applyReportFontStyle(id); }
 const THEME_K = 'jamia_theme_v1';
 const THEME_LIGHT_K = 'jamia_theme_light_v1';
 const THEME_PRESETS = {
-  green: { dark:'var(--green-dark)', mid:'var(--green-mid)', light:'var(--green-light)', gold:'var(--gold)', goldLight:'var(--gold-light)', box:'#f4faf4', border:'#b8d4b8' },
+  green: { dark:'#0a3d0a', mid:'#155a15', light:'#1e7e1e', gold:'#c9a227', goldLight:'#f5d76e', box:'#f4faf4', border:'#b8d4b8' },
   blue:  { dark:'#0d3868', mid:'#1a5ba3', light:'#2e7fd6', gold:'#f5c542', goldLight:'#ffe08a', box:'#f2f7fc', border:'#b8cfe8' },
-  gray:  { dark:'#333333', mid:'#555555', light:'#767676', gold:'var(--gold)', goldLight:'var(--gold-light)', box:'#f5f5f5', border:'#cccccc' },
+  gray:  { dark:'#333333', mid:'#555555', light:'#767676', gold:'#c9a227', goldLight:'#f5d76e', box:'#f5f5f5', border:'#cccccc' },
   red:   { dark:'#7a1010', mid:'#a51c1c', light:'#c62f2f', gold:'#f5c542', goldLight:'#ffe08a', box:'#fdf3f2', border:'#e3b8b8' }
 };
 
@@ -3751,8 +3751,10 @@ function applyTheme(themeId, lightDelta){
   root.style.setProperty('--gold-light', adjustLightness(preset.goldLight, lightDelta));
   root.style.setProperty('--box-bg', adjustLightness(preset.box, lightDelta));
   root.style.setProperty('--box-border', adjustLightness(preset.border, lightDelta));
-  // نوٹ: لاگ ان/ہوم اسکرین (لوگو + امتحانی/حفظ بٹن والا آغاز کا صفحہ) کا سبز پس منظر جان بوجھ کر
-  // مستقل/فکسڈ رکھا گیا ہے — تھیم صرف اندرونی صفحات (امتحانی، حفظ) پر لاگو ہوتی ہے، لاگ ان پیج پر نہیں
+  // لاگ ان/ہوم اسکرین کا پس منظر بھی تھیم کے ساتھ بدلتا ہے (عام استعمال میں) —
+  // صرف فائل تازہ ڈاؤن لوڈ ہونے پر پہلی بار یہ CSS کی ڈیفالٹ سبز قدر (#061f06/#0d4f2e) پر ہی نظر آئے گا
+  root.style.setProperty('--home-bg-1', adjustLightness(preset.dark, lightDelta - 12));
+  root.style.setProperty('--home-bg-2', adjustLightness(preset.mid, lightDelta - 4));
   // اضافی تسلی — امتحانی صفحے کے اوپری سبز ہیڈر کو براہ راست بھی رنگ دیں (کسی CSS تنازعے کا امکان ختم کرنے کے لیے)
   document.querySelectorAll('.app-header').forEach(h => {
     h.style.background = 'linear-gradient(180deg, ' + adjustLightness(preset.dark, lightDelta) + ' 0%, ' + adjustLightness(preset.mid, lightDelta) + ' 100%)';
