@@ -110,7 +110,7 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
 /* ========== LOCK SCREEN ========== */
 #lockScreen {
   position: fixed; inset: 0; z-index: 99999;
-  background: linear-gradient(160deg, var(--home-bg-1) 0%, var(--home-bg-2) 50%, var(--home-bg-1) 100%);
+  background: linear-gradient(160deg, #061f06 0%, #0d4f2e 50%, #061f06 100%);
   display: flex; align-items: center; justify-content: center;
   padding: 16px; overflow-y: auto;
 }
@@ -530,6 +530,12 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
 .ef-inline-pair > label { flex-shrink: 0; }
 .ef-inline-pair > div { flex: 1; min-width: 0; }
 .ef-inline-pair select { font-size: calc(12px * var(--zoom, 1)); padding: 5px 4px; }
+.ef-timer-input {
+  width: 52px !important; flex: 0 0 auto !important; margin-right: 4px;
+  padding: 4px 3px !important; font-size: 10.5px !important; text-align: center;
+  border: 1.5px dashed var(--green-mid) !important; border-radius: 6px !important;
+  background: #fff8e0 !important; color: #7a5c00 !important; font-weight: 700 !important;
+}
 .ef-save-btn {
   width: 100%; padding: 9px;
   background: linear-gradient(180deg,#2ecc71,#1e8449);
@@ -859,7 +865,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 
 /* ================= HOME SCREEN ================= */
 #homeScreen{
-  display:none; min-height:100vh; background:linear-gradient(160deg, var(--home-bg-1) 0%, var(--home-bg-2) 55%, var(--home-bg-1) 100%);
+  display:none; min-height:100vh; background:linear-gradient(160deg, #061f06 0%, #0d4f2e 55%, #061f06 100%);
   align-items:center; justify-content:center; padding:28px 16px; text-align:center;
 }
 .home-wrap{ max-width:420px; width:100%; }
@@ -1382,7 +1388,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD228SA0605AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD228SA0640AM</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -1510,23 +1516,33 @@ td.clickable:hover { background: #fff9e6 !important; }
         <input type="file" id="fPhotoInputCamera" accept="image/*" capture="environment" style="display:none" onchange="onPhotoSelected(event)">
         <input type="file" id="fPhotoInputGallery" accept="image/*" style="display:none" onchange="onPhotoSelected(event)">
       </div>
-      <div class="ef-field ef-full"><label>نام طالب علم *</label><input id="fName" placeholder="مثلاً: محمد احمد"></div>
-      <div class="ef-field ef-full"><label>والد کا نام</label><input id="fWald" placeholder="مثلاً: محمد علی"></div>
-      <div class="ef-field ef-type-big">
-        <label>تفصیل</label>
-        <select id="fMiqdType" onchange="onMiqdTypeChange()">
-          <option value="">— منتخب کریں —</option>
-          <option value="complete">مکمل قرآن پاک</option>
-          <option value="sapara">حفظ سپارے</option>
-          <option value="pao">پاؤ</option>
-          <option value="suwar">حفظ سورتیں</option>
-          <option value="nazira">ناظرہ سپارے</option>
-          <option value="nazirasuwar">ناظرہ سورتیں</option>
-          <option value="noorani">نورانی قاعدہ مکمل</option>
-          <option value="takhti">تختیاں</option>
-        </select>
+      <div class="ef-field ef-full">
+        <label>نام طالب علم *</label>
+        <input id="fName" placeholder="مثلاً: محمد احمد">
+        <input type="number" class="ef-timer-input" id="fNameDelay" value="1000" min="200" max="5000" step="100" title="کتنے ملی سیکنڈ بعد اگلے خانے میں خودکار جائے">
       </div>
-      <div class="ef-field"><label>دیگر / اضافی نوٹ</label><input id="fMiqd" placeholder=""></div>
+      <div class="ef-field ef-full">
+        <label>والد کا نام</label>
+        <input id="fWald" placeholder="مثلاً: محمد علی">
+        <input type="number" class="ef-timer-input" id="fWaldDelay" value="1000" min="200" max="5000" step="100" title="کتنے ملی سیکنڈ بعد اگلے خانے میں خودکار جائے">
+      </div>
+      <div class="ef-field ef-full" style="gap:6px;">
+        <div class="ef-type-big" style="flex:0.85;display:flex;align-items:center;gap:6px;">
+          <label>تفصیل</label>
+          <select id="fMiqdType" onchange="onMiqdTypeChange()" style="flex:1;">
+            <option value="">— منتخب کریں —</option>
+            <option value="complete">مکمل قرآن پاک</option>
+            <option value="sapara">حفظ سپارے</option>
+            <option value="pao">پاؤ</option>
+            <option value="suwar">حفظ سورتیں</option>
+            <option value="nazira">ناظرہ سپارے</option>
+            <option value="nazirasuwar">ناظرہ سورتیں</option>
+            <option value="noorani">نورانی قاعدہ مکمل</option>
+            <option value="takhti">تختیاں</option>
+          </select>
+        </div>
+        <input id="fMiqd" placeholder="" readonly style="flex:1.4;min-width:0;">
+      </div>
       <div class="ef-field ef-full ef-inline-pair" id="miqdSaparaWrap" style="">
         <label>سپارے (شروع/آخر)</label>
         <div style="display:flex;gap:6px;">
@@ -1566,8 +1582,8 @@ td.clickable:hover { background: #fff9e6 !important; }
         <label>تختیاں</label>
         <select id="fMiqdTakhti" onchange="onMiqdTakhtiChange()"><option value="">— منتخب کریں —</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option></select>
       </div>
-      <div class="ef-field"><label>موبائل نمبر</label><input id="fMob" placeholder="مثلاً: 0300-1234567" inputmode="tel"></div>
-      <div class="ef-field"><label>گھر کا پتہ</label><textarea id="fAddr" rows="2" placeholder="مثلاً: محلہ / گلی / وارڈ نمبر / شہر"></textarea></div>
+      <div class="ef-field ef-full"><label style="font-size:16px;">📱</label><input id="fMob" placeholder="مثلاً: 0300-1234567" inputmode="tel"></div>
+      <div class="ef-field ef-full"><label>گھر کا پتہ</label><textarea id="fAddr" rows="2" placeholder="مثلاً: محلہ / گلی / وارڈ نمبر / شہر"></textarea></div>
     </div>
     <button class="ef-save-btn" onclick="saveData()">✅ محفوظ کریں</button>
     </div>
@@ -2258,6 +2274,7 @@ function init() {
   renderTFWidgets();
   loadTheme();
   loadFontStyle();
+  initAutoAdvance();
   applyReportFont(parseInt(localStorage.getItem(REPORT_FONT_K), 10) || cfg.reportFontSize || 13);
 }
 
@@ -2813,6 +2830,31 @@ function showEntryView(){
   document.getElementById('examTopBar').style.display = 'block';
   document.getElementById('entryPageView').style.display = 'block';
   window.scrollTo(0, 0);
+}
+
+// ============================================================
+// خودکار اگلے خانے میں جانے کا نظام — نام → والد → تفصیل
+// ہر خانے کے ساتھ ملی سیکنڈ کا چھوٹا ٹائمر باکس ہے، جتنی دیر ٹائپ رکنے پر خودکار اگلے خانے میں فوکس چلا جائے
+// ============================================================
+function setupAutoAdvance(fromId, toId, delayInputId){
+  const el = document.getElementById(fromId);
+  const delayInput = document.getElementById(delayInputId);
+  if (!el || !delayInput) return;
+  let timer = null;
+  el.addEventListener('input', () => {
+    clearTimeout(timer);
+    if (!el.value) return; // خالی خانے پر خودکار حرکت نہیں
+    const delay = parseInt(delayInput.value, 10) || 1000;
+    timer = setTimeout(() => {
+      const target = document.getElementById(toId);
+      if (target) target.focus();
+    }, delay);
+  });
+  el.addEventListener('blur', () => clearTimeout(timer));
+}
+function initAutoAdvance(){
+  setupAutoAdvance('fName', 'fWald', 'fNameDelay');
+  setupAutoAdvance('fWald', 'fMiqdType', 'fWaldDelay');
 }
 
 function toggleForm() {
@@ -3708,9 +3750,8 @@ function applyTheme(themeId, lightDelta){
   root.style.setProperty('--gold-light', adjustLightness(preset.goldLight, lightDelta));
   root.style.setProperty('--box-bg', adjustLightness(preset.box, lightDelta));
   root.style.setProperty('--box-border', adjustLightness(preset.border, lightDelta));
-  // ہوم/لاک اسکرین کا گہرا پس منظر بھی اسی تھیم اور ہلکا/گہرا سلائیڈر کے ساتھ بدلے گا
-  root.style.setProperty('--home-bg-1', adjustLightness(preset.dark, lightDelta - 12));
-  root.style.setProperty('--home-bg-2', adjustLightness(preset.mid, lightDelta - 4));
+  // نوٹ: لاگ ان/ہوم اسکرین (لوگو + امتحانی/حفظ بٹن والا آغاز کا صفحہ) کا سبز پس منظر جان بوجھ کر
+  // مستقل/فکسڈ رکھا گیا ہے — تھیم صرف اندرونی صفحات (امتحانی، حفظ) پر لاگو ہوتی ہے، لاگ ان پیج پر نہیں
   // اضافی تسلی — امتحانی صفحے کے اوپری سبز ہیڈر کو براہ راست بھی رنگ دیں (کسی CSS تنازعے کا امکان ختم کرنے کے لیے)
   document.querySelectorAll('.app-header').forEach(h => {
     h.style.background = 'linear-gradient(180deg, ' + adjustLightness(preset.dark, lightDelta) + ' 0%, ' + adjustLightness(preset.mid, lightDelta) + ' 100%)';
