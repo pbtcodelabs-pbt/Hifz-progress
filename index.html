@@ -495,9 +495,9 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
 .ef-full { grid-column: 1 / -1; }
 
 /* طالب علم کی تصویر اپلوڈ باکس */
-.ef-photo-wrap { display: flex; align-items: center; gap: 10px; grid-column: 1 / -1; margin-bottom: 2px; }
+.ef-photo-wrap { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
 .ef-photo-box {
-  width: 58px; height: 58px; border-radius: 10px;
+  width: 46px; height: 46px; border-radius: 9px;
   border: 2px dashed #b8d4b8; background: #f4fbf4;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; overflow: hidden; flex-shrink: 0;
@@ -506,17 +506,26 @@ img, table, input, select, textarea, .table-wrap, .toolbar, .entry-panel, .lock-
 .ef-photo-box:active { transform: scale(0.96); }
 .ef-photo-box.has-photo { border-style: solid; border-color: var(--green-mid); }
 .ef-photo-box img { width: 100%; height: 100%; object-fit: cover; }
-.ef-photo-box .ef-photo-icon { font-size: 26px; opacity: 0.85; font-weight: 900; }
+.ef-photo-box .ef-photo-icon { font-size: 20px; opacity: 0.85; font-weight: 900; }
 .ef-photo-info { flex: 1; min-width: 0; }
 .ef-photo-info .ef-photo-label { font-size: calc(11px * var(--zoom, 1)); color: var(--green-dark); font-family: var(--nastaliq); font-weight: 700; display: block; margin-bottom: 2px; }
-.ef-photo-btns { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
-.ef-photo-btn {
+.ef-photo-btns-compact { display: flex; gap: 3px; }
+.ef-photo-btn-sm {
+  width: 26px; height: 26px; font-size: 13px;
+  border-radius: 6px; border: 1px solid var(--green-mid);
+  background: #fff; color: var(--green-dark); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; padding: 0; flex-shrink: 0;
+}
+.ef-photo-btn-sm.danger { border-color: #c0392b; color: #c0392b; }
+.ef-photo-btn { /* پرانا کلاس نام — دوسری جگہ (شکل والے بٹن وغیرہ) کے لیے اب بھی محفوظ ہے */
   font-size: 10.5px; font-family: var(--nastaliq); font-weight: 700;
   padding: 4px 8px; border-radius: 6px; border: 1px solid var(--green-mid);
   background: #fff; color: var(--green-dark); cursor: pointer;
   width: 100%;
 }
 .ef-photo-btn.danger { border-color: #c0392b; color: #c0392b; }
+.ef-type-big label { font-size: calc(14px * var(--zoom, 1)) !important; font-weight: 900 !important; }
+.ef-type-big select { font-size: calc(15px * var(--zoom, 1)) !important; padding: 9px 10px !important; font-weight: 800 !important; border-width: 2px !important; }
 .ef-save-btn {
   width: 100%; padding: 9px;
   background: linear-gradient(180deg,#2ecc71,#1e8449);
@@ -1363,12 +1372,13 @@ td.clickable:hover { background: #fff9e6 !important; }
 
 <!-- ========== MAIN APP ========== -->
 <div id="homeScreen" style="display: none;">
+  <button class="no-print" onclick="logout()" title="لاگ آؤٹ — لاگ ان صفحہ دیکھیں" style="position:fixed;top:10px;left:10px;z-index:5000;width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,.5);background:rgba(0,0,0,.3);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;">🚪</button>
   <div class="home-wrap">
     <div class="home-logo-wrap">
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD218FR0926PM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD228SA0538AM</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -1487,21 +1497,20 @@ td.clickable:hover { background: #fff9e6 !important; }
     <input type="hidden" id="fPhoto" value="">
     <div class="entry-grid">
       <div class="ef-photo-wrap">
-        <div class="ef-photo-info">
-          <span class="ef-photo-label">طالب علم کی تصویر</span>
-          <div class="ef-photo-btns">
-            <button type="button" class="ef-photo-btn" onclick="document.getElementById('fPhotoInputCamera').click()">📷 کیمرے سے تصویر لیں</button>
-            <button type="button" class="ef-photo-btn" onclick="document.getElementById('fPhotoInputGallery').click()">🖼️ گیلری سے منتخب کریں</button>
-            <button type="button" class="ef-photo-btn danger" id="efPhotoRemoveBtn" style="display:none;" onclick="removePhoto()">🗑️ ہٹائیں</button>
-          </div>
-        </div>
         <div class="ef-photo-box" id="efPhotoBox" onclick="document.getElementById('fPhotoInputCamera').click()"><span class="ef-photo-icon" id="efPhotoIcon">📷</span></div>
+        <div class="ef-photo-btns-compact">
+          <button type="button" class="ef-photo-btn-sm" onclick="document.getElementById('fPhotoInputCamera').click()" title="کیمرے سے تصویر لیں">📷</button>
+          <button type="button" class="ef-photo-btn-sm" onclick="document.getElementById('fPhotoInputGallery').click()" title="گیلری سے منتخب کریں">🖼️</button>
+          <button type="button" class="ef-photo-btn-sm danger" id="efPhotoRemoveBtn" style="display:none;" onclick="removePhoto()" title="ہٹائیں">🗑️</button>
+        </div>
         <input type="file" id="fPhotoInputCamera" accept="image/*" capture="environment" style="display:none" onchange="onPhotoSelected(event)">
         <input type="file" id="fPhotoInputGallery" accept="image/*" style="display:none" onchange="onPhotoSelected(event)">
       </div>
       <div class="ef-field"><label>نام طالب علم *</label><input id="fName" placeholder="مثلاً: محمد احمد"></div>
-      <div class="ef-field">
-        <label>قسم منتخب کریں</label>
+      <div class="ef-field"><label>والد کا نام</label><input id="fWald" placeholder="مثلاً: محمد علی"></div>
+      <div class="ef-field"><label>دیگر / اضافی نوٹ</label><input id="fMiqd" placeholder=""></div>
+      <div class="ef-field ef-full ef-type-big">
+        <label>تفصیل</label>
         <select id="fMiqdType" onchange="onMiqdTypeChange()">
           <option value="">— منتخب کریں —</option>
           <option value="complete">مکمل قرآن پاک</option>
@@ -1514,8 +1523,6 @@ td.clickable:hover { background: #fff9e6 !important; }
           <option value="takhti">تختیاں</option>
         </select>
       </div>
-      <div class="ef-field"><label>والد کا نام</label><input id="fWald" placeholder="مثلاً: محمد علی"></div>
-      <div class="ef-field"><label>دیگر / اضافی نوٹ</label><input id="fMiqd" placeholder=""></div>
       <div class="ef-field ef-full" id="miqdSaparaWrap" style="">
         <label>سپارے (شروع/آخر)</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -2185,6 +2192,20 @@ function updateSubInfo() {
   setInterval(updateSubInfo, 60000);
 
   function showLicenseInfo() { updateSubInfo(); }
+// لاگ آؤٹ — پاسورڈ/لاگ ان اسکرین دوبارہ دکھانے کے لیے (موجودہ ٹرائل/ایکٹیویشن ڈیٹا محفوظ رہتا ہے، حذف نہیں ہوتا)
+function logout(){
+  if (!confirm('کیا آپ لاگ آؤٹ کر کے لاگ ان (پاسورڈ) والا صفحہ دیکھنا چاہتے ہیں؟')) return;
+  document.getElementById('homeScreen').style.display = 'none';
+  document.getElementById('mainApp').style.display = 'none';
+  document.getElementById('hifzScreen').style.display = 'none';
+  const uid = _getUid();
+  document.getElementById('uidShow').textContent = uid;
+  document.getElementById('lockMadrasaName').textContent = cfg.name || 'گلشن فاروقی جامعہ تعلیم القرآن';
+  document.getElementById('lockMsg').className = '';
+  document.getElementById('lockMsg').textContent = '';
+  document.getElementById('lockScreen').style.display = 'flex';
+}
+
 function initLock() {
   const uid = _getUid();
   document.getElementById('uidShow').textContent = uid;
