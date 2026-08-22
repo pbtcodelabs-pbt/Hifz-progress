@@ -1388,7 +1388,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD228SA0640AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD228SA0725AM</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -3175,7 +3175,8 @@ function saveData() {
   document.getElementById('fMiqdType').value = '';
   clearMiqdSubFields();
   hideAllMiqdWraps();
-  document.getElementById('entryForm').style.display = 'none';
+  document.getElementById('epnIcon').textContent = '📝';
+  document.getElementById('epnTitle').textContent = 'نیا طالب علم درج کریں';
   document.getElementById('epnViewBtn').style.display = 'none';
   renderCurrent(); updateStats();
 }
