@@ -1388,7 +1388,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD238SU0650AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD238SU0722AM</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -4094,8 +4094,8 @@ function buildTajweedTable(){
   if (!pagesWrap) return;
   const madrasa = document.getElementById('madrasaName');
   const madName = (madrasa ? madrasa.textContent.trim() : '') || cfg.name || 'جامعہ';
-  const teacherLabel = printClassLabel();
-  const dateLabel = fmtPrintDate(cfg.d || document.getElementById('date').value || '');
+  const curCls = classes.find(c => c.id === currentClassId);
+  const className = curCls ? curCls.name : '';
   const students = activePairs().map(p => p.s);
   const F = 'font-family:var(--report-font-body);line-height:1.15;direction:rtl;unicode-bidi:embed;';
   const P = 'padding:7px 5px;height:32px;box-sizing:border-box;';
@@ -4121,7 +4121,7 @@ function buildTajweedTable(){
     '<div>' +
       '<div style="border-bottom:2px solid #000;padding:10px 12px;text-align:center;background:#fff;direction:rtl;unicode-bidi:embed;">' +
         '<div style="font-family:var(--report-font-title);font-size:26px;font-weight:900;color:#333;direction:rtl;unicode-bidi:embed;">' + _escHtml(madName) + '</div>' +
-        '<div style="font-family:var(--nastaliq);font-size:14px;color:#555;margin-top:2px;direction:rtl;unicode-bidi:embed;">تجوید — ' + _escHtml(teacherLabel) + ' — ' + _escHtml(dateLabel) + '</div>' +
+        '<div style="font-family:var(--report-font-title);font-size:22px;font-weight:800;color:#333;margin-top:4px;direction:rtl;unicode-bidi:embed;">کلاس ' + _escHtml(className) + '</div>' +
       '</div>' +
       '<div style="border:1.5px solid #444;border-radius:6px;overflow:hidden;margin:8px;">' +
       '<table dir="rtl" style="width:100%;border-collapse:collapse;table-layout:fixed;direction:rtl;unicode-bidi:embed;">' +
