@@ -1388,7 +1388,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD228SA0802AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD238SU0603AM</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -2055,6 +2055,34 @@ if (db.some(s => !s.classId)) {
   db = db.map(s => s.classId ? s : Object.assign({}, s, { classId: classes[0].id }));
   localStorage.setItem(SK, JSON.stringify(db));
 }
+// تجوید سال اول / سال دوم — ایک ہی بار خودکار شامل (دوبارہ لوڈ ہونے پر دہرائی نہیں جائیں گی)
+(function seedTajweedClasses(){
+  const SEED_K = 'jamia_tajweed_seed_v1';
+  if (localStorage.getItem(SEED_K)) return;
+  const mkStudent = (n, w, classId) => ({ n, w, m: '', mob: '', addr: '', photo: '', mr1: '', mr2: '', classId });
+
+  const c1 = { id: genClassId(), name: 'تجوید سال اول', incharge: 'قاری عبدالماجد', num: '' };
+  const c2 = { id: genClassId(), name: 'تجوید سال دوم', incharge: 'قاری عبدالماجد', num: '' };
+  classes.push(c1, c2);
+
+  const list1 = [
+    ['غلام حسین', 'نور الہدیٰ حسین'], ['غلام رضوان', 'عبدالغفور'], ['عبدالعزیز', 'سبطین'],
+    ['غالب ضیغم', 'قدرت الرحمن'], ['طاہر اقبال', 'عبدالشکور'], ['شاہ ولی اللہ', ''],
+    ['غلام قدوس', 'اکرام'], ['آفتاب حسین', ''], ['اکبر خان', 'سعادت خان']
+  ];
+  const list2 = [
+    ['محمد ریحان', 'الطاف حسین'], ['محمد سلیم', 'محمد اقبال'], ['محمد ارسلان', 'قاری مجاہد حسین'],
+    ['محمد رضوان', 'محمد اسماعیل'], ['محمد اصغر', 'عبدالمجید'], ['محمد مبشر', 'محمد اعجاز'],
+    ['عبدالواحد', 'محمد سرفراز'], ['محمد نعیم', 'محبوب حسن'], ['مطیع اللہ', 'محمد ہاشم'],
+    ['محمد افضال', 'محمد خلیل'], ['امجد رفیق', 'محمد رفیق'], ['محمد مبشر', 'غلام فرید']
+  ];
+  list1.forEach(([n, w]) => db.push(mkStudent(n, w, c1.id)));
+  list2.forEach(([n, w]) => db.push(mkStudent(n, w, c2.id)));
+
+  localStorage.setItem(CLASSES_K, JSON.stringify(classes));
+  localStorage.setItem(SK, JSON.stringify(db));
+  localStorage.setItem(SEED_K, '1');
+})();
 
 // ============================================================
 // UID — obfuscated storage
