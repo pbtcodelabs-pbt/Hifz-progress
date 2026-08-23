@@ -861,7 +861,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 .print-header {
   display: none;
 }
-@media print{body>*{display:none!important;}#reportOverlay{display:block!important;position:static!important;background:none!important;padding:0!important;margin:0!important;overflow:visible!important;}#reportOverlay>.no-print{display:none!important;}#printableWrap{display:block!important;padding:0!important;}#printableArea,#contactsArea,#enrollArea,#printReportRoot{width:100%!important;max-width:100%!important;box-shadow:none!important;margin:0!important;padding:0!important;}#printableArea{display:block!important;}#contactsArea{display:none!important;}#enrollArea{display:none!important;}#printReportRoot{display:none!important;}#printableWrap.show-contacts #printableArea{display:none!important;}#printableWrap.show-contacts #contactsArea{display:block!important;}#printableWrap.show-enroll #printableArea{display:none!important;}#printableWrap.show-enroll #enrollArea{display:block!important;}#printableWrap.show-hifz #printableArea{display:none!important;}#printableWrap.show-hifz #printReportRoot{display:block!important;}table{width:100%!important;}thead{display:table-header-group!important;}tr{page-break-inside:avoid!important;}}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+@media print{body>*{display:none!important;}#reportOverlay{display:block!important;position:static!important;background:none!important;padding:0!important;margin:0!important;overflow:visible!important;}#reportOverlay>.no-print{display:none!important;}#printableWrap{display:block!important;padding:0!important;}#printableArea,#contactsArea,#enrollArea,#tajweedArea,#printReportRoot{width:100%!important;max-width:100%!important;box-shadow:none!important;margin:0!important;padding:0!important;}#printableArea{display:block!important;}#contactsArea{display:none!important;}#enrollArea{display:none!important;}#tajweedArea{display:none!important;}#printReportRoot{display:none!important;}#printableWrap.show-contacts #printableArea{display:none!important;}#printableWrap.show-contacts #contactsArea{display:block!important;}#printableWrap.show-enroll #printableArea{display:none!important;}#printableWrap.show-enroll #enrollArea{display:block!important;}#printableWrap.show-tajweed #printableArea{display:none!important;}#printableWrap.show-tajweed #tajweedArea{display:block!important;}#printableWrap.show-hifz #printableArea{display:none!important;}#printableWrap.show-hifz #printReportRoot{display:block!important;}table{width:100%!important;}thead{display:table-header-group!important;}tr{page-break-inside:avoid!important;}}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
 
 /* ================= HOME SCREEN ================= */
 #homeScreen{
@@ -1388,7 +1388,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD238SU0630AM</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD238SU0650AM</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -1467,6 +1467,7 @@ td.clickable:hover { background: #fff9e6 !important; }
         <option value="exam-landscape">📋 امتحانی رپورٹ — لینڈ اسکیپ</option>
         <option value="contacts-portrait">📞 رابطہ نمبر رپورٹ — پورٹریٹ</option>
         <option value="enroll-form">📝 امتحانی اندراج فارم — خالی</option>
+        <option value="tajweed-report">🌿 تجوید رپورٹ</option>
       </select>
     </div>
   </div>
@@ -1859,6 +1860,10 @@ td.clickable:hover { background: #fff9e6 !important; }
 <!-- ====== امتحانی اندراج فارم — مکمل خالی (ہاتھ سے پُر کرنے کے لیے)، صرف A4 پورٹریٹ ====== -->
 <div id="enrollArea" dir="rtl" style="display:none;background:#fff;padding:0;box-sizing:border-box;font-family:var(--nastaliq);width:100%;max-width:794px;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,0.4);direction:rtl;unicode-bidi:embed;">
 <div id="ea-pages"></div>
+</div>
+
+<div id="tajweedArea" dir="rtl" style="display:none;background:#fff;padding:0;box-sizing:border-box;font-family:var(--nastaliq);width:1122px;max-width:1122px;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,0.4);direction:rtl;unicode-bidi:embed;">
+<div id="tj-pages"></div>
 </div>
 
 <!-- ====== حاضری / پوسٹر / تمام طلبہ کی حفظ رپورٹس — یہ اسی مشترکہ پریویو، پرنٹ اور واٹس ایپ شیئر نظام سے گزرتی ہیں ====== -->
@@ -4081,6 +4086,83 @@ function buildEnrollTable(){
 }
 function _escHtml(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
+// ============================================================
+// تجوید رپورٹ — موجودہ کلاس کے طلبہ کے نام/ولدیت خودکار، باقی کالم (حدر/مشق/کتاب/کیفیت) ہاتھ سے پُر کرنے کے لیے خالی
+// ============================================================
+function buildTajweedTable(){
+  const pagesWrap = document.getElementById('tj-pages');
+  if (!pagesWrap) return;
+  const madrasa = document.getElementById('madrasaName');
+  const madName = (madrasa ? madrasa.textContent.trim() : '') || cfg.name || 'جامعہ';
+  const teacherLabel = printClassLabel();
+  const dateLabel = fmtPrintDate(cfg.d || document.getElementById('date').value || '');
+  const students = activePairs().map(p => p.s);
+  const F = 'font-family:var(--report-font-body);line-height:1.15;direction:rtl;unicode-bidi:embed;';
+  const P = 'padding:7px 5px;height:32px;box-sizing:border-box;';
+  const B = 'border:1px solid #999;';
+
+  let rowsHtml = '';
+  students.forEach((s, i) => {
+    // ہلکی سی زیبرا شیڈنگ — بلیک/گرے/وائٹ (سبزی مائل نہیں) تاکہ تحریر صاف نظر آئے
+    const rowBg = i % 2 === 0 ? '#ffffff' : '#f0f0f0';
+    rowsHtml +=
+      '<tr dir="rtl">' +
+      '<td style="' + B + P + 'font-size:12px;text-align:center;background:' + rowBg + ';font-weight:700;direction:ltr;unicode-bidi:embed;">' + (i + 1) + '</td>' +
+      '<td style="' + B + P + F + 'font-size:13px;font-weight:700;text-align:right;padding-right:8px;background:' + rowBg + ';">' + _escHtml(s.n || '') + '</td>' +
+      '<td style="' + B + P + F + 'font-size:12px;text-align:right;padding-right:8px;background:' + rowBg + ';">' + _escHtml(s.w || '') + '</td>' +
+      '<td style="' + B + P + F + 'background:' + rowBg + ';"></td>' +
+      '<td style="' + B + P + F + 'background:' + rowBg + ';"></td>' +
+      '<td style="' + B + P + F + 'background:' + rowBg + ';"></td>' +
+      '<td style="' + B + P + F + 'background:' + rowBg + ';"></td>' +
+      '</tr>';
+  });
+
+  const html =
+    '<div>' +
+      '<div style="border-bottom:2px solid #000;padding:10px 12px;text-align:center;background:#fff;direction:rtl;unicode-bidi:embed;">' +
+        '<div style="font-family:var(--report-font-title);font-size:26px;font-weight:900;color:#333;direction:rtl;unicode-bidi:embed;">' + _escHtml(madName) + '</div>' +
+        '<div style="font-family:var(--nastaliq);font-size:14px;color:#555;margin-top:2px;direction:rtl;unicode-bidi:embed;">تجوید — ' + _escHtml(teacherLabel) + ' — ' + _escHtml(dateLabel) + '</div>' +
+      '</div>' +
+      '<div style="border:1.5px solid #444;border-radius:6px;overflow:hidden;margin:8px;">' +
+      '<table dir="rtl" style="width:100%;border-collapse:collapse;table-layout:fixed;direction:rtl;unicode-bidi:embed;">' +
+        '<thead>' +
+          '<tr style="background:#222;">' +
+            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:13px;font-weight:900;color:#fff;text-align:center;width:6%;">نمبر شمار</th>' +
+            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:13px;font-weight:900;color:#fff;text-align:center;width:19%;">نام</th>' +
+            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:13px;font-weight:900;color:#fff;text-align:center;width:19%;">ولدیت</th>' +
+            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:13px;font-weight:900;color:#fff;text-align:center;width:14%;">حدر</th>' +
+            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:13px;font-weight:900;color:#fff;text-align:center;width:14%;">مشق</th>' +
+            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:13px;font-weight:900;color:#fff;text-align:center;width:14%;">کتاب</th>' +
+            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:13px;font-weight:900;color:#fff;text-align:center;width:14%;">کیفیت</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>' + rowsHtml + '</tbody>' +
+      '</table>' +
+      '</div>' +
+      '<div style="padding:6px 12px;text-align:center;font-family:var(--nastaliq);font-size:12px;color:#333;border-top:1px solid #999;">کل طلبہ: ' + students.length + '</div>' +
+    '</div>';
+  pagesWrap.innerHTML = html;
+}
+
+function prepareTajweedForm(){
+  currentOrient = 'landscape';
+  currentReportType = 'tajweed';
+  const ta = document.getElementById('tajweedArea');
+  if (ta) { ta.style.maxWidth = '1122px'; ta.style.width = '1122px'; }
+  const orientStyle = document.getElementById('printOrientStyle');
+  if (orientStyle) orientStyle.textContent = '@media print { @page { size: landscape; margin: 4mm; } }';
+  buildTajweedTable();
+  syncReportAlignSelect();
+}
+
+function doTajweedReport(){
+  prepareTajweedForm();
+  showReportArea('tajweed');
+  const overlay = document.getElementById('reportOverlay');
+  overlay.style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
 function prepareEnrollForm(){
   currentOrient = 'portrait';
   currentReportType = 'enroll';
@@ -4164,6 +4246,7 @@ function onReportsSelect(val){
   else if(val === 'exam-landscape') doPrint('landscape');
   else if(val === 'contacts-portrait') doContactsReport();
   else if(val === 'enroll-form') doEnrollReport();
+  else if(val === 'tajweed-report') doTajweedReport();
   // اگلی بار وہی رپورٹ دوبارہ منتخب کرنے پر بھی onchange چلے، اس لیے ری سیٹ کر دیں
   if(sel) sel.value = '';
 }
@@ -4172,19 +4255,24 @@ function showReportArea(type){
   const pa = document.getElementById('printableArea');
   const ca = document.getElementById('contactsArea');
   const ea = document.getElementById('enrollArea');
+  const ta = document.getElementById('tajweedArea');
   const hr = document.getElementById('printReportRoot');
   const wrap = document.getElementById('printableWrap');
   if(pa) pa.style.display = 'none';
   if(ca) ca.style.display = 'none';
   if(ea) ea.style.display = 'none';
+  if(ta) ta.style.display = 'none';
   if(hr) hr.style.display = 'none';
-  if(wrap) wrap.classList.remove('show-contacts','show-enroll','show-hifz');
+  if(wrap) wrap.classList.remove('show-contacts','show-enroll','show-hifz','show-tajweed');
   if(type === 'contacts'){
     if(ca) ca.style.display = 'block';
     if(wrap) wrap.classList.add('show-contacts');
   } else if(type === 'enroll'){
     if(ea) ea.style.display = 'block';
     if(wrap) wrap.classList.add('show-enroll');
+  } else if(type === 'tajweed'){
+    if(ta) ta.style.display = 'block';
+    if(wrap) wrap.classList.add('show-tajweed');
   } else if(type === 'hifz'){
     if(hr) hr.style.display = 'block';
     if(wrap) wrap.classList.add('show-hifz');
