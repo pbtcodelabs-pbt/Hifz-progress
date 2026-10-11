@@ -1,11 +1,14 @@
 // جامعہ امتحانی سافٹ ویئر — سروس ورکر (آف لائن سپورٹ)
-const CACHE_NAME = 'jamia-hifz-cache-nastaleeq-font-v46';
+const CACHE_NAME = 'jamia-hifz-cache-kasheeda-reports-v47';
 const CORE_ASSETS = [
   './index.html',
   './manifest.json',
   './logo.png',
   './icon-192.png',
-  './fonts/Jameel_Noori_Nastaleeq.woff'
+  './fonts/Jameel_Noori_Nastaleeq.woff',
+  // رپورٹوں کے عنوان نوری کشیدہ میں چھپتے ہیں — آف لائن پرنٹ میں بھی کشیدہ ملے، اس لیے یہ بھی کیش میں
+  './fonts/Jameel_Noori_Nastaleeq_Kasheeda.ttf',
+  './fonts/DecoType_Thuluth_Regular.ttf'
 ];
 
 self.addEventListener('install', (event) => {

@@ -861,7 +861,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 .print-header {
   display: none;
 }
-@media print{body>*{display:none!important;}#reportOverlay{display:block!important;position:static!important;background:none!important;padding:0!important;margin:0!important;overflow:visible!important;}#reportOverlay>.no-print{display:none!important;}#printableWrap{display:block!important;padding:0!important;}#printableArea,#contactsArea,#enrollArea,#tajweedArea,#printReportRoot{width:100%!important;max-width:100%!important;box-shadow:none!important;margin:0!important;padding:0!important;}#printableArea{display:block!important;}#contactsArea{display:none!important;}#enrollArea{display:none!important;}#tajweedArea{display:none!important;}#printReportRoot{display:none!important;}#printableWrap.show-contacts #printableArea{display:none!important;}#printableWrap.show-contacts #contactsArea{display:block!important;}#printableWrap.show-enroll #printableArea{display:none!important;}#printableWrap.show-enroll #enrollArea{display:block!important;}#printableWrap.show-tajweed #printableArea{display:none!important;}#printableWrap.show-tajweed #tajweedArea{display:block!important;}#printableWrap.show-hifz #printableArea{display:none!important;}#printableWrap.show-hifz #printReportRoot{display:block!important;}table{width:100%!important;}thead{display:table-header-group!important;}tr{page-break-inside:avoid!important;}}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+@media print{html,body{background:#fff!important;}body>*{display:none!important;}#reportOverlay{display:block!important;position:static!important;background:none!important;padding:0!important;margin:0!important;overflow:visible!important;}#reportOverlay>.no-print{display:none!important;}#printableWrap{display:block!important;padding:0!important;}#printableArea,#contactsArea,#enrollArea,#tajweedArea,#printReportRoot{width:100%!important;max-width:100%!important;box-shadow:none!important;margin:0!important;padding:0!important;}#printableArea{display:block!important;}#contactsArea{display:none!important;}#enrollArea{display:none!important;}#tajweedArea{display:none!important;}#printReportRoot{display:none!important;}#printableWrap.show-contacts #printableArea{display:none!important;}#printableWrap.show-contacts #contactsArea{display:block!important;}#printableWrap.show-enroll #printableArea{display:none!important;}#printableWrap.show-enroll #enrollArea{display:block!important;}#printableWrap.show-tajweed #printableArea{display:none!important;}#printableWrap.show-tajweed #tajweedArea{display:block!important;}#printableWrap.show-hifz #printableArea{display:none!important;}#printableWrap.show-hifz #printReportRoot{display:block!important;}table{width:100%!important;}thead{display:table-header-group!important;}tr{page-break-inside:avoid!important;}}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
 
 /* ================= HOME SCREEN ================= */
 #homeScreen{
@@ -1094,24 +1094,24 @@ td.clickable:hover { background: #fff9e6 !important; }
   #hifzScreen .empty{text-align:center;padding:14px 8px;color:var(--ink-soft);font-size:12.5px}
 
   /* ---------------- PDF / پرنٹ رپورٹ (تمام طلبہ) — یہ اب #reportOverlay کے مشترکہ پریویو نظام میں دکھائی جاتی ہے ---------------- */
-  #printReportRoot .pr-page{font-family: var(--nastaliq);direction:rtl;color:#141414;box-sizing:border-box}
+  #printReportRoot .pr-page{font-family: var(--report-font-body);line-height:1.7;direction:rtl;color:#141414;box-sizing:border-box}
   #printReportRoot .pr-header{text-align:center;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #141414}
-  #printReportRoot .pr-header h1{font-size:19px;margin:0 0 4px;font-weight:700}
-  #printReportRoot .pr-header .sub{font-size:10.5px;color:#555}
+  #printReportRoot .pr-header h1{font-family:var(--report-font-title);font-size:27px;line-height:1.75;margin:0 0 2px;font-weight:700;color:#7a5c00}
+  #printReportRoot .pr-header .sub{font-size:14px;line-height:1.7;color:#444}
   #printReportRoot .pr-card{border:1.4px solid #222;border-radius:14px;overflow:hidden;box-shadow:none}
   #printReportRoot .pr-card + .pr-quran-sub, #printReportRoot .pr-quran-sub + .pr-card{margin-top:0}
-  #printReportRoot .pr-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:10.8px}
-  #printReportRoot .pr-table th, #printReportRoot .pr-table td{padding:8px 6px;border-bottom:1px solid #ccc;word-wrap:break-word;overflow-wrap:break-word;vertical-align:middle}
-  #printReportRoot .pr-table thead th{background:#EFEFEF;font-weight:700;font-size:10.3px;border-bottom:2px solid #222;text-align:center}
+  #printReportRoot .pr-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:15px;line-height:1.8}
+  #printReportRoot .pr-table th, #printReportRoot .pr-table td{padding:3px 8px;border-bottom:1px solid #ccc;word-wrap:break-word;overflow-wrap:break-word;vertical-align:middle}
+  #printReportRoot .pr-table thead th{background:#EFEFEF;color:#141414;font-family:var(--report-font-title);font-weight:700;font-size:16px;line-height:1.7;border-bottom:2px solid #222;text-align:center}
   #printReportRoot .pr-table tbody tr:last-child td{border-bottom:none}
   #printReportRoot .pr-table tbody tr:nth-child(even){background:#FAFAFA}
   #printReportRoot .pr-table td.pr-idx{text-align:center;width:24px;color:#555}
-  #printReportRoot .pr-table td.pr-name{text-align:right !important;padding-inline-start:10px;font-weight:700;font-size:11.5px;width:15%}
-  #printReportRoot .pr-table td.pr-detail{text-align:right;padding-inline-start:10px;line-height:1.55}
-  #printReportRoot .pr-table td.pr-eta{text-align:center;font-weight:700;font-size:10.3px;width:17%}
+  #printReportRoot .pr-table td.pr-name{text-align:right !important;padding-inline-start:10px;font-weight:700;font-size:16px;width:17%}
+  #printReportRoot .pr-table td.pr-detail{text-align:right;padding-inline-start:10px;line-height:1.8}
+  #printReportRoot .pr-table td.pr-eta{text-align:center;font-weight:700;font-size:14px;width:18%}
   #printReportRoot .pr-table tr{page-break-inside:avoid;break-inside:avoid}
-  #printReportRoot .pr-footer{margin-top:10px;text-align:center;font-size:9.5px;color:#666}
-  #printReportRoot .pr-quran-sub{font-size:12.5px;font-weight:700;margin:14px 0 6px;color:var(--emerald-950,var(--green-dark))}
+  #printReportRoot .pr-footer{margin-top:10px;text-align:center;font-size:12px;line-height:1.7;color:#666}
+  #printReportRoot .pr-quran-sub{font-family:var(--report-font-title);font-size:19px;line-height:1.7;font-weight:700;margin:14px 0 6px;color:var(--emerald-950,var(--green-dark))}
 
   /* ---------------- کالموں کے مستقل رنگ: سبق (سبز) / سبقی (نیلا) / منزل (جامنی) — روزانہ اندراج، ماہانہ ریکارڈ اور رپورٹ میں ایک جیسے ---------------- */
   #hifzScreen .cat-h-sabaq, #printReportRoot .cat-h-sabaq{background:linear-gradient(180deg,#BEEBC9,#8FD9A2) !important;border-bottom:3px solid #2F9E4F !important;color:#0B4A22 !important}
@@ -1758,23 +1758,23 @@ td.clickable:hover { background: #fff9e6 !important; }
   </div>
   <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
   <div id="printableWrap" style="padding:10px;display:flex;justify-content:flex-start;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;">
-<div id="printableArea" dir="rtl" style="display: block; background: rgb(255, 255, 255); padding: 0px; box-sizing: border-box; font-family: var(--nastaliq); width: 1122px; max-width: 1122px; flex-shrink: 0; box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 20px; direction: rtl; unicode-bidi: embed;">
+<div id="printableArea" dir="rtl" style="display: block; background: rgb(255, 255, 255); padding: 0px; box-sizing: border-box; font-family: var(--report-font-body); width: 1122px; max-width: 1122px; flex-shrink: 0; box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 20px; direction: rtl; unicode-bidi: embed;">
 
       <!-- ہیڈر -->
       <div style="border-bottom:2px solid #000;padding:8px 12px;text-align:center;background:#fff;direction:rtl;unicode-bidi:embed;">
-        <div id="pa-madrasa" style="font-family:var(--report-font-title);font-size:28px;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;letter-spacing:0.3px;direction:rtl;unicode-bidi:embed;">گلشن فاروقی جامعہ تعلیم القرآن</div>
-        <div style="font-family:var(--nastaliq);font-size:13px;color:#333;margin-top:2px;direction:rtl;unicode-bidi:embed;">امتحانی رپورٹ</div>
+        <div id="pa-madrasa" style="font-family:var(--report-font-title);font-size:36px;line-height:1.75;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;direction:rtl;unicode-bidi:embed;">گلشن فاروقی جامعہ تعلیم القرآن</div>
+        <div style="font-family:var(--report-font-title);font-size:19px;color:#333;margin-top:0;line-height:1.6;direction:rtl;unicode-bidi:embed;">امتحانی رپورٹ</div>
       </div>
 
       <!-- معلومات — تینوں (کلاس نمبر/امتحان/تاریخ) ایک ساتھ جڑے ہوئے، پیج کے بالکل درمیان میں، درمیان اچھا خالی فاصلہ -->
       <table style="width:100%;border-collapse:collapse;background:#fff;border-bottom:1px solid #999;direction:rtl;unicode-bidi:embed;">
         <tbody><tr>
           <td style="text-align:center;padding:9px 10px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
-            <span id="pa-teacher" style="font-family:var(--report-font-title);font-size:18px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;">کلاس نمبر: —</span>
+            <span id="pa-teacher" style="font-family:var(--report-font-title);font-size:21px;line-height:1.7;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;">کلاس نمبر: —</span>
             <span style="display:inline-block;width:48px;"></span>
-            <span id="pa-method" style="font-family:var(--report-font-title);font-size:18px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;">امتحان: ششماہی امتحان</span>
+            <span id="pa-method" style="font-family:var(--report-font-title);font-size:21px;line-height:1.7;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;">امتحان: ششماہی امتحان</span>
             <span style="display:inline-block;width:48px;"></span>
-            <span id="pa-date" style="font-family:var(--report-font-title);font-size:18px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;">تاریخ: —</span>
+            <span id="pa-date" style="font-family:var(--report-font-title);font-size:21px;line-height:1.7;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;">تاریخ: —</span>
           </td>
         </tr>
       </tbody></table>
@@ -1784,19 +1784,19 @@ td.clickable:hover { background: #fff9e6 !important; }
       <table dir="rtl" style="width:100%;border-collapse:collapse;margin-top:0;table-layout:fixed;direction:rtl;unicode-bidi:embed;">
         <thead>
           <tr style="background:#d7e9d7;">
-            <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:5%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">#</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:17%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نام طالب علم</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:12%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">ولدیت</th>
-            <th colspan="3" style="border:1px solid #333;border-bottom:2px solid var(--green-dark);padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:27%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">مقدار خواندگی</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
-            <th id="pa-namz-th" rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نماز حنفی</th>
-            <th id="pa-namz-th2" rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:8%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:5%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">#</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:17%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نام طالب علم</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:12%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">ولدیت</th>
+            <th colspan="3" style="border:1px solid #333;border-bottom:2px solid var(--green-dark);padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:27%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">مقدار خواندگی</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
+            <th id="pa-namz-th" rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نماز حنفی</th>
+            <th id="pa-namz-th2" rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:8%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>
           </tr>
           <tr style="background:#eef6ee;">
-            <th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:9px;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">تفصیل</th>
-            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--report-font-title);font-size:9px;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">شروع سے</th>
-            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--report-font-title);font-size:9px;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">آخر سے</th>
+            <th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:13px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">تفصیل</th>
+            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--report-font-title);font-size:13px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">شروع سے</th>
+            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--report-font-title);font-size:13px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">آخر سے</th>
           </tr>
         </thead>
         <tbody id="pa-tbody"><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#ffffff;font-weight:700;direction:ltr;unicode-bidi:embed;">1</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#ffffff;">عبدالحفیظ</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#ffffff;">عبدالعزیز</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;font-weight:800;background:#ffffff;">حفظ سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">3 سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">8 سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#ffffff;"></td></tr><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#f2f8f2;font-weight:700;direction:ltr;unicode-bidi:embed;">2</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#f2f8f2;">محمد</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#f2f8f2;">عبدالحفیظ</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;font-weight:800;background:#f2f8f2;">ناظرہ سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#f2f8f2;">8 سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#f2f8f2;"></td></tr><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#ffffff;font-weight:700;direction:ltr;unicode-bidi:embed;">3</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#ffffff;">اسلم</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#ffffff;">اکرم</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;font-weight:800;background:#ffffff;">ناظرہ سورتیں</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">16 سورتیں</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#ffffff;"></td></tr><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#f2f8f2;font-weight:700;direction:ltr;unicode-bidi:embed;">4</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#f2f8f2;">بھالو</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;color:#999;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;color:#999;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;color:#999;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#f2f8f2;"></td></tr></tbody>
@@ -1806,18 +1806,18 @@ td.clickable:hover { background: #fff9e6 !important; }
       <!-- فوٹر — صرف کل طلبہ کی تعداد، کوئی برانڈنگ ٹیکسٹ پرنٹ نہیں ہوگا -->
       <table style="width:100%;border-collapse:collapse;border-top:1px solid #000;background:#fff;direction:rtl;unicode-bidi:embed;">
         <tbody><tr>
-          <td style="text-align:center;padding:4px 10px;font-family:var(--nastaliq);font-size:11px;color:#333;direction:rtl;unicode-bidi:embed;" id="pa-footer-count">کل طلبہ: 4</td>
+          <td style="text-align:center;padding:4px 10px;font-family:var(--report-font-body);font-size:14px;line-height:1.7;color:#333;direction:rtl;unicode-bidi:embed;" id="pa-footer-count">کل طلبہ: 4</td>
         </tr>
       </tbody></table>
     </div>
 
 <!-- ====== رابطہ نمبر رپورٹ (نام، ولدیت، فون نمبر) — صرف A4 پورٹریٹ ====== -->
-<div id="contactsArea" dir="rtl" style="display:none;background:#fff;padding:0;box-sizing:border-box;font-family:var(--nastaliq);width:100%;max-width:794px;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,0.4);direction:rtl;unicode-bidi:embed;">
+<div id="contactsArea" dir="rtl" style="display:none;background:#fff;padding:0;box-sizing:border-box;font-family:var(--report-font-body);width:100%;max-width:794px;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,0.4);direction:rtl;unicode-bidi:embed;">
 
       <!-- ہیڈر -->
       <div style="border-bottom:2px solid #000;padding:8px 12px;text-align:center;background:#fff;direction:rtl;unicode-bidi:embed;">
-        <div id="ca-madrasa" style="font-family:var(--report-font-title);font-size:26px;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;letter-spacing:0.3px;direction:rtl;unicode-bidi:embed;"></div>
-        <div style="font-family:var(--nastaliq);font-size:13px;color:#333;margin-top:2px;direction:rtl;unicode-bidi:embed;">طلباء کے رابطہ نمبر کی رپورٹ</div>
+        <div id="ca-madrasa" style="font-family:var(--report-font-title);font-size:34px;line-height:1.75;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;direction:rtl;unicode-bidi:embed;"></div>
+        <div style="font-family:var(--report-font-title);font-size:19px;color:#333;margin-top:0;line-height:1.6;direction:rtl;unicode-bidi:embed;">طلباء کے رابطہ نمبر کی رپورٹ</div>
       </div>
 
       <!-- معلومات — table کی شکل میں (flex کی بجائے)، تاکہ پرنٹ انجن پر بھی ہمیشہ درست اور مکمل نظر آئے۔
@@ -1825,9 +1825,9 @@ td.clickable:hover { background: #fff9e6 !important; }
       <table style="width:100%;border-collapse:collapse;background:#fff;border-bottom:1px solid #999;direction:rtl;unicode-bidi:embed;">
         <tbody><tr>
           <td style="text-align:center;padding:9px 10px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">
-            <span id="ca-teacher" style="font-family:var(--report-font-title);font-size:17px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;"></span>
+            <span id="ca-teacher" style="font-family:var(--report-font-title);font-size:20px;line-height:1.7;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;"></span>
             <span style="display:inline-block;width:48px;"></span>
-            <span id="ca-date" style="font-family:var(--report-font-title);font-size:17px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;"></span>
+            <span id="ca-date" style="font-family:var(--report-font-title);font-size:20px;line-height:1.7;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;"></span>
           </td>
         </tr>
       </tbody></table>
@@ -1837,12 +1837,12 @@ td.clickable:hover { background: #fff9e6 !important; }
       <table dir="rtl" style="width:100%;border-collapse:collapse;margin-top:0;table-layout:fixed;direction:rtl;unicode-bidi:embed;">
         <thead>
           <tr style="background:#d7e9d7;">
-            <th style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:5%;direction:rtl;unicode-bidi:embed;">#</th>
-            <th style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:13%;direction:rtl;unicode-bidi:embed;">تصویر</th>
-            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:21%;direction:rtl;unicode-bidi:embed;">نام طالب علم</th>
-            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:19%;direction:rtl;unicode-bidi:embed;">ولدیت</th>
-            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:22%;direction:rtl;unicode-bidi:embed;">پتہ</th>
-            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:12px;font-weight:900;color:var(--green-dark);text-align:center;width:20%;direction:ltr;unicode-bidi:embed;">رابطہ نمبر</th>
+            <th style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:5%;direction:rtl;unicode-bidi:embed;">#</th>
+            <th style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:13%;direction:rtl;unicode-bidi:embed;">تصویر</th>
+            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:21%;direction:rtl;unicode-bidi:embed;">نام طالب علم</th>
+            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:19%;direction:rtl;unicode-bidi:embed;">ولدیت</th>
+            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:22%;direction:rtl;unicode-bidi:embed;">پتہ</th>
+            <th style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:20%;direction:ltr;unicode-bidi:embed;">رابطہ نمبر</th>
           </tr>
         </thead>
         <tbody id="ca-tbody"></tbody>
@@ -1852,22 +1852,22 @@ td.clickable:hover { background: #fff9e6 !important; }
       <!-- فوٹر — صرف کل طلبہ کی تعداد، کوئی برانڈنگ ٹیکسٹ پرنٹ نہیں ہوگا -->
       <table style="width:100%;border-collapse:collapse;border-top:1px solid #000;background:#fff;direction:rtl;unicode-bidi:embed;">
         <tbody><tr>
-          <td style="text-align:center;padding:4px 10px;font-family:var(--nastaliq);font-size:11px;color:#333;direction:rtl;unicode-bidi:embed;" id="ca-footer-count"></td>
+          <td style="text-align:center;padding:4px 10px;font-family:var(--report-font-body);font-size:14px;line-height:1.7;color:#333;direction:rtl;unicode-bidi:embed;" id="ca-footer-count"></td>
         </tr>
       </tbody></table>
 </div>
 
 <!-- ====== امتحانی اندراج فارم — مکمل خالی (ہاتھ سے پُر کرنے کے لیے)، صرف A4 پورٹریٹ ====== -->
-<div id="enrollArea" dir="rtl" style="display:none;background:#fff;padding:0;box-sizing:border-box;font-family:var(--nastaliq);width:100%;max-width:794px;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,0.4);direction:rtl;unicode-bidi:embed;">
+<div id="enrollArea" dir="rtl" style="display:none;background:#fff;padding:0;box-sizing:border-box;font-family:var(--report-font-body);width:100%;max-width:794px;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,0.4);direction:rtl;unicode-bidi:embed;">
 <div id="ea-pages"></div>
 </div>
 
-<div id="tajweedArea" dir="rtl" style="display:none;background:#fff;padding:0;box-sizing:border-box;font-family:var(--nastaliq);width:1122px;max-width:1122px;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,0.4);direction:rtl;unicode-bidi:embed;">
+<div id="tajweedArea" dir="rtl" style="display:none;background:#fff;padding:0;box-sizing:border-box;font-family:var(--report-font-body);width:1122px;max-width:1122px;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,0.4);direction:rtl;unicode-bidi:embed;">
 <div id="tj-pages"></div>
 </div>
 
 <!-- ====== حاضری / پوسٹر / تمام طلبہ کی حفظ رپورٹس — یہ اسی مشترکہ پریویو، پرنٹ اور واٹس ایپ شیئر نظام سے گزرتی ہیں ====== -->
-<div id="printReportRoot" dir="rtl" style="display:none;background:#fff;padding:16px;box-sizing:border-box;font-family:var(--nastaliq);width:100%;max-width:794px;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,0.4);direction:rtl;unicode-bidi:embed;"></div>
+<div id="printReportRoot" dir="rtl" style="display:none;background:#fff;padding:16px;box-sizing:border-box;font-family:var(--report-font-body);width:100%;max-width:794px;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,0.4);direction:rtl;unicode-bidi:embed;"></div>
 </div></div><!-- /reportOverlay -->
 
 <script>
@@ -2454,7 +2454,8 @@ function applyReportFont(fs) {
   // اگر رپورٹ اوورلے کھلی ہے تو فوری طور پر سائز کا اثر دکھائیں
   const overlay = document.getElementById('reportOverlay');
   if (overlay && overlay.style.display === 'block') {
-    buildPrintableTable();
+    if (currentReportType === 'contacts') buildContactsTable();
+    else if (currentReportType === 'exam') buildPrintableTable();
   }
 }
 function changeReportFont(dir) {
@@ -3906,6 +3907,10 @@ function parseMiqdarSplit(text){
   return { mode:'other', start:'', end:'', full: raw, label: raw, unit:'' };
 }
 
+// رپورٹ کا سائز (ٹول بار میں 13 وغیرہ) نستعلیق کے لیے تھوڑا بڑا کر کے لگایا جاتا ہے —
+// نستعلیق کا اصل حجم عام فونٹ سے چھوٹا دکھتا ہے، 13 پر یہ باریک اور پڑھنے میں مشکل تھا
+function rptFs(){ return Math.round((cfg.reportFontSize || 13) * 1.25); }
+
 function buildPrintableTable(){
   const tbody=document.getElementById('pa-tbody');
   tbody.innerHTML='';
@@ -3919,9 +3924,9 @@ function buildPrintableTable(){
   const list = activePairs().map(p => p.s);
   const fc=document.getElementById('pa-footer-count');
   if(fc)fc.textContent='کل طلبہ: '+list.length;
-  const fs = cfg.reportFontSize || 13;
-  const F='font-family:var(--report-font-body);line-height:1.15;direction:rtl;unicode-bidi:embed;';
-  const P='padding:4px 4px;';
+  const fs = rptFs();
+  const F='font-family:var(--report-font-body);line-height:1.8;direction:rtl;unicode-bidi:embed;';
+  const P='padding:2px 6px;';
   const B='border:1px solid #ccc;';
   list.forEach(function(s,i){
     var rowBg=i%2===0?'#ffffff':'#f2f8f2';
@@ -3982,9 +3987,9 @@ function buildContactsTable(){
   const list = activePairs().map(p => p.s);
   const fc=document.getElementById('ca-footer-count');
   if(fc)fc.textContent='کل طلبہ: '+list.length;
-  const fs = cfg.reportFontSize || 13;
-  const F='font-family:var(--report-font-body);line-height:1.2;direction:rtl;unicode-bidi:embed;';
-  const P='padding:6px 5px;';
+  const fs = rptFs();
+  const F='font-family:var(--report-font-body);line-height:1.8;direction:rtl;unicode-bidi:embed;';
+  const P='padding:4px 6px;';
   const B='border:1px solid #ccc;';
   list.forEach(function(s,i){
     var rowBg=i%2===0?'#ffffff':'#f2f8f2';
@@ -4018,8 +4023,8 @@ function buildEnrollTable(){
   const teacherLabel = printClassLabel();
   const dateLabel = fmtPrintDate(cfg.d || document.getElementById('date').value || '');
   const totalPages = Math.ceil(ENROLL_ROWS / ENROLL_ROWS_PER_PAGE);
-  const F = 'font-family:var(--report-font-body);line-height:1.15;direction:rtl;unicode-bidi:embed;';
-  const P = 'padding:4px 4px;height:34px;box-sizing:border-box;'; // لائنیں چوڑی — ہاتھ سے لکھنے کے لیے مناسب جگہ، مگر ٹھیک 25 لائنیں ایک صفحے میں فٹ رہیں
+  const F = 'font-family:var(--report-font-body);line-height:1.8;direction:rtl;unicode-bidi:embed;';
+  const P = 'padding:1px 4px;height:30px;box-sizing:border-box;'; // لائنیں چوڑی — ہاتھ سے لکھنے کے لیے مناسب جگہ، مگر ٹھیک 25 لائنیں ایک صفحے میں فٹ رہیں
   const B = 'border:1px solid #ccc;';
 
   let allHtml = '';
@@ -4046,39 +4051,39 @@ function buildEnrollTable(){
     }
 
     allHtml += '<div style="' + (isLastPage ? '' : 'page-break-after:always;') + '">' +
-      '<div style="border-bottom:2px solid #000;padding:8px 12px;text-align:center;background:#fff;direction:rtl;unicode-bidi:embed;">' +
-        '<div style="font-family:var(--report-font-title);font-size:26px;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;letter-spacing:0.3px;direction:rtl;unicode-bidi:embed;">' + _escHtml(madName) + '</div>' +
-        '<div style="font-family:var(--nastaliq);font-size:13px;color:#333;margin-top:2px;direction:rtl;unicode-bidi:embed;">امتحانی اندراج فارم — صفحہ ' + (p+1) + ' از ' + totalPages + '</div>' +
+      '<div style="border-bottom:2px solid #000;padding:4px 12px;text-align:center;background:#fff;direction:rtl;unicode-bidi:embed;">' +
+        '<div style="font-family:var(--report-font-title);font-size:30px;line-height:1.6;font-weight:900;color:#7a5c00;text-shadow:0.5px 0.5px 0 #b8860b;direction:rtl;unicode-bidi:embed;">' + _escHtml(madName) + '</div>' +
+        '<div style="font-family:var(--report-font-title);font-size:19px;color:#333;margin-top:0;line-height:1.6;direction:rtl;unicode-bidi:embed;">امتحانی اندراج فارم — صفحہ ' + (p+1) + ' از ' + totalPages + '</div>' +
       '</div>' +
       '<table style="width:100%;border-collapse:collapse;background:#fff;border-bottom:1px solid #999;direction:rtl;unicode-bidi:embed;"><tbody><tr>' +
-        '<td style="text-align:center;padding:9px 10px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">' +
-          '<span style="font-family:var(--report-font-title);font-size:17px;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;">' + _escHtml(teacherLabel) + '</span>' +
+        '<td style="text-align:center;padding:4px 10px;vertical-align:middle;direction:rtl;unicode-bidi:embed;">' +
+          '<span style="font-family:var(--report-font-title);font-size:20px;line-height:1.7;font-weight:900;color:#7a5c00;direction:rtl;unicode-bidi:embed;">' + _escHtml(teacherLabel) + '</span>' +
           '<span style="display:inline-block;width:48px;"></span>' +
-          '<span style="font-family:var(--report-font-title);font-size:17px;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;">' + _escHtml(dateLabel) + '</span>' +
+          '<span style="font-family:var(--report-font-title);font-size:20px;line-height:1.7;font-weight:900;color:#000;direction:rtl;unicode-bidi:embed;">' + _escHtml(dateLabel) + '</span>' +
         '</td>' +
       '</tr></tbody></table>' +
       '<div style="border:1.5px solid var(--green-dark);border-radius:10px;overflow:hidden;margin:0;">' +
       '<table dir="rtl" style="width:100%;border-collapse:collapse;margin-top:0;table-layout:fixed;direction:rtl;unicode-bidi:embed;">' +
         '<thead>' +
           '<tr style="background:#d7e9d7;">' +
-            '<th rowspan="2" style="border:1px solid #333;padding:5px 3px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:var(--green-dark);text-align:center;width:6%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">#</th>' +
-            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:var(--green-dark);text-align:center;width:19%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نام طالب علم</th>' +
-            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:var(--green-dark);text-align:center;width:16%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">ولدیت</th>' +
-            '<th colspan="3" style="border:1px solid #333;border-bottom:2px solid var(--green-dark);padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:var(--green-dark);text-align:center;width:34%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">مقدار خواندگی</th>' +
-            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:var(--green-dark);text-align:center;width:12%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نماز حنفی</th>' +
-            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:11px;font-weight:900;color:var(--green-dark);text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 3px;font-family:var(--report-font-title);font-size:14px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:6%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">#</th>' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:14px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:19%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نام طالب علم</th>' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:14px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:16%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">ولدیت</th>' +
+            '<th colspan="3" style="border:1px solid #333;border-bottom:2px solid var(--green-dark);padding:5px 4px;font-family:var(--report-font-title);font-size:14px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:34%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">مقدار خواندگی</th>' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:14px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:12%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نماز حنفی</th>' +
+            '<th rowspan="2" style="border:1px solid #333;padding:5px 4px;font-family:var(--report-font-title);font-size:14px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>' +
           '</tr>' +
           '<tr style="background:#eef6ee;">' +
-            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:8.5px;font-weight:900;color:var(--green-dark);text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">تفصیل</th>' +
-            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:8.5px;font-weight:900;color:var(--green-dark);text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">شروع سے</th>' +
-            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:8.5px;font-weight:900;color:var(--green-dark);text-align:center;width:11.34%;direction:rtl;unicode-bidi:embed;">آخر سے</th>' +
+            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:12.5px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">تفصیل</th>' +
+            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:12.5px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:11.33%;direction:rtl;unicode-bidi:embed;">شروع سے</th>' +
+            '<th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:12.5px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:11.34%;direction:rtl;unicode-bidi:embed;">آخر سے</th>' +
           '</tr>' +
         '</thead>' +
         '<tbody>' + rowsHtml + '</tbody>' +
       '</table>' +
       '</div>' +
       '<table style="width:100%;border-collapse:collapse;border-top:1px solid #000;background:#fff;direction:rtl;unicode-bidi:embed;"><tbody><tr>' +
-        '<td style="text-align:center;padding:4px 10px;font-family:var(--nastaliq);font-size:11px;color:#333;direction:rtl;unicode-bidi:embed;">صفحہ ' + (p+1) + ' — نمبر ' + startNum + ' تا ' + (startNum + rowsThisPage - 1) + '</td>' +
+        '<td style="text-align:center;padding:4px 10px;font-family:var(--report-font-body);font-size:14px;line-height:1.7;color:#333;direction:rtl;unicode-bidi:embed;">صفحہ ' + (p+1) + ' — نمبر ' + startNum + ' تا ' + (startNum + rowsThisPage - 1) + '</td>' +
       '</tr></tbody></table>' +
     '</div>';
   }
@@ -4097,8 +4102,8 @@ function buildTajweedTable(){
   const curCls = classes.find(c => c.id === currentClassId);
   const className = curCls ? curCls.name : '';
   const students = activePairs().map(p => p.s);
-  const F = 'font-family:var(--report-font-body);line-height:1.15;direction:rtl;unicode-bidi:embed;';
-  const P = 'padding:7px 5px;height:32px;box-sizing:border-box;';
+  const F = 'font-family:var(--report-font-body);line-height:1.8;direction:rtl;unicode-bidi:embed;';
+  const P = 'padding:2px 6px;height:38px;box-sizing:border-box;';
   const B = 'border:1px solid #999;';
 
   let rowsHtml = '';
@@ -4108,8 +4113,8 @@ function buildTajweedTable(){
     rowsHtml +=
       '<tr dir="rtl">' +
       '<td style="' + B + P + 'font-size:12px;text-align:center;background:' + rowBg + ';font-weight:700;direction:ltr;unicode-bidi:embed;">' + (i + 1) + '</td>' +
-      '<td style="' + B + P + F + 'font-size:13px;font-weight:700;text-align:right;padding-right:8px;background:' + rowBg + ';">' + _escHtml(s.n || '') + '</td>' +
-      '<td style="' + B + P + F + 'font-size:12px;text-align:right;padding-right:8px;background:' + rowBg + ';">' + _escHtml(s.w || '') + '</td>' +
+      '<td style="' + B + P + F + 'font-size:17px;font-weight:700;text-align:right;padding-right:8px;background:' + rowBg + ';">' + _escHtml(s.n || '') + '</td>' +
+      '<td style="' + B + P + F + 'font-size:16px;text-align:right;padding-right:8px;background:' + rowBg + ';">' + _escHtml(s.w || '') + '</td>' +
       '<td style="' + B + P + F + 'background:' + rowBg + ';"></td>' +
       '<td style="' + B + P + F + 'background:' + rowBg + ';"></td>' +
       '<td style="' + B + P + F + 'background:' + rowBg + ';"></td>' +
@@ -4120,26 +4125,26 @@ function buildTajweedTable(){
   const html =
     '<div>' +
       '<div style="border-bottom:2px solid #000;padding:10px 12px;text-align:center;background:#fff;direction:rtl;unicode-bidi:embed;">' +
-        '<div style="font-family:var(--report-font-title);font-size:26px;font-weight:900;color:#333;direction:rtl;unicode-bidi:embed;">' + _escHtml(madName) + '</div>' +
-        '<div style="font-family:var(--report-font-title);font-size:22px;font-weight:800;color:#333;margin-top:4px;direction:rtl;unicode-bidi:embed;">کلاس ' + _escHtml(className) + '</div>' +
+        '<div style="font-family:var(--report-font-title);font-size:34px;line-height:1.75;font-weight:900;color:#333;direction:rtl;unicode-bidi:embed;">' + _escHtml(madName) + '</div>' +
+        '<div style="font-family:var(--report-font-title);font-size:24px;line-height:1.7;font-weight:800;color:#333;margin-top:4px;direction:rtl;unicode-bidi:embed;">' + _escHtml(/^\s*کلاس/.test(className) ? className : 'کلاس ' + className) + '</div>' +
       '</div>' +
       '<div style="border:1.5px solid #444;border-radius:6px;overflow:hidden;margin:8px;">' +
       '<table dir="rtl" style="width:100%;border-collapse:collapse;table-layout:fixed;direction:rtl;unicode-bidi:embed;">' +
         '<thead>' +
           '<tr style="background:#222;">' +
-            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:13px;font-weight:900;color:#fff;text-align:center;width:6%;">نمبر شمار</th>' +
-            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:13px;font-weight:900;color:#fff;text-align:center;width:19%;">نام</th>' +
-            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:13px;font-weight:900;color:#fff;text-align:center;width:19%;">ولدیت</th>' +
-            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:13px;font-weight:900;color:#fff;text-align:center;width:14%;">حدر</th>' +
-            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:13px;font-weight:900;color:#fff;text-align:center;width:14%;">مشق</th>' +
-            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:13px;font-weight:900;color:#fff;text-align:center;width:14%;">کتاب</th>' +
-            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:13px;font-weight:900;color:#fff;text-align:center;width:14%;">کیفیت</th>' +
+            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:16px;line-height:1.6;font-weight:900;color:#fff;text-align:center;width:6%;">نمبر شمار</th>' +
+            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:16px;line-height:1.6;font-weight:900;color:#fff;text-align:center;width:19%;">نام</th>' +
+            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:16px;line-height:1.6;font-weight:900;color:#fff;text-align:center;width:19%;">ولدیت</th>' +
+            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:16px;line-height:1.6;font-weight:900;color:#fff;text-align:center;width:14%;">حدر</th>' +
+            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:16px;line-height:1.6;font-weight:900;color:#fff;text-align:center;width:14%;">مشق</th>' +
+            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:16px;line-height:1.6;font-weight:900;color:#fff;text-align:center;width:14%;">کتاب</th>' +
+            '<th style="border:1px solid #999;padding:7px 4px;font-family:var(--report-font-title);font-size:16px;line-height:1.6;font-weight:900;color:#fff;text-align:center;width:14%;">کیفیت</th>' +
           '</tr>' +
         '</thead>' +
         '<tbody>' + rowsHtml + '</tbody>' +
       '</table>' +
       '</div>' +
-      '<div style="padding:6px 12px;text-align:center;font-family:var(--nastaliq);font-size:12px;color:#333;border-top:1px solid #999;">کل طلبہ: ' + students.length + '</div>' +
+      '<div style="padding:6px 12px;text-align:center;font-family:var(--report-font-body);font-size:15px;line-height:1.7;color:#333;border-top:1px solid #999;">کل طلبہ: ' + students.length + '</div>' +
     '</div>';
   pagesWrap.innerHTML = html;
 }
@@ -4191,7 +4196,11 @@ function printClassLabel(){
 
 // تاریخ کو YYYY-MM-DD سے صاف DD/MM/YYYY میں بدلنا (پرنٹ ہیڈر کے لیے)
 function fmtPrintDate(raw){
-  if (!raw) return 'تاریخ: —';
+  if (!raw) {
+    // تاریخ درج نہ ہو تو آج کی تاریخ لگا دیں (خالی "—" کی بجائے)
+    const t = new Date();
+    return 'تاریخ: ' + String(t.getDate()).padStart(2,'0') + '/' + String(t.getMonth()+1).padStart(2,'0') + '/' + t.getFullYear();
+  }
   const parts = String(raw).split('-');
   if (parts.length === 3) {
     return 'تاریخ: ' + parts[2] + '/' + parts[1] + '/' + parts[0];
@@ -4322,56 +4331,265 @@ function closeReport(){
 function getActivePrintEl(){
   if (currentReportType === 'contacts') return document.getElementById('contactsArea');
   if (currentReportType === 'enroll') return document.getElementById('enrollArea');
+  if (currentReportType === 'tajweed') return document.getElementById('tajweedArea');
   if (currentReportType === 'hifz') return document.getElementById('printReportRoot');
   return document.getElementById('printableArea');
 }
 
-function getPdfOptions(fname){
-  const isLand = currentOrient === 'landscape';
-  const el = getActivePrintEl();
-  return {
-    margin: 4,
-    filename: fname,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', letterRendering: false, windowWidth: el.scrollWidth, scrollX: 0, scrollY: 0, x: 0, y: 0 },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: isLand ? 'landscape' : 'portrait' }
-  };
+// ============================================================
+// اردو PDF انجن (واٹس ایپ شیئر کے لیے) — html2canvas کی جگہ
+// ------------------------------------------------------------
+// پرانا طریقہ (html2pdf/html2canvas) نستعلیق کے جوڑ نہیں بنا پاتا تھا، اس لیے شیئر کی گئی
+// PDF میں حروف ٹوٹے، بکھرے اور ایک دوسرے پر چڑھے ہوئے آتے تھے، اور کشیدہ فونٹ بالکل استعمال نہیں ہو پاتا تھا۔
+// یہ انجن رپورٹ کی ہر لائن کو براؤزر کے اپنے اردو شیپنگ انجن (canvas fillText) سے پوری لائن کی صورت میں
+// لکھتا ہے — اس لیے جمیل نوری نستعلیق اور نوری کشیدہ بالکل ویسے ہی جڑے ہوئے آتے ہیں جیسے سکرین/پرنٹ میں۔
+// صفحے ہمیشہ کسی قطار (row) کے اختتام پر ٹوٹتے ہیں (کوئی نام آدھا نہیں کٹتا) اور ہر نئے صفحے پر
+// ٹیبل کا ہیڈر دوبارہ چھپتا ہے۔ html2pdf صرف تیار شدہ تصویروں کو PDF میں رکھنے کے لیے استعمال ہوتا ہے۔
+// ============================================================
+const PDF_MARGIN_MM = 6;
+
+function _rptColorOk(c){ return c && c !== 'transparent' && !/rgba\([^)]*,\s*0\)$/.test(c); }
+
+function _rptRadius(cs, w, h){
+  const r = parseFloat(cs.borderTopLeftRadius) || 0;
+  if (!r) return 0;
+  if (String(cs.borderTopLeftRadius).indexOf('%') > -1) return Math.min(w, h) * r / 100;
+  return Math.min(r, w / 2, h / 2);
 }
 
-// html2canvas سے PDF بناتے وقت #printableWrap کا RTL سمت + overflow-x:auto مل کر کیپچر شدہ
-// تصویر کو غلط پوزیشن پر شفٹ کر دیتے ہیں (خالی جگہ رہ جاتی ہے، ایک طرف مواد کٹ جاتا ہے) —
-// کیپچر سے پہلے wrap کو عارضی طور پر LTR کر دیتے ہیں (اندر موجود #printableArea کی اپنی dir="rtl"
-// متاثر نہیں ہوتی، صرف باہر والے scroll container کی سمت درست ہوتی ہے)، کیپچر کے بعد واپس لگا دیتے ہیں
-// html2canvas اردو کے پیچیدہ کشیدہ/ثلث حروف کے جوڑ (ligatures) صحیح طور پر نہیں بنا پاتا —
-// نتیجہ: واٹس ایپ شیئر کی PDF میں ٹائٹل/عنوانات ٹوٹے پھوٹے/بکھرے حروف میں آ جاتے ہیں،
-// جبکہ اصل پرنٹ (window.print) میں یہ مسئلہ نہیں ہوتا کیونکہ وہ براؤزر کا اصل رینڈرنگ انجن استعمال کرتا ہے۔
-// اس لیے html2canvas کیپچر کے دوران عارضی طور پر کشیدہ/ثلث کو عام نستعلیق پر واپس کر دیتے ہیں —
-// آن-اسکرین پریویو اور اصل پرنٹ میں خوبصورت کشیدہ فونٹ ہی نظر آتا رہے گا، صرف WhatsApp-PDF میں پڑھنے کے قابل رہے گا۔
-function withNeutralWrap(fn){
-  const wrap = document.getElementById('printableWrap');
-  const prevDir = wrap.style.direction;
-  const prevDirAttr = wrap.getAttribute('dir');
-  wrap.style.direction = 'ltr';
-  wrap.setAttribute('dir', 'ltr');
-  const root = document.documentElement;
-  root.style.setProperty('--font-kasheeda', 'var(--font-nastaliq)');
-  root.style.setProperty('--font-thuluth', 'var(--font-nastaliq)');
-  return Promise.resolve().then(fn).finally(() => {
-    wrap.style.direction = prevDir;
-    if (prevDirAttr === null) wrap.removeAttribute('dir'); else wrap.setAttribute('dir', prevDirAttr);
-    root.style.removeProperty('--font-kasheeda');
-    root.style.removeProperty('--font-thuluth');
+function _rptRoundRect(ctx, x, y, w, h, r){
+  ctx.beginPath();
+  if (r > 0 && ctx.roundRect) ctx.roundRect(x, y, w, h, r);
+  else ctx.rect(x, y, w, h);
+}
+
+// background-image: linear-gradient(...) کا سادہ عمودی/افقی خاکہ (حفظ رپورٹ کے رنگین ہیڈرز کے لیے)
+function _rptGradient(ctx, bg, x, y, w, h){
+  const cols = bg.match(/rgba?\([^)]*\)/g);
+  if (!cols || !cols.length) return null;
+  const ang = (bg.match(/(-?[\d.]+)deg/) || [0, 180])[1] * 1;
+  const horiz = Math.abs(Math.sin(ang * Math.PI / 180)) > 0.7;
+  const g = horiz ? ctx.createLinearGradient(x, y, x + w, y) : ctx.createLinearGradient(x, y, x, y + h);
+  cols.forEach((c, i) => g.addColorStop(cols.length === 1 ? 0 : i / (cols.length - 1), c));
+  return g;
+}
+
+function _rptShadow(ctx, ts){
+  if (!ts || ts === 'none') { ctx.shadowColor = 'transparent'; return; }
+  const col = (ts.match(/rgba?\([^)]*\)|#[0-9a-f]{3,8}/i) || [''])[0];
+  const nums = ts.replace(col, '').match(/-?[\d.]+px/g) || [];
+  ctx.shadowColor = col || 'rgba(0,0,0,.3)';
+  ctx.shadowOffsetX = parseFloat(nums[0]) || 0;
+  ctx.shadowOffsetY = parseFloat(nums[1]) || 0;
+  ctx.shadowBlur = parseFloat(nums[2]) || 0;
+}
+
+// ایک ٹیکسٹ نوڈ کو لائنوں میں تقسیم کر کے ہر لائن پوری کی پوری (جڑے حروف کے ساتھ) لکھیں
+function _rptDrawText(ctx, node, ox, oy){
+  const text = node.data;
+  if (!text || !text.trim()) return;
+  const el = node.parentElement;
+  const cs = getComputedStyle(el);
+  if (!_rptColorOk(cs.color)) return;
+  ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+  ctx.fillStyle = cs.color;
+  if ('letterSpacing' in ctx) ctx.letterSpacing = (cs.letterSpacing === 'normal' ? '0px' : cs.letterSpacing);
+  _rptShadow(ctx, cs.textShadow);
+  const range = document.createRange();
+  range.selectNodeContents(node);
+  const all = range.getClientRects();
+  const lines = [];
+  if (all.length <= 1) {
+    const r = range.getBoundingClientRect();
+    if (r.width && r.height) lines.push({ s: text.trim(), top: r.top, left: r.left, right: r.right });
+  } else {
+    // کئی لائنوں والا متن — ہر لفظ کی پوزیشن سے پہچانیں کہ کونسا لفظ کس لائن میں ہے
+    const re = /\S+/g; let m;
+    while ((m = re.exec(text))) {
+      range.setStart(node, m.index); range.setEnd(node, m.index + m[0].length);
+      const r = range.getBoundingClientRect();
+      if (!r.width) continue;
+      let ln = lines.find(l => Math.abs(l.top - r.top) < r.height * 0.5);
+      if (!ln) { ln = { a: m.index, b: m.index + m[0].length, top: r.top, left: r.left, right: r.right }; lines.push(ln); }
+      else { ln.a = Math.min(ln.a, m.index); ln.b = Math.max(ln.b, m.index + m[0].length); ln.left = Math.min(ln.left, r.left); ln.right = Math.max(ln.right, r.right); ln.top = Math.min(ln.top, r.top); }
+    }
+    lines.forEach(l => { l.s = text.slice(l.a, l.b); });
+  }
+  const rtl = cs.direction === 'rtl';
+  ctx.direction = rtl ? 'rtl' : 'ltr';
+  ctx.textAlign = rtl ? 'right' : 'left';
+  ctx.textBaseline = 'alphabetic';
+  lines.forEach(l => {
+    const met = ctx.measureText(l.s);
+    const asc = met.fontBoundingBoxAscent != null ? met.fontBoundingBoxAscent : parseFloat(cs.fontSize) * 0.9;
+    ctx.fillText(l.s, (rtl ? l.right : l.left) - ox, l.top - oy + asc);
   });
+  ctx.shadowColor = 'transparent';
+}
+
+function _rptDrawImg(ctx, img, cs, b, ox, oy){
+  if (!img.complete || !img.naturalWidth) return;
+  const x = b.left - ox, y = b.top - oy, w = b.width, h = b.height;
+  let sx = 0, sy = 0, sw = img.naturalWidth, sh = img.naturalHeight;
+  if (cs.objectFit === 'cover') {
+    const s = Math.max(w / sw, h / sh);
+    const cw = w / s, ch = h / s;
+    sx = (sw - cw) / 2; sy = (sh - ch) / 2; sw = cw; sh = ch;
+  }
+  ctx.save();
+  _rptRoundRect(ctx, x, y, w, h, _rptRadius(cs, w, h));
+  ctx.clip();
+  try { ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h); } catch(e) {}
+  ctx.restore();
+}
+
+// تین مرحلے: (1) پس منظر اور تصویریں (2) بارڈر (3) متن — اسی ترتیب سے جیسے براؤزر خود بناتا ہے،
+// تاکہ بارڈر اور متن ہمیشہ اوپر رہیں
+const _RPT_ROWISH = { TR:1, THEAD:1, TBODY:1, TFOOT:1 };
+function _rptPaint(ctx, el, ox, oy, pass){
+  const cs = getComputedStyle(el);
+  if (cs.display === 'none' || cs.visibility === 'hidden') return;
+  const b = el.getBoundingClientRect();
+  const x = b.left - ox, y = b.top - oy, w = b.width, h = b.height;
+  const rad = _rptRadius(cs, w, h);
+  if (pass === 1 && !_RPT_ROWISH[el.tagName]) {
+    if (_rptColorOk(cs.backgroundColor)) {
+      ctx.fillStyle = cs.backgroundColor; _rptRoundRect(ctx, x, y, w, h, rad); ctx.fill();
+    }
+    if (cs.backgroundImage && cs.backgroundImage.indexOf('gradient') > -1) {
+      const g = _rptGradient(ctx, cs.backgroundImage, x, y, w, h);
+      if (g) { ctx.fillStyle = g; _rptRoundRect(ctx, x, y, w, h, rad); ctx.fill(); }
+    }
+    if (el.tagName === 'IMG') { _rptDrawImg(ctx, el, cs, b, ox, oy); return; }
+    // ٹیبل: پہلے اس کے حصوں/قطاروں کا پس منظر، پھر خانے — تاکہ rowspan والا ہیڈر خانہ قطار کے رنگ کے نیچے نہ چھپے
+    if (el.tagName === 'TABLE') {
+      const parts = [el.tHead].concat(Array.from(el.tBodies), [el.tFoot]).filter(Boolean);
+      parts.concat(Array.from(el.rows)).forEach(r => {
+        const rcs = getComputedStyle(r);
+        if (rcs.display === 'none' || !_rptColorOk(rcs.backgroundColor)) return;
+        const rb = r.getBoundingClientRect();
+        ctx.fillStyle = rcs.backgroundColor; ctx.fillRect(rb.left - ox, rb.top - oy, rb.width, rb.height);
+      });
+    }
+  } else if (pass === 2) {
+    const bw = ['Top','Right','Bottom','Left'].map(s => cs['border' + s + 'Style'] !== 'none' ? parseFloat(cs['border' + s + 'Width']) || 0 : 0);
+    const bc = ['Top','Right','Bottom','Left'].map(s => cs['border' + s + 'Color']);
+    if (rad > 0 && bw[0] && bw.every(v => v === bw[0])) {
+      ctx.strokeStyle = bc[0]; ctx.lineWidth = bw[0];
+      _rptRoundRect(ctx, x + bw[0] / 2, y + bw[0] / 2, w - bw[0], h - bw[0], Math.max(0, rad - bw[0] / 2)); ctx.stroke();
+    } else {
+      if (bw[0] && _rptColorOk(bc[0])) { ctx.fillStyle = bc[0]; ctx.fillRect(x, y, w, bw[0]); }
+      if (bw[2] && _rptColorOk(bc[2])) { ctx.fillStyle = bc[2]; ctx.fillRect(x, y + h - bw[2], w, bw[2]); }
+      if (bw[3] && _rptColorOk(bc[3])) { ctx.fillStyle = bc[3]; ctx.fillRect(x, y, bw[3], h); }
+      if (bw[1] && _rptColorOk(bc[1])) { ctx.fillStyle = bc[1]; ctx.fillRect(x + w - bw[1], y, bw[1], h); }
+    }
+  }
+  if (el.tagName === 'IMG' || el.tagName === 'SCRIPT' || el.tagName === 'STYLE' || el.tagName === 'SELECT') return;
+  const clip = cs.overflow === 'hidden' && rad > 0;
+  if (clip) { ctx.save(); _rptRoundRect(ctx, x, y, w, h, rad); ctx.clip(); }
+  for (const ch of el.childNodes) {
+    if (ch.nodeType === 1) _rptPaint(ctx, ch, ox, oy, pass);
+    else if (ch.nodeType === 3 && pass === 3) _rptDrawText(ctx, ch, ox, oy);
+  }
+  if (clip) ctx.restore();
+}
+
+async function renderReportCanvas(root, scale){
+  const rr = root.getBoundingClientRect();
+  const W = Math.ceil(rr.width), H = Math.ceil(root.scrollHeight || rr.height);
+  const cv = document.createElement('canvas');
+  cv.width = Math.round(W * scale); cv.height = Math.round(H * scale);
+  const ctx = cv.getContext('2d');
+  ctx.scale(scale, scale);
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
+  for (let pass = 1; pass < 4; pass++) _rptPaint(ctx, root, rr.left, rr.top, pass);
+  return { canvas: cv, W, H, top: rr.top };
+}
+
+// صفحے کہاں ٹوٹیں: ہر قطار (tr) کے نیچے، یا جہاں رپورٹ میں صفحہ توڑنا لازمی لکھا ہو
+function _rptPageSlices(root, rootTop, W, H, pageH){
+  const rowBottoms = [], forced = [], tables = [];
+  root.querySelectorAll('tr').forEach(tr => {
+    const r = tr.getBoundingClientRect();
+    if (r.height) rowBottoms.push(r.bottom - rootTop);
+  });
+  root.querySelectorAll('*').forEach(e => {
+    const cs = getComputedStyle(e);
+    if (cs.breakAfter === 'page' || cs.pageBreakAfter === 'always') forced.push(e.getBoundingClientRect().bottom - rootTop);
+  });
+  root.querySelectorAll('table').forEach(t => {
+    const th = t.tHead; if (!th) return;
+    const tr = t.getBoundingClientRect(), hr = th.getBoundingClientRect();
+    if (hr.height) tables.push({ top: hr.bottom - rootTop, bottom: tr.bottom - rootTop, hTop: hr.top - rootTop, hH: hr.height });
+  });
+  const slices = [];
+  let start = 0, guard = 0;
+  while (start < H - 2 && guard++ < 200) {
+    const tbl = slices.length ? tables.find(t => start >= t.top - 1 && start < t.bottom - 1) : null;
+    const room = pageH - (tbl ? tbl.hH : 0);
+    const limit = start + room;
+    const f = forced.filter(v => v > start + 2 && v <= limit).sort((a, b) => a - b)[0];
+    let cut;
+    if (f) cut = f;
+    else if (limit >= H) cut = H;
+    else {
+      const ok = rowBottoms.filter(v => v > start + 2 && v <= limit);
+      cut = ok.length ? Math.max.apply(null, ok) : limit;
+    }
+    slices.push({ y0: start, y1: cut, head: tbl });
+    start = cut;
+  }
+  return slices;
+}
+
+async function buildReportPdf(el){
+  const isLand = currentOrient === 'landscape';
+  const scale = 2;
+  const { canvas, W, H, top } = await renderReportCanvas(el, scale);
+  const pageWmm = isLand ? 297 : 210, pageHmm = isLand ? 210 : 297;
+  const innerW = pageWmm - 2 * PDF_MARGIN_MM, innerH = pageHmm - 2 * PDF_MARGIN_MM;
+  const pageH = Math.floor(W * innerH / innerW);
+  const slices = _rptPageSlices(el, top, W, H, pageH);
+  // jsPDF آبجیکٹ html2pdf بنڈل سے حاصل کریں (الگ لائبریری لوڈ کرنے کی ضرورت نہیں)
+  const blank = document.createElement('canvas'); blank.width = blank.height = 2;
+  const bctx = blank.getContext('2d'); bctx.fillStyle = '#fff'; bctx.fillRect(0, 0, 2, 2);
+  const worker = html2pdf().set({ margin: 0, jsPDF: { unit: 'mm', format: 'a4', orientation: isLand ? 'landscape' : 'portrait' } }).from(blank, 'canvas');
+  await worker.toPdf();
+  const pdf = await worker.get('pdf');
+  // خالی ابتدائی صفحات ہٹا دیں (لینڈ اسکیپ میں html2pdf ایک اضافی خالی صفحہ بنا دیتا ہے)
+  while (pdf.getNumberOfPages() > 1) pdf.deletePage(pdf.getNumberOfPages());
+  pdf.setPage(1);
+  const mmPerPx = innerW / W;
+  slices.forEach((s, i) => {
+    const headH = s.head ? s.head.hH : 0;
+    const pc = document.createElement('canvas');
+    pc.width = canvas.width;
+    pc.height = Math.max(1, Math.round((s.y1 - s.y0 + headH) * scale));
+    const pctx = pc.getContext('2d');
+    pctx.fillStyle = '#fff'; pctx.fillRect(0, 0, pc.width, pc.height);
+    let dy = 0;
+    if (s.head) {
+      pctx.drawImage(canvas, 0, Math.round(s.head.hTop * scale), canvas.width, Math.round(headH * scale), 0, 0, pc.width, Math.round(headH * scale));
+      dy = Math.round(headH * scale);
+    }
+    pctx.drawImage(canvas, 0, Math.round(s.y0 * scale), canvas.width, Math.round((s.y1 - s.y0) * scale), 0, dy, pc.width, Math.round((s.y1 - s.y0) * scale));
+    if (i > 0) pdf.addPage();
+    pdf.addImage(pc.toDataURL('image/jpeg', 0.95), 'JPEG', PDF_MARGIN_MM, PDF_MARGIN_MM, innerW, (s.y1 - s.y0 + headH) * mmPerPx);
+  });
+  return pdf.output('blob');
 }
 
 async function waitForFonts(){
   try{
-    // اردو فونٹ کو زبردستی پری لوڈ کریں تاکہ canvas کھینچنے سے پہلے ligatures مکمل تیار ہوں
+    // اردو فونٹ کو زبردستی پری لوڈ کریں تاکہ canvas پر لکھنے سے پہلے ligatures مکمل تیار ہوں
     if (document.fonts && document.fonts.load) {
-      await document.fonts.load('900 26px "Jameel Noori Nastaleeq"', 'محمد');
-      await document.fonts.load('600 14px "Jameel Noori Nastaleeq"', 'محمد');
-      await document.fonts.load('900 26px "Noto Naskh Arabic"', 'محمد');
-      await document.fonts.load('600 14px "Noto Naskh Arabic"', 'محمد');
+      await Promise.all([
+        document.fonts.load('400 20px "Jameel Noori Nastaleeq"', 'محمد'),
+        document.fonts.load('700 20px "Jameel Noori Nastaleeq"', 'محمد'),
+        document.fonts.load('400 20px "Jameel Noori Nastaleeq Kasheeda"', 'محمد'),
+        document.fonts.load('700 20px "Jameel Noori Nastaleeq Kasheeda"', 'محمد'),
+        document.fonts.load('400 20px "DecoType Thuluth"', 'محمد')
+      ]);
     }
     if (document.fonts && document.fonts.ready) await document.fonts.ready;
     // مزید تھوڑا انتظار تاکہ browser layout/paint مکمل ہو جائے
@@ -4391,10 +4609,7 @@ async function generateAndPrintPdf(){
   try{
     await waitForFonts();
     const fname = pdfFileName();
-    const pdfBlob = await withNeutralWrap(async () => {
-      const worker = html2pdf().set(getPdfOptions(fname)).from(el);
-      return await worker.outputPdf('blob');
-    });
+    const pdfBlob = await buildReportPdf(el);
     gen.style.display = 'none';
     const blobUrl = URL.createObjectURL(pdfBlob);
     const win = window.open(blobUrl, '_blank');
@@ -4413,21 +4628,20 @@ async function generateAndPrintPdf(){
   }
 }
 
-// براہ راست native پرنٹ — html2canvas بالکل استعمال نہیں ہوتا، اس لیے اردو حروف
-// ہمیشہ صحیح اور جڑے ہوئے (ligature کے ساتھ) نظر آتے ہیں، browser کا اپنا print engine استعمال ہوتا ہے
+// براہ راست native پرنٹ — browser کا اپنا print engine استعمال ہوتا ہے، اس لیے اردو حروف
+// ہمیشہ صحیح اور جڑے ہوئے (ligature کے ساتھ) نظر آتے ہیں
 // نوٹ: لینڈ اسکیپ رپورٹ میں، Android کا پرنٹ/Save-as-PDF سسٹم بعض اوقات صفحے کی سمت (orientation) کو
 // حتمی فائل میں درست طور پر محفوظ نہیں کرتا، چاہے پریویو میں لینڈ اسکیپ ہی نظر آ رہی ہو — یہ Android کی
 // اپنی ایک معروف محدودیت ہے، ایپ کے کوڈ کا مسئلہ نہیں۔ اس لیے یہاں صارف کو یاد دہانی کرائی جاتی ہے۔
-function doNativePrint(){
+async function doNativePrint(){
   if (currentOrient === 'landscape') {
     alert('⚠️ یاد رہے: پرنٹ ڈائیلاگ میں "Paper orientation" پر ٹیپ کر کے یقینی بنائیں کہ "Landscape" منتخب ہے۔\n\nاگر پھر بھی محفوظ شدہ PDF پورٹریٹ میں آئے تو "📤 واٹس ایپ شیئر" بٹن استعمال کریں — وہ لینڈ اسکیپ ہمیشہ درست دیتا ہے۔');
   }
+  await waitForFonts(); // کشیدہ/نستعلیق فونٹ مکمل لوڈ ہونے سے پہلے پرنٹ نہ ہو
   window.print();
 }
 
-// واٹس ایپ شیئر بٹن دبانے پر اب کوئی الگ، سکرین کو ڈھانپنے والا تصدیقی پاپ اپ نہیں آتا —
-// الائنمنٹ بٹن پہلے ہی رپورٹ پیش منظر کے بالکل اوپر (sticky ٹول بار میں) موجود ہیں اور تبدیلی
-// فوراً نیچے اصل رپورٹ میں نظر آتی ہے، اس لیے شیئر بٹن دبانے پر سیدھا PDF بن کر شیئر ہو جاتی ہے
+// واٹس ایپ شیئر بٹن — رپورٹ سیدھی PDF بن کر شیئر ہو جاتی ہے (اردو PDF انجن سے، کشیدہ سمیت)
 async function generateAndSharePdf(){
   const el = getActivePrintEl();
   const gen = document.getElementById('pdfGenOverlay');
@@ -4435,10 +4649,7 @@ async function generateAndSharePdf(){
   try{
     await waitForFonts();
     const fname = pdfFileName();
-    const pdfBlob = await withNeutralWrap(async () => {
-      const worker = html2pdf().set(getPdfOptions(fname)).from(el);
-      return await worker.outputPdf('blob');
-    });
+    const pdfBlob = await buildReportPdf(el);
     gen.style.display = 'none';
     const file = new File([pdfBlob], fname, { type: 'application/pdf' });
     if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
