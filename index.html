@@ -857,6 +857,46 @@ td.clickable:hover { background: #fff9e6 !important; }
 }
 .poster-preview-actions .modal-btn { box-shadow: 0 3px 0 rgba(0,0,0,0.15); }
 
+
+/* ================= ریکارڈ تازہ کریں — شیٹ نما جدول ================= */
+#bulkEditOverlay{display:none;position:fixed;inset:0;z-index:8500;background:#eef2ee;flex-direction:column;direction:rtl;font-family:var(--nastaliq);}
+#bulkEditOverlay.show{display:flex;}
+#bulkEditOverlay .be-top{flex:0 0 auto;background:linear-gradient(180deg,var(--green-mid),var(--green-dark));border-bottom:3px solid var(--gold);padding:8px 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:#fff;}
+#bulkEditOverlay .be-title{flex:1 1 auto;min-width:0;font-size:17px;font-weight:800;line-height:1.7;color:var(--gold-light);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#bulkEditOverlay .be-status{flex:0 0 auto;font-size:13px;line-height:1.7;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,.15);transition:background .2s;}
+#bulkEditOverlay .be-status.saved{background:#2ecc71;color:#fff;}
+#bulkEditOverlay .be-status.err{background:#c0392b;color:#fff;}
+#bulkEditOverlay .be-close{flex:0 0 auto;height:36px;padding:0 16px;border-radius:18px;border:2px solid var(--gold);background:#fff;color:var(--green-dark);font-family:var(--nastaliq);font-size:14px;font-weight:800;cursor:pointer;}
+#bulkEditOverlay .be-hint{flex:0 0 auto;background:#fff8e1;border-bottom:1px solid #f0d58a;color:#5d4300;font-size:12.5px;line-height:1.8;padding:3px 10px;}
+#bulkEditOverlay .be-scroll{flex:1 1 auto;overflow:auto;-webkit-overflow-scrolling:touch;}
+#bulkEditOverlay table.be-table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;background:#fff;}
+#bulkEditOverlay .be-table th{position:sticky;top:0;z-index:3;background:#d7e9d7;color:var(--green-dark);font-size:14px;font-weight:800;line-height:1.7;padding:4px 6px;border-bottom:2px solid var(--green-dark);border-left:1px solid #b8d4b8;white-space:nowrap;text-align:center;}
+#bulkEditOverlay .be-table td{padding:3px 4px;border-bottom:1px solid #dde8dd;border-left:1px solid #e6efe6;vertical-align:middle;background:#fff;}
+#bulkEditOverlay .be-table tr:nth-child(even) td{background:#f4faf4;}
+#bulkEditOverlay .be-table tr.be-saved td{animation:beFlash .9s ease;}
+@keyframes beFlash{0%{background:#c8f7d4}100%{}}
+/* نمبر اور نام کے خانے دائیں طرف جمے رہیں، باقی جدول بائیں سرکے */
+#bulkEditOverlay .be-table .be-c-no{position:sticky;right:0;z-index:2;width:34px;min-width:34px;text-align:center;font-family:Arial,sans-serif;font-weight:700;color:#5e35b1;font-size:13px;}
+#bulkEditOverlay .be-table .be-c-name{position:sticky;right:34px;z-index:2;box-shadow:-3px 0 4px -2px rgba(0,0,0,.18);}
+#bulkEditOverlay .be-table th.be-c-no,#bulkEditOverlay .be-table th.be-c-name{z-index:4;}
+#bulkEditOverlay .be-table input,#bulkEditOverlay .be-table select{width:100%;height:40px;box-sizing:border-box;border:1.5px solid #c7d9c7;border-radius:8px;background:#fff;color:#1a1a1a;font-family:var(--nastaliq);font-size:15px;line-height:normal;padding:0 6px;direction:rtl;}
+#bulkEditOverlay .be-table input:focus,#bulkEditOverlay .be-table select:focus{outline:none;border-color:var(--green-light);box-shadow:0 0 0 3px rgba(30,126,30,.18);background:#fffef3;}
+#bulkEditOverlay .be-table select:disabled{background:#f1f1f1;color:#999;border-style:dashed;}
+#bulkEditOverlay .be-table input.be-num{font-family:Arial,sans-serif;text-align:center;direction:ltr;}
+/* ہر خانے کی پکی چوڑائی — جدول دبے نہیں بلکہ بائیں طرف سرکے */
+#bulkEditOverlay .be-table .be-c-name input{width:150px;}
+#bulkEditOverlay .be-table .be-c-wald input{width:130px;}
+#bulkEditOverlay .be-table .be-c-type select{width:140px;}
+#bulkEditOverlay .be-table .be-c-st select,#bulkEditOverlay .be-table .be-c-en select{width:86px;}
+#bulkEditOverlay .be-table .be-c-mr input{width:66px;}
+#bulkEditOverlay .be-table .be-c-q{min-width:80px;text-align:center;font-size:14px;font-weight:800;line-height:1.7;white-space:nowrap;}
+#bulkEditOverlay .be-table tr.be-bad td{background:#fdecea !important;}
+#bulkEditOverlay .be-foot{flex:0 0 auto;display:flex;gap:8px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid #cfdccf;}
+#bulkEditOverlay .be-foot button{flex:1;height:42px;border-radius:21px;border:none;font-family:var(--nastaliq);font-size:14px;font-weight:800;cursor:pointer;color:#fff;}
+#bulkEditOverlay .be-add{background:linear-gradient(180deg,#2ecc71,#1e8449);}
+#bulkEditOverlay .be-done{background:linear-gradient(180deg,#1565c0,#0d47a1);}
+#beToast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);z-index:8600;background:#c0392b;color:#fff;font-family:var(--nastaliq);font-size:14px;line-height:1.8;padding:6px 16px;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.3);display:none;max-width:92vw;text-align:center;}
+
 /* PRINT */
 .print-header {
   display: none;
@@ -1481,6 +1521,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 
   <div class="no-print" style="display:flex;align-items:center;gap:6px;margin:6px 8px;">
     <button onclick="toggleForm()" style="flex:0 0 auto;height:34px;border-radius:17px;padding:0 16px;font-size:13px;font-family:var(--nastaliq);font-weight:800;white-space:nowrap;border:none;background:linear-gradient(180deg,#2ecc71,#1e8449);color:#fff;cursor:pointer;">＋ نیا</button>
+    <button onclick="openBulkEdit()" title="پوری کلاس کا ریکارڈ ایک جدول میں تازہ کریں" style="flex:1;min-width:0;height:34px;border-radius:17px;padding:0 10px;font-size:12.5px;font-family:var(--nastaliq);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:none;background:linear-gradient(180deg,#f39c12,#c0700a);color:#fff;cursor:pointer;">✏️ ریکارڈ تازہ کریں</button>
     <button onclick="showListView()" style="flex:1;min-width:0;height:34px;border-radius:17px;padding:0 10px;font-size:12.5px;font-family:var(--nastaliq);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:none;background:linear-gradient(180deg,#1565c0,#0d47a1);color:#fff;cursor:pointer;">📋 مکمل لسٹ</button>
     <button onclick="deleteClass()" title="یہ کلاس حذف کریں" style="flex:0 0 auto;height:34px;border-radius:17px;padding:0 16px;font-size:13px;font-family:var(--nastaliq);font-weight:800;white-space:nowrap;border:none;background:linear-gradient(180deg,#c0392b,#7a2015);color:#fff;cursor:pointer;">🗑 حذف</button>
   </div>
@@ -1723,6 +1764,37 @@ td.clickable:hover { background: #fff9e6 !important; }
   </div>
 </div>
 
+<!-- ====== ریکارڈ تازہ کریں — پوری کلاس کی شیٹ نما جدول ====== -->
+<div id="bulkEditOverlay" class="no-print" dir="rtl">
+  <div class="be-top">
+    <div class="be-title" id="beTitle">✏️ طلبہ کا ریکارڈ</div>
+    <span class="be-status" id="beStatus">💾 خودکار محفوظ</span>
+    <button type="button" class="be-close" onclick="closeBulkEdit()">✕ بند کریں</button>
+  </div>
+  <div class="be-hint">ہر تبدیلی خودکار محفوظ ہوتی ہے • جدول بائیں سرکا کر باقی خانے دیکھیں • "اگلا" سے نیچے والی قطار</div>
+  <div class="be-scroll" id="beScroll">
+    <table class="be-table">
+      <thead><tr>
+        <th class="be-c-no">#</th>
+        <th class="be-c-name">نام طالب علم</th>
+        <th class="be-c-wald">ولدیت</th>
+        <th class="be-c-type">تفصیل</th>
+        <th class="be-c-st">شروع سے</th>
+        <th class="be-c-en">آخر سے</th>
+        <th class="be-c-mr">نمبر</th>
+        <th class="be-c-mr">نماز حنفی نمبر</th>
+        <th class="be-c-q">کیفیت</th>
+      </tr></thead>
+      <tbody id="beBody"></tbody>
+    </table>
+  </div>
+  <div class="be-foot">
+    <button type="button" class="be-add" onclick="beAddRow()">＋ نیا طالب علم</button>
+    <button type="button" class="be-done" onclick="closeBulkEdit()">✅ مکمل — واپس جائیں</button>
+  </div>
+</div>
+<div id="beToast" class="no-print"></div>
+
 <!-- HIDDEN PRINTABLE CONTENT (landscape, used only for PDF capture) -->
 <!-- REPORT OVERLAY (پورٹریٹ / لینڈ اسکیپ پرنٹ) -->
 <div id="reportOverlay" style="display: none; position: fixed; inset: 0px; z-index: 9000; background: rgba(0, 0, 0, 0.92); overflow-y: auto;">
@@ -1785,18 +1857,18 @@ td.clickable:hover { background: #fff9e6 !important; }
         <thead>
           <tr style="background:#d7e9d7;">
             <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:5%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">#</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:17%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نام طالب علم</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:16%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نام طالب علم</th>
             <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:12%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">ولدیت</th>
-            <th colspan="3" style="border:1px solid #333;border-bottom:2px solid var(--green-dark);padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:27%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">مقدار خواندگی</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
-            <th id="pa-namz-th" rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نماز حنفی</th>
-            <th id="pa-namz-th2" rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
-            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:8%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>
+            <th colspan="3" style="border:1px solid #333;border-bottom:2px solid var(--green-dark);padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:28%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">مقدار خواندگی</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:8%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
+            <th id="pa-namz-th" rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:10%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نماز حنفی</th>
+            <th id="pa-namz-th2" rowspan="2" style="border:1px solid #333;padding:6px 4px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:8%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">نمبر</th>
+            <th rowspan="2" style="border:1px solid #333;padding:6px 6px;font-family:var(--report-font-title);font-size:15px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:13%;direction:rtl;unicode-bidi:embed;vertical-align:middle;">کیفیت</th>
           </tr>
           <tr style="background:#eef6ee;">
-            <th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:13px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">تفصیل</th>
-            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--report-font-title);font-size:13px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">شروع سے</th>
-            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--report-font-title);font-size:13px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:9%;direction:rtl;unicode-bidi:embed;">آخر سے</th>
+            <th style="border:1px solid #333;padding:4px 2px;font-family:var(--report-font-title);font-size:13px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:12%;direction:rtl;unicode-bidi:embed;">تفصیل</th>
+            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--report-font-title);font-size:13px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:8%;direction:rtl;unicode-bidi:embed;">شروع سے</th>
+            <th style="border:1px solid #333;padding:4px 3px;font-family:var(--report-font-title);font-size:13px;line-height:1.6;font-weight:900;color:var(--green-dark);text-align:center;width:8%;direction:rtl;unicode-bidi:embed;">آخر سے</th>
           </tr>
         </thead>
         <tbody id="pa-tbody"><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#ffffff;font-weight:700;direction:ltr;unicode-bidi:embed;">1</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#ffffff;">عبدالحفیظ</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#ffffff;">عبدالعزیز</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;font-weight:800;background:#ffffff;">حفظ سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">3 سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">8 سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#ffffff;"></td></tr><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#f2f8f2;font-weight:700;direction:ltr;unicode-bidi:embed;">2</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#f2f8f2;">محمد</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#f2f8f2;">عبدالحفیظ</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;font-weight:800;background:#f2f8f2;">ناظرہ سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#f2f8f2;">8 سپارے</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#f2f8f2;"></td></tr><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#ffffff;font-weight:700;direction:ltr;unicode-bidi:embed;">3</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#ffffff;">اسلم</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#ffffff;">اکرم</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;font-weight:800;background:#ffffff;">ناظرہ سورتیں</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;background:#ffffff;">16 سورتیں</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#ffffff;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#ffffff;"></td></tr><tr dir="rtl"><td style="border:1px solid #ccc;padding:4px 4px;font-size:12px;text-align:center;background:#f2f8f2;font-weight:700;direction:ltr;unicode-bidi:embed;">4</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:14px;font-weight:900;text-align:right;background:#f2f8f2;">بھالو</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:right;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;color:#999;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;color:#999;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:12px;text-align:center;color:#999;background:#f2f8f2;">—</td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:700;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;background:#f2f8f2;"></td><td style="border:1px solid #ccc;padding:4px 4px;font-family:var(--nastaliq);line-height:1.15;direction:rtl;unicode-bidi:embed;font-size:13px;text-align:left;font-weight:800;background:#f2f8f2;"></td></tr></tbody>
@@ -2864,6 +2936,307 @@ function prefillMiqdFields(m){
     document.getElementById('miqdSaparaWrap').style.display = '';
   }
   // ورنہ پرانا متن fMiqd میں موجود رہے گا، دستی ترمیم ہو سکتی ہے
+}
+
+// ============================================================
+// ریکارڈ تازہ کریں — پوری کلاس ایک شیٹ نما جدول میں
+// ------------------------------------------------------------
+// ہر طالب علم کی ایک قطار: نام، ولدیت، تفصیل (ڈراپ ڈاؤن)، شروع سے، آخر سے، نمبر، نماز حنفی نمبر، کیفیت۔
+// ہر تبدیلی فوراً خودکار محفوظ ہوتی ہے — کوئی "محفوظ کریں" بٹن دبانے کی ضرورت نہیں،
+// جدول دوبارہ نہیں بنتی اس لیے کرسر اپنی جگہ سے نہیں بھاگتا۔
+// "مقدار خواندگی" بالکل اسی تحریری شکل (s.m) میں محفوظ ہوتی ہے جیسے عام فارم کرتا ہے،
+// اس لیے ترتیب، رپورٹیں اور پرنٹ پہلے کی طرح ہی کام کرتے ہیں۔
+// ============================================================
+const BE_TYPES = {
+  complete:    { label: 'مکمل قرآن پاک',     fixed: 'مکمل قرآن پاک' },
+  sapara:      { label: 'حفظ سپارے',          prefix: 'حفظ سپارے',   max: 30,  sum: 30,  unit: 'پارے' },
+  pao:         { label: 'پاؤ',                prefix: 'پاؤ',          max: 40 },
+  suwar:       { label: 'حفظ سورتیں',         prefix: 'حفظ سورتیں',  max: 114, sum: 114, unit: 'سورتیں' },
+  nazira:      { label: 'ناظرہ سپارے',        prefix: 'ناظرہ سپارے', max: 30,  sum: 30,  unit: 'پارے' },
+  nazirasuwar: { label: 'ناظرہ سورتیں',       prefix: 'ناظرہ سورتیں', max: 114, sum: 114, unit: 'سورتیں' },
+  noorani:     { label: 'نورانی قاعدہ مکمل',  fixed: 'نورانی قاعدہ مکمل' },
+  takhti:      { label: 'تختیاں',             single: true, max: 20 }
+};
+const BE_TYPE_ORDER = ['complete','sapara','pao','suwar','nazira','nazirasuwar','noorani','takhti'];
+
+// محفوظ شدہ تحریر سے قسم، شروع اور آخر پہچاننا (عام فارم کے prefillMiqdFields والا ہی طریقہ)
+function beDetectMiqd(m){
+  const text = (m || '').trim();
+  const num = v => (/^\d+$/.test(String(v || '').trim()) ? String(v).trim() : '');
+  if (!text) return { type: '', st: '', en: '' };
+  if (/مکمل/.test(text) && /(قرآن|قران)/.test(text)) return { type: 'complete', st: '', en: '' };
+  if (/تختی/.test(text)) {
+    const nums = text.match(/\d+/g);
+    const n = nums ? nums.reduce((a, x) => a + parseInt(x, 10), 0) : 0;
+    return { type: 'takhti', st: (n >= 1 && n <= 20) ? String(n) : '', en: '' };
+  }
+  if (/نورانی|قاعدہ|کلمہ/.test(text)) return { type: 'noorani', st: '', en: '' };
+  const isNazira = /ناظرہ|ناظره/.test(text);
+  const isSuwar = /سورت|سورہ|سوره/.test(text);
+  const mq = parseMiqdarSplit(text);
+  let type = '';
+  if (isNazira && isSuwar) type = 'nazirasuwar';
+  else if (isNazira) type = 'nazira';
+  else if (isSuwar) type = 'suwar';
+  else if (/پاؤ/.test(text)) type = 'pao';
+  else if (mq.mode === 'split') type = 'sapara';
+  if (!type) return { type: '__keep', st: '', en: '' };
+  const st = num(mq.start), en = num(mq.end);
+  // اگر پرانی تحریر میں کوئی ایسی چیز ہے جو ڈراپ ڈاؤن میں نہیں آ سکتی تو اسے بالکل نہ چھیڑیں
+  if ((mq.start && !st) || (mq.end && !en)) return { type: '__keep', st: '', en: '' };
+  return { type, st, en };
+}
+
+// قسم + شروع + آخر سے وہی تحریر بنانا جو عام فارم بناتا ہے
+function beComposeMiqd(type, st, en){
+  const t = BE_TYPES[type];
+  if (!t) return '';
+  if (t.fixed) return t.fixed;
+  if (t.single) return st ? (st + ' تختیاں') : '';
+  const parts = [];
+  if (st || en) parts.push(t.prefix);
+  if (st) parts.push('شروع سے ' + st);
+  if (en) parts.push('آخر سے ' + en);
+  return parts.join(' ');
+}
+
+function beNumOptions(max, placeholder, selected){
+  let h = '<option value="">' + placeholder + '</option>';
+  for (let k = 1; k <= max; k++) h += '<option value="' + k + '"' + (String(k) === String(selected) ? ' selected' : '') + '>' + k + '</option>';
+  return h;
+}
+
+function beTypeOptions(type, oldText){
+  let h = '<option value="">— منتخب کریں —</option>';
+  if (type === '__keep') h += '<option value="__keep" selected>' + _escHtml(oldText.length > 22 ? oldText.slice(0, 22) + '…' : oldText) + '</option>';
+  BE_TYPE_ORDER.forEach(k => { h += '<option value="' + k + '"' + (k === type ? ' selected' : '') + '>' + BE_TYPES[k].label + '</option>'; });
+  return h;
+}
+
+// شروع/آخر والے ڈراپ ڈاؤن قسم کے مطابق (پارے 30، پاؤ 40، سورتیں 114، تختیاں 20)
+function beSubCellsHtml(type, st, en){
+  const t = BE_TYPES[type];
+  if (!t || t.fixed) {
+    return '<td class="be-c-st"><select data-col="st" disabled><option>—</option></select></td>' +
+           '<td class="be-c-en"><select data-col="en" disabled><option>—</option></select></td>';
+  }
+  if (t.single) {
+    return '<td class="be-c-st"><select data-col="st">' + beNumOptions(t.max, 'تعداد —', st) + '</select></td>' +
+           '<td class="be-c-en"><select data-col="en" disabled><option>—</option></select></td>';
+  }
+  return '<td class="be-c-st"><select data-col="st">' + beNumOptions(t.max, 'شروع —', st) + '</select></td>' +
+         '<td class="be-c-en"><select data-col="en">' + beNumOptions(t.max, 'آخر —', en) + '</select></td>';
+}
+
+function beRowHtml(s, dbIdx, vi){
+  const d = beDetectMiqd(s.m);
+  return '<tr data-i="' + dbIdx + '" data-type="' + d.type + '">' +
+    '<td class="be-c-no">' + (vi + 1) + '</td>' +
+    '<td class="be-c-name"><input data-col="n" value="' + _escHtml(s.n || '') + '" placeholder="نام طالب علم" enterkeyhint="next" autocomplete="off"></td>' +
+    '<td class="be-c-wald"><input data-col="w" value="' + _escHtml(s.w || '') + '" placeholder="ولدیت" enterkeyhint="next" autocomplete="off"></td>' +
+    '<td class="be-c-type"><select data-col="type">' + beTypeOptions(d.type, (s.m || '').trim()) + '</select></td>' +
+    beSubCellsHtml(d.type, d.st, d.en) +
+    '<td class="be-c-mr"><input data-col="mr1" class="be-num" value="' + _escHtml(s.mr1 || '') + '" inputmode="numeric" enterkeyhint="next" autocomplete="off"></td>' +
+    '<td class="be-c-mr"><input data-col="mr2" class="be-num" value="' + _escHtml(s.mr2 || '') + '" inputmode="numeric" enterkeyhint="next" autocomplete="off"></td>' +
+    '<td class="be-c-q">' + (getQualityText(s.mr1 || '', s.mr2 || '') || '—') + '</td>' +
+    '</tr>';
+}
+
+function beRenumber(){
+  document.querySelectorAll('#beBody tr').forEach((tr, k) => { const c = tr.querySelector('.be-c-no'); if (c) c.textContent = k + 1; });
+  const cls = classes.find(c => c.id === currentClassId);
+  const t = document.getElementById('beTitle');
+  if (t) t.textContent = '✏️ طلبہ کا ریکارڈ — ' + (cls ? (cls.incharge || cls.name) : '') + ' (' + document.querySelectorAll('#beBody tr').length + ')';
+}
+
+function openBulkEdit(){
+  beBind();
+  const body = document.getElementById('beBody');
+  body.innerHTML = activePairs().map((p, vi) => beRowHtml(p.s, p.i, vi)).join('');
+  beRenumber();
+  beSetStatus('idle');
+  document.getElementById('bulkEditOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('beScroll').scrollTop = 0;
+}
+
+let _beStatusTimer = null;
+function beSetStatus(kind){
+  const el = document.getElementById('beStatus');
+  if (!el) return;
+  el.classList.remove('saved', 'err');
+  if (kind === 'saved') { el.textContent = '✅ محفوظ ہو گیا'; el.classList.add('saved'); }
+  else if (kind === 'err') { el.textContent = '❌ محفوظ نہیں ہوا'; el.classList.add('err'); }
+  else el.textContent = '💾 خودکار محفوظ';
+  clearTimeout(_beStatusTimer);
+  if (kind === 'saved') _beStatusTimer = setTimeout(() => beSetStatus('idle'), 1500);
+}
+
+function beToast(msg){
+  const t = document.getElementById('beToast');
+  if (!t) return;
+  t.textContent = msg; t.style.display = 'block';
+  clearTimeout(t._h); t._h = setTimeout(() => { t.style.display = 'none'; }, 2800);
+}
+
+function bePersist(tr){
+  try {
+    localStorage.setItem(SK, JSON.stringify(db));
+    beSetStatus('saved');
+    if (tr) { tr.classList.remove('be-saved'); void tr.offsetWidth; tr.classList.add('be-saved'); }
+  } catch (e) {
+    beSetStatus('err');
+    beToast('❌ محفوظ نہیں ہو سکا — ڈیوائس میں جگہ ختم ہو گئی ہے');
+  }
+}
+
+function beUpdateMiqd(tr){
+  const i = +tr.dataset.i;
+  const type = tr.dataset.type;
+  if (type === '__keep') return; // پرانی تحریر جوں کی توں
+  const st = (tr.querySelector('[data-col="st"]') || {}).value || '';
+  const en = (tr.querySelector('[data-col="en"]') || {}).value || '';
+  db[i].m = beComposeMiqd(type, /^\d+$/.test(st) ? st : '', /^\d+$/.test(en) ? en : '');
+}
+
+function beOnChange(e){
+  const el = e.target;
+  const tr = el.closest('tr[data-i]');
+  if (!tr) return;
+  const i = +tr.dataset.i;
+  const col = el.dataset.col;
+  if (!db[i]) return;
+  if (col === 'type') {
+    const type = el.value;
+    tr.dataset.type = type;
+    // قسم بدلنے پر شروع/آخر کے خانے نئی قسم کے مطابق بن جائیں
+    const tmp = document.createElement('tbody');
+    tmp.innerHTML = '<tr>' + beSubCellsHtml(type, '', '') + '</tr>';
+    const cells = tmp.firstChild.children;
+    tr.querySelector('.be-c-st').replaceWith(cells[0]);
+    tr.querySelector('.be-c-en').replaceWith(cells[0]);
+    if (type === '') db[i].m = '';
+    else beUpdateMiqd(tr);
+    bePersist(tr);
+    const first = tr.querySelector('.be-c-st select:not([disabled])');
+    if (first) first.focus();
+    return;
+  }
+  if (col === 'st' || col === 'en') {
+    const t = BE_TYPES[tr.dataset.type];
+    if (t && t.sum) {
+      const s = parseInt(tr.querySelector('[data-col="st"]').value || '0', 10) || 0;
+      const n = parseInt(tr.querySelector('[data-col="en"]').value || '0', 10) || 0;
+      if (s + n > t.sum) {
+        beToast('⚠️ کل ' + t.sum + ' ' + t.unit + ' ہیں — شروع اور آخر کا مجموعہ ' + t.sum + ' سے زیادہ نہیں ہو سکتا');
+        el.value = '';
+      }
+    }
+    beUpdateMiqd(tr);
+    bePersist(tr);
+    return;
+  }
+}
+
+let _beInputTimers = {};
+function beOnInput(e){
+  const el = e.target;
+  const col = el.dataset.col;
+  if (!['n','w','mr1','mr2'].includes(col)) return;
+  const tr = el.closest('tr[data-i]');
+  const i = +tr.dataset.i;
+  if (!db[i]) return;
+  db[i][col] = (col === 'mr1' || col === 'mr2') ? el.value.replace(/[^\d]/g, '') : el.value;
+  if ((col === 'mr1' || col === 'mr2') && el.value !== db[i][col]) el.value = db[i][col];
+  if (col === 'mr1' || col === 'mr2') {
+    tr.querySelector('.be-c-q').textContent = getQualityText(db[i].mr1 || '', db[i].mr2 || '') || '—';
+  }
+  // لکھتے وقت ہر حرف پر نہیں، تھوڑا رک کر محفوظ کریں
+  const key = i + ':' + col;
+  clearTimeout(_beInputTimers[key]);
+  _beInputTimers[key] = setTimeout(() => bePersist(tr), 400);
+}
+
+function beOnBlur(e){
+  const el = e.target;
+  const col = el.dataset.col;
+  if (col !== 'n' && col !== 'w') return;
+  const tr = el.closest('tr[data-i]');
+  const i = +tr.dataset.i;
+  if (!db[i]) return;
+  const v = el.value.trim();
+  if (db[i][col] !== v) { db[i][col] = v; el.value = v; bePersist(tr); }
+}
+
+// Enter / اگلا دبانے پر اسی کالم کی اگلی قطار میں جائیں (کرسر ادھر ادھر نہ بھاگے)
+function beOnKey(e){
+  if (e.key !== 'Enter') return;
+  const el = e.target;
+  const tr = el.closest('tr[data-i]');
+  if (!tr) return;
+  e.preventDefault();
+  const col = el.dataset.col;
+  const next = tr.nextElementSibling;
+  if (next) {
+    const target = next.querySelector('[data-col="' + col + '"]');
+    if (target) { target.focus(); if (target.select) try { target.select(); } catch(_){} target.scrollIntoView({ block: 'nearest' }); }
+  } else {
+    el.blur();
+  }
+}
+
+function beAddRow(){
+  const obj = { n: '', w: '', m: '', mob: '', addr: '', photo: '', mr1: '', mr2: '', classId: currentClassId };
+  db.push(obj);
+  const body = document.getElementById('beBody');
+  const tmp = document.createElement('tbody');
+  tmp.innerHTML = beRowHtml(obj, db.length - 1, body.children.length);
+  const tr = tmp.firstChild;
+  body.appendChild(tr);
+  beRenumber();
+  const inp = tr.querySelector('[data-col="n"]');
+  inp.focus();
+  tr.scrollIntoView({ block: 'nearest' });
+}
+
+function closeBulkEdit(){
+  // جن قطاروں میں کچھ بھی نہیں لکھا گیا وہ ختم کر دیں
+  const isBlank = s => !String(s.n || '').trim() && !String(s.w || '').trim() && !String(s.m || '').trim() && !String(s.mr1 || '').trim() && !String(s.mr2 || '').trim();
+  const nameless = [];
+  document.querySelectorAll('#beBody tr[data-i]').forEach(tr => {
+    const s = db[+tr.dataset.i];
+    if (s && !isBlank(s) && !String(s.n || '').trim()) nameless.push(tr);
+  });
+  if (nameless.length) {
+    beToast('⚠️ ایک قطار میں نام خالی ہے — نام لکھیں یا باقی خانے بھی خالی کر دیں');
+    const inp = nameless[0].querySelector('[data-col="n"]');
+    if (inp) { inp.focus(); nameless[0].scrollIntoView({ block: 'center' }); }
+    return;
+  }
+  const before = db.length;
+  db = db.filter(s => !(isBlank(s) && (s.classId || classes[0].id) === currentClassId && !s.photo && !s.mob && !s.addr));
+  if (db.length !== before) bePersist(null);
+  document.getElementById('bulkEditOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+  renderCurrent();
+  updateStats();
+  // حفظ پروگریس صفحے کی طالب علم لسٹ بھی نئے ناموں کے مطابق ہم آہنگ
+  if (typeof state !== 'undefined' && typeof hzSyncStudentsFromJMA === 'function') {
+    try { hzSyncStudentsFromJMA(); if (typeof hzRender === 'function') hzRender(); } catch (e) {}
+  }
+}
+
+// جدول کے واقعات ایک ہی بار جوڑے جائیں
+let _beBound = false;
+function beBind(){
+  if (_beBound) return;
+  const body = document.getElementById('beBody');
+  if (!body) return;
+  body.addEventListener('change', beOnChange);
+  body.addEventListener('input', beOnInput);
+  body.addEventListener('focusout', beOnBlur);
+  body.addEventListener('keydown', beOnKey);
+  _beBound = true;
 }
 
 function showListView(){
