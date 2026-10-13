@@ -858,43 +858,63 @@ td.clickable:hover { background: #fff9e6 !important; }
 .poster-preview-actions .modal-btn { box-shadow: 0 3px 0 rgba(0,0,0,0.15); }
 
 
-/* ================= ریکارڈ تازہ کریں — شیٹ نما جدول ================= */
-#bulkEditOverlay{display:none;position:fixed;inset:0;z-index:8500;background:#eef2ee;flex-direction:column;direction:rtl;font-family:var(--nastaliq);}
+/* ================= ریکارڈ تازہ کریں — رنگین کیپسول ================= */
+#bulkEditOverlay{display:none;position:fixed;inset:0;z-index:8500;background:linear-gradient(180deg,#eef3ee,#e4ece4);flex-direction:column;direction:rtl;font-family:var(--nastaliq);}
 #bulkEditOverlay.show{display:flex;}
-#bulkEditOverlay .be-top{flex:0 0 auto;background:linear-gradient(180deg,var(--green-mid),var(--green-dark));border-bottom:3px solid var(--gold);padding:8px 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:#fff;}
+#bulkEditOverlay .be-top{flex:0 0 auto;background:linear-gradient(180deg,var(--green-mid),var(--green-dark));border-bottom:3px solid var(--gold);padding:8px 10px;display:flex;align-items:center;gap:8px;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.25);}
 #bulkEditOverlay .be-title{flex:1 1 auto;min-width:0;font-size:17px;font-weight:800;line-height:1.7;color:var(--gold-light);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 #bulkEditOverlay .be-status{flex:0 0 auto;font-size:13px;line-height:1.7;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,.15);transition:background .2s;}
 #bulkEditOverlay .be-status.saved{background:#2ecc71;color:#fff;}
 #bulkEditOverlay .be-status.err{background:#c0392b;color:#fff;}
 #bulkEditOverlay .be-close{flex:0 0 auto;height:36px;padding:0 16px;border-radius:18px;border:2px solid var(--gold);background:#fff;color:var(--green-dark);font-family:var(--nastaliq);font-size:14px;font-weight:800;cursor:pointer;}
-#bulkEditOverlay .be-hint{flex:0 0 auto;background:#fff8e1;border-bottom:1px solid #f0d58a;color:#5d4300;font-size:12.5px;line-height:1.8;padding:3px 10px;}
-#bulkEditOverlay .be-scroll{flex:1 1 auto;overflow:auto;-webkit-overflow-scrolling:touch;}
-#bulkEditOverlay table.be-table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;background:#fff;}
-#bulkEditOverlay .be-table th{position:sticky;top:0;z-index:3;background:#d7e9d7;color:var(--green-dark);font-size:14px;font-weight:800;line-height:1.7;padding:4px 6px;border-bottom:2px solid var(--green-dark);border-left:1px solid #b8d4b8;white-space:nowrap;text-align:center;}
-#bulkEditOverlay .be-table td{padding:3px 4px;border-bottom:1px solid #dde8dd;border-left:1px solid #e6efe6;vertical-align:middle;background:#fff;}
-#bulkEditOverlay .be-table tr:nth-child(even) td{background:#f4faf4;}
-#bulkEditOverlay .be-table tr.be-saved td{animation:beFlash .9s ease;}
-@keyframes beFlash{0%{background:#c8f7d4}100%{}}
-/* نمبر اور نام کے خانے دائیں طرف جمے رہیں، باقی جدول بائیں سرکے */
-#bulkEditOverlay .be-table .be-c-no{position:sticky;right:0;z-index:2;width:34px;min-width:34px;text-align:center;font-family:Arial,sans-serif;font-weight:700;color:#5e35b1;font-size:13px;}
-#bulkEditOverlay .be-table .be-c-name{position:sticky;right:34px;z-index:2;box-shadow:-3px 0 4px -2px rgba(0,0,0,.18);}
-#bulkEditOverlay .be-table th.be-c-no,#bulkEditOverlay .be-table th.be-c-name{z-index:4;}
-#bulkEditOverlay .be-table input,#bulkEditOverlay .be-table select{width:100%;height:40px;box-sizing:border-box;border:1.5px solid #c7d9c7;border-radius:8px;background:#fff;color:#1a1a1a;font-family:var(--nastaliq);font-size:15px;line-height:normal;padding:0 6px;direction:rtl;}
-#bulkEditOverlay .be-table input:focus,#bulkEditOverlay .be-table select:focus{outline:none;border-color:var(--green-light);box-shadow:0 0 0 3px rgba(30,126,30,.18);background:#fffef3;}
-#bulkEditOverlay .be-table select:disabled{background:#f1f1f1;color:#999;border-style:dashed;}
-#bulkEditOverlay .be-table input.be-num{font-family:Arial,sans-serif;text-align:center;direction:ltr;}
-/* ہر خانے کی پکی چوڑائی — جدول دبے نہیں بلکہ بائیں طرف سرکے */
-#bulkEditOverlay .be-table .be-c-name input{width:150px;}
-#bulkEditOverlay .be-table .be-c-wald input{width:130px;}
-#bulkEditOverlay .be-table .be-c-type select{width:140px;}
-#bulkEditOverlay .be-table .be-c-st select,#bulkEditOverlay .be-table .be-c-en select{width:86px;}
-#bulkEditOverlay .be-table .be-c-mr input{width:66px;}
-#bulkEditOverlay .be-table .be-c-q{min-width:80px;text-align:center;font-size:14px;font-weight:800;line-height:1.7;white-space:nowrap;}
-#bulkEditOverlay .be-table tr.be-bad td{background:#fdecea !important;}
-#bulkEditOverlay .be-foot{flex:0 0 auto;display:flex;gap:8px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid #cfdccf;}
-#bulkEditOverlay .be-foot button{flex:1;height:42px;border-radius:21px;border:none;font-family:var(--nastaliq);font-size:14px;font-weight:800;cursor:pointer;color:#fff;}
+#bulkEditOverlay .be-hint{flex:0 0 auto;background:#fff8e1;border-bottom:1px solid #f0d58a;color:#5d4300;font-size:12.5px;line-height:1.8;padding:3px 10px;text-align:center;}
+#bulkEditOverlay .be-scroll{flex:1 1 auto;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:12px 10px 18px;}
+#bulkEditOverlay .be-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
+
+/* ہر طالب علم ایک ابھرا ہوا رنگین کیپسول — رنگ باری باری بدلتے ہیں */
+#bulkEditOverlay .be-row{--bg1:#e9f8ee;--bg2:#d3f0dc;--ac:#2e9e5b;--acd:#1d6b3c;
+  position:relative;border-radius:24px;padding:8px 10px 10px 12px;
+  background:linear-gradient(160deg,var(--bg1),var(--bg2));
+  border:2px solid var(--ac);
+  box-shadow:0 4px 0 var(--acd),0 10px 18px -8px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.8);
+  display:grid;grid-template-columns:40px 1fr 1fr;grid-template-areas:"no name wald" "no type sub";column-gap:8px;row-gap:4px;align-items:end;}
+#bulkEditOverlay .be-row.c1{--bg1:#e8f1fd;--bg2:#cfe1fa;--ac:#2f6fc4;--acd:#1d4a87;}
+#bulkEditOverlay .be-row.c2{--bg1:#f3eafd;--bg2:#e2d0f8;--ac:#8a4fc4;--acd:#5f3290;}
+#bulkEditOverlay .be-row.c3{--bg1:#fff1e3;--bg2:#ffdcb8;--ac:#e07b1a;--acd:#9c520c;}
+#bulkEditOverlay .be-row.c4{--bg1:#e3f7f6;--bg2:#c4ece9;--ac:#16958c;--acd:#0c645e;}
+#bulkEditOverlay .be-row.c5{--bg1:#fde9f0;--bg2:#f8cfdd;--ac:#c8406f;--acd:#8c2a4c;}
+#bulkEditOverlay .be-row.c6{--bg1:#fff8dc;--bg2:#fbe9a6;--ac:#b8920f;--acd:#7d6306;}
+#bulkEditOverlay .be-row.c7{--bg1:#eef0f5;--bg2:#d9dde8;--ac:#5b6478;--acd:#3a4152;}
+#bulkEditOverlay .be-row:focus-within{transform:translateY(-1px);box-shadow:0 5px 0 var(--acd),0 0 0 4px rgba(255,255,255,.9),0 14px 22px -8px rgba(0,0,0,.4);}
+#bulkEditOverlay .be-row.be-saved{animation:beFlash .9s ease;}
+@keyframes beFlash{0%{filter:brightness(1.12)}100%{filter:none}}
+#bulkEditOverlay .be-row.be-bad{border-color:#c0392b;}
+
+#bulkEditOverlay .be-no{grid-area:no;align-self:center;width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(180deg,var(--ac),var(--acd));color:#fff;font-family:Arial,sans-serif;font-weight:800;font-size:15px;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.4);}
+#bulkEditOverlay .be-f{display:flex;flex-direction:column;min-width:0;}
+#bulkEditOverlay .be-f.f-name{grid-area:name;}
+#bulkEditOverlay .be-f.f-wald{grid-area:wald;}
+#bulkEditOverlay .be-f.f-type{grid-area:type;}
+#bulkEditOverlay .be-sub{grid-area:sub;display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:0;}
+#bulkEditOverlay .be-f label{font-size:12px;line-height:1.6;color:var(--acd);font-weight:800;padding:0 6px;}
+#bulkEditOverlay .be-f input,#bulkEditOverlay .be-f select{width:100%;min-width:0;height:42px;box-sizing:border-box;border:1.5px solid rgba(0,0,0,.12);border-radius:14px;background:#fff;color:#1a1a1a;font-family:var(--nastaliq);font-size:15px;line-height:normal;padding:0 10px;direction:rtl;box-shadow:inset 0 2px 3px rgba(0,0,0,.06);}
+#bulkEditOverlay .be-f.f-name input{font-weight:800;font-size:16px;}
+#bulkEditOverlay .be-f input:focus,#bulkEditOverlay .be-f select:focus{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px rgba(255,255,255,.95),0 0 0 5px var(--ac);background:#fffef6;}
+#bulkEditOverlay .be-f select:disabled{background:rgba(255,255,255,.55);color:#999;border-style:dashed;box-shadow:none;}
+#bulkEditOverlay .be-f select{padding:0 8px;}
+
+/* بڑی سکرین پر سب ایک ہی لائن میں */
+@media (min-width:700px){
+  #bulkEditOverlay .be-row{grid-template-columns:40px 1.3fr 1.1fr 1.2fr 1.3fr;grid-template-areas:"no name wald type sub";}
+}
+
+#bulkEditOverlay .be-foot{flex:0 0 auto;display:flex;gap:8px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid #cfdccf;box-shadow:0 -4px 12px rgba(0,0,0,.08);}
+#bulkEditOverlay .be-foot button{flex:1;height:44px;border-radius:22px;border:none;font-family:var(--nastaliq);font-size:14px;font-weight:800;cursor:pointer;color:#fff;box-shadow:0 3px 0 rgba(0,0,0,.2);}
 #bulkEditOverlay .be-add{background:linear-gradient(180deg,#2ecc71,#1e8449);}
 #bulkEditOverlay .be-done{background:linear-gradient(180deg,#1565c0,#0d47a1);}
+#bulkEditOverlay .be-empty{text-align:center;color:#666;font-size:15px;line-height:1.8;padding:30px 10px;}
 #beToast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);z-index:8600;background:#c0392b;color:#fff;font-family:var(--nastaliq);font-size:14px;line-height:1.8;padding:6px 16px;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.3);display:none;max-width:92vw;text-align:center;}
 
 /* PRINT */
@@ -1428,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD1310TU002</div>
+    <div class="home-version-badge" id="homeVersionBadge">MD1310TU003</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -1764,29 +1784,16 @@ td.clickable:hover { background: #fff9e6 !important; }
   </div>
 </div>
 
-<!-- ====== ریکارڈ تازہ کریں — پوری کلاس کی شیٹ نما جدول ====== -->
+<!-- ====== ریکارڈ تازہ کریں — پوری کلاس، رنگین کیپسول ====== -->
 <div id="bulkEditOverlay" class="no-print" dir="rtl">
   <div class="be-top">
     <div class="be-title" id="beTitle">✏️ طلبہ کا ریکارڈ</div>
     <span class="be-status" id="beStatus">💾 خودکار محفوظ</span>
     <button type="button" class="be-close" onclick="closeBulkEdit()">✕ بند کریں</button>
   </div>
-  <div class="be-hint">ہر تبدیلی خودکار محفوظ ہوتی ہے • جدول بائیں سرکا کر باقی خانے دیکھیں • "اگلا" سے نیچے والی قطار</div>
+  <div class="be-hint">ہر تبدیلی خودکار محفوظ ہوتی ہے • "اگلا" دبانے سے اگلے طالب علم کے اسی خانے میں</div>
   <div class="be-scroll" id="beScroll">
-    <table class="be-table">
-      <thead><tr>
-        <th class="be-c-no">#</th>
-        <th class="be-c-name">نام طالب علم</th>
-        <th class="be-c-wald">ولدیت</th>
-        <th class="be-c-type">تفصیل</th>
-        <th class="be-c-st">شروع سے</th>
-        <th class="be-c-en">آخر سے</th>
-        <th class="be-c-mr">نمبر</th>
-        <th class="be-c-mr">نماز حنفی نمبر</th>
-        <th class="be-c-q">کیفیت</th>
-      </tr></thead>
-      <tbody id="beBody"></tbody>
-    </table>
+    <div class="be-list" id="beBody"></div>
   </div>
   <div class="be-foot">
     <button type="button" class="be-add" onclick="beAddRow()">＋ نیا طالب علم</button>
@@ -2939,9 +2946,10 @@ function prefillMiqdFields(m){
 }
 
 // ============================================================
-// ریکارڈ تازہ کریں — پوری کلاس ایک شیٹ نما جدول میں
+// ریکارڈ تازہ کریں — پوری کلاس، ہر طالب علم ایک رنگین کیپسول میں
 // ------------------------------------------------------------
-// ہر طالب علم کی ایک قطار: نام، ولدیت، تفصیل (ڈراپ ڈاؤن)، شروع سے، آخر سے، نمبر، نماز حنفی نمبر، کیفیت۔
+// ہر طالب علم کا الگ رنگ کا کیپسول: نام، ولدیت، تفصیل (ڈراپ ڈاؤن)، شروع سے، آخر سے۔
+// (نمبر، نماز حنفی اور کیفیت یہاں نہیں — وہ ممتحن پرنٹ شدہ رپورٹ پر ہاتھ سے لکھتا ہے)
 // ہر تبدیلی فوراً خودکار محفوظ ہوتی ہے — کوئی "محفوظ کریں" بٹن دبانے کی ضرورت نہیں،
 // جدول دوبارہ نہیں بنتی اس لیے کرسر اپنی جگہ سے نہیں بھاگتا۔
 // "مقدار خواندگی" بالکل اسی تحریری شکل (s.m) میں محفوظ ہوتی ہے جیسے عام فارم کرتا ہے،
@@ -3016,43 +3024,38 @@ function beTypeOptions(type, oldText){
 // شروع/آخر والے ڈراپ ڈاؤن قسم کے مطابق (پارے 30، پاؤ 40، سورتیں 114، تختیاں 20)
 function beSubCellsHtml(type, st, en){
   const t = BE_TYPES[type];
-  if (!t || t.fixed) {
-    return '<td class="be-c-st"><select data-col="st" disabled><option>—</option></select></td>' +
-           '<td class="be-c-en"><select data-col="en" disabled><option>—</option></select></td>';
-  }
-  if (t.single) {
-    return '<td class="be-c-st"><select data-col="st">' + beNumOptions(t.max, 'تعداد —', st) + '</select></td>' +
-           '<td class="be-c-en"><select data-col="en" disabled><option>—</option></select></td>';
-  }
-  return '<td class="be-c-st"><select data-col="st">' + beNumOptions(t.max, 'شروع —', st) + '</select></td>' +
-         '<td class="be-c-en"><select data-col="en">' + beNumOptions(t.max, 'آخر —', en) + '</select></td>';
+  const f = (col, lab, inner, dis) => '<div class="be-f f-' + col + '"><label>' + lab + '</label><select data-col="' + col + '"' + (dis ? ' disabled' : '') + '>' + inner + '</select></div>';
+  let h;
+  if (!t || t.fixed) h = f('st', 'شروع سے', '<option>—</option>', true) + f('en', 'آخر سے', '<option>—</option>', true);
+  else if (t.single) h = f('st', 'تعداد', beNumOptions(t.max, '—', st)) + f('en', 'آخر سے', '<option>—</option>', true);
+  else h = f('st', 'شروع سے', beNumOptions(t.max, '—', st)) + f('en', 'آخر سے', beNumOptions(t.max, '—', en));
+  return '<div class="be-sub">' + h + '</div>';
 }
 
 function beRowHtml(s, dbIdx, vi){
   const d = beDetectMiqd(s.m);
-  return '<tr data-i="' + dbIdx + '" data-type="' + d.type + '">' +
-    '<td class="be-c-no">' + (vi + 1) + '</td>' +
-    '<td class="be-c-name"><input data-col="n" value="' + _escHtml(s.n || '') + '" placeholder="نام طالب علم" enterkeyhint="next" autocomplete="off"></td>' +
-    '<td class="be-c-wald"><input data-col="w" value="' + _escHtml(s.w || '') + '" placeholder="ولدیت" enterkeyhint="next" autocomplete="off"></td>' +
-    '<td class="be-c-type"><select data-col="type">' + beTypeOptions(d.type, (s.m || '').trim()) + '</select></td>' +
+  return '<div class="be-row c' + (vi % 8) + '" data-i="' + dbIdx + '" data-type="' + d.type + '">' +
+    '<div class="be-no">' + (vi + 1) + '</div>' +
+    '<div class="be-f f-name"><label>نام طالب علم</label><input data-col="n" value="' + _escHtml(s.n || '') + '" placeholder="نام لکھیں" enterkeyhint="next" autocomplete="off"></div>' +
+    '<div class="be-f f-wald"><label>ولدیت</label><input data-col="w" value="' + _escHtml(s.w || '') + '" placeholder="والد کا نام" enterkeyhint="next" autocomplete="off"></div>' +
+    '<div class="be-f f-type"><label>تفصیل</label><select data-col="type">' + beTypeOptions(d.type, (s.m || '').trim()) + '</select></div>' +
     beSubCellsHtml(d.type, d.st, d.en) +
-    '<td class="be-c-mr"><input data-col="mr1" class="be-num" value="' + _escHtml(s.mr1 || '') + '" inputmode="numeric" enterkeyhint="next" autocomplete="off"></td>' +
-    '<td class="be-c-mr"><input data-col="mr2" class="be-num" value="' + _escHtml(s.mr2 || '') + '" inputmode="numeric" enterkeyhint="next" autocomplete="off"></td>' +
-    '<td class="be-c-q">' + (getQualityText(s.mr1 || '', s.mr2 || '') || '—') + '</td>' +
-    '</tr>';
+    '</div>';
 }
 
 function beRenumber(){
-  document.querySelectorAll('#beBody tr').forEach((tr, k) => { const c = tr.querySelector('.be-c-no'); if (c) c.textContent = k + 1; });
+  document.querySelectorAll('#beBody .be-row').forEach((tr, k) => { const c = tr.querySelector('.be-no'); if (c) c.textContent = k + 1; });
   const cls = classes.find(c => c.id === currentClassId);
   const t = document.getElementById('beTitle');
-  if (t) t.textContent = '✏️ طلبہ کا ریکارڈ — ' + (cls ? (cls.incharge || cls.name) : '') + ' (' + document.querySelectorAll('#beBody tr').length + ')';
+  if (t) t.textContent = '✏️ طلبہ کا ریکارڈ — ' + (cls ? (cls.incharge || cls.name) : '') + ' (' + document.querySelectorAll('#beBody .be-row').length + ')';
 }
 
 function openBulkEdit(){
   beBind();
   const body = document.getElementById('beBody');
-  body.innerHTML = activePairs().map((p, vi) => beRowHtml(p.s, p.i, vi)).join('');
+  const pairs = activePairs();
+  body.innerHTML = pairs.length ? pairs.map((p, vi) => beRowHtml(p.s, p.i, vi)).join('')
+    : '<div class="be-empty">اس کلاس میں ابھی کوئی طالب علم نہیں — نیچے "＋ نیا طالب علم" دبائیں</div>';
   beRenumber();
   beSetStatus('idle');
   document.getElementById('bulkEditOverlay').classList.add('show');
@@ -3101,7 +3104,7 @@ function beUpdateMiqd(tr){
 
 function beOnChange(e){
   const el = e.target;
-  const tr = el.closest('tr[data-i]');
+  const tr = el.closest('.be-row');
   if (!tr) return;
   const i = +tr.dataset.i;
   const col = el.dataset.col;
@@ -3110,15 +3113,13 @@ function beOnChange(e){
     const type = el.value;
     tr.dataset.type = type;
     // قسم بدلنے پر شروع/آخر کے خانے نئی قسم کے مطابق بن جائیں
-    const tmp = document.createElement('tbody');
-    tmp.innerHTML = '<tr>' + beSubCellsHtml(type, '', '') + '</tr>';
-    const cells = tmp.firstChild.children;
-    tr.querySelector('.be-c-st').replaceWith(cells[0]);
-    tr.querySelector('.be-c-en').replaceWith(cells[0]);
+    const tmp = document.createElement('div');
+    tmp.innerHTML = beSubCellsHtml(type, '', '');
+    tr.querySelector('.be-sub').replaceWith(tmp.firstChild);
     if (type === '') db[i].m = '';
     else beUpdateMiqd(tr);
     bePersist(tr);
-    const first = tr.querySelector('.be-c-st select:not([disabled])');
+    const first = tr.querySelector('.be-sub select:not([disabled])');
     if (first) first.focus();
     return;
   }
@@ -3142,15 +3143,11 @@ let _beInputTimers = {};
 function beOnInput(e){
   const el = e.target;
   const col = el.dataset.col;
-  if (!['n','w','mr1','mr2'].includes(col)) return;
-  const tr = el.closest('tr[data-i]');
+  if (col !== 'n' && col !== 'w') return;
+  const tr = el.closest('.be-row');
   const i = +tr.dataset.i;
   if (!db[i]) return;
-  db[i][col] = (col === 'mr1' || col === 'mr2') ? el.value.replace(/[^\d]/g, '') : el.value;
-  if ((col === 'mr1' || col === 'mr2') && el.value !== db[i][col]) el.value = db[i][col];
-  if (col === 'mr1' || col === 'mr2') {
-    tr.querySelector('.be-c-q').textContent = getQualityText(db[i].mr1 || '', db[i].mr2 || '') || '—';
-  }
+  db[i][col] = el.value;
   // لکھتے وقت ہر حرف پر نہیں، تھوڑا رک کر محفوظ کریں
   const key = i + ':' + col;
   clearTimeout(_beInputTimers[key]);
@@ -3161,7 +3158,7 @@ function beOnBlur(e){
   const el = e.target;
   const col = el.dataset.col;
   if (col !== 'n' && col !== 'w') return;
-  const tr = el.closest('tr[data-i]');
+  const tr = el.closest('.be-row');
   const i = +tr.dataset.i;
   if (!db[i]) return;
   const v = el.value.trim();
@@ -3172,7 +3169,7 @@ function beOnBlur(e){
 function beOnKey(e){
   if (e.key !== 'Enter') return;
   const el = e.target;
-  const tr = el.closest('tr[data-i]');
+  const tr = el.closest('.be-row');
   if (!tr) return;
   e.preventDefault();
   const col = el.dataset.col;
@@ -3189,21 +3186,22 @@ function beAddRow(){
   const obj = { n: '', w: '', m: '', mob: '', addr: '', photo: '', mr1: '', mr2: '', classId: currentClassId };
   db.push(obj);
   const body = document.getElementById('beBody');
-  const tmp = document.createElement('tbody');
-  tmp.innerHTML = beRowHtml(obj, db.length - 1, body.children.length);
+  const tmp = document.createElement('div');
+  tmp.innerHTML = beRowHtml(obj, db.length - 1, body.querySelectorAll('.be-row').length);
   const tr = tmp.firstChild;
+  const empty = body.querySelector('.be-empty'); if (empty) empty.remove();
   body.appendChild(tr);
   beRenumber();
   const inp = tr.querySelector('[data-col="n"]');
   inp.focus();
-  tr.scrollIntoView({ block: 'nearest' });
+  tr.scrollIntoView({ block: 'center' });
 }
 
 function closeBulkEdit(){
   // جن قطاروں میں کچھ بھی نہیں لکھا گیا وہ ختم کر دیں
   const isBlank = s => !String(s.n || '').trim() && !String(s.w || '').trim() && !String(s.m || '').trim() && !String(s.mr1 || '').trim() && !String(s.mr2 || '').trim();
   const nameless = [];
-  document.querySelectorAll('#beBody tr[data-i]').forEach(tr => {
+  document.querySelectorAll('#beBody .be-row').forEach(tr => {
     const s = db[+tr.dataset.i];
     if (s && !isBlank(s) && !String(s.n || '').trim()) nameless.push(tr);
   });
