@@ -1,5 +1,5 @@
 // جامعہ امتحانی سافٹ ویئر — سروس ورکر (آف لائن سپورٹ)
-const CACHE_NAME = 'jamia-hifz-cache-MD1310TU003';
+const CACHE_NAME = 'jamia-hifz-cache-MD2310FR004';
 const CORE_ASSETS = [
   './index.html',
   './manifest.json',
@@ -21,7 +21,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+      Promise.all(keys.filter((k) => k.startsWith('jamia-hifz-cache-') && k !== CACHE_NAME) /* 🛡️ صرف اپنے پرانے کیش */.map((k) => caches.delete(k)))
     )
   );
   self.clients.claim();
