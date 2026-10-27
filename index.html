@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2710TU005</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2710TU006</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -2247,7 +2247,7 @@ function startTrial() {
 }
 
 function checkExpiry() {
-  try{ if (localStorage.getItem('mdDevPermUnlock') === '1') return 'active'; }catch(e){} // 🔓 MD2710TU005: ڈویلپر ان لاک — صرف اسی فون پر
+  try{ if (localStorage.getItem('mdDevPermUnlock') === '1') return 'active'; }catch(e){} // 🔓 MD2710TU006: ڈویلپر ان لاک — صرف اسی فون پر
   // Check full activation
   const act = JSON.parse(localStorage.getItem(ACT_K));
   if (act && act.expiry && Date.now() < act.expiry) return 'active';
@@ -6744,7 +6744,7 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
-<!-- 🛠️ MD2710TU005: ڈویلپر پینل — ورژن (ہوم) یا لاک اسکرین پر "Madrasa software by pbtcodelabs" پر 7 ٹیپ + پاس ورڈ -->
+<!-- 🛠️ MD2710TU006: ڈویلپر پینل — ورژن (ہوم) یا لاک اسکرین پر "Madrasa software by pbtcodelabs" پر 7 ٹیپ + پاس ورڈ -->
 <div id="mdDevModal" onclick="if(event.target===this) mdDevClose()" style="display:none;position:fixed;inset:0;z-index:2147483000;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:16px;">
   <div dir="rtl" style="background:#fff;color:#0f172a;border-radius:16px;padding:18px;width:100%;max-width:420px;max-height:88vh;overflow-y:auto;box-sizing:border-box;box-shadow:0 10px 30px rgba(0,0,0,.4);">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
@@ -6797,7 +6797,7 @@ if ('serviceWorker' in navigator) {
 .mdDevHint{font-size:12.5px;color:#64748b;margin-top:8px;text-align:center}
 </style>
 <script>
-// ---------- 🛠️ MD2710TU005: ڈویلپر ان لاک — یہ سافٹ ویئر صرف اسی فون پر ہمیشہ کھلا (ٹرائل/ایکسپائری لاگو نہیں)۔
+// ---------- 🛠️ MD2710TU006: ڈویلپر ان لاک — یہ سافٹ ویئر صرف اسی فون پر ہمیشہ کھلا (ٹرائل/ایکسپائری لاگو نہیں)۔
 // اپنی الگ کلید (mdDevPermUnlock) — یہ ویب سائٹ دوسری ایپس کے ساتھ مشترک ہے، اس لیے نام الگ؛ بیک اپ میں نہیں جاتی ----------
 const MD_DEV_SALT = 'AIO-DEV-UNLOCK-v1';
 const MD_DEV_HASH = 'ec6bf74a5d10d1524fbae3dd818a3be18c04bd13a6bc3242dd0e5d9fe6532a85'; // وہی ڈویلپر پاس ورڈ جو AIO/FFPOS میں (کوڈ میں صرف ہیش)
@@ -6885,5 +6885,46 @@ async function mdDevSavePass(){
   try{ localStorage.setItem('mdDevPassHash', await mdDevHashOf(p1)); a.value = ''; b.value = ''; msg.style.color = '#15803d'; msg.textContent = '✅ پاس ورڈ اس فون پر بدل گیا'; }
   catch(e){ msg.style.color = '#dc2626'; msg.textContent = '❌ محفوظ نہیں ہو سکا'; }
 }
+</script>
+<script>
+/* 👁️ MD2710TU006: پاس ورڈ کے خانوں میں آنکھ کا بٹن — ایک بار دبائیں تو پاس ورڈ صاف نظر آئے، دوبارہ دبائیں تو چھپ جائے؛
+   جب تک خود نہ دبائیں، ویسا ہی رہتا ہے (دبائے رکھنے کی ضرورت نہیں) */
+(function(){
+  var IDS = ["mdDevPass", "mdDevNew1", "mdDevNew2"];
+  var SVG = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
+  var EYE = SVG + '<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+  var EYE_OFF = SVG + '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 19c-7 0-11-7-11-7a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 7 11 7a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+  function attach(inp){
+    if(!inp || inp.getAttribute('data-pw-eye')) return;
+    inp.setAttribute('data-pw-eye', '1');
+    var cs = getComputedStyle(inp);
+    var wrap = document.createElement('span');
+    wrap.style.cssText = 'position:relative; display:block; margin-top:' + cs.marginTop + '; margin-bottom:' + cs.marginBottom + ';';
+    inp.parentNode.insertBefore(wrap, inp); wrap.appendChild(inp);
+    inp.style.marginTop = '0'; inp.style.marginBottom = '0'; inp.style.boxSizing = 'border-box';
+    var rtl = cs.direction === 'rtl';
+    inp.style[rtl ? 'paddingLeft' : 'paddingRight'] = '48px';
+    if(cs.textAlign === 'center') inp.style[rtl ? 'paddingRight' : 'paddingLeft'] = '48px';
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.style.cssText = 'position:absolute; top:50%; transform:translateY(-50%); ' + (rtl ? 'left' : 'right') + ':6px; width:38px; height:38px; border:none; border-radius:50%; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; margin:0; -webkit-tap-highlight-color:transparent;';
+    function paint(){
+      var shown = inp.type === 'text';
+      b.innerHTML = shown ? EYE_OFF : EYE;
+      b.title = shown ? 'Hide password — پاس ورڈ چھپائیں' : 'Show password — پاس ورڈ دکھائیں';
+      b.setAttribute('aria-label', b.title);
+      b.setAttribute('aria-pressed', shown ? 'true' : 'false');
+      b.style.color = shown ? '#0f766e' : '#64748b';
+      b.style.background = shown ? 'rgba(15,118,110,.12)' : 'transparent';
+    }
+    b.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); inp.type = inp.type === 'password' ? 'text' : 'password'; paint(); try{ inp.focus(); }catch(_){} });
+    paint();
+    wrap.appendChild(b);
+  }
+  var queued = false;
+  function scan(){ queued = false; IDS.forEach(function(id){ var list = document.querySelectorAll('[id="' + id + '"]'); for(var i = 0; i < list.length; i++) attach(list[i]); }); }
+  scan();
+  try{ new MutationObserver(function(){ if(!queued){ queued = true; requestAnimationFrame(scan); } }).observe(document.documentElement, {childList:true, subtree:true}); }catch(e){}
+})();
 </script>
 </body></html>
