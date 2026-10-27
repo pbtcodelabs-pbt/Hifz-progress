@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2710TU007</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2710TU008</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -2247,7 +2247,7 @@ function startTrial() {
 }
 
 function checkExpiry() {
-  try{ if (localStorage.getItem('mdDevPermUnlock') === '1') return 'active'; }catch(e){} // 🔓 MD2710TU007: ڈویلپر ان لاک — صرف اسی فون پر
+  try{ if (localStorage.getItem('mdDevPermUnlock') === '1') return 'active'; }catch(e){} // 🔓 MD2710TU008: ڈویلپر ان لاک — صرف اسی فون پر
   // Check full activation
   const act = JSON.parse(localStorage.getItem(ACT_K));
   if (act && act.expiry && Date.now() < act.expiry) return 'active';
@@ -6744,7 +6744,7 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
-<!-- 🛠️ MD2710TU007: ڈویلپر پینل — ورژن (ہوم) یا لاک اسکرین پر "Madrasa software by pbtcodelabs" پر 7 ٹیپ + پاس ورڈ -->
+<!-- 🛠️ MD2710TU008: ڈویلپر پینل — ورژن (ہوم) یا لاک اسکرین پر "Madrasa software by pbtcodelabs" پر 7 ٹیپ + پاس ورڈ -->
 <div id="mdDevModal" onclick="if(event.target===this) mdDevClose()" style="display:none;position:fixed;inset:0;z-index:2147483000;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:16px;">
   <div dir="rtl" style="background:#fff;color:#0f172a;border-radius:16px;padding:18px;width:100%;max-width:420px;max-height:88vh;overflow-y:auto;box-sizing:border-box;box-shadow:0 10px 30px rgba(0,0,0,.4);">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
@@ -6797,7 +6797,7 @@ if ('serviceWorker' in navigator) {
 .mdDevHint{font-size:12.5px;color:#64748b;margin-top:8px;text-align:center}
 </style>
 <script>
-// ---------- 🛠️ MD2710TU007: ڈویلپر ان لاک — یہ سافٹ ویئر صرف اسی فون پر ہمیشہ کھلا (ٹرائل/ایکسپائری لاگو نہیں)۔
+// ---------- 🛠️ MD2710TU008: ڈویلپر ان لاک — یہ سافٹ ویئر صرف اسی فون پر ہمیشہ کھلا (ٹرائل/ایکسپائری لاگو نہیں)۔
 // اپنی الگ کلید (mdDevPermUnlock) — یہ ویب سائٹ دوسری ایپس کے ساتھ مشترک ہے، اس لیے نام الگ؛ بیک اپ میں نہیں جاتی ----------
 const MD_DEV_SALT = 'AIO-DEV-UNLOCK-v1';
 const MD_DEV_HASH = 'ec6bf74a5d10d1524fbae3dd818a3be18c04bd13a6bc3242dd0e5d9fe6532a85'; // وہی ڈویلپر پاس ورڈ جو AIO/FFPOS میں (کوڈ میں صرف ہیش)
@@ -6887,7 +6887,7 @@ async function mdDevSavePass(){
 }
 </script>
 <script>
-/* 👁️ (ہر PIN/پاس ورڈ خانہ) MD2710TU007: پاس ورڈ کے خانوں میں آنکھ کا بٹن — ایک بار دبائیں تو پاس ورڈ صاف نظر آئے، دوبارہ دبائیں تو چھپ جائے؛
+/* 👁️ (ہر PIN/پاس ورڈ خانہ) MD2710TU008: پاس ورڈ کے خانوں میں آنکھ کا بٹن — ایک بار دبائیں تو پاس ورڈ صاف نظر آئے، دوبارہ دبائیں تو چھپ جائے؛
    جب تک خود نہ دبائیں، ویسا ہی رہتا ہے (دبائے رکھنے کی ضرورت نہیں) */
 (function(){
   var SVG = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
@@ -6901,7 +6901,7 @@ async function mdDevSavePass(){
     wrap.style.cssText = 'position:relative; display:block; margin:' + cs.marginTop + ' ' + cs.marginRight + ' ' + cs.marginBottom + ' ' + cs.marginLeft + ';';
     var pd = inp.parentElement ? getComputedStyle(inp.parentElement).display : '';
     if(/flex|grid/.test(pd)){ wrap.style.flex = cs.flexGrow + ' ' + cs.flexShrink + ' ' + cs.flexBasis; wrap.style.minWidth = '0'; wrap.style.alignSelf = cs.alignSelf; }
-    else if(/inline/.test(cs.display) && !/100%/.test(inp.style.width || '')){ wrap.style.display = 'inline-block'; wrap.style.verticalAlign = 'middle'; }
+    else if(/inline/.test(cs.display) && (/px/.test(inp.style.width || '') || (inp.offsetWidth > 0 && inp.parentElement && inp.offsetWidth < inp.parentElement.clientWidth * 0.9))){ wrap.style.display = 'inline-block'; wrap.style.verticalAlign = 'middle'; }
     inp.parentNode.insertBefore(wrap, inp); wrap.appendChild(inp);
     inp.style.margin = '0'; inp.style.boxSizing = 'border-box';
     var rtl = cs.direction === 'rtl';
