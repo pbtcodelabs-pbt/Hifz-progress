@@ -1216,7 +1216,7 @@ td.clickable:hover { background: #fff9e6 !important; }
 <div id="lockScreen" style="display: none;">
   <div class="lock-card">
     <div class="lock-madrasa" id="lockMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="lock-sub">Madrasa software by pbtcodelabs</div>
+    <div class="lock-sub" onclick="mdDevTap()" style="user-select:none;-webkit-tap-highlight-color:transparent;">Madrasa software by pbtcodelabs</div>
 
     <div class="trial-badge" id="trialBadge">⏳ ٹرائل موڈ — <span id="trialDaysLeft"></span> دن باقی ہیں</div>
 
@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge">MD2310FR004</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2710TU005</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -2247,6 +2247,7 @@ function startTrial() {
 }
 
 function checkExpiry() {
+  try{ if (localStorage.getItem('mdDevPermUnlock') === '1') return 'active'; }catch(e){} // 🔓 MD2710TU005: ڈویلپر ان لاک — صرف اسی فون پر
   // Check full activation
   const act = JSON.parse(localStorage.getItem(ACT_K));
   if (act && act.expiry && Date.now() < act.expiry) return 'active';
@@ -2299,6 +2300,7 @@ function updateSubInfo() {
     const expEl = document.getElementById('subExpLine');
     const remEl = document.getElementById('subRemLine');
     if (!expEl || !remEl) return;
+    if (localStorage.getItem('mdDevPermUnlock') === '1') { const sEl = document.getElementById('subStartLine'); if (sEl) sEl.textContent = '🛠️ ڈویلپر ان لاک'; expEl.textContent = '♾️ کبھی ختم نہیں'; remEl.textContent = '✅ صرف اس فون پر'; return; }
     function fmtD(ts) {
       const d = new Date(ts);
       return d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear();
@@ -6739,6 +6741,149 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch(e => console.warn('SW register failed', e));
   });
+}
+</script>
+
+<!-- 🛠️ MD2710TU005: ڈویلپر پینل — ورژن (ہوم) یا لاک اسکرین پر "Madrasa software by pbtcodelabs" پر 7 ٹیپ + پاس ورڈ -->
+<div id="mdDevModal" onclick="if(event.target===this) mdDevClose()" style="display:none;position:fixed;inset:0;z-index:2147483000;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:16px;">
+  <div dir="rtl" style="background:#fff;color:#0f172a;border-radius:16px;padding:18px;width:100%;max-width:420px;max-height:88vh;overflow-y:auto;box-sizing:border-box;box-shadow:0 10px 30px rgba(0,0,0,.4);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div style="font-size:18px;font-weight:900;">🛠️ ڈویلپر پینل</div>
+      <span onclick="mdDevClose()" style="cursor:pointer;font-size:18px;font-weight:900;">✖</span>
+    </div>
+    <div id="mdDevLocked">
+      <input type="password" id="mdDevPass" autocomplete="off" placeholder="Developer password" dir="ltr" onkeydown="if(event.key==='Enter') mdDevSubmit()" class="mdDevInput" style="text-align:center;letter-spacing:3px;">
+      <div id="mdDevErr" style="display:none;color:#dc2626;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;">❌ غلط پاس ورڈ</div>
+      <button type="button" id="mdDevBtn" class="mdDevBig go" onclick="mdDevSubmit()">🔓 کھولیں</button>
+    </div>
+    <div id="mdDevOpen" style="display:none;">
+      <div class="mdDevTabs" role="tablist">
+        <button type="button" class="mdDevTab" data-sec="unlock" onclick="mdDevShow('unlock')"><b>🔓 ڈویلپر ان لاک</b><small>یہ سافٹ ویئر اس فون پر ہمیشہ کھلا</small></button>
+        <button type="button" class="mdDevTab" data-sec="pass" onclick="mdDevShow('pass')"><b>🔑 پاس ورڈ</b><small>ڈویلپر پاس ورڈ بدلیں</small></button>
+        <button type="button" class="mdDevTab" data-sec="device" onclick="mdDevShow('device')"><b>📱 یہ فون</b><small>یونیک آئی ڈی، ایکٹیویشن کوڈ اور حالت</small></button>
+      </div>
+      <div class="mdDevSec" data-sec="unlock"><div id="mdDevUnlockState"></div></div>
+      <div class="mdDevSec" data-sec="pass" style="display:none;">
+        <div class="mdDevHint" style="margin:0 0 8px;">نیا پاس ورڈ اب سے اس فون پر چلے گا (پرانا یہاں نہیں چلے گا)۔</div>
+        <input type="password" id="mdDevNew1" class="mdDevInput" dir="ltr" autocomplete="new-password" placeholder="نیا پاس ورڈ (کم از کم 6)">
+        <input type="password" id="mdDevNew2" class="mdDevInput" dir="ltr" autocomplete="new-password" placeholder="دوبارہ لکھیں" onkeydown="if(event.key==='Enter') mdDevSavePass()">
+        <button type="button" class="mdDevBig go" onclick="mdDevSavePass()">💾 پاس ورڈ محفوظ کریں</button>
+        <div id="mdDevPassMsg" class="mdDevHint"></div>
+      </div>
+      <div class="mdDevSec" data-sec="device" style="display:none;"><div id="mdDevDevice"></div></div>
+    </div>
+  </div>
+</div>
+<style>
+.mdDevTabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:2px 0 12px}
+.mdDevTab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:62px;padding:8px 10px;border:1.5px solid #dbe1ea;border-radius:22px;background:linear-gradient(180deg,#fff,#eef2f7);box-shadow:0 2px 0 #cbd5e1,0 4px 10px rgba(15,23,42,.08);color:#0f172a;cursor:pointer;text-align:center;font-family:inherit;-webkit-tap-highlight-color:transparent}
+.mdDevTab b{font-size:14px;font-weight:800;line-height:1.5}
+.mdDevTab small{font-size:11px;font-weight:600;color:#64748b;line-height:1.5}
+.mdDevTab.active{background:linear-gradient(180deg,#14b8a6,#0f766e);border-color:#0f766e;color:#fff;box-shadow:0 2px 0 #115e59,0 6px 14px rgba(15,118,110,.35)}
+.mdDevTab.active small{color:#ccfbf1}
+.mdDevTab:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+.mdDevTabs .mdDevTab:last-child:nth-child(odd){grid-column:1/-1}
+.mdDevBox{border-radius:14px;padding:12px;font-weight:800;font-size:15px;text-align:center;margin-bottom:10px;line-height:1.7}
+.mdDevBox.on{background:#dcfce7;color:#166534;border:1.5px solid #86efac}
+.mdDevBox.off{background:#f1f5f9;color:#334155;border:1.5px solid #e2e8f0}
+.mdDevBox small{display:block;font-weight:600;font-size:12.5px;margin-top:4px}
+.mdDevBig{width:100%;padding:12px;border:none;border-radius:999px;font-weight:900;font-size:15px;cursor:pointer;font-family:inherit;margin-top:4px}
+.mdDevBig.go{background:linear-gradient(180deg,#22c55e,#15803d);color:#fff;box-shadow:0 3px 0 #166534}
+.mdDevBig.stop{background:#fff;color:#b91c1c;border:1.5px solid #fca5a5}
+.mdDevInput{width:100%;box-sizing:border-box;padding:11px;margin-bottom:8px;border:1.5px solid #dbe1ea;border-radius:12px;font-size:15px}
+.mdDevRow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:#f8fafc;border:1px solid #eef2f7;margin-bottom:6px;font-size:14px}
+.mdDevRow span{color:#64748b;font-weight:700;white-space:nowrap}
+.mdDevRow b{color:#0f172a;word-break:break-all}
+.mdDevHint{font-size:12.5px;color:#64748b;margin-top:8px;text-align:center}
+</style>
+<script>
+// ---------- 🛠️ MD2710TU005: ڈویلپر ان لاک — یہ سافٹ ویئر صرف اسی فون پر ہمیشہ کھلا (ٹرائل/ایکسپائری لاگو نہیں)۔
+// اپنی الگ کلید (mdDevPermUnlock) — یہ ویب سائٹ دوسری ایپس کے ساتھ مشترک ہے، اس لیے نام الگ؛ بیک اپ میں نہیں جاتی ----------
+const MD_DEV_SALT = 'AIO-DEV-UNLOCK-v1';
+const MD_DEV_HASH = 'ec6bf74a5d10d1524fbae3dd818a3be18c04bd13a6bc3242dd0e5d9fe6532a85'; // وہی ڈویلپر پاس ورڈ جو AIO/FFPOS میں (کوڈ میں صرف ہیش)
+function mdDevPermUnlocked(){ try{ return localStorage.getItem('mdDevPermUnlock') === '1'; }catch(e){ return false; } }
+let _mdDevTaps = 0, _mdDevTimer = null;
+function mdDevTap(){
+  _mdDevTaps++; clearTimeout(_mdDevTimer);
+  _mdDevTimer = setTimeout(function(){ _mdDevTaps = 0; }, 2500);
+  if(_mdDevTaps >= 7){ _mdDevTaps = 0; mdDevOpen(); }
+}
+function mdDevOpen(){
+  document.getElementById('mdDevLocked').style.display = 'block';
+  document.getElementById('mdDevOpen').style.display = 'none';
+  document.getElementById('mdDevErr').style.display = 'none';
+  var inp = document.getElementById('mdDevPass'); inp.value = '';
+  document.getElementById('mdDevModal').style.display = 'flex';
+  setTimeout(function(){ inp.focus(); }, 150);
+}
+function mdDevClose(){ document.getElementById('mdDevModal').style.display = 'none'; }
+async function mdDevHashOf(pass){
+  var enc = new TextEncoder();
+  var key = await crypto.subtle.importKey('raw', enc.encode(pass), 'PBKDF2', false, ['deriveBits']);
+  var bits = await crypto.subtle.deriveBits({name:'PBKDF2', hash:'SHA-256', salt:enc.encode(MD_DEV_SALT), iterations:200000}, key, 256);
+  return Array.from(new Uint8Array(bits)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+}
+async function mdDevSubmit(){
+  var btn = document.getElementById('mdDevBtn'), pass = document.getElementById('mdDevPass').value.trim();
+  if(!pass) return;
+  btn.disabled = true; btn.textContent = '⏳ جانچ…';
+  var ok = false;
+  try{ ok = (await mdDevHashOf(pass)) === (localStorage.getItem('mdDevPassHash') || MD_DEV_HASH); }catch(e){}
+  btn.disabled = false; btn.textContent = '🔓 کھولیں';
+  if(!ok){ document.getElementById('mdDevErr').style.display = 'block'; return; }
+  document.getElementById('mdDevPass').value = '';
+  document.getElementById('mdDevLocked').style.display = 'none';
+  document.getElementById('mdDevOpen').style.display = 'block';
+  mdDevShow('unlock');
+}
+function mdDevShow(key){
+  var root = document.getElementById('mdDevOpen');
+  root.querySelectorAll('.mdDevTab').forEach(function(b){ b.classList.toggle('active', b.dataset.sec === key); });
+  root.querySelectorAll('.mdDevSec').forEach(function(sec){ sec.style.display = sec.dataset.sec === key ? 'block' : 'none'; });
+  if(key === 'unlock') mdDevRenderUnlock();
+  if(key === 'device') mdDevRenderDevice();
+}
+function mdDevRenderUnlock(){
+  var on = mdDevPermUnlocked();
+  document.getElementById('mdDevUnlockState').innerHTML = (on
+    ? '<div class="mdDevBox on">✅ اس فون پر مستقل ان لاک ہے<small>یہاں سافٹ ویئر کبھی بند نہیں ہوگا — ٹرائل اور ایکسپائری اس فون پر لاگو نہیں۔</small></div><button type="button" class="mdDevBig stop" onclick="mdDevSet(false)">مستقل ان لاک بند کریں</button>'
+    : '<div class="mdDevBox off">🔒 ان لاک نہیں<small>یہ فون باقی سب کی طرح عام ٹرائل/ایکٹیویشن پر چل رہا ہے۔</small></div><button type="button" class="mdDevBig go" onclick="mdDevSet(true)">🔓 یہ سافٹ ویئر اس فون پر ہمیشہ کے لیے کھولیں</button>') +
+    '<div class="mdDevHint">صرف یہی فون کھلتا ہے — کسی اور فون پر کبھی نہیں جاتا۔</div>';
+}
+function mdDevSet(on){
+  if(!on && !confirm('اس فون پر مستقل ان لاک بند کریں؟')) return;
+  try{ on ? localStorage.setItem('mdDevPermUnlock', '1') : localStorage.removeItem('mdDevPermUnlock'); }catch(e){}
+  mdDevRenderUnlock();
+  if(on){
+    var ls = document.getElementById('lockScreen');
+    if(ls && ls.style.display !== 'none'){ mdDevClose(); try{ unlockApp(); }catch(e){} }
+    else { try{ updateSubInfo(); }catch(e){} }
+    alert('✅ یہ سافٹ ویئر اب اس فون پر ہمیشہ کے لیے کھلا ہے');
+  } else { try{ updateSubInfo(); }catch(e){} }
+}
+function mdDevRenderDevice(){
+  var uid = ''; try{ uid = _getUid(); }catch(e){}
+  var st = ''; try{ st = checkExpiry(); }catch(e){}
+  var code = ''; try{ code = uid ? _genCode(uid) : ''; }catch(e){}
+  var esc = function(v){ return String(v == null || v === '' ? '—' : v).replace(/</g,'&lt;'); };
+  var rows = [
+    ['ورژن', (document.getElementById('homeVersionBadge') || {}).textContent],
+    ['یونیک آئی ڈی', uid],
+    ['اس فون کا ایکٹیویشن کوڈ', code],
+    ['مستقل ان لاک', mdDevPermUnlocked() ? '✅ آن' : 'بند'],
+    ['حالت', mdDevPermUnlocked() ? '🛠️ ڈویلپر (مستقل)' : ({active:'🟢 ایکٹیویٹ', trial:'🆓 ٹرائل', trial_expired:'⛔ ٹرائل ختم', none:'🔒 لاک'})[st] || st],
+  ];
+  document.getElementById('mdDevDevice').innerHTML = rows.map(function(r){ return '<div class="mdDevRow"><span>' + r[0] + '</span><b dir="ltr">' + esc(r[1]) + '</b></div>'; }).join('');
+}
+async function mdDevSavePass(){
+  var a = document.getElementById('mdDevNew1'), b = document.getElementById('mdDevNew2'), msg = document.getElementById('mdDevPassMsg');
+  var p1 = a.value.trim(), p2 = b.value.trim();
+  msg.style.color = '#dc2626';
+  if(p1.length < 6){ msg.textContent = '⚠️ کم از کم 6 حروف/ہندسے'; return; }
+  if(p1 !== p2){ msg.textContent = '⚠️ دونوں پاس ورڈ ایک جیسے ہوں'; return; }
+  msg.style.color = '#64748b'; msg.textContent = '⏳ محفوظ ہو رہا ہے…';
+  try{ localStorage.setItem('mdDevPassHash', await mdDevHashOf(p1)); a.value = ''; b.value = ''; msg.style.color = '#15803d'; msg.textContent = '✅ پاس ورڈ اس فون پر بدل گیا'; }
+  catch(e){ msg.style.color = '#dc2626'; msg.textContent = '❌ محفوظ نہیں ہو سکا'; }
 }
 </script>
 </body></html>
