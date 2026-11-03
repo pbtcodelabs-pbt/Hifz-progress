@@ -51,3 +51,4 @@
 - **ایک ہی ویب سائٹ، کئی ایپس (مستقل اصول):** `pbtcodelabs-pbt.github.io` پر کئی ایپس چلتی ہیں۔ `sw.js` اور «تازہ کریں» بٹن صرف **اسی ایپ** کے کیش/سروس ورکر مٹائیں (`getRegistration()`، `getRegistrations()` نہیں)؛ `localStorage.clear()` کبھی نہیں — صرف اپنی کلیدیں ہٹائیں۔
 - **🆘 PBT Help Desk (MD0211MO009):** `index.html` کے آخر میں `https://pbtcodelabs-pbt.github.io/help/widget.js` (`data-float="1"`) — بائیں کنارے پر گول سرخ «SOS / Help» پٹی (انگلی سے اوپر نیچے سرکتی ہے)، ایپ کے اندر پاپ اپ میں مسئلہ / مشورہ۔ ورژن بدلیں تو `data-ver` بھی۔
 - **MD0211MO010:** SOS (PBT Help Desk) اب ایپ کی اپنی اوپر/نیچے کی پٹی میں (`onclick="openHelpDesk()"` + 🆘، `widget.js` گول SOS بناتا ہے)؛ کنارے والی پٹی ختم (مالک: صفحے کے بیچ میں نہیں)۔
+- **MD0311TU011 (ہیلپ ڈیسک #31، مالک کا حکم):** ہوم کا «Chat with developer» بلبلہ اور اوپر کی «ڈویلپر سے رابطہ کریں» پٹی اب Help Desk (`openHelpDesk`)؛ لاک اسکرین کا «ڈویلپر سے چیٹ کریں» ویسے ہی۔
