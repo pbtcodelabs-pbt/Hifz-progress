@@ -30,6 +30,8 @@ self.addEventListener('activate', (event) => {
 // Network-first for HTML (so updates are picked up quickly when online),
 // cache-first fallback for everything else (so the app works fully offline).
 self.addEventListener('fetch', (event) => {
+  /* ہیلپ ڈیسک (#33): pbtcodelabs-pbt.github.io/help/ کی فائلیں (widget.js) کبھی کیش نہیں — ہر ایپ میں نیا بٹن فوراً */
+  try { const _hd = new URL(event.request.url); if (_hd.hostname === 'pbtcodelabs-pbt.github.io' && _hd.pathname.startsWith('/help/')) return; } catch (_e) {}
   const req = event.request;
   if (req.method !== 'GET') return;
 
