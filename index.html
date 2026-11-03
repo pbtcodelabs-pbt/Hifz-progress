@@ -1448,22 +1448,22 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD0211MO010</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD0311TU011</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
       <button class="home-btn home-btn-hifz" onclick="openHifz()">📖 طلبہ حاضری — حفظ پروگریس</button>
     </div>
     <div class="home-foot">Madrasa software by pbtcodelabs</div>
-    <div class="dev-chat-bubble" onclick="openDevChat()">
-      <span class="dcb-icon">💬</span> Chat with developer
+    <div class="dev-chat-bubble" onclick="openHelpDesk()">
+      <span class="dcb-icon">🆘</span> بتائیں
       <span class="dcb-tail"></span>
     </div>
   </div>
 </div>
 <div id="mainApp" style="display: none;">
   <div id="examTopBar">
-  <div class="designer-bar no-print" onclick="openDevChat()" style="cursor:pointer;">💬 ڈویلپر سے رابطہ کریں</div>
+  <div class="designer-bar no-print" onclick="openHelpDesk()" style="cursor:pointer;">🆘 ہمیں اپنا مسئلہ یا مشورہ بتائیں</div>
 
   <header class="app-header no-print">
     <div class="madrasa-title" id="madrasaName" contenteditable="true" oninput="saveCfg()" spellcheck="false">گلشن فاروقی جامعہ تعلیم القرآن</div>
@@ -6948,5 +6948,5 @@ async function mdDevSavePass(){
   try{ new MutationObserver(function(){ if(!queued){ queued = true; requestAnimationFrame(scan); } }).observe(document.documentElement, {childList:true, subtree:true}); }catch(e){}
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD0211MO010" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD0311TU011" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 </body></html>
