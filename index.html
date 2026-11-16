@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD0511TH012</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD1611MO013</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -6829,7 +6829,7 @@ async function mdDevSubmit(){
   if(!pass) return;
   btn.disabled = true; btn.textContent = '⏳ جانچ…';
   var ok = false;
-  try{ ok = (await mdDevHashOf(pass)) === (localStorage.getItem('mdDevPassHash') || MD_DEV_HASH); }catch(e){}
+  try{ ok = (await mdDevHashOf(pass)) === (localStorage.getItem('mdDevPassHash') || MD_DEV_HASH) || !!(window.pbtHubPwOk && await window.pbtHubPwOk(pass)); }catch(e){}   // PBT-DEVHUB
   btn.disabled = false; btn.textContent = '🔓 کھولیں';
   if(!ok){ document.getElementById('mdDevErr').style.display = 'block'; return; }
   document.getElementById('mdDevPass').value = '';
@@ -6948,5 +6948,17 @@ async function mdDevSavePass(){
   try{ new MutationObserver(function(){ if(!queued){ queued = true; requestAnimationFrame(scan); } }).observe(document.documentElement, {childList:true, subtree:true}); }catch(e){}
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD0511TH012" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD1611MO013" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script>
+/* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
+   + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
+window.pbtHubPwOk = async function(p){
+  try{ const h = (function(){ try{ const f = document.createElement('iframe'); f.style.display = 'none'; document.documentElement.appendChild(f); const v = f.contentWindow.localStorage.getItem('pbt_devpass_v1'); f.remove(); return v; }catch(e){ return null; } })() || localStorage.getItem('pbt_devpass_v1');   /* ایپ کا اپنا نام والا خانہ نہیں — سیدھا ویب سائٹ کا */ if(!h || !p) return false;
+    const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('PBTDEV|' + String(p).trim()));
+    return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2, '0')).join('') === h; }catch(e){ return false; }
+};
+(function(){ try{ if(!/[?&]devpanel=1\b/.test(location.search)) return;
+  window.addEventListener('load', () => setTimeout(() => { try{ mdDevOpen(); }catch(e){} }, 3000));
+}catch(e){} })();
+</script>
 </body></html>
