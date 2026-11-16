@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD1611MO013</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD1611MO014</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -6804,7 +6804,7 @@ const MD_DEV_SALT = 'AIO-DEV-UNLOCK-v1';
 const MD_DEV_HASH = 'ec6bf74a5d10d1524fbae3dd818a3be18c04bd13a6bc3242dd0e5d9fe6532a85'; // وہی ڈویلپر پاس ورڈ جو AIO/FFPOS میں (کوڈ میں صرف ہیش)
 function mdDevPermUnlocked(){ try{ return localStorage.getItem('mdDevPermUnlock') === '1'; }catch(e){ return false; } }
 let _mdDevTaps = 0, _mdDevTimer = null;
-function mdDevTap(){
+function mdDevTap(){ return; /* 🔐 مالک کا حکم (16 نومبر): 7 بار دبانے سے ڈویلپر پینل ختم — صرف ہیلپ ڈیسک «🔐 ڈویلپر پینل» سے (?devpanel=1) */
   _mdDevTaps++; clearTimeout(_mdDevTimer);
   _mdDevTimer = setTimeout(function(){ _mdDevTaps = 0; }, 2500);
   if(_mdDevTaps >= 7){ _mdDevTaps = 0; mdDevOpen(); }
@@ -6948,7 +6948,7 @@ async function mdDevSavePass(){
   try{ new MutationObserver(function(){ if(!queued){ queued = true; requestAnimationFrame(scan); } }).observe(document.documentElement, {childList:true, subtree:true}); }catch(e){}
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD1611MO013" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD1611MO014" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
