@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO052</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO053</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9654,7 +9654,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO052" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO053" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10779,6 +10779,84 @@ body.jm7v #jm51nav{display:none!important}
   var _done = done; done = function(){ if(M.chg){ M.chg = false; show('reset1'); return; } _done(); };
   function start(){ check(false); setInterval(function(){ check(false); setBtn(); }, 1500); }
   if(document.readyState === 'complete') setTimeout(start, 600); else window.addEventListener('load', function(){ setTimeout(start, 600); });
+})();
+</script>
+<!-- ============================================================
+     MD2311MO053 (مالک کا حکم): 🔄 باریک اپڈیٹ پٹی (MCS والی) + ہوم پر ورژن «V053» (فائلوں میں پورا MD… ویسا)۔
+     ہر ریلیز پر نیچے MD_NOTE = {v: نیا ورژن, n: «اس اپڈیٹ میں کیا ہوا» (اردو)} لازمی بدلیں۔
+     نیا ورژن ملے: اوپر 3px پٹی 0→100٪ + «V052 → V053»؛ کوئی صفحہ / فارم کھلا ہو تو اس کے بند ہونے کا انتظار (کام ضائع نہ ہو)، پھر تازہ؛
+     کھلتے ہی سبز نستعلیق پرچی «✅ اپڈیٹ مکمل — V052 ← V053 — یہ کام لائیو ہو گیا: …» (دبانے یا 14 سیکنڈ بعد غائب)۔
+     ============================================================ -->
+<style id="jma053css">
+#jm53bar{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:3px;width:0;z-index:2147483647;background:linear-gradient(90deg,#f59e0b,#fde047,#10b981);box-shadow:0 0 6px rgba(245,158,11,.8);transition:width .4s ease,opacity .6s;pointer-events:none}
+#jm53bar i{position:absolute;left:4px;top:4px;font:800 10px/1 Arial,sans-serif;color:#fff;background:rgba(6,78,59,.88);padding:2px 6px;border-radius:8px;white-space:nowrap;font-style:normal;direction:ltr}
+#jm53ok{position:fixed;left:50%;top:calc(8px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:2147483647;width:min(380px,calc(100vw - 20px));background:#ecfdf5;border:2px solid #10b981;border-radius:16px;padding:6px 12px 8px;box-shadow:0 8px 24px rgba(0,0,0,.25);direction:rtl;text-align:right;font-family:'Jameel Noori Nastaleeq',var(--nastaliq),serif;font-size:16px;line-height:1.9;color:#065f46;animation:jm53in .4s ease}
+#jm53ok .h{font-family:'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;font-size:19px}
+#jm53ok b{font:800 14px Arial;direction:ltr;unicode-bidi:isolate}#jm53ok s{color:#9ca3af}
+#jm53ok .n{display:block;color:#78350f;font-size:16px;max-height:34vh;overflow:auto}
+@keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
+</style>
+<script id="jma053">
+window.MD_NOTE = { v: 'MD2311MO053', n: 'ہوم پر ورژن «V053» کی شکل میں؛ نئی اپڈیٹ آئے تو اوپر باریک پٹی فیصد کے ساتھ، اور مکمل ہونے پر یہی پرچی کہ اس اپڈیٹ میں کیا کام ہوا' };
+(function(){
+  'use strict';
+  var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
+  function $(i){ return document.getElementById(i); }
+  function E(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function full(){ var b = $('homeVersionBadge'); return (b && (b.getAttribute('data-full') || b.textContent) || '').trim(); }
+  function short(v){ var m = /(\d{3})$/.exec(v || ''); return m ? 'V' + m[1] : v; }
+  /* ہوم پر «V053» */
+  function badge(){ var b = $('homeVersionBadge'); if(!b) return; if(!b.getAttribute('data-full')) b.setAttribute('data-full', b.textContent.trim()); var t = short(b.getAttribute('data-full')); if(b.textContent !== t){ b.textContent = t; b.title = b.getAttribute('data-full'); } }
+  window.MD_VER = function(){ badge(); var b = $('homeVersionBadge'); return b ? b.getAttribute('data-full') : ''; };
+  /* پٹی */
+  var pct = 0, tm = 0;
+  function bar(label){ var b = $('jm53bar'); if(!b){ b = document.createElement('div'); b.id = 'jm53bar'; b.innerHTML = '<i></i>'; document.body.appendChild(b); }
+    b.style.opacity = '1'; if(!tm){ pct = Math.max(pct, 3); tm = setInterval(function(){ pct += (92 - pct) * 0.05; b.style.width = pct + '%'; b.querySelector('i').textContent = Math.round(pct) + '% · ' + label; }, 120); } }
+  function barTo(p, label){ pct = Math.max(pct, p); var b = $('jm53bar'); if(b){ b.style.width = pct + '%'; b.querySelector('i').textContent = Math.round(pct) + '% · ' + label; } }
+  function barEnd(){ if(tm){ clearInterval(tm); tm = 0; } var b = $('jm53bar'); if(!b) return; b.style.width = '100%'; b.querySelector('i').textContent = '100% ✓'; setTimeout(function(){ b.style.opacity = '0'; }, 900); setTimeout(function(){ if(b.parentNode) b.remove(); pct = 0; }, 1600); }
+  /* مکمل کی پرچی (اردو نستعلیق) */
+  function okBox(oldV, newV, note){
+    var o = $('jm53ok'); if(o) o.remove(); o = document.createElement('div'); o.id = 'jm53ok';
+    o.innerHTML = '<div class="h">✅ اپڈیٹ مکمل ہو گئی</div>' + (oldV ? '<s><b>' + E(short(oldV)) + '</b></s> ← ' : '') + '<b>' + E(short(newV)) + '</b> اب لائیو ہے'
+      + (note ? '<span class="n">📝 اس اپڈیٹ میں: ' + E(note) + '</span>' : '');
+    o.onclick = function(){ o.remove(); }; document.body.appendChild(o); setTimeout(function(){ if(o.parentNode) o.remove(); }, 14000);
+  }
+  window.jmaUpdDone = okBox;
+  /* کوئی صفحہ / فارم کھلا ہے؟ */
+  var BUSY = ['jmaEnt', 'jmaAtt', 'jmaExm', 'jmaAdm', 'jmaAkh', 'jmaFee', 'jm30', 'jm52', 'md28su', 'jmaLogin', 'jm36M'];
+  function busy(){ if(document.body.classList.contains('jm7v')) return true; return BUSY.some(function(i){ var e = $(i); return e && getComputedStyle(e).display !== 'none'; }) || (document.activeElement && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)); }
+  /* نیا ورژن دیکھنا */
+  var running = false;
+  function check(){
+    if(running || !navigator.onLine || document.visibilityState !== 'visible') return; running = true;
+    fetch('./index.html?aupd=' + Date.now(), { cache: 'no-store' }).then(function(r){ return r.ok ? r.text() : ''; }).then(function(t){
+      var m = /id="homeVersionBadge"[^>]*>\s*(MD\d{4}[A-Z]{2}\d{3})/.exec(t || ''), cur = window.MD_VER();
+      if(!m || !cur || m[1] === cur || +m[1].slice(-3) <= +cur.slice(-3)){ running = false; return; }
+      var nv = m[1], nn = (/window\.MD_NOTE\s*=\s*\{\s*v:\s*'([^']+)',\s*n:\s*'([^']*)'/.exec(t) || [])[2] || '';
+      var label = short(cur) + ' → ' + short(nv), t0 = Date.now(); bar(label);
+      var jobs = [];
+      try{ if(navigator.serviceWorker) jobs.push(navigator.serviceWorker.getRegistration().then(function(g){ return g && g.update(); }).catch(function(){})); }catch(e){}
+      ['./sw.js', './manifest.json'].forEach(function(u){ jobs.push(fetch(u + '?aupd=' + Date.now(), { cache: 'no-store' }).catch(function(){})); });
+      var n = 0; jobs.forEach(function(j){ j.then(function(){ n++; barTo(30 + n / jobs.length * 55, label); }); });
+      Promise.all(jobs).then(function(){
+        barTo(90, label);
+        try{ localStorage.setItem(PK, JSON.stringify({ o: cur, v: nv, n: nn, t: Date.now() })); }catch(e){}
+        (function go(){ if(busy() || Date.now() - t0 < 3500){ setTimeout(go, busy() ? 2000 : 300); return; } barEnd(); setTimeout(function(){ location.reload(); }, 900); })();
+      });
+    }).catch(function(){ running = false; });
+  }
+  /* کھلتے ہی: پچھلی بار سے ورژن بدلا ہو تو پرچی */
+  function boot(){
+    badge(); var cur = window.MD_VER(), last = ''; try{ last = localStorage.getItem(LK) || ''; }catch(e){}
+    var pd = null; try{ pd = JSON.parse(localStorage.getItem(PK) || 'null'); }catch(e){}
+    if(last && cur && last !== cur){ var note = (window.MD_NOTE && MD_NOTE.v === cur) ? MD_NOTE.n : (pd && pd.v === cur ? pd.n : '');
+      (function show(){ var lk = $('jm52'); if(lk && getComputedStyle(lk).display !== 'none'){ setTimeout(show, 1500); return; } okBox(last, cur, note); })(); }
+    try{ localStorage.setItem(LK, cur); localStorage.removeItem(PK); }catch(e){}
+    setTimeout(check, 8000); setInterval(check, 5 * 60000);
+    document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'visible') setTimeout(check, 1500); });
+    setInterval(badge, 2000);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
 </script>
 </body></html>
