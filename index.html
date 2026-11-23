@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO029</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO030</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9333,7 +9333,97 @@ async function mdDevSavePass(){
   window.openExam = window.openHifz = function(){ try{ document.getElementById('homeScreen').style.display = 'flex'; if(window.jmaDashOpen) jmaDashOpen(); }catch(e){} };
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO029" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<!-- ============================================================
+     MD2311MO030 — ترتیبات کا صاف فارم (مالک کا حکم، ہیلپ ڈیسک #377 — نمبر 0)
+     مدرسے کا نام، ادارے کا پورا نام، مہتمم، پتہ / ضلع، فون، لوگو، کامیابی فیصد — jamia_mgmt_cfg_v1 میں (پرانی کلید ویسی)؛
+     یہی نام ہر جگہ: ہوم کا عنوان، تالے والا صفحہ، رپورٹ / رسید / رزلٹ کارڈ / واٹس ایپ (jmaMadName)؛ پرانا «گلشن فاروقی…» کبھی نہیں —
+     خالی ہو تو سائن اپ والا نام (jamia_mdid_v1.mad)۔ بدلنا صرف منتظم / مہتمم (jmaCan('classes'))۔
+     ============================================================ -->
+<style id="jma030css">
+#jm30{position:fixed;inset:0;z-index:2147483000;background:rgba(2,44,34,.86);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:14px 12px;direction:rtl}
+#jm30 .bx{background:#fff;border-radius:18px;max-width:460px;width:100%;margin:auto;padding:14px;box-shadow:0 12px 40px rgba(0,0,0,.4);font-family:var(--font-nastaliq,'Jameel Noori Nastaleeq'),serif}
+#jm30 h3{margin:0 0 6px;text-align:center;font-family:var(--font-kasheeda,'Jameel Noori Nastaleeq Kasheeda'),serif;font-weight:400;font-size:24px;color:#065f46}
+#jm30 label{display:block;font-size:15px;color:#0f172a;margin:7px 0 2px}
+#jm30 input{width:100%;box-sizing:border-box;border:1.5px solid #94a3b8;border-radius:12px;padding:7px 10px;font:inherit;font-size:17px;line-height:1.7}
+#jm30 input.ltr{direction:ltr;text-align:right;font-family:Arial,sans-serif}
+#jm30 .lg{display:flex;align-items:center;gap:10px;margin-top:4px}
+#jm30 .lg img{width:64px;height:64px;object-fit:contain;border:1.5px solid #cbd5e1;border-radius:12px;background:#f8fafc}
+#jm30 .lg button,#jm30 .row button{border:1.5px solid #0f766e;background:#fff;color:#0f766e;border-radius:10px;padding:4px 12px;font:inherit;font-size:15px}
+#jm30 .row{display:flex;gap:8px;margin-top:12px}
+#jm30 .row .ok{flex:2;background:linear-gradient(180deg,#059669,#065f46);color:#fff;border:0;font-size:18px;padding:9px}
+#jm30 .row .no{flex:1}
+#jm30 .er{color:#b91c1c;text-align:center;min-height:20px;font-size:14px}
+#jm30 .ro{background:#fef9c3;border:1.5px solid #facc15;border-radius:10px;padding:6px 10px;font-size:14px;color:#713f12;margin-bottom:6px}
+.jm30logo{display:block;width:84px;height:84px;object-fit:contain;margin:0 auto 4px;border-radius:14px}
+</style>
+<script id="jma030">
+(function(){
+  'use strict';
+  var K = 'jamia_mgmt_cfg_v1', OLD = /گلشن\s*فاروقی/;
+  function $(i){ return document.getElementById(i); }
+  function E(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function cf(){ try{ return JSON.parse(localStorage.getItem(K) || 'null') || {}; }catch(e){ return {}; } }
+  function md(){ try{ return JSON.parse(localStorage.getItem('jamia_mdid_v1') || 'null') || {}; }catch(e){ return {}; } }
+  function canEdit(){ try{ return typeof jmaCan === 'function' ? jmaCan('classes') : true; }catch(e){ return true; } }
+  /* ایک ہی نام ہر جگہ — ترتیبات، ورنہ سائن اپ والا، ورنہ «جامعہ» */
+  function name(){ var c = cf(); return (c.name && !OLD.test(c.name) && c.name) || md().mad || 'جامعہ'; }
+  window.jmaMadName = name;
+  window.jmaPassDefault = function(){ var c = cf(); return c.pass != null ? c.pass : 40; };
+  window.jmaCfg = function(){ var c = cf(); return { name: name(), full: c.full || '', moh: c.moh || md().per || '', addr: c.addr || md().dist || '', phone: c.phone || md().mob || '', logo: c.logo || '' }; };
+  function paint(){
+    try{
+      var n = name();
+      if(typeof cfg !== 'undefined' && cfg && cfg.name !== n) cfg.name = n;   /* پرانے حصے کی یادداشت میں بھی (فائل میں نہیں لکھا) */
+      ['homeMadrasaName', 'lockMadrasaName', 'madrasaName'].forEach(function(id){ var el = $(id); if(el && el.textContent !== n) el.textContent = n; });
+      var lg = cf().logo, hl = document.querySelector('#homeScreen .home-logo');
+      if(hl){ if(lg){ if(hl.getAttribute('src') !== lg){ hl.setAttribute('src', lg); hl.style.display = ''; } } }
+      var h = document.querySelector('#jmaDash .jm13-hero .t'); if(h && h.textContent !== n) h.textContent = n;
+      if(document.title.indexOf(n) < 0) document.title = n + ' — مدرسہ سافٹ ویئر';
+    }catch(e){}
+  }
+  function open(){
+    var c = cf(), m = md(), ed = canEdit(), o = $('jm30'); if(o) o.remove();
+    o = document.createElement('div'); o.id = 'jm30';
+    var v = function(k, d){ return E(c[k] != null && !(k === 'name' && OLD.test(c[k])) ? c[k] : (d || '')); };
+    var logo = c.logo || '';
+    o.innerHTML = '<div class="bx"><h3>⚙️ مدرسے کی ترتیبات</h3>' + (ed ? '' : '<div class="ro">🔒 یہ ترتیبات صرف منتظم / مہتمم بدل سکتے ہیں — آپ صرف دیکھ سکتے ہیں</div>')
+      + '<label>🕌 مدرسے / جامعہ کا نام (ہر جگہ یہی)</label><input id="jm30n" maxlength="50" value="' + v('name', m.mad) + '" placeholder="مثلاً جامعہ فاروقیہ">'
+      + '<label>🏛️ ادارے کا پورا نام (رپورٹ / رسید کے اوپر، اختیاری)</label><input id="jm30f" maxlength="90" value="' + v('full') + '" placeholder="مثلاً جامعہ فاروقیہ تعلیم القرآن، فتح پور">'
+      + '<label>👤 مہتمم کا نام</label><input id="jm30m" maxlength="40" value="' + v('moh', m.per) + '">'
+      + '<label>📍 پتہ / ضلع</label><input id="jm30a" maxlength="80" value="' + v('addr', m.dist) + '">'
+      + '<label>📱 فون نمبر</label><input id="jm30p" class="ltr" inputmode="tel" maxlength="15" value="' + v('phone', m.mob) + '">'
+      + '<label>🖼️ لوگو (اختیاری)</label><div class="lg"><img id="jm30i" alt="" src="' + E(logo || 'logo.png') + '"><button type="button" id="jm30lb">📷 لوگو چنیں</button>' + (logo ? '<button type="button" id="jm30lx">✕ ہٹائیں</button>' : '') + '<input type="file" id="jm30lf" accept="image/*" style="display:none"></div>'
+      + '<label>🎓 امتحان میں کامیابی کا کم از کم فیصد</label><input id="jm30s" class="ltr" inputmode="numeric" maxlength="3" value="' + E(c.pass != null ? c.pass : 40) + '">'
+      + '<div class="er" id="jm30e"></div><div class="row"><button type="button" class="no" id="jm30x">واپس</button>' + (ed ? '<button type="button" class="ok" id="jm30ok">✅ محفوظ کریں</button>' : '') + '</div></div>';
+    document.body.appendChild(o);
+    if(!ed) o.querySelectorAll('input').forEach(function(i){ i.disabled = true; });
+    $('jm30x').onclick = function(){ o.remove(); };
+    var newLogo = logo;
+    if($('jm30lb')) $('jm30lb').onclick = function(){ if(ed) $('jm30lf').click(); };
+    if($('jm30lx')) $('jm30lx').onclick = function(){ if(!ed) return; newLogo = ''; $('jm30i').src = 'logo.png'; };
+    $('jm30lf').onchange = function(){ var f = this.files && this.files[0]; this.value = ''; if(!f) return; var u = URL.createObjectURL(f), im = new Image();
+      im.onload = function(){ var s = Math.min(1, 256 / Math.max(im.naturalWidth, im.naturalHeight)), cv = document.createElement('canvas'); cv.width = Math.round(im.naturalWidth * s); cv.height = Math.round(im.naturalHeight * s); cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height); newLogo = cv.toDataURL('image/png'); if(newLogo.length > 120000) newLogo = cv.toDataURL('image/jpeg', .85); $('jm30i').src = newLogo; URL.revokeObjectURL(u); };
+      im.src = u; };
+    if($('jm30ok')) $('jm30ok').onclick = function(){
+      var g = function(i){ return String(($(i) || {}).value || '').trim(); }, er = $('jm30e');
+      var nm = g('jm30n'), ps = g('jm30s').replace(/[۰-۹]/g, function(d){ return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d); });
+      if(nm.length < 3){ er.textContent = 'مدرسے کا نام لکھیں'; return; }
+      if(!/^\d{1,3}$/.test(ps) || +ps > 100){ er.textContent = 'کامیابی کا فیصد 0 سے 100 تک'; return; }
+      var c2 = Object.assign({}, cf(), { name: nm, full: g('jm30f'), moh: g('jm30m'), addr: g('jm30a'), phone: g('jm30p'), logo: newLogo, pass: +ps, upd: Date.now() });
+      try{ localStorage.setItem(K, JSON.stringify(c2)); }catch(e){ er.textContent = '❌ محفوظ نہیں ہو سکا (فون کی جگہ)'; return; }
+      try{ if(window.jmaAudit) jmaAudit('ترتیبات بدلیں', '', nm); }catch(e){}
+      o.remove(); paint(); try{ if($('jmaDash') && $('jmaDash').style.display === 'block' && window.jmaDashOpen) jmaDashOpen(); }catch(e){}
+      alert('✅ ترتیبات محفوظ — اب ہر جگہ «' + nm + '»');
+    };
+  }
+  window.jmaSettingsOpen = open;
+  /* ڈیش بورڈ کا «⚙️ ترتیبات» اب یہ فارم (پرانا prompt نہیں) */
+  document.addEventListener('click', function(e){ var b = e.target.closest && e.target.closest('#jmaDash [data-d="cfg"]'); if(!b) return; e.stopPropagation(); e.preventDefault(); open(); }, true);
+  paint(); setInterval(paint, 1500);
+  document.addEventListener('visibilitychange', paint);
+})();
+</script>
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO030" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
