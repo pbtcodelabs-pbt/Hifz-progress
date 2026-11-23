@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO021</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO022</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7686,14 +7686,15 @@ async function mdDevSavePass(){
       + '<div class="jm2-acts">' + (mob ? '<a href="tel:' + E(mob) + '">📞 کال</a><a class="wa" href="https://wa.me/' + E(wa) + '" target="_blank">💬 واٹس ایپ</a>' : '') + '<button data-a="edit">✏️ معلومات بدلیں</button></div></div>';
     x += window.jmaProToday ? jmaProToday(s) : '';
     x += window.jmaProAtt ? jmaProAtt(s) : '';   /* MD2311MO020 */
-    x += window.jmaProExams ? jmaProExams(s) : '';   /* MD2311MO021 */   /* MD2311MO019: آج کا اندراج، غیر حاضر، پچھلے اندراج */
+    x += window.jmaProExams ? jmaProExams(s) : '';   /* MD2311MO021 */
+    x += window.jmaProAkh ? jmaProAkh(s) : '';   /* MD2311MO022 */   /* MD2311MO019: آج کا اندراج، غیر حاضر، پچھلے اندراج */
     x += '<div class="jm2-card"><h4>📖 حفظ کی ترقی</h4><dl class="jm2-kv"><dt>پہلے سے یاد (داخلے پر)</dt><dd>مکمل پارے: <span class="jm2-n">' + full + '</span> · جزوی: <span class="jm2-n">' + part + '</span></dd>'
       + '</dl>'
       + (full + part ? '<div class="jm2-paras" style="margin-top:8px">' + Array.from({ length: 30 }, function(_, i){ var st = (s.bParas || {})[i + 1] || ''; return '<button type="button" disabled class="' + st + '" style="height:32px;font-size:13px;cursor:default">' + (i + 1) + '</button>'; }).join('') + '</div>' : '')
       + '<div class="jm2-soon">🛠️ پارہ وار لائنیں / رکوع / پاؤ اور دوہری گنتی سے پاک خودکار حساب — <b>مرحلہ 6</b> میں (مدرسے کے مصحف کا نقشہ ملنے کے بعد)</div></div>';
     x += '<div class="jm2-card"><h4>🎓 ابتدائی تعلیمی ریکارڈ</h4><dl class="jm2-kv"><dt>سورتیں</dt><dd>' + E(s.surahs || '—') + '</dd><dt>ناظرہ</dt><dd>' + E(s.nazra || '—') + '</dd><dt>نورانی قاعدہ</dt><dd>' + E(s.qaida || '—') + '</dd><dt>دیگر</dt><dd>' + E(s.notes || '—') + '</dd></dl></div>';
     x += '<div class="jm2-card"><h4>🗂️ تعلیمی تاریخ</h4>' + (Array.isArray(s.adm) && s.adm.length ? s.adm.map(function(a){ return '<div style="font-size:15px;line-height:1.95">• <span class="jm2-n">' + fmtD(a.date) + '</span> — ' + E(a.note || 'داخلہ') + ' — ' + E(clsName(a.classId)) + (a.roll ? ' · رول <span class="jm2-n">' + E(a.roll) + '</span>' : '') + '</div>'; }).join('') : '<div style="font-size:15px;color:#64748b">پرانا طالب علم — داخلے کی تاریخ درج نہیں۔ «✏️ معلومات بدلیں» سے مکمل کریں۔</div>') + '</div>';
-    x += '<div class="jm2-card"><h4>⏳ اگلے مراحل میں اسی پروفائل میں</h4><div class="jm2-soon" style="margin:0">🌱 اخلاقی و تربیتی ریکارڈ (مرحلہ 8) · 📊 خودکار تجزیہ اور ماہانہ رپورٹ (مرحلہ 9، 11) · 💰 فیس (مرحلہ 12)</div></div>';
+    x += '<div class="jm2-card"><h4>⏳ اگلے مراحل میں اسی پروفائل میں</h4><div class="jm2-soon" style="margin:0">📊 خودکار تجزیہ اور ماہانہ رپورٹ (مرحلہ 9، 11) · 💰 فیس (مرحلہ 12)</div></div>';
     if(canAdmin()) x += '<button class="jm2-btn r" data-a="arch" style="width:100%">🗄️ سابقہ طلبہ میں بھیجیں (ریکارڈ محفوظ رہے گا)</button>';
     x += '</div>';
     el.innerHTML = x; el.scrollTop = 0;
@@ -8324,7 +8325,133 @@ async function mdDevSavePass(){
 })();
 </script>
 
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO021" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<!-- ============================================================
+     MD2311MO022 — جامعہ مینجمنٹ، مرحلہ 8 (مالک کا حکم): اخلاقی اور تربیتی ریکارڈ
+     (1) روزانہ مشاہدہ: استاد کا ادب، ساتھیوں سے برتاؤ، صفائی، نظم و ضبط، وقت کی پابندی، ذمہ داری، تعاون، نماز و دینی معمولات — ہر ایک: اچھا / مناسب / توجہ درکار (جو نہ دیکھا وہ خالی)
+     (2) خصوصی واقعہ: لڑائی جھگڑا / بدتمیزی / جھوٹ یا خلاف ورزی کی شکایت / دیگر / ✨ مثبت رویہ و بہتری — تاریخ، تفصیل، متعلقہ استاد، کی گئی اصلاح
+     والدین کو صرف وہی جو استاد «والدین کو دکھائیں» کرے (اندرونی / حساس نوٹ کبھی نہیں)؛ ایک شکایت پر کوئی مستقل لیبل نہیں — خلاصہ صرف مدت کے حساب سے۔
+     ڈیٹا jamia_mgmt_akh_v1 — upd / dev / del۔
+     ============================================================ -->
+<style id="jma022css">
+#jmaAkh{position:fixed;inset:0;z-index:2147481300;display:none;background:#f1f5f9;color:#0f172a;direction:rtl;font-family:var(--nastaliq),'Jameel Noori Nastaleeq',serif;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.jm8-q{background:#fff;border-radius:12px;padding:7px 10px;margin-bottom:6px;box-shadow:0 1px 3px rgba(15,23,42,.06)}
+.jm8-q .t{font-size:16px;line-height:1.8}
+.jm8-r{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:4px}
+.jm8-r button{border:1.5px solid #cbd5e1;background:#fff;border-radius:10px;padding:3px 2px;font:inherit;font-size:14.5px;line-height:1.7;cursor:pointer;color:#334155}
+.jm8-r button.on.g1{background:#16a34a;border-color:#16a34a;color:#fff}.jm8-r button.on.g2{background:#0ea5e9;border-color:#0ea5e9;color:#fff}.jm8-r button.on.g3{background:#f59e0b;border-color:#f59e0b;color:#fff}
+.jm8-sum{display:grid;grid-template-columns:1fr auto auto auto;gap:2px 10px;font-size:14px;line-height:1.95;align-items:center}
+.jm8-sum .h{color:#64748b;font-size:12.5px}
+.jm8-chk{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:15px;line-height:1.8}
+.jm8-chk input{width:22px;height:22px}
+.jm8-inc{border:1.5px solid #e2e8f0;border-radius:12px;padding:6px 9px;margin-top:6px;font-size:14.5px;line-height:1.9;background:#fff;cursor:pointer}
+.jm8-inc.pos{border-color:#86efac;background:#f0fdf4}
+.jm8-inc.neg{border-color:#fdba74;background:#fff7ed}
+.jm8-tag{display:inline-block;border-radius:999px;padding:0 8px;font-size:12px;line-height:1.8;background:#e2e8f0;color:#334155}
+</style>
+<div id="jmaAkh" class="no-print"></div>
+<script id="jma022">
+(function(){
+  'use strict';
+  var AK_K = 'jamia_mgmt_akh_v1';
+  var Q = [['adab', 'استاد کا ادب'], ['peers', 'ساتھی بچوں کے ساتھ برتاؤ'], ['clean', 'صفائی'], ['disc', 'نظم و ضبط'], ['time', 'وقت کی پابندی'], ['resp', 'ذمہ داری'], ['coop', 'تعاون'], ['deen', 'نماز اور دینی معمولات']];
+  var R = { 1: ['اچھا', 'g1'], 2: ['مناسب', 'g2'], 3: ['توجہ درکار', 'g3'] };
+  var KIND = [['fight', 'لڑائی جھگڑا', 'neg'], ['rude', 'بدتمیزی', 'neg'], ['lie', 'جھوٹ یا خلاف ورزی کی شکایت', 'neg'], ['other', 'دیگر قابلِ ذکر واقعہ', 'neu'], ['good', '✨ مثبت رویہ / بہتری', 'pos']];
+  function E(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function $(id){ return document.getElementById(id); }
+  var AK = (function(){ try{ return JSON.parse(localStorage.getItem(AK_K) || '[]') || []; }catch(e){ return []; } })();
+  function save(){ try{ localStorage.setItem(AK_K, JSON.stringify(AK)); return true; }catch(e){ alert('❌ محفوظ نہیں ہو سکا'); return false; } }
+  function pk(){ return window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10); }
+  function fmtD(s){ var p = String(s || '').split('-'); return p.length === 3 ? (+p[2]) + '/' + (+p[1]) + '/' + p[0] : (s || ''); }
+  function me(){ var u = typeof jmaUser === 'function' ? jmaUser() : null; return u ? u.name : 'استاد'; }
+  function devId(){ return localStorage.getItem('jamia_dev_v1') || ''; }
+  function canPast(){ return typeof jmaCan === 'function' ? jmaCan('classes') : true; }
+  function stu(sid){ return ((window.jmaMgmt && jmaMgmt.students()) || []).find(function(s){ return s.sid === sid; }); }
+  function daysAgo(n){ var d = new Date(Date.now() - n * 864e5); try{ return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Karachi' }).format(d); }catch(e){ return d.toISOString().slice(0, 10); } }
+  window.jmaAkhList = function(sid){ return AK.filter(function(a){ return !a.del && a.sid === sid; }); };
+
+  /* خلاصہ — صرف دی گئی مدت کے درج مشاہدوں سے؛ کم ہوں تو صاف لکھا */
+  function summary(sid, days){
+    var from = daysAgo(days), L = AK.filter(function(a){ return !a.del && a.sid === sid && a.date >= from; });
+    var obs = L.filter(function(a){ return a.type === 'obs'; }), inc = L.filter(function(a){ return a.type === 'inc'; });
+    var per = {}; Q.forEach(function(q){ per[q[0]] = { 1: 0, 2: 0, 3: 0, n: 0 }; });
+    obs.forEach(function(o){ Object.keys(o.ratings || {}).forEach(function(k){ var v = o.ratings[k]; if(per[k] && R[v]){ per[k][v]++; per[k].n++; } }); });
+    return { obs: obs.length, inc: inc, per: per, from: from };
+  }
+  window.jmaAkhSummary = summary;
+  window.jmaProAkh = function(s){
+    var sm = summary(s.sid, 30), h = '<div class="jm2-card"><h4>🌱 اخلاقی و تربیتی ریکارڈ</h4>';
+    h += '<div class="jm3-add" style="grid-template-columns:1fr 1fr;margin-top:0"><button data-akn="obs" style="background:#0f766e">➕ روزانہ مشاہدہ</button><button data-akn="inc" style="background:#b45309">➕ خصوصی واقعہ</button></div>';
+    h += '<div style="font-size:14px;color:#475569;margin:8px 0 4px">پچھلے 30 دن — <span class="jm2-n">' + sm.obs + '</span> مشاہدے، <span class="jm2-n">' + sm.inc.length + '</span> واقعات</div>';
+    if(sm.obs){
+      h += '<div class="jm8-sum"><span class="h">پہلو</span><span class="h">اچھا</span><span class="h">مناسب</span><span class="h">توجہ</span>' + Q.map(function(q){ var p = sm.per[q[0]]; if(!p.n) return ''; return '<span>' + q[1] + '</span><span class="jm2-n" style="color:#15803d">' + p[1] + '</span><span class="jm2-n" style="color:#0369a1">' + p[2] + '</span><span class="jm2-n" style="color:#b45309">' + p[3] + '</span>'; }).join('') + '</div>';
+      var need = Q.filter(function(q){ var p = sm.per[q[0]]; return p.n >= 3 && p[3] * 2 > p.n; }).map(function(q){ return q[1]; });
+      if(need.length) h += '<div style="font-size:14px;color:#92400e;margin-top:4px">🔎 توجہ کے پہلو (بار بار): ' + E(need.join('، ')) + '</div>';
+      if(sm.obs < 5) h += '<div style="font-size:13px;color:#64748b">⚠️ ابھی کم مشاہدے — کوئی حتمی رائے نہیں</div>';
+    } else h += '<div style="font-size:14px;color:#64748b">ابھی کوئی مشاہدہ درج نہیں</div>';
+    var all = jmaAkhList(s.sid).sort(function(a, b){ return b.date < a.date ? -1 : b.date > a.date ? 1 : b.t - a.t; }).slice(0, 10);
+    all.forEach(function(a){
+      if(a.type === 'inc'){ var k = KIND.find(function(x){ return x[0] === a.kind; }) || KIND[3];
+        h += '<div class="jm8-inc ' + k[2] + '" data-ake="' + E(a.id) + '"><b style="font-weight:400">' + k[1] + '</b> · <span class="jm2-n">' + fmtD(a.date) + '</span>' + (a.parent ? ' <span class="jm8-tag">👪 والدین کو</span>' : ' <span class="jm8-tag">🔒 اندرونی</span>') + '<br>' + E(a.text || '') + (a.fix ? '<br><span style="color:#065f46">اصلاح: ' + E(a.fix) + '</span>' : '') + '<br><span style="font-size:12.5px;color:#64748b">' + E(a.by || '') + '</span></div>'; }
+      else { var bad = Object.keys(a.ratings || {}).filter(function(k){ return a.ratings[k] === 3; }).map(function(k){ return (Q.find(function(q){ return q[0] === k; }) || [0, ''])[1]; });
+        h += '<div class="jm8-inc" data-ake="' + E(a.id) + '">📝 مشاہدہ · <span class="jm2-n">' + fmtD(a.date) + '</span> · <span class="jm2-n">' + Object.keys(a.ratings || {}).length + '</span> پہلو' + (bad.length ? ' · توجہ: ' + E(bad.join('، ')) : ' · سب ٹھیک') + (a.text ? '<br>' + E(a.text) : '') + '</div>'; }
+    });
+    h += '<div style="font-size:12.5px;color:#64748b;margin-top:6px">ایک شکایت یا واقعے سے بچے پر کوئی مستقل رائے نہیں لگائی جاتی — خلاصہ صرف مدت کے مشاہدوں سے</div>';
+    return h + '</div>';
+  };
+
+  /* ---------------- فارم ---------------- */
+  var F = null;
+  function open(sid, type, id){
+    var s = stu(sid); if(!s) return;
+    if(id){ var a = AK.find(function(x){ return x.id === id; }); if(!a) return; F = JSON.parse(JSON.stringify(a)); F._old = 1; }
+    else F = { sid: sid, type: type, date: pk(), ratings: {}, kind: type === 'inc' ? '' : undefined, text: '', fix: '', parent: type === 'obs' };
+    F._n = s.n; $('jmaAkh').style.display = 'block'; draw();
+  }
+  function draw(){
+    var h = '<div class="jm2-top"><b>' + (F.type === 'obs' ? '📝 روزانہ مشاہدہ' : '📌 خصوصی واقعہ') + ' — ' + E(F._n) + '</b><button data-akx="1">✕</button></div><div class="jm2-wrap">';
+    h += '<div class="jm2-card"><label class="jm2-l">تاریخ</label><input type="date" class="jm2-in" id="jm8D" value="' + E(F.date) + '" max="' + pk() + '" style="font-family:Arial"' + (canPast() ? '' : ' disabled') + '></div>';
+    if(F.type === 'obs'){
+      h += '<div style="font-size:14px;color:#475569;margin:0 2px 6px">جو پہلو آج دیکھا، اسی کو چنیں — باقی خالی چھوڑ دیں</div>' + Q.map(function(q){ var v = F.ratings[q[0]];
+        return '<div class="jm8-q"><div class="t">' + q[1] + '</div><div class="jm8-r">' + [1, 2, 3].map(function(r){ return '<button data-rq="' + q[0] + '" data-rv="' + r + '" class="' + R[r][1] + (v === r ? ' on' : '') + '">' + R[r][0] + '</button>'; }).join('') + '</div></div>'; }).join('');
+      h += '<div class="jm2-card"><label class="jm2-l">استاد کا تبصرہ (اختیاری)</label><textarea class="jm2-in" id="jm8T" rows="2">' + E(F.text) + '</textarea></div>';
+    } else {
+      h += '<div class="jm2-card"><label class="jm2-l">واقعے کی قسم</label><div class="jm2-opts">' + KIND.map(function(k){ return '<button data-kd="' + k[0] + '" class="' + (F.kind === k[0] ? 'on' : '') + '">' + k[1] + '</button>'; }).join('') + '</div>'
+        + '<label class="jm2-l">مختصر تفصیل</label><textarea class="jm2-in" id="jm8T" rows="3">' + E(F.text) + '</textarea>'
+        + '<label class="jm2-l">کی گئی اصلاح</label><textarea class="jm2-in" id="jm8F" rows="2" placeholder="مثلاً: سمجھایا، والدین کو اطلاع، معافی منگوائی">' + E(F.fix) + '</textarea></div>';
+    }
+    h += '<div class="jm2-card"><label class="jm8-chk"><input type="checkbox" id="jm8P"' + (F.parent ? ' checked' : '') + '> 👪 والدین کو دکھائیں (والدین کی رپورٹ میں)</label><div style="font-size:12.5px;color:#64748b">نشان نہ لگائیں تو یہ صرف مدرسے کا اندرونی ریکارڈ رہے گا</div></div>';
+    h += '<div class="jm2-err" id="jm8E"></div><div class="jm2-nav">' + (F._old ? '<button class="jm2-btn r" data-akd="1" style="flex:0 0 auto">🗑️</button>' : '') + '<button class="jm2-btn" data-aks="1">✅ محفوظ کریں</button></div></div>';
+    var el = $('jmaAkh'), y = el.scrollTop; el.innerHTML = h; el.scrollTop = y;
+  }
+  function grab(){ var d = $('jm8D'); if(d && d.value) F.date = d.value; var t = $('jm8T'); if(t) F.text = t.value.trim(); var f = $('jm8F'); if(f) F.fix = f.value.trim(); var p = $('jm8P'); if(p) F.parent = p.checked; }
+  function saveF(){
+    grab(); var er = '';
+    if(F.type === 'obs' && !Object.keys(F.ratings).length) er = 'کم از کم ایک پہلو چنیں';
+    if(F.type === 'inc' && !F.kind) er = 'واقعے کی قسم چنیں'; else if(F.type === 'inc' && !F.text) er = 'مختصر تفصیل لکھیں';
+    if(F.date > pk()) er = 'آنے والی تاریخ نہیں';
+    if(er){ $('jm8E').textContent = er; return; }
+    var t = Date.now(), rec = { sid: F.sid, type: F.type, date: F.date, ratings: F.type === 'obs' ? F.ratings : undefined, kind: F.type === 'inc' ? F.kind : undefined, text: F.text, fix: F.fix || '', parent: !!F.parent, upd: t, dev: devId() };
+    if(F._old){ var a = AK.find(function(x){ return x.id === F.id; }); Object.assign(a, rec, { editBy: me(), editAt: t }); }
+    else { rec.id = 'K' + t.toString(36) + Math.random().toString(36).slice(2, 5); rec.t = t; rec.by = me(); AK.push(rec); }
+    if(!save()) return; try{ jmaAudit(F.type === 'obs' ? 'تربیتی مشاہدہ' : 'خصوصی واقعہ', F.sid, F._n, F.date); }catch(x){}
+    $('jmaAkh').style.display = 'none'; try{ jmaProRedraw(); }catch(x){}
+  }
+  document.addEventListener('click', function(e){
+    var t = e.target, b = t.closest && t.closest('[data-akn],[data-ake]');
+    if(b && $('jmaPro').contains(b)){ e.stopPropagation(); var sid = window.jmaProSid && jmaProSid(); if(!sid) return; if(b.dataset.akn) open(sid, b.dataset.akn); else { var a = AK.find(function(x){ return x.id === b.dataset.ake; }); if(a) open(sid, a.type, a.id); } return; }
+    if(!$('jmaAkh').contains(t)) return;
+    b = t.closest('button'); if(!b) return; var d = b.dataset;
+    if(d.akx){ $('jmaAkh').style.display = 'none'; return; }
+    if(d.rq){ grab(); var v = +d.rv; if(F.ratings[d.rq] === v) delete F.ratings[d.rq]; else F.ratings[d.rq] = v; draw(); return; }
+    if(d.kd){ grab(); F.kind = d.kd; if(d.kd === 'good') F.parent = true; draw(); return; }
+    if(d.aks){ saveF(); return; }
+    if(d.akd){ if(!confirm('یہ ریکارڈ ہٹا دیں؟ (نشان رہے گا)')) return; var a2 = AK.find(function(x){ return x.id === F.id; }); if(a2){ a2.del = Date.now(); a2.upd = Date.now(); save(); try{ jmaAudit('تربیتی ریکارڈ ہٹایا', F.sid, F._n); }catch(x){} } $('jmaAkh').style.display = 'none'; try{ jmaProRedraw(); }catch(x){} return; }
+  }, true);
+  window.jma022 = { AK: function(){ return AK; }, summary: summary };
+})();
+</script>
+
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO022" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
