@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO028</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO029</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9321,7 +9321,19 @@ async function mdDevSavePass(){
 })();
 </script>
 
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO028" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<!-- MD2311MO029 (مالک کا حکم): پرانا امتحانی سافٹ ویئر + حفظ پروگریس ایپ سے ہٹا دیا — صرف نیا «🕌 جامعہ مینجمنٹ»؛ پرانا ڈیٹا فون میں ویسا (حذف نہیں)، کوڈ اگلے قدم میں فائل سے نکلے گا -->
+<style id="jma029css">
+#homeScreen .home-btn-exam,#homeScreen .home-btn-hifz,#jmaPro [data-a="hifz"]{display:none !important}
+#mainApp,#hifzScreen{display:none !important}
+#homeScreen #jmaStuBtn{font-size:22px !important;padding:16px 12px !important}
+</style>
+<script id="jma029">
+(function(){
+  /* پرانا راستہ کہیں سے بھی کھلے تو سیدھا جامعہ مینجمنٹ */
+  window.openExam = window.openHifz = function(){ try{ document.getElementById('homeScreen').style.display = 'flex'; if(window.jmaDashOpen) jmaDashOpen(); }catch(e){} };
+})();
+</script>
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO029" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
