@@ -1,5 +1,5 @@
 // جامعہ امتحانی سافٹ ویئر — سروس ورکر (آف لائن سپورٹ)
-const CACHE_NAME = 'jamia-hifz-cache-MD2311MO053';
+const CACHE_NAME = 'jamia-hifz-cache-MD2311MO054';
 const CORE_ASSETS = [
   './index.html',
   './manifest.json',
@@ -8,7 +8,10 @@ const CORE_ASSETS = [
   './fonts/Jameel_Noori_Nastaleeq.woff',
   // رپورٹوں کے عنوان نوری کشیدہ میں چھپتے ہیں — آف لائن پرنٹ میں بھی کشیدہ ملے، اس لیے یہ بھی کیش میں
   './fonts/Jameel_Noori_Nastaleeq_Kasheeda.ttf',
-  './fonts/DecoType_Thuluth_Regular.ttf'
+  './fonts/DecoType_Thuluth_Regular.ttf',
+  /* MD2311MO054: نئے ڈیزائن کی تصویریں (آف لائن بھی) */
+  './ui/dash-top.jpg', './ui/dash-bot.jpg', './ui/lock-top.jpg', './ui/lock-bot.jpg', './ui/lock-l.jpg', './ui/lock-r.jpg',
+  './ui/i-sabaq.png', './ui/i-sabqi.png', './ui/i-manzil.png', './ui/i-att.png', './ui/i-stu.png', './ui/i-rep.png'
 ];
 
 self.addEventListener('install', (event) => {
