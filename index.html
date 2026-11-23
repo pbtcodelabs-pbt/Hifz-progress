@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO023</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO024</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7555,7 +7555,7 @@ async function mdDevSavePass(){
       + '<div class="jm2-chips">' + allowed.map(function(c){ return '<button data-cl="' + E(c.id) + '" class="' + (c.id === curCls ? 'on' : '') + '">' + E(c.name) + (c.incharge ? ' · ' + E(c.incharge) : '') + '</button>'; }).join('')
         + (canAdmin() ? '<button data-a="cls" style="border-style:dashed">➕ جماعت</button><button data-a="clsed">✏️</button>' : '') + '</div>'
       + '<input class="jm2-in" id="jm2Q" type="search" placeholder="🔍 نام یا رول نمبر سے تلاش" value="' + E(q) + '">'
-      + '<button class="jm2-add" data-a="new">➕ نیا داخلہ</button>' + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><button class="jm5-att-btn" data-att-open="' + E(curCls) + '">🕌 حاضری — 6 اوقات</button><button class="jm5-att-btn" data-exm-open="' + E(curCls) + '" style="background:linear-gradient(135deg,#d97706,#b45309)">🎓 امتحانات</button></div>'
+      + '<button class="jm2-add" data-a="new">➕ نیا داخلہ</button>' + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><button class="jm5-att-btn" data-att-open="' + E(curCls) + '">🕌 حاضری — 6 اوقات</button><button class="jm5-att-btn" data-exm-open="' + E(curCls) + '" style="background:linear-gradient(135deg,#d97706,#b45309)">🎓 امتحانات</button></div>' + '<button class="jm5-att-btn" data-crep="' + E(curCls) + '" style="background:linear-gradient(135deg,#475569,#334155)">📄 جماعت کی ماہانہ رپورٹ</button>'
       + '<div style="font-size:14px;color:#475569;margin:6px 2px 0">کل: <span class="jm2-n">' + stuOf(curCls).length + '</span> طلبہ' + (qq ? ' · ملے: <span class="jm2-n">' + list.length + '</span>' : '') + '</div>'
       + (window.jmaLegend || '')
       + (list.length ? '<div class="jm2-grid">' + list.map(function(s){ var cb = window.jmaCardBits ? jmaCardBits(s.sid) : { cls: '', html: '' }; return '<div class="jm2-c' + cb.cls + '" data-p="' + E(s.sid) + '"><span class="rl">' + (s.roll ? E(s.roll) : '—') + '</span><div class="ph" style="' + photoBg(s.photo) + '">' + (s.photo ? '' : '👤') + '</div><div class="tx"><div class="nm">' + E(s.n) + '</div><div class="fa">' + (s.w ? 'ولد ' + E(s.w) : '&nbsp;') + '</div>' + cb.html + '</div></div>'; }).join('') + '</div>'
@@ -7683,7 +7683,7 @@ async function mdDevSavePass(){
     x += '<div class="jm2-hd"><div class="pv" style="' + photoBg(s.photo) + '">' + (s.photo ? '' : '👤') + '</div><div style="min-width:0"><div class="nm">' + E(s.n) + '</div><div class="mt">' + (s.w ? 'ولد ' + E(s.w) + '<br>' : '') + 'رول نمبر: <span class="jm2-n">' + E(s.roll || '—') + '</span> · ' + E(clsName(s.classId)) + '<br>🆔 <span class="jm2-n">' + E(s.sid) + '</span></div></div></div>';
     x += '<div class="jm2-pn"><button data-nv="' + (ix > 0 ? E(list[ix - 1].sid) : '') + '"' + (ix > 0 ? '' : ' disabled') + '>→ پچھلا طالب علم</button><button data-nv="' + (ix > -1 && ix < list.length - 1 ? E(list[ix + 1].sid) : '') + '"' + (ix > -1 && ix < list.length - 1 ? '' : ' disabled') + '>اگلا طالب علم ←</button></div>';
     x += '<div class="jm2-card"><h4>📋 بنیادی معلومات</h4><dl class="jm2-kv"><dt>سرپرست</dt><dd>' + E(s.grd || s.w || '—') + (s.rel ? ' (' + E(s.rel) + ')' : '') + '</dd><dt>موبائل</dt><dd><span class="jm2-n">' + E(s.mob || '—') + '</span></dd><dt>داخلہ</dt><dd><span class="jm2-n">' + fmtD(s.admDate) + '</span></dd><dt>جنس</dt><dd>' + E(s.gender || '—') + '</dd><dt>ذمہ دار استاد</dt><dd>' + E(s.tName || '—') + '</dd><dt>تعلیمی حیثیت</dt><dd>' + E(s.status || '—') + '</dd>' + (s.addr ? '<dt>پتہ</dt><dd>' + E(s.addr) + '</dd>' : '') + '</dl>'
-      + '<div class="jm2-acts">' + (mob ? '<a href="tel:' + E(mob) + '">📞 کال</a><a class="wa" href="https://wa.me/' + E(wa) + '" target="_blank">💬 واٹس ایپ</a>' : '') + '<button data-a="edit">✏️ معلومات بدلیں</button></div></div>';
+      + '<div class="jm2-acts">' + (mob ? '<a href="tel:' + E(mob) + '">📞 کال</a><a class="wa" href="https://wa.me/' + E(wa) + '" target="_blank">💬 واٹس ایپ</a>' : '') + '<button data-a="edit">✏️ معلومات بدلیں</button><button data-rep-open="1" style="background:#ecfdf5;color:#065f46">📄 ماہانہ رپورٹ / واٹس ایپ</button></div></div>';
     x += window.jmaProToday ? jmaProToday(s) : '';
     x += window.jmaProAtt ? jmaProAtt(s) : '';   /* MD2311MO020 */
     x += window.jmaProExams ? jmaProExams(s) : '';   /* MD2311MO021 */
@@ -7695,7 +7695,7 @@ async function mdDevSavePass(){
       + '<div class="jm2-soon">🛠️ پارہ وار لائنیں / رکوع / پاؤ اور دوہری گنتی سے پاک خودکار حساب — <b>مرحلہ 6</b> میں (مدرسے کے مصحف کا نقشہ ملنے کے بعد)</div></div>';
     x += '<div class="jm2-card"><h4>🎓 ابتدائی تعلیمی ریکارڈ</h4><dl class="jm2-kv"><dt>سورتیں</dt><dd>' + E(s.surahs || '—') + '</dd><dt>ناظرہ</dt><dd>' + E(s.nazra || '—') + '</dd><dt>نورانی قاعدہ</dt><dd>' + E(s.qaida || '—') + '</dd><dt>دیگر</dt><dd>' + E(s.notes || '—') + '</dd></dl></div>';
     x += '<div class="jm2-card"><h4>🗂️ تعلیمی تاریخ</h4>' + (Array.isArray(s.adm) && s.adm.length ? s.adm.map(function(a){ return '<div style="font-size:15px;line-height:1.95">• <span class="jm2-n">' + fmtD(a.date) + '</span> — ' + E(a.note || 'داخلہ') + ' — ' + E(clsName(a.classId)) + (a.roll ? ' · رول <span class="jm2-n">' + E(a.roll) + '</span>' : '') + '</div>'; }).join('') : '<div style="font-size:15px;color:#64748b">پرانا طالب علم — داخلے کی تاریخ درج نہیں۔ «✏️ معلومات بدلیں» سے مکمل کریں۔</div>') + '</div>';
-    x += '<div class="jm2-card"><h4>⏳ اگلے مراحل میں اسی پروفائل میں</h4><div class="jm2-soon" style="margin:0">📊 ماہانہ رپورٹ اور PDF (مرحلہ 11) · 💰 فیس (مرحلہ 12)</div></div>';
+    x += '<div class="jm2-card"><h4>⏳ اگلے مراحل میں اسی پروفائل میں</h4><div class="jm2-soon" style="margin:0">💰 فیس (مرحلہ 12)</div></div>';
     if(canAdmin()) x += '<button class="jm2-btn r" data-a="arch" style="width:100%">🗄️ سابقہ طلبہ میں بھیجیں (ریکارڈ محفوظ رہے گا)</button>';
     x += '</div>';
     el.innerHTML = x; el.scrollTop = 0;
@@ -8535,7 +8535,164 @@ async function mdDevSavePass(){
 })();
 </script>
 
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO023" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<!-- ============================================================
+     MD2311MO024 — جامعہ مینجمنٹ، مرحلہ 11 (مالک کا حکم، ہیلپ ڈیسک #358): ماہانہ رپورٹ — پرنٹ / PDF / واٹس ایپ
+     پروفائل «📄 ماہانہ رپورٹ» (مہینہ چنیں): مدرسہ، لوگو، تصویر، شناخت؛ حاضری (6 نشستیں، وجوہات)؛ سبق / سبقی / منزل کی روزانہ تفصیل؛
+     اس مہینے کا تجزیہ (وہی پیمانہ، کم از کم 5)؛ امتحانات؛ صرف «والدین کو» والا تربیتی ریکارڈ؛ استاد کی سفارش۔ سب محفوظ ریکارڈ سے — کچھ نہ ہو تو صاف لکھا۔
+     واٹس ایپ: آج کی رپورٹ / ماہانہ خلاصہ / غیر حاضری کی اطلاع — تیار پیغام، Send صارف خود۔ جماعت کی ماہانہ رپورٹ بھی۔
+     ============================================================ -->
+<style id="jma024css">
+#jmaRep{position:fixed;inset:0;z-index:2147481280;display:none;background:#f1f5f9;color:#0f172a;direction:rtl;font-family:var(--nastaliq),'Jameel Noori Nastaleeq',serif;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.jm11-prev{background:#fff;border-radius:12px;padding:10px;box-shadow:0 1px 6px rgba(15,23,42,.1);overflow-x:auto}
+.jm11-prev table{width:100%;border-collapse:collapse;font-size:13.5px}
+.jm11-prev th,.jm11-prev td{border:1px solid #cbd5e1;padding:3px 5px;text-align:center;line-height:1.8}
+.jm11-prev th{background:#ecfdf5;color:#065f46;font-weight:400}
+.jm11-prev h3{font-size:17px;font-weight:400;color:#065f46;margin:12px 0 4px;border-bottom:1.5px solid #a7f3d0;line-height:1.9}
+.jm11-act{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}
+.jm11-act button{border:0;border-radius:12px;padding:8px 4px;font:inherit;font-size:15px;line-height:1.7;color:#fff;cursor:pointer;background:#065f46}
+.jm11-act button.wa{background:#16a34a}
+#jm7Print .rp h3{font-size:18px;font-weight:700;color:#064e3b;margin:10px 0 4px;border-bottom:1.5px solid #064e3b}
+#jm7Print .rp .idb{display:flex;gap:12px;align-items:center;margin:6px 0}
+#jm7Print .rp .idb .ph{width:24mm;height:28mm;border:1.5px solid #000;background:#f8fafc center/cover no-repeat;flex:none}
+#jm7Print .rp .idb div{font-size:16px;line-height:1.9}
+#jm7Print .rp .note{border:1.5px solid #064e3b;border-radius:8px;padding:6px 10px;font-size:16px;line-height:2}
+#jm7Print .rp td,#jm7Print .rp th{font-size:13px}
+</style>
+<div id="jmaRep" class="no-print"></div>
+<script id="jma024">
+(function(){
+  'use strict';
+  var MON = ['جنوری', 'فروری', 'مارچ', 'اپریل', 'مئی', 'جون', 'جولائی', 'اگست', 'ستمبر', 'اکتوبر', 'نومبر', 'دسمبر'];
+  var SES = ['فجر سے پہلے', 'فجر کے بعد', 'ناشتے کے بعد', 'ظہر کے بعد', 'مغرب کے بعد', 'عشاء کے بعد'], SS = { p: 'ح', h: '½', a: 'غ' };
+  var KN = { sabaq: 'سبق', sabqi: 'سبقی', manzil: 'منزل' }, PAO = ['پہلا', 'دوسرا', 'تیسرا', 'چوتھا'];
+  var NOTE_K = 'jamia_mgmt_rnote_v1';
+  function E(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function $(id){ return document.getElementById(id); }
+  function pk(){ return window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10); }
+  function fmtD(s){ var p = String(s || '').split('-'); return p.length === 3 ? (+p[2]) + '/' + (+p[1]) + '/' + p[0] : (s || ''); }
+  function mName(ym){ var p = ym.split('-'); return MON[+p[1] - 1] + ' ' + p[0]; }
+  function S(){ return (window.jmaMgmt && jmaMgmt.students()) || []; }
+  function stu(sid){ return S().find(function(s){ return s.sid === sid; }); }
+  function cls(id){ return ((window.jmaMgmt && jmaMgmt.classes()) || []).find(function(c){ return c.id === id; }) || {}; }
+  function madName(){ try{ return (typeof cfg !== 'undefined' && cfg.name) || ($('homeMadrasaName') || {}).textContent || 'جامعہ'; }catch(e){ return 'جامعہ'; } }
+  function notes(){ try{ return JSON.parse(localStorage.getItem(NOTE_K) || '{}') || {}; }catch(e){ return {}; } }
+  function setNote(k, v){ var n = notes(); if(v) n[k] = { t: v, upd: Date.now() }; else delete n[k]; try{ localStorage.setItem(NOTE_K, JSON.stringify(n)); }catch(e){} }
+  function qty(e){ return (e.items || []).map(function(it){ var p = []; if(it.lines) p.push(it.lines + ' لائن'); if(it.ruku) p.push(it.ruku + ' رکوع'); if(it.pao && it.pao.length) p.push(it.pao.length + ' پاؤ'); return 'پ' + it.para + ': ' + p.join('+'); }).join('، '); }
+
+  /* ---------------- مہینے کا ڈیٹا (صرف محفوظ ریکارڈ) ---------------- */
+  function monthData(sid, ym){
+    var EN = ((window.jma019 && jma019.EN()) || []).filter(function(e){ return !e.del && e.sid === sid && e.date.slice(0, 7) === ym; }).sort(function(a, b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : a.ses - b.ses; });
+    var AT = (window.jma019 && jma019.AT()) || {}, days = {};
+    Object.keys(AT).forEach(function(k){ var i = k.indexOf('|'); if(k.slice(0, i) !== sid) return; var d = k.slice(i + 1); if(d.slice(0, 7) !== ym) return; days[d] = AT[k]; });
+    EN.forEach(function(e){ if(!days[e.date]) days[e.date] = null; });
+    var att = window.jmaMonthAtt ? jmaMonthAtt(sid, ym) : null;
+    var sc = {}; ['sabaq', 'sabqi', 'manzil'].forEach(function(k){ var L = EN.filter(function(e){ return e.kind === k; }), v = L.map(function(e){ return window.jma023 ? jma023.score(e) : null; }).filter(function(x){ return x != null; });
+      sc[k] = { n: L.length, rated: v.length, pct: v.length >= 5 ? Math.round(v.reduce(function(a, b){ return a + b; }, 0) / v.length) : null }; });
+    var para = {}; EN.filter(function(e){ return e.kind !== 'sabaq'; }).forEach(function(e){ (e.items || []).forEach(function(it){ var p = para[it.para] = para[it.para] || { v: 0, n: 0 }; p.n++; p.v += (e.atkan || 0) + (e.mist || 0); }); });
+    var hard = Object.keys(para).map(function(p){ return { p: +p, v: para[p].v, n: para[p].n }; }).filter(function(x){ return x.n >= 2 && x.v > 0; }).sort(function(a, b){ return b.v - a.v; }).slice(0, 3);
+    var ex = []; try{ (window.jma021 ? jma021.EX() : []).filter(function(x){ return !x.del && x.date.slice(0, 7) === ym && (x.students || []).indexOf(sid) > -1; }).forEach(function(x){ var c = jma021.calc(x), r = c.rows.find(function(q){ return q.st.sid === sid; }); if(r) ex.push({ x: x, r: r }); }); }catch(e){}
+    var akh = ((window.jma022 && jma022.AK()) || []).filter(function(a){ return !a.del && a.sid === sid && a.parent && a.date.slice(0, 7) === ym; });
+    var adv = window.jmaAdvice ? jmaAdvice({ A: sc, hard: hard, att: att ? { cur: att } : null, akh: null }, (stu(sid) || {}).n) : null;
+    return { EN: EN, days: days, att: att, sc: sc, hard: hard, ex: ex, akh: akh, adv: adv, note: (notes()[sid + '|' + ym] || {}).t || '' };
+  }
+  window.jmaMonthData = monthData;
+
+  function reportHTML(sid, ym, forPrint){
+    var s = stu(sid), c = cls(s.classId), D = monthData(sid, ym), h = '';
+    var dayKeys = Object.keys(D.days).sort();
+    h += '<h3>🕌 حاضری — ' + mName(ym) + '</h3>' + (D.att && D.att.n ? '<div>حاضر <b class="n">' + D.att.p + '</b> · آدھی <b class="n">' + D.att.h + '</b> · غیر حاضر <b class="n">' + D.att.a + '</b> نشستیں — حاضری <b class="n">' + D.att.pct + '%</b>' + (D.att.n < 12 ? ' (کم نشستیں درج — حتمی نہیں)' : '') + '</div>' : '<div>اس مہینے کی حاضری درج نہیں</div>');
+    var attRows = dayKeys.filter(function(d){ var r = D.days[d]; return r && (r.s || r.day === 'absent'); });
+    if(attRows.length) h += '<table><tr><th>تاریخ</th>' + SES.map(function(n){ return '<th>' + n + '</th>'; }).join('') + '<th>وجہ</th></tr>' + attRows.map(function(d){ var r = D.days[d], why = [];
+      return '<tr><td class="n">' + fmtD(d) + '</td>' + SES.map(function(_, i){ var x = r.s && r.s[i]; if(x && x.reason) why.push(x.reason); return '<td>' + (x ? SS[x.st] : (r.day === 'absent' ? 'غ' : '—')) + '</td>'; }).join('') + '<td>' + E(why.filter(function(v, i, a){ return a.indexOf(v) === i; }).join('، ') || (r.day === 'absent' && r.reason ? r.reason : '')) + '</td></tr>'; }).join('') + '</table><div style="font-size:12px">ح = حاضر · ½ = آدھی · غ = غیر حاضر · — = درج نہیں</div>';
+    h += '<h3>📖 سبق / سبقی / منزل — روزانہ تفصیل</h3>';
+    if(D.EN.length){ var byDay = {}; D.EN.forEach(function(e){ (byDay[e.date] = byDay[e.date] || []).push(e); });
+      h += '<table><tr><th>تاریخ</th><th>سبق</th><th>سبقی</th><th>منزل</th></tr>' + Object.keys(byDay).sort().map(function(d){ return '<tr><td class="n">' + fmtD(d) + '</td>' + ['sabaq', 'sabqi', 'manzil'].map(function(k){ var L = byDay[d].filter(function(e){ return e.kind === k; });
+        return '<td style="text-align:right">' + (L.length ? L.map(function(e){ return E(qty(e)) + (e.kind !== 'sabaq' && e.atkan ? ' · اٹکن ' + e.atkan : '') + (e.mist ? ' · غلطی ' + e.mist : '') + (e.perf ? ' · ' + E(e.perf) : ''); }).join('<br>') : '—') + '</td>'; }).join('') + '</tr>'; }).join('') + '</table>';
+    } else h += '<div>اس مہینے کا کوئی اندراج نہیں</div>';
+    h += '<h3>📊 کارکردگی کا تجزیہ (100 میں سے)</h3><table><tr><th>شعبہ</th><th>اندراج</th><th>جانچ والے</th><th>فیصد</th></tr>' + ['sabaq', 'sabqi', 'manzil'].map(function(k){ var x = D.sc[k]; return '<tr><td>' + KN[k] + '</td><td class="n">' + x.n + '</td><td class="n">' + x.rated + '</td><td class="n">' + (x.pct != null ? x.pct : 'معلومات ناکافی') + '</td></tr>'; }).join('') + '</table>'
+      + (D.hard.length ? '<div>زیادہ اٹکن / غلطیاں: ' + D.hard.map(function(x){ return 'پارہ <b class="n">' + x.p + '</b>'; }).join('، ') + '</div>' : '')
+      + '<div style="font-size:12px">پیمانہ: ممتاز 100، بہت اچھا 85، اچھا 70، مناسب 55، کمزور 35 — ہر اٹکن −3، ہر غلطی −2؛ کم از کم 5 جانچ والے اندراج</div>';
+    h += '<h3>🎓 امتحانات</h3>' + (D.ex.length ? '<table><tr><th>امتحان</th><th>تاریخ</th><th>حاصل</th><th>فیصد</th><th>نتیجہ</th><th>پوزیشن</th></tr>' + D.ex.map(function(q){ var r = q.r; return '<tr><td>' + E(q.x.name) + '</td><td class="n">' + fmtD(q.x.date) + '</td><td class="n">' + (r.done ? r.got + '/' + r.tot : '—') + '</td><td class="n">' + (r.done ? r.pct + '%' : '—') + '</td><td>' + (r.done ? (r.pass ? 'کامیاب' : 'ناکام') : 'نامکمل') + '</td><td class="n">' + (r.pos || '—') + '</td></tr>'; }).join('') + '</table>' : '<div>اس مہینے کوئی امتحان نہیں</div>');
+    h += '<h3>🌱 تربیتی مشاہدات</h3>' + (D.akh.length ? D.akh.map(function(a){ return '<div>• <span class="n">' + fmtD(a.date) + '</span> — ' + (a.type === 'obs' ? 'روزانہ مشاہدہ' + (a.text ? ': ' + E(a.text) : '') : E(a.text || '')) + '</div>'; }).join('') : '<div>اس مہینے والدین کے لیے کوئی تربیتی نوٹ نہیں</div>');
+    h += '<h3>✍️ استاد کی سفارش</h3><div class="note">' + (D.note ? E(D.note) : D.adv ? E(D.adv) : 'اس مہینے سفارش کے لیے کافی ریکارڈ نہیں') + '</div>';
+    var top = '<div class="idb"><div class="ph" style="' + (s.photo ? 'background-image:url(' + String(s.photo).replace(/"/g, '%22') + ')' : '') + '"></div><div>نام: <b>' + E(s.n) + '</b><br>ولدیت: ' + E(s.w || '') + '<br>رول نمبر: <b class="n">' + E(s.roll || '') + '</b> · جماعت: ' + E(c.name || '') + (c.incharge ? ' (' + E(c.incharge) + ')' : '') + '</div></div>';
+    if(forPrint) return '<div class="pg rp"><div class="hd"><img src="logo.png" onerror="this.remove()"> <span class="t">' + E(madName()) + '</span><div class="s">ماہانہ رپورٹ — ' + mName(ym) + '</div></div>' + top + h + '<div style="display:flex;justify-content:space-between;margin-top:18mm;font-size:15px"><span style="border-top:1.5px solid #000;padding-top:3px;width:40%;text-align:center">دستخط استاد</span><span style="border-top:1.5px solid #000;padding-top:3px;width:40%;text-align:center">مہر مدرسہ</span></div></div>';
+    return top + h;
+  }
+  window.jmaReportHTML = reportHTML;
+  function printHTML(html){
+    var P = $('jm7Print'); P.innerHTML = html;
+    var os = document.createElement('style'); os.textContent = '@media print{@page{size:A4 portrait;margin:6mm}}'; document.head.appendChild(os);
+    var oo = $('printOrientStyle'), ot = oo ? oo.textContent : null; if(oo) oo.textContent = '';
+    document.body.classList.add('jm7p');
+    var done = function(){ document.body.classList.remove('jm7p'); try{ os.remove(); }catch(e){} if(oo) oo.textContent = ot; window.removeEventListener('afterprint', done); };
+    window.addEventListener('afterprint', done); setTimeout(function(){ try{ window.print(); }catch(e){} setTimeout(done, 1500); }, 300);
+  }
+  window.jmaPrintHTML = printHTML;
+
+  /* ---------------- واٹس ایپ کے تیار پیغام ---------------- */
+  function waNum(s){ var m = String(s.mob || '').replace(/\D/g, ''); return m ? m.replace(/^0/, '92') : ''; }
+  function msg(kind, sid, ym){
+    var s = stu(sid), d = pk(), M = madName(), L = [];
+    if(kind === 'today'){ var es = ((window.jma019 && jma019.EN()) || []).filter(function(e){ return !e.del && e.sid === sid && e.date === d; });
+      L.push('السلام علیکم! ' + M); L.push('*' + s.n + '* — آج (' + fmtD(d) + ') کی رپورٹ:');
+      ['sabaq', 'sabqi', 'manzil'].forEach(function(k){ var x = es.filter(function(e){ return e.kind === k; }); L.push('• ' + KN[k] + ': ' + (x.length ? x.map(function(e){ return qty(e) + (e.perf ? ' (' + e.perf + ')' : ''); }).join('، ') : 'آج اندراج نہیں')); });
+      var a = window.jmaMonthAtt ? null : null; }
+    else if(kind === 'abs'){ var r = ((window.jma019 && jma019.AT()) || {})[sid + '|' + d] || {}, why = []; Object.keys(r.s || {}).forEach(function(i){ var x = r.s[i]; if(x && x.st !== 'p') why.push(SES[i] + (x.reason ? ' (' + x.reason + ')' : '')); });
+      L.push('السلام علیکم! ' + M); L.push('*' + s.n + '* آج (' + fmtD(d) + ') ' + (why.length ? 'ان نشستوں میں حاضر نہیں تھا: ' + why.join('، ') : (r.day === 'absent' ? 'غیر حاضر تھا' + (r.reason ? ' (' + r.reason + ')' : '') : 'کی غیر حاضری درج نہیں')) + '۔'); L.push('براہ کرم وجہ سے آگاہ فرمائیں۔'); }
+    else { var D = monthData(sid, ym);
+      L.push('السلام علیکم! ' + M); L.push('*' + s.n + '* — ' + mName(ym) + ' کا خلاصہ:');
+      L.push('• حاضری: ' + (D.att && D.att.n ? D.att.pct + '%' : 'درج نہیں'));
+      ['sabaq', 'sabqi', 'manzil'].forEach(function(k){ var x = D.sc[k]; L.push('• ' + KN[k] + ': ' + x.n + ' اندراج' + (x.pct != null ? ' — کارکردگی ' + x.pct + '/100' : '')); });
+      if(D.ex.length) L.push('• امتحان: ' + D.ex.map(function(q){ return q.x.name + ' ' + (q.r.done ? q.r.pct + '%' : 'نامکمل'); }).join('، '));
+      var t = D.note || D.adv; if(t) L.push('✍️ ' + t); }
+    return L.join('\n');
+  }
+  function sendWA(sid, text){ var n = waNum(stu(sid)); var u = 'https://wa.me/' + (n || '') + '?text=' + encodeURIComponent(text); try{ window.open(u, '_blank'); }catch(e){ location.href = u; } }
+  window.jmaWaMsg = msg;
+
+  /* ---------------- اسکرین ---------------- */
+  var cur = { sid: '', ym: '' };
+  window.jmaRepOpen = function(sid, ym){ cur.sid = sid; cur.ym = ym || pk().slice(0, 7); $('jmaRep').style.display = 'block'; draw(); };
+  function draw(){
+    var s = stu(cur.sid); if(!s) return; var nk = cur.sid + '|' + cur.ym;
+    $('jmaRep').innerHTML = '<div class="jm2-top"><b>📄 ماہانہ رپورٹ — ' + E(s.n) + '</b><button data-rx="1">✕</button></div><div class="jm2-wrap">'
+      + '<div class="jm2-card"><label class="jm2-l">مہینہ</label><input type="month" class="jm2-in" id="jm11M" value="' + cur.ym + '" max="' + pk().slice(0, 7) + '" style="font-family:Arial">'
+      + '<label class="jm2-l">استاد کی سفارش (اختیاری — خالی ہو تو ریکارڈ سے خود بنی سفارش)</label><textarea class="jm2-in" id="jm11N" rows="2">' + E((notes()[nk] || {}).t || '') + '</textarea>'
+      + '<div class="jm11-act"><button data-rp="1">🖨️ پرنٹ / PDF</button><button class="wa" data-wm="month">💬 ماہانہ خلاصہ</button><button class="wa" data-wm="today">💬 آج کی رپورٹ</button><button class="wa" data-wm="abs" style="background:#b91c1c">💬 غیر حاضری کی اطلاع</button></div>'
+      + (waNum(s) ? '' : '<div style="font-size:13px;color:#b91c1c">سرپرست کا موبائل نمبر درج نہیں — واٹس ایپ میں نمبر خود چننا ہوگا</div>') + '</div>'
+      + '<div class="jm11-prev">' + reportHTML(cur.sid, cur.ym, false).replace(/class="n"/g, 'class="jm2-n"') + '</div></div>';
+    var m = $('jm11M'); m.onchange = function(){ if(m.value){ cur.ym = m.value; draw(); } };
+    var n = $('jm11N'); n.onchange = function(){ setNote(nk, n.value.trim()); draw(); };
+  }
+
+  /* ---------------- جماعت کی ماہانہ رپورٹ ---------------- */
+  function classReport(classId, ym){
+    var c = cls(classId), L = S().filter(function(s){ return !s.del && s.classId === classId; }).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9); });
+    var EN = ((window.jma019 && jma019.EN()) || []).filter(function(e){ return !e.del && e.date.slice(0, 7) === ym; }), by = {};
+    EN.forEach(function(e){ if(L.some(function(s){ return s.sid === e.sid; })){ by[e.by || '—'] = (by[e.by || '—'] || 0) + 1; } });
+    var rows = L.map(function(s){ var D = monthData(s.sid, ym); return '<tr><td class="n">' + E(s.roll || '') + '</td><td class="nm">' + E(s.n) + '</td><td class="n">' + (D.att && D.att.n ? D.att.pct + '%' : '—') + '</td>' + ['sabaq', 'sabqi', 'manzil'].map(function(k){ var x = D.sc[k]; return '<td class="n">' + x.n + (x.pct != null ? ' (' + x.pct + ')' : '') + '</td>'; }).join('') + '<td class="n">' + (D.ex.length && D.ex[D.ex.length - 1].r.done ? D.ex[D.ex.length - 1].r.pct + '%' : '—') + '</td></tr>'; }).join('');
+    return '<div class="pg rp"><div class="hd"><img src="logo.png" onerror="this.remove()"> <span class="t">' + E(madName()) + '</span><div class="s">جماعت کی ماہانہ رپورٹ — ' + E(c.name || '') + (c.incharge ? ' (' + E(c.incharge) + ')' : '') + ' — ' + mName(ym) + '</div></div>'
+      + '<table><tr><th>رول</th><th>نام</th><th>حاضری</th><th>سبق (کارکردگی)</th><th>سبقی</th><th>منزل</th><th>آخری امتحان</th></tr>' + (rows || '<tr><td colspan="7">کوئی طالب علم نہیں</td></tr>') + '</table>'
+      + '<h3>👳 اساتذہ کے اندراجات</h3>' + (Object.keys(by).length ? '<table><tr><th>استاد</th><th>اندراج</th></tr>' + Object.keys(by).map(function(k){ return '<tr><td>' + E(k) + '</td><td class="n">' + by[k] + '</td></tr>'; }).join('') + '</table>' : '<div>اس مہینے کوئی اندراج نہیں</div>')
+      + '<div style="font-size:12px;margin-top:6px">قوسین میں کارکردگی 100 میں سے (کم از کم 5 جانچ والے اندراج ہوں تو)</div></div>';
+  }
+  window.jmaClassReport = classReport;
+
+  document.addEventListener('click', function(e){
+    var t = e.target, b = t.closest && t.closest('[data-rep-open],[data-crep]');
+    if(b && b.dataset.repOpen && $('jmaPro').contains(b)){ e.stopPropagation(); var sid = window.jmaProSid && jmaProSid(); if(sid) jmaRepOpen(sid); return; }
+    if(b && b.dataset.crep && $('jmaStu').contains(b)){ e.stopPropagation(); var ym = prompt('کس مہینے کی جماعت رپورٹ؟ (سال-مہینہ)', pk().slice(0, 7)); if(!ym || !/^\d{4}-\d{2}$/.test(ym.trim())) return; printHTML(classReport(b.dataset.crep, ym.trim())); return; }
+    if(!$('jmaRep').contains(t)) return;
+    b = t.closest('button'); if(!b) return; var d = b.dataset;
+    if(d.rx){ $('jmaRep').style.display = 'none'; return; }
+    if(d.rp){ var nn = $('jm11N'); if(nn) setNote(cur.sid + '|' + cur.ym, nn.value.trim()); printHTML(reportHTML(cur.sid, cur.ym, true)); return; }
+    if(d.wm){ var n2 = $('jm11N'); if(n2) setNote(cur.sid + '|' + cur.ym, n2.value.trim()); sendWA(cur.sid, msg(d.wm, cur.sid, cur.ym)); return; }
+  }, true);
+})();
+</script>
+
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO024" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
