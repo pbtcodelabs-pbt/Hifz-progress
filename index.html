@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO036</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO037</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9588,7 +9588,7 @@ async function mdDevSavePass(){
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO036" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO037" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -9625,7 +9625,12 @@ window.pbtHubPwOk = async function(p){
 #jm35 .rw.done{border-right-color:#16a34a}
 #jm35 .rw.ab{border-right-color:#dc2626;background:#fef2f2}
 #jm35 .nm{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-#jm35 .nm .av{width:42px;height:42px;border-radius:50%;object-fit:cover;background:#d1fae5;color:#065f46;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;border:2px solid #a7f3d0}
+#jm35 .nm .av{width:62px;height:62px;border-radius:50%;object-fit:cover;background:#d1fae5;color:#065f46;display:flex;align-items:center;justify-content:center;font-size:28px;flex:none;border:3px solid #d4af37;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+#jm35 .td{margin-top:6px;display:flex;flex-direction:column;gap:4px}
+#jm35 .td div{border-right:4px solid var(--c);background:#f8fafc;border-radius:10px;padding:3px 8px;font-size:14.5px;line-height:1.85;color:#1e293b}
+#jm35 .td div b{color:var(--c)}
+#jm35 .td .n{font:700 13.5px Arial;color:#0f172a}
+#jm35 .td .m{color:#64748b;font-size:13px}
 #jm35 .nm .t{flex:1;font-size:18px;line-height:1.5;color:#0f172a}
 #jm35 .nm .t small{display:block;font-size:13px;color:#64748b}
 #jm35 .nm .r{font:700 14px Arial;background:#ecfdf5;color:#065f46;border-radius:8px;padding:2px 7px}
@@ -9651,6 +9656,18 @@ window.pbtHubPwOk = async function(p){
   function classes(){ return ((window.jmaMgmt && jmaMgmt.classes()) || []).filter(function(c){ return !c.del && (typeof jmaAllowedClass !== 'function' || jmaAllowedClass(c.id)); }); }
   function students(){ return ((window.jmaMgmt && jmaMgmt.students()) || []).filter(function(s){ return !s.del && s.classId === cid && !/فارغ|خارج|چھوڑ/.test(s.status || ''); })
     .sort(function(a, b){ return (+a.roll || 9999) - (+b.roll || 9999) || String(a.n).localeCompare(String(b.n)); }); }
+  /* MD2311MO037: آج کا پورا ریکارڈ تصویر کے نیچے — پارہ، لائن / رکوع / پاؤ، کس نے سنا، اٹکن، غلطیاں، کارکردگی (دبائیں تو بدلیں) */
+  var PAO = ['پہلا', 'دوسرا', 'تیسرا', 'چوتھا'], SES = ['فجر سے پہلے', 'فجر کے بعد', 'ناشتے کے بعد', 'ظہر کے بعد', 'مغرب کے بعد', 'عشاء کے بعد'];
+  function N(v){ return '<span class="n">' + v + '</span>'; }
+  function todayDetail(sid){
+    var d = pk(), EN = ((window.jma019 && jma019.EN()) || []).filter(function(e){ return !e.del && e.sid === sid && e.date === d; }).sort(function(a, b){ return KINDS.findIndex(function(k){ return k[0] === a.kind; }) - KINDS.findIndex(function(k){ return k[0] === b.kind; }) || a.t - b.t; });
+    if(!EN.length) return '';
+    return '<div class="td">' + EN.map(function(e){ var k = KINDS.find(function(x){ return x[0] === e.kind; }) || KINDS[0];
+      var q = (e.items || []).map(function(it){ var p = []; if(it.lines) p.push(N(it.lines) + ' لائن'); if(it.ruku) p.push(N(it.ruku) + ' رکوع'); if(it.pao && it.pao.length) p.push(it.pao.map(function(x){ return PAO[x - 1]; }).join('، ') + ' پاؤ'); return 'پارہ ' + N(it.para) + (p.length ? ': ' + p.join(' + ') : ''); }).join(' · ') || '—';
+      var x = []; if(e.kind !== 'sabaq') x.push('اٹکن ' + N(e.atkan || 0)); x.push('غلطی ' + N(e.mist || 0)); if(e.perf) x.push('<b>' + E(e.perf) + '</b>');
+      return '<div style="--c:' + k[2] + '" data-ed="' + E(e.id) + '" data-es="' + E(sid) + '" data-ek="' + e.kind + '"><b>' + k[1] + '</b> — ' + q + '<br>' + x.join(' · ')
+        + ' <span class="m">· سنا: ' + E(e.lis ? e.lis.name : '—') + (e.lis && e.lis.type === 'student' ? ' (طالب علم)' : '') + ' · ' + (SES[e.ses] || '') + '</span></div>'; }).join('') + '</div>';
+  }
   function stamp(){ try{ return (localStorage.getItem('jamia_mgmt_entries_v1') || '').length + ':' + (localStorage.getItem('jamia_mgmt_att_v1') || '').length + ':' + (localStorage.getItem('jamia_mgmt_students_v1') || '').length; }catch(e){ return ''; } }
   function attState(sid){   /* آج: absent / present / '' */
     var d = jmaDayInfo(sid); if(d.abs) return 'absent';
@@ -9672,7 +9689,7 @@ window.pbtHubPwOk = async function(p){
         + '<div class="bt">' + KINDS.map(function(k){ return '<button type="button" style="--c:' + (a === 'absent' ? '#94a3b8;opacity:.5' : k[2]) + '" class="' + (d[k[0]] ? 'ok' : '') + '" data-en="' + E(s.sid) + '" data-k="' + k[0] + '"' + (a === 'absent' ? ' disabled' : '') + '>' + (d[k[0]] ? '✓ ' : '') + k[1] + '</button>'; }).join('')
         + (a === 'absent' ? '<button type="button" class="pr" data-ab="' + E(s.sid) + '" data-v="0">✔ حاضر کریں</button>'
           : any ? '<button type="button" disabled style="--c:#cbd5e1;font-size:13px">حاضر ✓</button>' : '<button type="button" class="ab" data-ab="' + E(s.sid) + '" data-v="1">✖ غیر حاضر</button>')
-        + '</div></div>');
+        + '</div>' + todayDetail(s.sid) + '</div>');
     });
     el.innerHTML = '<div class="hd"><b>📋 آج کا کام — ' + E(c.name) + '</b><button type="button" data-x="1">✕</button></div><div class="wr">'
       + '<div style="text-align:center;font-size:14px;color:#475569;margin-bottom:6px">📅 <span style="font-family:Arial">' + fmtD(pk()) + '</span>' + (c.incharge ? ' · 👳 ' + E(c.incharge) : '') + '</div>'
@@ -9693,7 +9710,7 @@ window.pbtHubPwOk = async function(p){
   window.jmaTodayOpen = start;
   document.addEventListener('click', function(e){
     var el = $('jm35'); if(!el || !el.contains(e.target)) return;
-    var b = e.target.closest('[data-x],[data-att],[data-left],[data-en],[data-ab],[data-pro]'); if(!b) return; e.stopPropagation();
+    var b = e.target.closest('[data-x],[data-att],[data-left],[data-en],[data-ab],[data-pro],[data-ed]'); if(!b) return; e.stopPropagation();
     var d = b.dataset;
     if(d.x){ el.style.display = 'none'; try{ if($('jmaDash').style.display === 'block' && window.jmaDashOpen) jmaDashOpen(); }catch(q){} return; }
     if(d.att){ jmaAttOpen(cid); return; }
@@ -9701,6 +9718,7 @@ window.pbtHubPwOk = async function(p){
     if(d.en){ jmaEntOpen(d.en, d.k); return; }
     if(d.ab){ if(window.jmaSetAbs) jmaSetAbs(d.ab, d.v === '1'); draw(); return; }
     if(d.pro){ jmaProOpen(d.pro); return; }
+    if(d.ed){ jmaEntOpen(d.es, d.ek, d.ed); return; }
   }, true);
   document.addEventListener('jma-changed', function(){ if($('jm35') && $('jm35').style.display === 'block') draw(); });
   /* حاضری / پروفائل سے واپسی پر خود تازہ */
