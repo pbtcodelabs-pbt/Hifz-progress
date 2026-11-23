@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO037</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO038</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9588,7 +9588,7 @@ async function mdDevSavePass(){
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO037" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO038" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -9847,6 +9847,40 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
         + '</tbody></table><div style="font-size:14px;margin-top:6px">کل طلبہ: <span class="n">' + st.length + '</span></div></div>', 'portrait', 'طلبہ کی فہرست'); return; }
     };
   };
+})();
+</script>
+<!-- ============================================================
+     MD2311MO038 — تاریخ کے ساتھ اردو دن (مالک کا حکم): jmaUrDay(ds) / jmaUrDate(ds) = «پیر · 23 نومبر 2026» (نوری کشیدہ)؛
+     جامعہ مینجمنٹ کے ہر تاریخ والے خانے (input[type=date]) کے نیچے خود پٹی (بدلتے ہی تازہ)، ڈیش بورڈ اور «آج کا کام» کے سر میں بھی۔
+     ============================================================ -->
+<style id="jma038css">
+.jm38d{display:block;margin-top:3px;font-family:'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;font-size:19px;line-height:1.7;color:#065f46;text-align:right;direction:rtl}
+.jm38d b{color:#b45309;font-weight:400}
+.jm38h{font-family:'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;font-size:20px;line-height:1.7}
+</style>
+<script id="jma038">
+(function(){
+  'use strict';
+  var DAYS = ['اتوار', 'پیر', 'منگل', 'بدھ', 'جمعرات', 'جمعہ', 'ہفتہ'];
+  var MN = ['جنوری', 'فروری', 'مارچ', 'اپریل', 'مئی', 'جون', 'جولائی', 'اگست', 'ستمبر', 'اکتوبر', 'نومبر', 'دسمبر'];
+  function parts(ds){ var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(ds || '')); if(!m) return null; return { y: +m[1], m: +m[2], d: +m[3], w: new Date(+m[1], +m[2] - 1, +m[3]).getDay() }; }
+  window.jmaUrDay = function(ds){ var p = parts(ds); return p ? DAYS[p.w] : ''; };
+  window.jmaUrDate = function(ds){ var p = parts(ds); return p ? DAYS[p.w] + ' · ' + p.d + ' ' + MN[p.m - 1] + ' ' + p.y : ''; };
+  var SEL = '#jmaEnt input[type=date],#jmaAtt input[type=date],#jmaExm input[type=date],#jmaAnn input[type=date],#jmaFee input[type=date],#jmaAkh input[type=date],#jmaAdm input[type=date]';
+  function label(inp){
+    var n = inp.nextElementSibling; if(!n || !n.classList || !n.classList.contains('jm38d')){ n = document.createElement('span'); n.className = 'jm38d'; inp.parentNode.insertBefore(n, inp.nextSibling); }
+    var p = parts(inp.value), t = p ? '<b>' + DAYS[p.w] + '</b> · ' + p.d + ' ' + MN[p.m - 1] + ' ' + p.y : '';
+    if(n.innerHTML !== t) n.innerHTML = t;
+    if(!inp._jm38){ inp._jm38 = 1; inp.addEventListener('input', function(){ label(inp); }); inp.addEventListener('change', function(){ label(inp); }); }
+  }
+  function scan(){
+    try{ document.querySelectorAll(SEL).forEach(label); }catch(e){}
+    try{ var pk = window.jmaPkDate ? jmaPkDate() : '', t = jmaUrDate(pk);
+      var h = document.querySelector('#jmaDash .jm13-hero .s'); if(h && t && h.textContent.indexOf(jmaUrDay(pk)) < 0) h.innerHTML = '<span class="jm38h">' + t + '</span>' + (h.innerHTML.indexOf('👤') > -1 ? ' · ' + h.innerHTML.slice(h.innerHTML.indexOf('👤')) : '');
+      var j = document.querySelector('#jm35 .wr > div'); if(j && t && j.textContent.indexOf(jmaUrDay(pk)) < 0){ var ic = j.innerHTML.indexOf('👳'); j.innerHTML = '📅 <span class="jm38h">' + t + '</span>' + (ic > -1 ? ' · ' + j.innerHTML.slice(ic) : ''); }
+    }catch(e){}
+  }
+  setInterval(scan, 600); document.addEventListener('click', function(){ setTimeout(scan, 60); }, true);
 })();
 </script>
 </body></html>
