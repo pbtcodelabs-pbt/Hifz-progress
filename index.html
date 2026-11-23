@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO039</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO040</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9588,7 +9588,7 @@ async function mdDevSavePass(){
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO039" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO040" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10257,6 +10257,34 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
   }
   setInterval(function(){ addTile(); try{ var a = act(), hb = $('md28home'); if(hb) hb.style.display = a && a.staff ? 'none' : ''; }catch(e){} }, 700);
   document.addEventListener('click', function(e){ var b = e.target.closest && e.target.closest('#jmaDash [data-d39]'); if(!b) return; e.stopPropagation(); e.preventDefault(); open(); }, true);
+})();
+</script>
+<!-- ============================================================
+     MD2311MO040 — تالے والا صفحہ صاف (مالک کا حکم): پرانے نظام کی «یونیک آئی ڈی»، «ایکٹیویشن کوڈ» کا خانہ، «کھولیں»
+     اور «ڈویلپر سے چیٹ» (ذاتی واٹس ایپ / SMS) ہٹائے — اب صرف MD ID کارڈ (📦 پیکج)، شیئر، کنٹرول پینل اور
+     «💬 سوال پوچھیں / رہنمائی» (ہیلپ ڈیسک کی چیٹ HD2311MO171، `openHelpDesk({type:'chat'})`)۔ پرانا کوڈ والا فون (oldAct) ویسا۔
+     ============================================================ -->
+<style id="jma040css">
+#lockScreen .uid-box,#lockScreen .lock-field,#lockScreen .lock-btn-row,#lockScreen #devChatBtn{display:none!important}
+#lockScreen .lock-card{border-radius:22px;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+#jm40ask{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;border:0;border-radius:14px;padding:11px 8px;font-family:var(--font-nastaliq,serif);font-size:17px;color:#fff;background:linear-gradient(135deg,#0ea5e9,#1e3a8a);box-shadow:0 4px 12px rgba(30,58,138,.35);cursor:pointer}
+#jm40ask small{display:block;font-size:12.5px;opacity:.9}
+</style>
+<script id="jma040">
+(function(){
+  'use strict';
+  function fix(){
+    var lc = document.querySelector('#lockScreen .lock-card'); if(!lc) return;
+    if(!document.getElementById('jm40ask')){
+      var b = document.createElement('button'); b.type = 'button'; b.id = 'jm40ask';
+      b.innerHTML = '<span class="pbthd-sos" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(#fde047,#facc15);color:#3b2300;border-radius:15px;padding:2px 8px;font:700 12px Arial">? Help Desk</span><span>💬 سوال پوچھیں / رہنمائی<small>جواب ایپ کے اندر ہی آئے گا</small></span>';
+      b.onclick = function(){ try{ var m = JSON.parse(localStorage.getItem('jamia_mdid_v1') || '{}'); openHelpDesk({ type: 'chat', phone: m.mob || '', name: m.per || '' }); }catch(e){ try{ openHelpDesk(); }catch(x){} } };
+      lc.appendChild(b);
+    }
+    var m = document.getElementById('lockMsg');   /* پرانا «ایکٹیویشن کوڈ حاصل کریں» کا پیغام */
+    if(m && /ایکٹیویشن|کوڈ حاصل/.test(m.textContent)) m.textContent = '⛔ مفت ٹرائل ختم — «📦 پیکج دیکھیں» سے پیکج منگوائیں، منظوری پر ایپ خود کھل جائے گی';
+  }
+  setInterval(fix, 800); fix();
 })();
 </script>
 </body></html>
