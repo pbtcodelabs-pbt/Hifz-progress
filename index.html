@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO016</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO017</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7411,7 +7411,304 @@ async function mdDevSavePass(){
 })();
 </script>
 
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO016" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<!-- ============================================================
+     MD2311MO017 — جامعہ مینجمنٹ، مرحلہ 2 (مالک کا حکم): 3 قدموں والا داخلہ + طالب علم کا مکمل پروفائل
+     ڈیٹا اسی پرانی فہرست (jamia_data_v4) میں — امتحانی حصہ اور حفظ پروگریس پہلے کی طرح؛ نئے خانے:
+     roll, gender, grd (سرپرست کا نام), rel (تعلق), admDate, tId/tName (ذمہ دار استاد), status, bParas {پارہ: 'f'|'p'},
+     surahs, nazra, qaida, notes, adm [{date, classId, roll}] + ہم آہنگی کے لیے upd / dev (آن لائن پیکج کے لیے تیار)۔
+     ============================================================ -->
+<style id="jma017css">
+.home-btn-stu{background:linear-gradient(180deg,#0f766e,#065f46);color:#fff}
+#jmaStu,#jmaAdm,#jmaPro{position:fixed;inset:0;z-index:2147481000;display:none;background:#f1f5f9;color:#0f172a;direction:rtl;font-family:var(--nastaliq),'Jameel Noori Nastaleeq',serif;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#jmaAdm{z-index:2147481200}#jmaPro{z-index:2147481100}
+.jm2-top{position:sticky;top:0;z-index:3;background:linear-gradient(135deg,#065f46,#0f766e);color:#fff;padding:calc(8px + env(safe-area-inset-top,0px)) 12px 8px;display:flex;align-items:center;gap:8px}
+.jm2-top b{flex:1;font-family:'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;font-size:22px;font-weight:400;line-height:1.9;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jm2-top button{border:0;background:#fff;color:#065f46;border-radius:12px;font:800 18px Arial,sans-serif;padding:4px 13px;cursor:pointer;flex:none}
+.jm2-wrap{max-width:720px;margin:0 auto;padding:10px 10px 60px}
+.jm2-chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+.jm2-chips button{flex:none;border:1.5px solid #065f46;background:#fff;color:#065f46;border-radius:999px;padding:4px 14px;font:inherit;font-size:15px;line-height:1.7;cursor:pointer}
+.jm2-chips button.on{background:#065f46;color:#fff}
+.jm2-in{width:100%;box-sizing:border-box;border:1.5px solid #cbd5e1;border-radius:12px;padding:9px 11px;font:inherit;font-size:16px;line-height:1.6;background:#fff;color:#0f172a}
+.jm2-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+@media (min-width:700px){.jm2-grid{grid-template-columns:repeat(3,1fr)}}
+.jm2-c{position:relative;background:#fff;border-radius:14px;padding:8px 8px 8px 10px;box-shadow:0 1px 5px rgba(15,23,42,.08);cursor:pointer;display:flex;gap:8px;align-items:center;min-width:0;border-right:5px solid #0f766e}
+.jm2-c .ph{width:44px;height:44px;border-radius:50%;flex:none;background:#e2e8f0 center/cover no-repeat;display:flex;align-items:center;justify-content:center;font-size:20px}
+.jm2-c .tx{min-width:0;flex:1}
+.jm2-c .nm{font-size:16px;line-height:1.7;overflow-wrap:anywhere}
+.jm2-c .fa{font-size:12.5px;color:#64748b;line-height:1.7;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.jm2-c .rl{position:absolute;top:6px;left:8px;font:800 13px Arial,sans-serif;color:#065f46;background:#ecfdf5;border-radius:8px;padding:0 6px}
+.jm2-add{display:block;width:100%;border:0;border-radius:14px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font:inherit;font-size:18px;line-height:1.8;padding:10px;cursor:pointer;margin:6px 0 2px;box-shadow:0 3px 10px rgba(22,163,74,.3)}
+.jm2-empty{text-align:center;color:#64748b;padding:28px 8px;font-size:16px;line-height:2}
+.jm2-steps{display:flex;gap:6px;margin:4px 0 12px}
+.jm2-steps div{flex:1;text-align:center;border-radius:10px;padding:4px 2px;background:#e2e8f0;color:#475569;font-size:14px;line-height:1.7}
+.jm2-steps div.on{background:#065f46;color:#fff}.jm2-steps div.dn{background:#a7f3d0;color:#065f46}
+.jm2-card{background:#fff;border-radius:14px;padding:10px 12px;margin:0 0 10px;box-shadow:0 1px 5px rgba(15,23,42,.08)}
+.jm2-card h4{margin:0 0 6px;font-size:18px;font-weight:400;line-height:1.9;color:#065f46}
+.jm2-l{display:block;margin:9px 0 3px;font-size:15px;color:#334155;line-height:1.8}
+.jm2-l i{color:#b91c1c;font-style:normal}
+.jm2-opts{display:flex;flex-wrap:wrap;gap:6px}
+.jm2-opts button{border:1.5px solid #065f46;background:#fff;color:#065f46;border-radius:999px;padding:4px 14px;font:inherit;font-size:15px;line-height:1.7;cursor:pointer}
+.jm2-opts button.on{background:#065f46;color:#fff}
+.jm2-paras{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;direction:rtl}
+.jm2-paras button{height:42px;border:1.5px solid #cbd5e1;border-radius:10px;background:#fff;font:800 16px Arial,sans-serif;color:#334155;cursor:pointer;padding:0}
+.jm2-paras button.f{background:#16a34a;border-color:#16a34a;color:#fff}
+.jm2-paras button.p{background:#fde68a;border-color:#f59e0b;color:#78350f}
+.jm2-leg{display:flex;gap:12px;flex-wrap:wrap;font-size:13.5px;color:#475569;margin:6px 0 0;line-height:1.8}
+.jm2-leg span::before{content:'';display:inline-block;width:12px;height:12px;border-radius:3px;margin-left:4px;vertical-align:middle;background:var(--c)}
+.jm2-photo{display:flex;align-items:center;gap:10px}
+.jm2-photo .pv{width:84px;height:84px;border-radius:50%;background:#e2e8f0 center/cover no-repeat;flex:none;display:flex;align-items:center;justify-content:center;font-size:34px;border:3px solid #d4af37}
+.jm2-nav{position:sticky;bottom:0;display:flex;gap:8px;padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,#f1f5f9 30%)}
+.jm2-btn{border:0;border-radius:12px;padding:10px 16px;font:inherit;font-size:17px;line-height:1.7;cursor:pointer;background:#065f46;color:#fff;flex:1}
+.jm2-btn.o{background:#fff;color:#065f46;border:1.5px solid #065f46}
+.jm2-btn.r{background:#fff;color:#b91c1c;border:1.5px solid #b91c1c}
+.jm2-err{color:#b91c1c;font-size:15px;line-height:1.9;min-height:4px}
+.jm2-hd{background:linear-gradient(135deg,#065f46,#0f766e);color:#fff;border-radius:16px;padding:12px;display:flex;gap:12px;align-items:center;margin-bottom:10px}
+.jm2-hd .pv{width:78px;height:78px;border-radius:50%;flex:none;background:#fff center/cover no-repeat;border:3px solid #d4af37;display:flex;align-items:center;justify-content:center;font-size:32px;color:#065f46}
+.jm2-hd .nm{font-family:'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;font-size:24px;line-height:1.8}
+.jm2-hd .mt{font-size:14.5px;line-height:1.9;opacity:.95}
+.jm2-pn{display:flex;gap:8px;margin-bottom:10px}
+.jm2-pn button{flex:1;border:1.5px solid #065f46;background:#fff;color:#065f46;border-radius:12px;padding:6px;font:inherit;font-size:15px;line-height:1.7;cursor:pointer}
+.jm2-pn button:disabled{opacity:.35}
+.jm2-kv{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:15px;line-height:1.95}
+.jm2-kv dt{color:#64748b}.jm2-kv dd{margin:0;color:#0f172a;overflow-wrap:anywhere}
+.jm2-n{font-family:Arial,sans-serif;direction:ltr;display:inline-block;font-weight:700}
+.jm2-tri{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.jm2-tri div{border-radius:12px;padding:6px;text-align:center;background:#f8fafc;border:1.5px solid #e2e8f0;font-size:14px;line-height:1.8}
+.jm2-tri div.ok{background:#ecfdf5;border-color:#34d399}
+.jm2-tri b{display:block;font-size:16px;font-weight:400}
+.jm2-soon{background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:12px;padding:8px 10px;color:#64748b;font-size:14.5px;line-height:1.9;margin-top:6px}
+.jm2-acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.jm2-acts a,.jm2-acts button{display:inline-flex;align-items:center;gap:4px;border:0;border-radius:999px;padding:5px 14px;font:inherit;font-size:15px;line-height:1.7;text-decoration:none;cursor:pointer;background:#e0f2fe;color:#075985}
+.jm2-acts .wa{background:#dcfce7;color:#166534}
+</style>
+<div id="jmaStu" class="no-print"></div>
+<div id="jmaPro" class="no-print"></div>
+<div id="jmaAdm" class="no-print"></div>
+<script id="jma017">
+(function(){
+  'use strict';
+  var REL = ['والد', 'والدہ', 'بھائی', 'چچا', 'ماموں', 'دادا', 'نانا', 'دیگر'];
+  var STATUS = ['حفظ جاری', 'حفظ مکمل', 'سابقہ حفظ', 'ناظرہ', 'نورانی قاعدہ'];
+  var NAZRA = ['شروع نہیں', 'جاری', 'مکمل'];
+  function E(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function $(id){ return document.getElementById(id); }
+  function today(){ var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function fmtD(s){ if(!s) return '—'; var p = String(s).split('-'); return p.length === 3 ? (+p[2]) + '/' + (+p[1]) + '/' + p[0] : s; }
+  function devId(){ var d = localStorage.getItem('jamia_dev_v1'); if(!d){ d = 'D' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); try{ localStorage.setItem('jamia_dev_v1', d); }catch(e){} } return d; }
+  function cls(){ try{ return classes || []; }catch(e){ return []; } }
+  function clsName(id){ var c = cls().find(function(x){ return x.id === id; }); return c ? (c.name + (c.incharge ? ' — ' + c.incharge : '')) : '—'; }
+  function okCls(id){ return typeof jmaAllowedClass === 'function' ? jmaAllowedClass(id) : true; }
+  function canAdmin(){ return typeof jmaCan === 'function' ? jmaCan('classes') : true; }   /* منتظم / مہتمم */
+  function stuOf(classId){ return (db || []).filter(function(s){ return s && s.n && s.n.trim() && (s.classId || (cls()[0] || {}).id) === classId; })
+    .sort(function(a, b){ var ra = parseInt(a.roll, 10) || 1e9, rb = parseInt(b.roll, 10) || 1e9; return ra - rb || String(a.n).localeCompare(String(b.n), 'ur'); }); }
+  function nextRoll(classId, exceptSid){ var m = 0; stuOf(classId).forEach(function(s){ if(s.sid !== exceptSid){ var r = parseInt(s.roll, 10); if(r > m) m = r; } }); return m + 1; }
+  function bySid(sid){ return (db || []).find(function(s){ return s && s.sid === sid; }); }
+  function persist(){ try{ localStorage.setItem(SK, JSON.stringify(db)); return true; }catch(e){ alert('❌ محفوظ نہیں ہو سکا — فون میں جگہ کم ہے (تصویر چھوٹی کریں)'); return false; } }
+  function refreshOld(){ try{ renderCurrent(); updateStats(); }catch(e){} try{ if(typeof hzSyncStudentsFromJMA === 'function'){ hzSyncStudentsFromJMA(); } }catch(e){} }
+  function hz(sid){ try{ return JSON.parse(localStorage.getItem('hifz_progress_report:student:' + sid) || 'null'); }catch(e){ return null; } }
+  function photoBg(p){ return p ? 'background-image:url(' + JSON.stringify(String(p)).slice(1, -1).replace(/"/g, '%22') + ')' : ''; }
+
+  /* ---------------- طلبہ کی فہرست ---------------- */
+  var curCls = null, q = '';
+  window.jmaStuOpen = function(){
+    var allowed = cls().filter(function(c){ return okCls(c.id); });
+    if(!allowed.length){ alert('آپ کے لیے کوئی جماعت مقرر نہیں — منتظم سے رابطہ کریں'); return; }
+    if(!curCls || !allowed.some(function(c){ return c.id === curCls; })) curCls = (allowed.find(function(c){ return c.id === currentClassId; }) || allowed[0]).id;
+    $('jmaStu').style.display = 'block'; stuDraw();
+  };
+  function stuDraw(){
+    var el = $('jmaStu'), allowed = cls().filter(function(c){ return okCls(c.id); });
+    var list = stuOf(curCls), qq = q.trim();
+    if(qq) list = list.filter(function(s){ return String(s.n).indexOf(qq) > -1 || String(s.roll || '') === qq || String(s.w || '').indexOf(qq) > -1; });
+    el.innerHTML = '<div class="jm2-top"><b>👥 طلبہ — داخلہ و پروفائل</b><button data-x="stu">✕</button></div><div class="jm2-wrap">'
+      + '<div class="jm2-chips">' + allowed.map(function(c){ return '<button data-cl="' + E(c.id) + '" class="' + (c.id === curCls ? 'on' : '') + '">' + E(c.name) + (c.incharge ? ' · ' + E(c.incharge) : '') + '</button>'; }).join('') + '</div>'
+      + '<input class="jm2-in" id="jm2Q" type="search" placeholder="🔍 نام یا رول نمبر سے تلاش" value="' + E(q) + '">'
+      + '<button class="jm2-add" data-a="new">➕ نیا داخلہ</button>'
+      + '<div style="font-size:14px;color:#475569;margin:6px 2px 0">کل: <span class="jm2-n">' + stuOf(curCls).length + '</span> طلبہ' + (qq ? ' · ملے: <span class="jm2-n">' + list.length + '</span>' : '') + '</div>'
+      + (list.length ? '<div class="jm2-grid">' + list.map(function(s){ return '<div class="jm2-c" data-p="' + E(s.sid) + '"><span class="rl">' + (s.roll ? E(s.roll) : '—') + '</span><div class="ph" style="' + photoBg(s.photo) + '">' + (s.photo ? '' : '👤') + '</div><div class="tx"><div class="nm">' + E(s.n) + '</div><div class="fa">' + (s.w ? 'ولد ' + E(s.w) : '&nbsp;') + '</div></div></div>'; }).join('') + '</div>'
+        : '<div class="jm2-empty">' + (qq ? 'کوئی طالب علم نہیں ملا' : 'اس جماعت میں ابھی کوئی طالب علم نہیں — «➕ نیا داخلہ» دبائیں') + '</div>')
+      + '</div>';
+    var i = $('jm2Q'); if(i){ i.oninput = function(){ q = i.value; var pos = i.selectionStart; stuDraw(); var j = $('jm2Q'); j.focus(); try{ j.setSelectionRange(pos, pos); }catch(e){} }; }
+  }
+
+  /* ---------------- داخلہ (3 قدم) ---------------- */
+  var F = null, step = 1;
+  function blank(){ var c = curCls || currentClassId; return { sid: '', n: '', w: '', grd: '', mob: '', rel: 'والد', admDate: today(), gender: 'طالب', photo: '', classId: c, roll: String(nextRoll(c)), tId: '', tName: '', status: 'حفظ جاری', bParas: {}, surahs: '', nazra: '', qaida: '', notes: '', addr: '' }; }
+  function teachers(){ var t = []; try{ (JSON.parse(localStorage.getItem('jamia_users_v1') || '[]') || []).forEach(function(u){ if(u && !u.off && u.role === 'teacher') t.push({ id: u.id, name: u.name }); }); }catch(e){}
+    cls().forEach(function(c){ if(c.incharge && !t.some(function(x){ return x.name === c.incharge; })) t.push({ id: '', name: c.incharge }); }); return t; }
+  window.jmaAdmOpen = function(sid){
+    var s = sid ? bySid(sid) : null;
+    if(sid && !s){ alert('طالب علم نہیں ملا'); return; }
+    F = s ? Object.assign(blank(), JSON.parse(JSON.stringify(s))) : blank();
+    if(!F.bParas || typeof F.bParas !== 'object') F.bParas = {};
+    if(s && !F.grd) F.grd = s.w || '';
+    F._edit = !!s; F._oldCls = s ? s.classId : ''; F._oldRoll = s ? String(s.roll || '') : '';
+    if(!F.tName){ var c = cls().find(function(x){ return x.id === F.classId; }); if(c && c.incharge) F.tName = c.incharge; }
+    step = 1; $('jmaAdm').style.display = 'block'; admDraw();
+  };
+  function sel(name, list, val){ return '<div class="jm2-opts" data-o="' + name + '">' + list.map(function(v){ return '<button type="button" data-v="' + E(v) + '" class="' + (String(val) === String(v) ? 'on' : '') + '">' + E(v) + '</button>'; }).join('') + '</div>'; }
+  function admDraw(){
+    var el = $('jmaAdm'), h = '';
+    h += '<div class="jm2-top"><b>' + (F._edit ? '✏️ معلومات بدلیں — ' + E(F.n) : '➕ نیا داخلہ') + '</b><button data-x="adm">✕</button></div><div class="jm2-wrap">';
+    h += '<div class="jm2-steps">' + ['① بنیادی معلومات', '② تعلیمی معلومات', '③ ابتدائی ریکارڈ'].map(function(t, i){ return '<div class="' + (step === i + 1 ? 'on' : step > i + 1 ? 'dn' : '') + '">' + t + '</div>'; }).join('') + '</div>';
+    if(step === 1){
+      h += '<div class="jm2-card"><div class="jm2-photo"><div class="pv" id="jm2Pv" style="' + photoBg(F.photo) + '">' + (F.photo ? '' : '📷') + '</div><div style="flex:1"><button type="button" class="jm2-btn o" data-a="photo" style="width:100%">📷 تصویر لیں / چنیں</button>' + (F.photo ? '<button type="button" class="jm2-btn r" data-a="nophoto" style="width:100%;margin-top:6px;font-size:15px">تصویر ہٹائیں</button>' : '') + '</div></div><input type="file" id="jm2File" accept="image/*" style="display:none"></div>';
+      h += '<div class="jm2-card"><label class="jm2-l">طالب علم کا مکمل نام <i>*</i></label><input class="jm2-in" data-f="n" value="' + E(F.n) + '">'
+        + '<label class="jm2-l">والد کا نام <i>*</i></label><input class="jm2-in" data-f="w" value="' + E(F.w) + '">'
+        + '<label class="jm2-l">جنس</label>' + sel('gender', ['طالب', 'طالبہ'], F.gender)
+        + '<label class="jm2-l">سرپرست کا نام</label><input class="jm2-in" data-f="grd" value="' + E(F.grd) + '" placeholder="خالی ہو تو والد کا نام">'
+        + '<label class="jm2-l">سرپرست سے تعلق</label>' + sel('rel', REL, F.rel)
+        + '<label class="jm2-l">سرپرست کا موبائل نمبر <i>*</i></label><input class="jm2-in" data-f="mob" value="' + E(F.mob) + '" inputmode="tel" dir="ltr" style="font-family:Arial;text-align:right" placeholder="03001234567">'
+        + '<label class="jm2-l">داخلے کی تاریخ</label><input class="jm2-in" type="date" data-f="admDate" value="' + E(F.admDate) + '" style="font-family:Arial">'
+        + '<label class="jm2-l">پتہ</label><input class="jm2-in" data-f="addr" value="' + E(F.addr) + '"></div>';
+    } else if(step === 2){
+      var lockRoll = !canAdmin() && F._edit;
+      h += '<div class="jm2-card"><label class="jm2-l">جماعت <i>*</i></label>' + '<div class="jm2-opts" data-o="classId">' + cls().filter(function(c){ return okCls(c.id) || c.id === F.classId; }).map(function(c){ return '<button type="button" data-v="' + E(c.id) + '" class="' + (F.classId === c.id ? 'on' : '') + '">' + E(c.name) + (c.incharge ? ' · ' + E(c.incharge) : '') + '</button>'; }).join('') + '</div>'
+        + '<label class="jm2-l">ذمہ دار استاد</label>' + '<div class="jm2-opts" data-o="tName">' + teachers().map(function(t){ return '<button type="button" data-v="' + E(t.name) + '" data-tid="' + E(t.id) + '" class="' + (F.tName === t.name ? 'on' : '') + '">' + E(t.name) + '</button>'; }).join('') + '</div>'
+        + '<label class="jm2-l">رول نمبر <span style="font-size:13px;color:#64748b">(خودکار اگلا خالی نمبر' + (canAdmin() ? '؛ آپ بدل سکتے ہیں' : '') + ')</span></label><input class="jm2-in" data-f="roll" value="' + E(F.roll) + '" inputmode="numeric" dir="ltr" style="font:800 20px Arial;text-align:center"' + (canAdmin() ? '' : ' readonly') + '>'
+        + (lockRoll ? '<div style="font-size:13px;color:#64748b;margin-top:4px">رول نمبر صرف منتظم / مہتمم بدل سکتا ہے</div>' : '')
+        + '<label class="jm2-l">موجودہ تعلیمی حیثیت</label>' + sel('status', STATUS, F.status) + '</div>';
+    } else {
+      var fc = 0, pc = 0; for(var k in F.bParas){ if(F.bParas[k] === 'f') fc++; else if(F.bParas[k] === 'p') pc++; }
+      h += '<div class="jm2-card"><h4>📖 پہلے سے یاد شدہ پارے</h4><div style="font-size:14px;color:#475569;line-height:1.9;margin-bottom:6px">پارہ دبائیں: ایک بار = مکمل (سبز)، دوبارہ = جزوی (پیلا)، تیسری بار = ہٹائیں</div>'
+        + '<div class="jm2-paras">' + Array.from({ length: 30 }, function(_, i){ var p = i + 1, st = F.bParas[p] || ''; return '<button type="button" data-para="' + p + '" class="' + st + '">' + p + '</button>'; }).join('') + '</div>'
+        + '<div class="jm2-leg"><span style="--c:#16a34a">مکمل: <b class="jm2-n">' + fc + '</b></span><span style="--c:#fde68a">جزوی: <b class="jm2-n">' + pc + '</b></span></div></div>';
+      h += '<div class="jm2-card"><label class="jm2-l">سورتوں کا ریکارڈ (جو یاد ہیں)</label><textarea class="jm2-in" data-f="surahs" rows="2" placeholder="مثلاً: سورۃ یٰس، سورۃ الملک، آخری 10 سورتیں">' + E(F.surahs) + '</textarea>'
+        + '<label class="jm2-l">ناظرہ کی موجودہ حالت</label>' + sel('nazra', NAZRA, F.nazra)
+        + '<label class="jm2-l">نورانی قاعدہ (کون سا سبق / مکمل)</label><input class="jm2-in" data-f="qaida" value="' + E(F.qaida) + '" placeholder="مثلاً: سبق 12 / مکمل">'
+        + '<label class="jm2-l">دیگر ضروری تعلیمی معلومات</label><textarea class="jm2-in" data-f="notes" rows="2">' + E(F.notes) + '</textarea></div>';
+    }
+    h += '<div class="jm2-err" id="jm2Err"></div><div class="jm2-nav">' + (step > 1 ? '<button class="jm2-btn o" data-a="back">→ پیچھے</button>' : '') + (step < 3 ? '<button class="jm2-btn" data-a="next">آگے ←</button>' : '<button class="jm2-btn" data-a="save">✅ ' + (F._edit ? 'محفوظ کریں' : 'داخلہ مکمل کریں') + '</button>') + '</div></div>';
+    el.innerHTML = h; el.scrollTop = 0;
+    var fi = $('jm2File'); if(fi) fi.onchange = function(){ var f = fi.files && fi.files[0]; if(f) readPhoto(f); };
+  }
+  function grab(){ document.querySelectorAll('#jmaAdm [data-f]').forEach(function(i){ F[i.getAttribute('data-f')] = String(i.value || '').trim(); }); }
+  function readPhoto(file){
+    var r = new FileReader(); r.onload = function(){ var img = new Image(); img.onload = function(){
+      var M = 360, sc = Math.min(1, M / Math.max(img.width, img.height)), c = document.createElement('canvas'); c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); grab(); F.photo = c.toDataURL('image/jpeg', 0.8); admDraw(); };
+      img.onerror = function(){ alert('یہ تصویر نہیں کھلی'); }; img.src = r.result; };
+    r.readAsDataURL(file);
+  }
+  function check(){
+    grab(); var er = '';
+    if(step === 1){ if(!F.n) er = 'طالب علم کا نام لکھیں'; else if(!F.w) er = 'والد کا نام لکھیں'; else if(F.mob && String(F.mob).replace(/\D/g, '').length < 10) er = 'موبائل نمبر درست نہیں'; else if(!F.mob) er = 'سرپرست کا موبائل نمبر لکھیں'; }
+    if(step === 2){ if(!F.classId) er = 'جماعت چنیں'; else if(!/^\d+$/.test(F.roll || '')) er = 'رول نمبر صرف ہندسوں میں';
+      else { var dup = stuOf(F.classId).find(function(s){ return s.sid !== F.sid && String(s.roll || '') === String(F.roll); }); if(dup) er = 'رول نمبر ' + F.roll + ' اس جماعت میں «' + dup.n + '» کا ہے — دوسرا نمبر لکھیں'; } }
+    $('jm2Err').textContent = er; return !er;
+  }
+  function save(){
+    if(!check()) return;
+    var t = Date.now(), dv = devId(), s = F._edit ? bySid(F.sid) : null;
+    var dupName = (db || []).find(function(x){ return x && x !== s && x.n && x.n.trim() === F.n && String(x.w || '').trim() === F.w && x.classId === F.classId; });
+    if(dupName && !confirm('اسی جماعت میں «' + F.n + ' ولد ' + F.w + '» پہلے سے موجود ہے۔ پھر بھی نیا داخلہ کریں؟')) return;
+    var o = { n: F.n, w: F.w, grd: F.grd || F.w, rel: F.rel, mob: F.mob, gender: F.gender, admDate: F.admDate, photo: F.photo || '', addr: F.addr, classId: F.classId, roll: F.roll, tId: F.tId || '', tName: F.tName || '', status: F.status, bParas: F.bParas, surahs: F.surahs, nazra: F.nazra, qaida: F.qaida, notes: F.notes, upd: t, dev: dv };
+    if(s){
+      var moved = s.classId !== F.classId || String(s.roll || '') !== String(F.roll);
+      Object.assign(s, o);
+      if(!Array.isArray(s.adm)) s.adm = [{ date: s.admDate || '', classId: F._oldCls, roll: F._oldRoll }];
+      if(moved) s.adm.push({ date: today(), classId: F.classId, roll: F.roll, note: 'جماعت / رول نمبر تبدیل' });
+      if(!persist()) return;
+      try{ jmaAudit('داخلہ کی معلومات بدلیں' + (moved ? ' (جماعت / رول نمبر)' : ''), s.sid, s.n); }catch(e){}
+    } else {
+      s = Object.assign({ sid: jmaNewSid(), m: '', nz: '', mr1: '', mr2: '', created: t }, o);
+      s.adm = [{ date: F.admDate, classId: F.classId, roll: F.roll, note: 'داخلہ' }];
+      db.push(s); if(!persist()){ db.pop(); return; }
+      try{ jmaAudit('نیا داخلہ', s.sid, s.n, clsName(s.classId) + ' · رول ' + s.roll); }catch(e){}
+    }
+    seedHifzBaseline(s);
+    refreshOld();
+    $('jmaAdm').style.display = 'none';
+    curCls = s.classId; if($('jmaStu').style.display === 'block') stuDraw();
+    jmaProOpen(s.sid);
+    alert(F._edit ? '✅ محفوظ ہو گیا' : '✅ داخلہ مکمل — مستقل نمبر: ' + s.sid);
+  }
+  /* پہلے سے یاد مکمل پارے → حفظ پروگریس کا «پہلے سے مکمل» (صرف اگر وہاں ابھی کچھ درج نہ ہو)؛ جزوی پارے الگ ریکارڈ میں (مرحلہ 6 میں پارہ وار حساب) */
+  function seedHifzBaseline(s){
+    try{
+      var full = 0; for(var k in (s.bParas || {})) if(s.bParas[k] === 'f') full++;
+      if(!full) return;
+      var key = 'hifz_progress_report:student:' + s.sid, st = hz(s.sid) || {};
+      if(st.baselineSet) return;
+      st.baseline = { para: full, pao: full * 4, ruku: full * 18, lines: Math.round(full * (typeof LINES_PER_PARA !== 'undefined' ? LINES_PER_PARA : 291.73)) };
+      st.baselineSet = true; if(!st.records) st.records = [];
+      localStorage.setItem(key, JSON.stringify(st));
+    }catch(e){}
+  }
+
+  /* ---------------- پروفائل ---------------- */
+  var proSid = null;
+  window.jmaProOpen = function(sid){ var s = bySid(sid); if(!s){ alert('طالب علم نہیں ملا'); return; } if(!okCls(s.classId)){ alert('🔒 یہ طالب علم آپ کی جماعت میں نہیں'); return; } proSid = sid; $('jmaPro').style.display = 'block'; proDraw(); };
+  function catTxt(c){ if(!c) return ''; var p = []; if(c.para) p.push(c.para + ' پارہ'); if(c.pao) p.push(c.pao + ' پاؤ'); if(c.ruku) p.push(c.ruku + ' رکوع'); if(c.lines) p.push(c.lines + ' لائن'); return p.join('، '); }
+  function proDraw(){
+    var s = bySid(proSid), el = $('jmaPro'); if(!s){ el.style.display = 'none'; return; }
+    var list = stuOf(s.classId), ix = list.findIndex(function(x){ return x.sid === s.sid; });
+    var h = hz(s.sid) || {}, rec = (h.records || []).find(function(r){ return r.date === today(); });
+    var tot = { lines: 0, ruku: 0, pao: 0, para: 0 }; (h.records || []).forEach(function(r){ if(r.sabaq) ['lines', 'ruku', 'pao', 'para'].forEach(function(k){ tot[k] += Number(r.sabaq[k] || 0); }); });
+    var bl = h.baseline || {}, full = 0, part = 0; for(var k in (s.bParas || {})){ if(s.bParas[k] === 'f') full++; else if(s.bParas[k] === 'p') part++; }
+    var mob = String(s.mob || '').replace(/\D/g, ''), wa = mob.replace(/^0/, '92');
+    var x = '<div class="jm2-top"><b>👤 ' + E(s.n) + '</b><button data-x="pro">✕</button></div><div class="jm2-wrap">';
+    x += '<div class="jm2-hd"><div class="pv" style="' + photoBg(s.photo) + '">' + (s.photo ? '' : '👤') + '</div><div style="min-width:0"><div class="nm">' + E(s.n) + '</div><div class="mt">' + (s.w ? 'ولد ' + E(s.w) + '<br>' : '') + 'رول نمبر: <span class="jm2-n">' + E(s.roll || '—') + '</span> · ' + E(clsName(s.classId)) + '<br>🆔 <span class="jm2-n">' + E(s.sid) + '</span></div></div></div>';
+    x += '<div class="jm2-pn"><button data-nv="' + (ix > 0 ? E(list[ix - 1].sid) : '') + '"' + (ix > 0 ? '' : ' disabled') + '>→ پچھلا طالب علم</button><button data-nv="' + (ix > -1 && ix < list.length - 1 ? E(list[ix + 1].sid) : '') + '"' + (ix > -1 && ix < list.length - 1 ? '' : ' disabled') + '>اگلا طالب علم ←</button></div>';
+    x += '<div class="jm2-card"><h4>📋 بنیادی معلومات</h4><dl class="jm2-kv"><dt>سرپرست</dt><dd>' + E(s.grd || s.w || '—') + (s.rel ? ' (' + E(s.rel) + ')' : '') + '</dd><dt>موبائل</dt><dd><span class="jm2-n">' + E(s.mob || '—') + '</span></dd><dt>داخلہ</dt><dd><span class="jm2-n">' + fmtD(s.admDate) + '</span></dd><dt>جنس</dt><dd>' + E(s.gender || '—') + '</dd><dt>ذمہ دار استاد</dt><dd>' + E(s.tName || '—') + '</dd><dt>تعلیمی حیثیت</dt><dd>' + E(s.status || '—') + '</dd>' + (s.addr ? '<dt>پتہ</dt><dd>' + E(s.addr) + '</dd>' : '') + '</dl>'
+      + '<div class="jm2-acts">' + (mob ? '<a href="tel:' + E(mob) + '">📞 کال</a><a class="wa" href="https://wa.me/' + E(wa) + '" target="_blank">💬 واٹس ایپ</a>' : '') + '<button data-a="edit">✏️ معلومات بدلیں</button></div></div>';
+    x += '<div class="jm2-card"><h4>📝 آج — <span class="jm2-n">' + fmtD(today()) + '</span></h4><div class="jm2-tri">' + [['sabaq', 'سبق'], ['sabqi', 'سبقی'], ['manzil', 'منزل']].map(function(c){ var t = rec ? catTxt(rec[c[0]]) : ''; return '<div class="' + (t ? 'ok' : '') + '"><b>' + c[1] + '</b>' + (t ? E(t) : 'ابھی اندراج نہیں') + '</div>'; }).join('') + '</div>'
+      + '<div class="jm2-acts"><button data-a="hifz">📖 حفظ پروگریس میں اندراج کریں</button></div>'
+      + '<div class="jm2-soon">🛠️ پروفائل کے اندر سے ہی پارے کے بٹن، پاؤ کے خانے، «کس نے سنا»، اٹکن اور غلطیوں والا نیا اندراج — <b>مرحلہ 4</b> میں</div></div>';
+    x += '<div class="jm2-card"><h4>📖 حفظ کی ترقی</h4><dl class="jm2-kv"><dt>پہلے سے یاد (داخلے پر)</dt><dd>مکمل پارے: <span class="jm2-n">' + full + '</span> · جزوی: <span class="jm2-n">' + part + '</span></dd>'
+      + '<dt>«پہلے سے مکمل» (حفظ صفحہ)</dt><dd>' + (h.baselineSet ? E(catTxt(bl) || '—') : '—') + '</dd><dt>روزانہ نیا سبق (کل جوڑ)</dt><dd>' + (E(catTxt(tot)) || '—') + '</dd><dt>کل اندراج کے دن</dt><dd><span class="jm2-n">' + (h.records || []).length + '</span></dd></dl>'
+      + (full + part ? '<div class="jm2-paras" style="margin-top:8px">' + Array.from({ length: 30 }, function(_, i){ var st = (s.bParas || {})[i + 1] || ''; return '<button type="button" disabled class="' + st + '" style="height:32px;font-size:13px;cursor:default">' + (i + 1) + '</button>'; }).join('') + '</div>' : '')
+      + '<div class="jm2-soon">🛠️ پارہ وار لائنیں / رکوع / پاؤ اور دوہری گنتی سے پاک خودکار حساب — <b>مرحلہ 6</b> میں (مدرسے کے مصحف کا نقشہ ملنے کے بعد)</div></div>';
+    x += '<div class="jm2-card"><h4>🎓 ابتدائی تعلیمی ریکارڈ</h4><dl class="jm2-kv"><dt>سورتیں</dt><dd>' + E(s.surahs || '—') + '</dd><dt>ناظرہ</dt><dd>' + E(s.nazra || '—') + '</dd><dt>نورانی قاعدہ</dt><dd>' + E(s.qaida || '—') + '</dd><dt>دیگر</dt><dd>' + E(s.notes || '—') + '</dd></dl></div>';
+    x += '<div class="jm2-card"><h4>🗂️ تعلیمی تاریخ</h4>' + (Array.isArray(s.adm) && s.adm.length ? s.adm.map(function(a){ return '<div style="font-size:15px;line-height:1.95">• <span class="jm2-n">' + fmtD(a.date) + '</span> — ' + E(a.note || 'داخلہ') + ' — ' + E(clsName(a.classId)) + (a.roll ? ' · رول <span class="jm2-n">' + E(a.roll) + '</span>' : '') + '</div>'; }).join('') : '<div style="font-size:15px;color:#64748b">پرانا طالب علم — داخلے کی تاریخ درج نہیں۔ «✏️ معلومات بدلیں» سے مکمل کریں۔</div>') + '</div>';
+    x += '<div class="jm2-card"><h4>⏳ اگلے مراحل میں اسی پروفائل میں</h4><div class="jm2-soon" style="margin:0">🕌 6 اوقات کی حاضری (مرحلہ 5) · 🎓 امتحانات و نتائج (مرحلہ 7) · 🌱 اخلاقی و تربیتی ریکارڈ (مرحلہ 8) · 📊 خودکار تجزیہ اور ماہانہ رپورٹ (مرحلہ 9، 11) · 💰 فیس (مرحلہ 12)</div></div>';
+    x += '</div>';
+    el.innerHTML = x; el.scrollTop = 0;
+  }
+
+  /* ---------------- کلک ---------------- */
+  document.addEventListener('click', function(e){
+    var t = e.target, b;
+    var inStu = $('jmaStu').contains(t), inAdm = $('jmaAdm').contains(t), inPro = $('jmaPro').contains(t);
+    if(!inStu && !inAdm && !inPro) return;
+    b = t.closest('[data-x]'); if(b){ var w = b.getAttribute('data-x'); $(w === 'stu' ? 'jmaStu' : w === 'adm' ? 'jmaAdm' : 'jmaPro').style.display = 'none'; if(w === 'pro' && $('jmaStu').style.display === 'block') stuDraw(); return; }
+    if(inStu){
+      b = t.closest('[data-cl]'); if(b){ curCls = b.getAttribute('data-cl'); q = ''; stuDraw(); return; }
+      b = t.closest('[data-a="new"]'); if(b){ jmaAdmOpen(); return; }
+      b = t.closest('[data-p]'); if(b){ jmaProOpen(b.getAttribute('data-p')); return; }
+      return;
+    }
+    if(inPro){
+      b = t.closest('[data-nv]'); if(b && !b.disabled){ proSid = b.getAttribute('data-nv'); proDraw(); return; }
+      b = t.closest('[data-a]'); if(!b) return;
+      if(b.getAttribute('data-a') === 'edit'){ jmaAdmOpen(proSid); return; }
+      if(b.getAttribute('data-a') === 'hifz'){ var s = bySid(proSid); $('jmaPro').style.display = 'none'; $('jmaStu').style.display = 'none';
+        try{ if(s.classId !== currentClassId) onClassSelect(s.classId); }catch(x){} openHifz(); setTimeout(function(){ try{ switchStudent(s.sid); }catch(x){} }, 250); return; }
+      return;
+    }
+    /* داخلہ */
+    b = t.closest('.jm2-opts button'); if(b){ var o = b.parentNode.getAttribute('data-o'); grab(); F[o] = b.getAttribute('data-v');
+      if(o === 'tName') F.tId = b.getAttribute('data-tid') || '';
+      if(o === 'classId'){ if(!F._edit || F.classId !== F._oldCls) F.roll = String(nextRoll(F.classId, F.sid)); else F.roll = F._oldRoll || F.roll; var c = cls().find(function(x){ return x.id === F.classId; }); if(c && c.incharge && !F.tId) F.tName = c.incharge; }
+      admDraw(); return; }
+    b = t.closest('[data-para]'); if(b){ grab(); var p = b.getAttribute('data-para'), v = F.bParas[p]; if(!v) F.bParas[p] = 'f'; else if(v === 'f') F.bParas[p] = 'p'; else delete F.bParas[p]; admDraw(); return; }
+    b = t.closest('[data-a]'); if(!b) return;
+    var a = b.getAttribute('data-a');
+    if(a === 'photo'){ $('jm2File').click(); return; }
+    if(a === 'nophoto'){ grab(); F.photo = ''; admDraw(); return; }
+    if(a === 'next'){ if(check()){ step++; admDraw(); } return; }
+    if(a === 'back'){ grab(); step--; admDraw(); return; }
+    if(a === 'save'){ save(); return; }
+  });
+
+  /* ---------------- ہوم کا بٹن ---------------- */
+  function homeBtn(){ var hb = document.querySelector('#homeScreen .home-btns'); if(!hb || $('jmaStuBtn')) return;
+    var b = document.createElement('button'); b.id = 'jmaStuBtn'; b.className = 'home-btn home-btn-stu'; b.textContent = '👥 طلبہ — داخلہ و پروفائل'; b.onclick = function(){ jmaStuOpen(); }; hb.insertBefore(b, hb.firstChild); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', homeBtn); else homeBtn();
+})();
+</script>
+
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO017" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
