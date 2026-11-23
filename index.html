@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO027</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO028</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9090,8 +9090,238 @@ async function mdDevSavePass(){
   }, true);
 })();
 </script>
+<!-- ============================================================
+     MD2311MO028 — سائن اپ، MD ID، 3 دن ٹرائل، پیکج (مالک کا حکم، ہیلپ ڈیسک #368 — سبزی منڈی / AIO Direct جیسا)
+     • پہلی بار کھلنے پر سائن اپ: مدرسے کا نام، مہتمم / ذمہ دار، موبائل، ضلع → سرور (AIO worker /aioid، app MD) سے MD ID (مثلاً MD48213)
+     • ٹرائل 3 دن — سرور پر ID بننے کے وقت سے (اسی فون پر دوبارہ انسٹال = وہی ID، وہی ٹرائل)؛ پرانا مقامی ٹرائل پہلے کا ہو تو وہی
+     • پیکج: ایک موبائل 500 / مہینہ، 5,000 / سال؛ دو موبائل 1,000 / مہینہ، 10,000 / سال — مالک ہیلپ ڈیسک «✅ Activate package ← مدرسہ» سے لگاتا ہے
+     • یہ فون خود سرور سے پوچھتا ہے (/entclaim kind a) → پیکج لگتے ہی کھل جاتا ہے + 🎉؛ کوئی کوڈ نہیں۔ پرانا کوڈ (jamia_act_v4) والا فون ویسا ہی
+     کلید: localStorage jamia_mdid_v1 = {id, dev, at, mad, per, mob, dist, pend}
+     ============================================================ -->
+<style id="jma028css">
+#md28su,#md28pk,#md28ce{position:fixed;inset:0;z-index:100000;background:rgba(2,44,34,.88);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:16px 12px;direction:rtl}
+#md28su .bx,#md28pk .bx,#md28ce .bx{background:#fff;border-radius:20px;max-width:440px;width:100%;margin:auto;padding:16px 14px 14px;box-shadow:0 14px 44px rgba(0,0,0,.45);font-family:var(--font-nastaliq,'Jameel Noori Nastaleeq'),serif}
+#md28su h3,#md28pk h3{margin:0 0 4px;text-align:center;font-family:var(--font-kasheeda,'Jameel Noori Nastaleeq Kasheeda'),serif;font-size:24px;font-weight:400;color:#065f46;line-height:1.7}
+#md28su .sub{text-align:center;font-size:14px;color:#475569;line-height:1.9;margin-bottom:8px}
+#md28su label{display:block;font-size:15px;color:#0f172a;margin:6px 0 2px}
+#md28su input{width:100%;box-sizing:border-box;border:1.5px solid #94a3b8;border-radius:12px;padding:8px 10px;font:inherit;font-size:17px;line-height:1.7;background:#fff}
+#md28su input.ltr{direction:ltr;text-align:right;font-family:Arial,sans-serif;font-size:17px}
+#md28su .go,#md28pk .go{display:block;width:100%;margin-top:12px;border:0;border-radius:14px;background:linear-gradient(180deg,#059669,#065f46);color:#fff;font:inherit;font-size:18px;padding:10px;line-height:1.6;box-shadow:0 4px 12px rgba(6,95,70,.35)}
+#md28su .er{color:#b91c1c;font-size:14px;min-height:22px;text-align:center;margin-top:6px}
+#md28su .gift{background:#ecfdf5;border:1.5px dashed #10b981;border-radius:12px;padding:6px 10px;text-align:center;font-size:15px;color:#065f46;margin:4px 0 6px}
+.md28id{background:linear-gradient(135deg,#ecfdf5,#f0fdf4);border:2px solid #059669;border-radius:14px;padding:8px 10px;margin:8px 0;text-align:center}
+.md28id .t{font-size:14px;color:#065f46}
+.md28id .v{font:900 26px/1.3 Arial,sans-serif;letter-spacing:3px;direction:ltr;color:#047857}
+.md28id .s{font-size:14px;line-height:1.9;color:#334155}
+.md28id .s.ok{color:#15803d}.md28id .s.bad{color:#b91c1c}.md28id .s.tr{color:#0369a1}
+.md28id .r{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.md28id .r button{border:1.5px solid #059669;background:#fff;color:#065f46;border-radius:10px;padding:4px 12px;font:inherit;font-size:14px;line-height:1.7}
+.md28id .r button.p{background:#059669;color:#fff}
+#md28pk .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+#md28pk .pk{position:relative;border:2px solid #cbd5e1;border-radius:16px;padding:8px 6px 10px;text-align:center;background:linear-gradient(180deg,#fff,#f8fafc);box-shadow:0 3px 0 #cbd5e1;cursor:pointer;line-height:1.7}
+#md28pk .pk.on{border-color:#059669;box-shadow:0 3px 0 #059669;background:linear-gradient(180deg,#ecfdf5,#d1fae5)}
+#md28pk .pk .nm{font-size:15px;color:#0f172a}
+#md28pk .pk .pr{font:900 24px/1.2 Arial,sans-serif;color:#047857;direction:ltr}
+#md28pk .pk .pr small{font-size:13px;font-weight:700;color:#475569}
+#md28pk .pk .du{font-size:14px;color:#334155}
+#md28pk .pk .tg{position:absolute;top:-10px;left:8px;background:#f59e0b;color:#fff;border-radius:999px;font-size:11.5px;padding:0 8px;line-height:1.8}
+#md28pk .hd2{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:15.5px;color:#065f46}
+#md28pk .hd2::after{content:'';flex:1;border-top:1.5px dashed #a7f3d0}
+#md28pk .nt{font-size:13px;color:#64748b;line-height:1.9;margin-top:4px;text-align:center}
+#md28pk .x{float:left;border:0;background:#e2e8f0;border-radius:50%;width:34px;height:34px;font:900 16px Arial}
+#md28pk .sel{margin-top:10px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:8px 10px;font-size:15px;line-height:1.9;display:none}
+#md28pk .sel.on{display:block}
+#md28ce .bx{text-align:center}
+#md28ce .big{font-size:54px;line-height:1.2}
+#md28ce b.h{display:block;font-family:var(--font-kasheeda,'Jameel Noori Nastaleeq Kasheeda'),serif;font-weight:400;font-size:25px;color:#047857;margin:4px 0 8px}
+.home-btn.home-btn-pkg{background:linear-gradient(180deg,#f59e0b,#b45309) !important;color:#fff !important}
+@media (max-width:360px){ #md28pk .pk .pr{font-size:21px} }
+</style>
+<script id="jma028">
+(function(){
+  'use strict';
+  var W = 'https://aio-pos-verify.pbtcodelabs.workers.dev', K = 'jamia_mdid_v1', TD = 3;
+  var PK = [ { id: 'md-1-1m', dev: 1, nm: 'ایک موبائل', du: '1 مہینہ', pr: 500 }, { id: 'md-1-1y', dev: 1, nm: 'ایک موبائل', du: '1 سال', pr: 5000, tag: '2 مہینے مفت' },
+             { id: 'md-2-1m', dev: 2, nm: 'دو موبائل', du: '1 مہینہ', pr: 1000 }, { id: 'md-2-1y', dev: 2, nm: 'دو موبائل', du: '1 سال', pr: 10000, tag: '2 مہینے مفت' } ];
+  function E(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function $(i){ return document.getElementById(i); }
+  function me(){ try{ return JSON.parse(localStorage.getItem(K) || 'null') || {}; }catch(e){ return {}; } }
+  function save(m){ try{ localStorage.setItem(K, JSON.stringify(m)); }catch(e){} }
+  function jget(k){ try{ return JSON.parse(localStorage.getItem(k) || 'null'); }catch(e){ return null; } }
+  function fm(n){ return Number(n).toLocaleString('en-US'); }
+  function dmy(t){ var d = new Date(t); return d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear(); }
+  function en(v){ return String(v || '').replace(/[۰-۹]/g, function(d){ return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d); }).replace(/[٠-٩]/g, function(d){ return '٠١٢٣٤٥٦٧٨٩'.indexOf(d); }); }
+  function devUnl(){ try{ return localStorage.getItem('mdDevPermUnlock') === '1'; }catch(e){ return false; } }
+  function oldAct(){ var a = jget(ACT_K); return !!(a && a.expiry && Date.now() < a.expiry && !a.md); }   /* پرانے کوڈ سے چالو فون */
+  /* فون کی پہچان (سبزی منڈی جیسی) — اسی فون پر دوبارہ انسٹال ہو تو وہی ID اور وہی ٹرائل */
+  function fpv(){ try{ var f = [String(navigator.userAgent || '').replace(/\d+/g, ''), Math.min(screen.width, screen.height), Math.max(screen.width, screen.height), navigator.hardwareConcurrency || 2, new Date().getTimezoneOffset(), navigator.language || '', navigator.platform || ''].join('|');
+    var h1 = 5381, h2 = 52711; for(var i = 0; i < f.length; i++){ var c = f.charCodeAt(i); h1 = (h1 * 33) ^ c; h2 = (h2 * 31 + c) | 0; } return (h1 >>> 0).toString(36) + (h2 >>> 0).toString(36); }catch(e){ return ''; } }
+  function devKey(mob){ var m = me(); if(m.dev) return m.dev; var f = fpv() || Math.random().toString(36).slice(2, 12), h = 0, k = f + '|' + String(mob).slice(-10); for(var i = 0; i < k.length; i++){ h = ((h << 5) - h + k.charCodeAt(i)) | 0; } m.dev = 'M' + f + (h >>> 0).toString(36); save(m); return m.dev; }
+  function post(path, body){ return fetch(W + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).then(function(r){ return r.json(); }); }
+  /* ٹرائل: سرور کا وقت یا پہلے کا مقامی — جو پہلے ہو (نئی ID سے نیا ٹرائل نہیں) */
+  function setTrial(at){ if(!at) return; var t = jget(TRIAL_K); var st = t && t.start ? Math.min(t.start, at) : at; if(!t || t.start !== st){ try{ localStorage.setItem(TRIAL_K, JSON.stringify({ start: st })); }catch(e){} } }
+  function trialLeft(){ var t = jget(TRIAL_K); if(!t || !t.start) return null; return Math.ceil((t.start + TD * 864e5 - Date.now()) / 864e5); }
+  function pkgAct(){ var a = jget(ACT_K); return a && a.md && a.expiry > Date.now() ? a : null; }
 
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO027" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+  var regBusy = false;
+  function reg(){
+    var m = me(); if(m.id || regBusy || !m.pend || navigator.onLine === false) return Promise.resolve();
+    regBusy = true;
+    var name = (m.mad + ' — ' + m.per + (m.dist ? ' (' + m.dist + ')' : '')).slice(0, 60);
+    return post('/aioid', { op: 'reg', app: 'MD', dev: devKey(m.mob), fp: fpv(), name: name, mobile: m.mob, gmail: '' }).then(function(r){
+      if(r && r.ok && r.id){ var m2 = me(); m2.id = r.id; m2.at = r.at || Date.now(); delete m2.pend; save(m2); if(!pkgAct()) setTrial(m2.at); paint(); check(true); }
+    }).catch(function(){}).then(function(){ regBusy = false; });
+  }
+
+  /* ———— سائن اپ ———— */
+  function signup(){
+    if($('md28su')) return;
+    var m = me(), o = document.createElement('div'); o.id = 'md28su';
+    var mad = m.mad || (window.jmaMadName && jmaMadName()) || '';
+    o.innerHTML = '<div class="bx"><h3>🕌 مدرسہ سافٹ ویئر — سائن اپ</h3><div class="sub">اپنی بنیادی معلومات لکھیں — آپ کی <b>MD ID</b> بن جائے گی</div>'
+      + '<div class="gift">🎁 سائن اپ کرتے ہی <b>3 دن</b> مفت</div>'
+      + '<label>🕌 مدرسے / جامعہ کا نام</label><input id="md28m" maxlength="40" value="' + E(mad) + '" placeholder="مثلاً جامعہ فاروقیہ">'
+      + '<label>👤 مہتمم / ذمہ دار کا نام</label><input id="md28p" maxlength="30" value="' + E(m.per || '') + '" placeholder="مثلاً مولانا محمد احمد">'
+      + '<label>📱 موبائل نمبر</label><input id="md28n" class="ltr" inputmode="numeric" maxlength="13" value="' + E(m.mob || '') + '" placeholder="03001234567">'
+      + '<label>📍 ضلع / شہر</label><input id="md28d" maxlength="25" value="' + E(m.dist || '') + '" placeholder="مثلاً لاہور">'
+      + '<div class="er" id="md28e"></div><button type="button" class="go" id="md28go">✅ سائن اپ کریں</button></div>';
+    document.body.appendChild(o);
+    $('md28go').onclick = function(){
+      var v = function(i){ return String(($(i) || {}).value || '').trim(); };
+      var mob = en(v('md28n')).replace(/\D/g, ''); if(mob.indexOf('92') === 0) mob = '0' + mob.slice(2);
+      var er = $('md28e');
+      if(v('md28m').length < 3){ er.textContent = 'مدرسے کا نام لکھیں'; return; }
+      if(v('md28p').length < 3){ er.textContent = 'مہتمم / ذمہ دار کا نام لکھیں'; return; }
+      if(!/^03\d{9}$/.test(mob)){ er.textContent = 'موبائل نمبر درست لکھیں (03001234567)'; return; }
+      if(v('md28d').length < 2){ er.textContent = 'ضلع / شہر لکھیں'; return; }
+      var m2 = me(); m2.mad = v('md28m'); m2.per = v('md28p'); m2.mob = mob; m2.dist = v('md28d'); m2.pend = 1; m2.sAt = m2.sAt || Date.now(); save(m2);
+      var b = $('md28go'); b.disabled = true; b.textContent = '⏳ ID بن رہی ہے…';
+      if(navigator.onLine === false){ done(false); return; }
+      var tm = setTimeout(function(){ done(false); }, 12000);
+      reg().then(function(){ clearTimeout(tm); done(!!me().id); });
+    };
+    function done(ok){
+      if(!$('md28su')) return;
+      var m3 = me(); if(!m3.id && !pkgAct() && !oldAct()) setTrial(m3.sAt || Date.now());   /* انٹرنیٹ نہ ہو تو بھی ٹرائل — ID انٹرنیٹ آتے ہی */
+      o.remove(); after();
+      try{ if(typeof showToast === 'function') showToast(ok ? '✅ آپ کی MD ID: ' + m3.id + ' — 3 دن مفت' : '📶 انٹرنیٹ نہیں — ٹرائل شروع، ID انٹرنیٹ آتے ہی خود بنے گی'); else alert(ok ? '✅ آپ کی MD ID: ' + m3.id : '📶 انٹرنیٹ آتے ہی ID خود بنے گی'); }catch(e){}
+    }
+  }
+  /* سائن اپ / ٹرائل کے بعد پرانے تالے کو دوبارہ فیصلہ کرنے دیں */
+  function after(){ try{ var st = checkExpiry(), lk = $('lockScreen'), on = !!(lk && lk.style.display === 'flex');
+      if(st === 'trial_expired' && !on) initLock(); else if(st !== 'trial_expired' && on) unlockApp(); }catch(e){} paint(); }
+  /* «شروع» کی تاریخ پیکج لگنے کے دن سے (پرانا حساب ایک سال پیچھے سے گنتا تھا) */
+  try{ var u0 = window.updateSubInfo; if(typeof u0 === 'function') window.updateSubInfo = updateSubInfo = function(){ var x = u0.apply(this, arguments); try{ var a = pkgAct(), el = $('subStartLine'); if(a && a.at && el) el.textContent = '🟢 شروع: ' + dmy(a.at); }catch(e){} return x; }; }catch(e){}
+
+  /* ———— ID کارڈ (تالے اور پیکج کارڈ میں) ———— */
+  function stHTML(){
+    var a = pkgAct(); if(a) return a.life ? '<div class="s ok">✅ پیکج: ' + E(a.pkg || '') + ' — ♾️ لائف ٹائم</div>' : '<div class="s ok">✅ پیکج' + (a.pkg ? ': ' + E(a.pkg) : '') + ' — ' + Math.ceil((a.expiry - Date.now()) / 864e5) + ' دن باقی (' + dmy(a.expiry) + ' تک)</div>';
+    if(oldAct()) return '<div class="s ok">✅ سافٹ ویئر چالو ہے (ایکٹیویشن کوڈ)</div>';
+    var l = trialLeft(); if(l == null) return '';
+    return l > 0 ? '<div class="s tr">🎁 مفت ٹرائل — ' + l + ' دن باقی</div>' : '<div class="s bad">⛔ مفت ٹرائل ختم — پیکج لگوائیں، ایپ خود کھل جائے گی</div>';
+  }
+  function idCard(withPkg){
+    var m = me(); if(!m.id && !m.pend) return '';
+    return '<div class="md28id"><div class="t">🆔 آپ کی MD ID</div><div class="v">' + E(m.id || '⏳') + '</div>' + (m.id ? '' : '<div class="s">📶 انٹرنیٹ آتے ہی ID بنے گی</div>') + stHTML()
+      + '<div class="s" style="font-size:13px">پیکج اسی ID پر لگتا ہے — یہ فون خود چالو ہو جاتا ہے، کوئی کوڈ نہیں</div>'
+      + '<div class="r">' + (withPkg ? '<button type="button" class="p" data-md28="pk">📦 پیکج دیکھیں</button>' : '') + (m.id ? '<button type="button" data-md28="cp">📋 کاپی</button>' : '') + '<button type="button" data-md28="rf">🔄 تازہ کریں</button></div></div>';
+  }
+  function paint(){
+    try{
+      var lc = document.querySelector('#lockScreen .lock-card');
+      if(lc){ var c = $('md28lock'); if(!c){ c = document.createElement('div'); c.id = 'md28lock'; var tb = $('trialBadge'); if(tb && tb.parentNode === lc) tb.insertAdjacentElement('afterend', c); else lc.insertBefore(c, lc.firstChild); }
+        var h = idCard(true); if(c.innerHTML !== h) c.innerHTML = h; }
+      var tbtn = $('trialBtn'); if(tbtn && (me().id || me().pend)) tbtn.style.display = 'none';   /* ٹرائل اب سائن اپ سے */
+      var hb = document.querySelector('#homeScreen .home-btns');
+      if(hb && !$('md28home')){ var b = document.createElement('button'); b.id = 'md28home'; b.className = 'home-btn home-btn-pkg'; b.textContent = '📦 پیکج و سبسکرپشن'; b.onclick = openPkg; hb.appendChild(b); }
+      var pk = $('md28pkid'); if(pk){ var h2 = idCard(false); if(pk.innerHTML !== h2) pk.innerHTML = h2; }
+    }catch(e){}
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('[data-md28]'); if(!b) return;
+    var k = b.getAttribute('data-md28');
+    if(k === 'pk') openPkg();
+    else if(k === 'cp'){ var id = me().id || ''; try{ navigator.clipboard.writeText(id).then(function(){ b.textContent = '✅ کاپی'; }, function(){ prompt('MD ID', id); }); }catch(x){ prompt('MD ID', id); } }
+    else if(k === 'rf'){ b.disabled = true; b.textContent = '⏳'; last = 0; (me().id ? check(true) : reg()).then(function(){ b.disabled = false; b.textContent = '🔄 تازہ کریں'; paint(); }); }
+  });
+
+  /* ———— پیکج کا کارڈ ———— */
+  function openPkg(){
+    var o = $('md28pk'); if(o) o.remove();
+    o = document.createElement('div'); o.id = 'md28pk';
+    var tile = function(p){ return '<div class="pk" data-pk="' + p.id + '">' + (p.tag ? '<span class="tg">' + p.tag + '</span>' : '') + '<div class="nm">' + (p.dev > 1 ? '📱📱 ' : '📱 ') + p.nm + '</div><div class="pr">' + fm(p.pr) + ' <small>روپے</small></div><div class="du">' + p.du + '</div></div>'; };
+    o.innerHTML = '<div class="bx"><button type="button" class="x" id="md28x">✕</button><h3>📦 پیکج و سبسکرپشن</h3><div id="md28pkid"></div>'
+      + '<div class="hd2">📱 ایک موبائل</div><div class="grid">' + tile(PK[0]) + tile(PK[1]) + '</div>'
+      + '<div class="hd2">📱📱 دو موبائل <small style="font-size:13px;color:#475569">(منتظم + استاد، والدین کا لنک شامل)</small></div><div class="grid">' + tile(PK[2]) + tile(PK[3]) + '</div>'
+      + '<div class="nt">دو موبائل پر ایک ہی ڈیٹا اور والدین کا آن لائن لنک — آن لائن نظام کے ساتھ چالو ہوگا</div>'
+      + '<div class="sel" id="md28sel"></div>'
+      + '<button type="button" class="go" id="md28req">💬 پیکج کے لیے رابطہ (ہیلپ ڈیسک)</button>'
+      + '<div class="nt">پیکج لگتے ہی یہ فون خود چالو ہو جائے گا — کوئی کوڈ نہیں۔ آپ کی MD ID ہمارے پاس خود پہنچ چکی ہے۔</div></div>';
+    document.body.appendChild(o); paint();
+    var sel = '';
+    $('md28x').onclick = function(){ o.remove(); };
+    o.addEventListener('click', function(e){ if(e.target === o) o.remove(); var t = e.target.closest && e.target.closest('[data-pk]'); if(!t) return;
+      sel = t.getAttribute('data-pk'); o.querySelectorAll('.pk').forEach(function(x){ x.classList.toggle('on', x === t); });
+      var p = PK.filter(function(x){ return x.id === sel; })[0], s = $('md28sel'); s.classList.add('on');
+      s.innerHTML = '✔️ چنا ہوا: <b>' + p.nm + ' — ' + p.du + '</b> · <b style="font-family:Arial">' + fm(p.pr) + '</b> روپے<br><small>نیچے بٹن دبا کر بتائیں — ادائیگی کی تفصیل وہیں سے</small>'; });
+    $('md28req').onclick = function(){
+      var m = me(), p = PK.filter(function(x){ return x.id === sel; })[0];
+      var txt = '📦 مدرسہ سافٹ ویئر — پیکج چاہیے' + (p ? ': ' + p.nm + ' — ' + p.du + ' (' + fm(p.pr) + ' روپے)' : '') + '\n🆔 MD ID: ' + (m.id || '—') + '\n🕌 ' + (m.mad || '') + (m.per ? ' — ' + m.per : '') + (m.dist ? ' (' + m.dist + ')' : '');
+      try{ if(window.PBTHelp && PBTHelp.open){ PBTHelp.open({ app: 'Hifz-progress', ver: (($('homeVersionBadge') || {}).textContent || ''), phone: m.mob || '', name: m.per || m.mad || '', text: txt }); return; } }catch(e){}
+      try{ if(typeof openHelpDesk === 'function') openHelpDesk(); }catch(e){}
+    };
+  }
+  window.mdPkgOpen = openPkg;
+
+  /* ———— پیکج لگا؟ (سرور سے) ———— */
+  var last = 0, busy = false;
+  function celebrate(a){
+    var o0 = $('md28ce'); if(o0) o0.remove();
+    var o = document.createElement('div'); o.id = 'md28ce';
+    o.innerHTML = '<div class="bx"><div class="big">🎉</div><b class="h">مبارک ہو! آپ کا پیکج چالو ہو گیا</b><div style="font-size:17px;line-height:2.1;color:#334155">📦 ' + E(a.pkg || 'پیکج') + '<br>' + (a.life ? '♾️ لائف ٹائم' : '⏳ <b style="font-family:Arial">' + Math.ceil((a.expiry - Date.now()) / 864e5) + '</b> دن — <b style="font-family:Arial">' + dmy(a.expiry) + '</b> تک') + '<br>🆔 MD ID: <b style="font-family:Arial">' + E(me().id) + '</b></div><button type="button" class="go" style="border:0;border-radius:999px;background:#059669;color:#fff;font:inherit;font-size:18px;padding:8px 34px;margin-top:12px">جزاک اللہ ✅</button></div>';
+    o.querySelector('button').onclick = function(){ o.remove(); };
+    document.body.appendChild(o);
+  }
+  function check(force){
+    var m = me(); if(!m.id || !m.dev || busy || navigator.onLine === false) return Promise.resolve();
+    if(!force && Date.now() - last < 10 * 60e3) return Promise.resolve();
+    busy = true; last = Date.now();
+    return post('/entclaim', { app: 'MD', kind: 'a', aio: m.id, adev: m.dev, dev: m.dev }).then(function(r){
+      var old = jget(ACT_K);
+      if(r && r.ok && r.active){
+        var exp = r.life ? Date.now() + 100 * 365 * 864e5 : +r.exp;
+        if(!old || !old.md || Math.abs((old.expiry || 0) - exp) > 60e3 || !!old.life !== !!r.life){
+          var a = { expiry: exp, uid: (function(){ try{ return _getUid(); }catch(e){ return ''; } })(), md: m.id, devices: r.devices || 1, life: !!r.life, at: (old && old.md && old.at) || Date.now() };
+          a.pkg = (r.devices || 1) > 1 ? 'دو موبائل' : 'ایک موبائل';
+          try{ localStorage.setItem(ACT_K, JSON.stringify(a)); }catch(e){}
+          var lockOn = ($('lockScreen') || {}).style && $('lockScreen').style.display === 'flex';
+          if(lockOn){ try{ $('lockMsg').textContent = ''; unlockApp(); }catch(e){} }
+          try{ updateSubInfo(); }catch(e){}
+          celebrate(a);
+        }
+      } else if(r && r.ok === false && r.reason === 'revoked' && old && old.md){   /* ہیلپ ڈیسک سے معطل */
+        old.expiry = Date.now() - 1000; try{ localStorage.setItem(ACT_K, JSON.stringify(old)); }catch(e){} setTrial(m.at || Date.now() - TD * 864e5); after();
+      }
+    }).catch(function(){}).then(function(){ busy = false; paint(); });
+  }
+  window.mdIdCheck = check; window.mdIdMe = me;
+
+  /* ———— شروع ———— */
+  function boot(){
+    var m = me();
+    if(m.at && !pkgAct() && !jget(TRIAL_K)) setTrial(m.at);   /* پیکج ختم ہو تو ٹرائل کا نشان واپس — ورنہ پرانا تالا «none» پر کھول دیتا */
+    var a = jget(ACT_K); if(a && a.md && a.expiry <= Date.now() && !jget(TRIAL_K)) setTrial(m.at || Date.now() - TD * 864e5);
+    if(!m.id && !m.pend && !devUnl() && !oldAct() && !pkgAct()) signup();
+    after(); reg(); check(true);
+  }
+  setTimeout(boot, 1200);
+  setInterval(function(){ reg(); check(false); paint(); }, 30e3);
+  document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'visible'){ reg(); check(false); } });
+  window.addEventListener('online', function(){ reg(); check(true); });
+})();
+</script>
+
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO028" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
