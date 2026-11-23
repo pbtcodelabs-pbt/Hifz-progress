@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO049</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO050</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9641,7 +9641,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO049" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO050" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10459,6 +10459,26 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
       .observe(document.body, { childList: true, subtree: true });
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+<!-- MD2311MO050 (مالک کا حکم): فیس و حساب، اعلانات، صارفین و حفاظت — فی الحال بند (کوڈ اور ڈیٹا ویسے؛ نہ بٹن، نہ کوئی راستہ)۔
+     دوبارہ چالو: نیچے JMA_OFF میں سے نام ہٹا دیں۔ دو موبائل کا جوڑ (#jma039) ان سے الگ ہے — اس پر کوئی اثر نہیں۔ -->
+<style id="jma050css">
+body.jm50-fee .jm13-tiles [data-d="fee"],body.jm50-fee [data-fee-open]{display:none!important}
+body.jm50-ann .jm13-tiles [data-d="ann"],body.jm50-ann .jm13-ann[data-d="ann"]{display:none!important}
+body.jm50-mgr .jm13-tiles [data-d="mgr"],body.jm50-mgr #jmaHomeBar button[onclick^="jmaMgrOpen"]{display:none!important}
+</style>
+<script id="jma050">
+(function(){
+  'use strict';
+  var OFF = window.JMA_OFF = window.JMA_OFF || { fee: 1, ann: 1, mgr: 1 };
+  function apply(){ ['fee', 'ann', 'mgr'].forEach(function(k){ document.body.classList.toggle('jm50-' + k, !!OFF[k]); }); }
+  function wrap(name, key, ret){ var f = window[name]; if(typeof f !== 'function' || f._jm50) return; var w = function(){ if(OFF[key]) return ret; return f.apply(this, arguments); }; w._jm50 = 1; window[name] = w; }
+  function run(){ apply(); wrap('jmaFeeOpen', 'fee'); wrap('jmaProFee', 'fee', ''); wrap('jmaMgrOpen', 'mgr');
+    if(OFF.ann){ var a = document.getElementById('jmaAnn'); if(a && a.style.display === 'block') a.style.display = 'none'; }
+    if(OFF.fee){ var f = document.getElementById('jmaFee'); if(f && f.style.display === 'block') f.style.display = 'none'; }
+    if(OFF.mgr){ var m = document.getElementById('jmaMgr'); if(m && m.style.display === 'block' && !document.querySelector('#jmaMgr [data-me-only]')) {} } }
+  if(document.body) run(); document.addEventListener('DOMContentLoaded', run); setInterval(run, 1500);
 })();
 </script>
 </body></html>
