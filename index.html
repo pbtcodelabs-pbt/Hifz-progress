@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO032</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO033</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9444,7 +9444,108 @@ async function mdDevSavePass(){
   document.addEventListener('visibilitychange', paint);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO032" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<!-- ============================================================
+     MD2311MO033 — داخلے کی تصویر (مالک کا حکم): 📷 کیمرہ / 🤳 سیلفی / 🖼️ گیلری + سنوارنے کا آلہ —
+     گول فریم، انگلی سے کھسکائیں، دو انگلیوں یا سلائیڈر سے زوم، روشنی، کنٹراسٹ، گھمائیں؛ 320×320 jpeg (F.photo — پرانا ڈھانچہ ویسا)
+     ============================================================ -->
+<style id="jma033css">
+#jm33c,#jm33e{position:fixed;inset:0;z-index:2147483100;background:rgba(2,44,34,.9);display:flex;align-items:center;justify-content:center;padding:14px;direction:rtl}
+#jm33c .bx,#jm33e .bx{background:#fff;border-radius:20px;max-width:420px;width:100%;padding:14px;font-family:var(--font-nastaliq,serif);box-shadow:0 12px 40px rgba(0,0,0,.45)}
+#jm33c h3,#jm33e h3{margin:0 0 8px;text-align:center;font-family:var(--font-kasheeda,serif);font-weight:400;color:#065f46;font-size:22px}
+#jm33c .b3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+#jm33c .b3 button{border:2px solid #0f766e;background:#ecfdf5;color:#065f46;border-radius:14px;padding:12px 4px;font:inherit;font-size:16px;line-height:1.6}
+#jm33c .b3 button i{display:block;font-style:normal;font-size:30px;line-height:1.2}
+#jm33c .x,#jm33e .x{display:block;width:100%;margin-top:10px;border:1.5px solid #94a3b8;background:#fff;border-radius:12px;padding:7px;font:inherit;font-size:16px}
+#jm33e .cv{position:relative;width:280px;height:280px;margin:0 auto;touch-action:none;border-radius:16px;overflow:hidden;background:#0f172a}
+#jm33e canvas{display:block;width:280px;height:280px}
+#jm33e .ring{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at center,transparent 128px,rgba(15,23,42,.62) 129px);}
+#jm33e .ring::after{content:'';position:absolute;left:12px;top:12px;width:256px;height:256px;border-radius:50%;border:3px solid #d4af37;box-sizing:border-box}
+#jm33e .r{display:flex;align-items:center;gap:6px;margin-top:6px}
+#jm33e .r>span{min-width:58px;font-size:14px;color:#334155}
+#jm33e .r input{flex:1;accent-color:#0f766e;direction:ltr}
+#jm33e .r button{width:34px;height:34px;border-radius:10px;border:1.5px solid #0f766e;background:#ecfdf5;color:#0f766e;font:900 18px Arial;padding:0;flex:none}
+#jm33e .row{display:flex;gap:6px;margin-top:10px}
+#jm33e .row button{flex:1;border:1.5px solid #0f766e;background:#fff;color:#0f766e;border-radius:12px;padding:8px 4px;font:inherit;font-size:15px}
+#jm33e .row .ok{flex:2;background:linear-gradient(180deg,#059669,#065f46);color:#fff;border:0;font-size:17px}
+#jm33e .tip{text-align:center;font-size:13px;color:#64748b;margin-top:4px}
+</style>
+<script id="jma033">
+(function(){
+  'use strict';
+  function $(i){ return document.getElementById(i); }
+  /* تصویر لینے کا انتخاب */
+  function choose(cb){
+    var o = $('jm33c'); if(o) o.remove(); o = document.createElement('div'); o.id = 'jm33c';
+    o.innerHTML = '<div class="bx"><h3>📷 طالب علم کی تصویر</h3><div class="b3"><button type="button" data-c="env"><i>📷</i>کیمرہ</button><button type="button" data-c="user"><i>🤳</i>سیلفی</button><button type="button" data-c="gal"><i>🖼️</i>گیلری</button></div><button type="button" class="x" data-c="x">✕ واپس</button></div>';
+    document.body.appendChild(o);
+    o.onclick = function(e){ var b = e.target.closest('[data-c]'); if(!b && e.target !== o) return; var k = b ? b.getAttribute('data-c') : 'x'; if(k === 'x'){ o.remove(); return; }
+      var inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*'; if(k !== 'gal') inp.setAttribute('capture', k === 'user' ? 'user' : 'environment');
+      inp.style.display = 'none'; document.body.appendChild(inp);
+      inp.onchange = function(){ var f = inp.files && inp.files[0]; inp.remove(); if(f){ o.remove(); edit(f, cb); } };
+      inp.click(); };
+  }
+  /* سنوارنے کا آلہ */
+  function edit(file, cb){
+    var url = URL.createObjectURL(file), img = new Image();
+    img.onload = function(){
+      var o = $('jm33e'); if(o) o.remove(); o = document.createElement('div'); o.id = 'jm33e';
+      o.innerHTML = '<div class="bx"><h3>✂️ تصویر سنواریں</h3><div class="cv"><canvas width="560" height="560"></canvas><div class="ring"></div></div><div class="tip">انگلی سے کھسکائیں · دو انگلیوں سے بڑا / چھوٹا کریں</div>'
+        + '<div class="r"><span>🔍 زوم</span><button type="button" data-z="-">−</button><input type="range" id="jm33z" min="100" max="400" value="100"><button type="button" data-z="+">+</button></div>'
+        + '<div class="r"><span>☀️ روشنی</span><input type="range" id="jm33b" min="50" max="170" value="100"></div>'
+        + '<div class="r"><span>🌓 کنٹراسٹ</span><input type="range" id="jm33k" min="50" max="170" value="100"></div>'
+        + '<div class="row"><button type="button" data-e="rot">⟳ گھمائیں</button><button type="button" data-e="reset">↺ پہلے جیسا</button></div>'
+        + '<div class="row"><button type="button" data-e="x">✕ چھوڑیں</button><button type="button" class="ok" data-e="ok">✅ تصویر لگائیں</button></div></div>';
+      document.body.appendChild(o);
+      var cv = o.querySelector('canvas'), ctx = cv.getContext('2d'), S = 560, R = 256 * 2;   /* کینوس 2x؛ گول دائرہ 512 */
+      var st = { z: 1, x: 0, y: 0, rot: 0, b: 100, k: 100 };
+      function base(){ var w = st.rot % 180 ? img.height : img.width, h = st.rot % 180 ? img.width : img.height; return R / Math.min(w, h); }   /* کم از کم: دائرہ پورا بھرا */
+      function draw(c2, size, ring){
+        var sc = base() * st.z * (size / S); c2.save(); c2.fillStyle = '#fff'; c2.fillRect(0, 0, size, size);
+        try{ c2.filter = 'brightness(' + st.b + '%) contrast(' + st.k + '%)'; }catch(e){}
+        c2.translate(size / 2 + st.x * size / S, size / 2 + st.y * size / S); c2.rotate(st.rot * Math.PI / 180); c2.scale(sc, sc);
+        c2.drawImage(img, -img.width / 2, -img.height / 2); c2.restore();
+      }
+      function paint(){ draw(ctx, S); }
+      paint();
+      var Z = $('jm33z'), B = $('jm33b'), K = $('jm33k');
+      Z.oninput = function(){ st.z = Z.value / 100; paint(); }; B.oninput = function(){ st.b = +B.value; paint(); }; K.oninput = function(){ st.k = +K.value; paint(); };
+      /* انگلی / ماؤس: کھسکانا اور دو انگلیوں سے زوم */
+      var pts = {}, last = null, pinch = 0;
+      cv.addEventListener('pointerdown', function(e){ cv.setPointerCapture(e.pointerId); pts[e.pointerId] = { x: e.clientX, y: e.clientY }; last = null; pinch = 0; });
+      cv.addEventListener('pointermove', function(e){ if(!pts[e.pointerId]) return; var p0 = pts[e.pointerId]; var ids = Object.keys(pts);
+        if(ids.length === 1){ st.x += (e.clientX - p0.x) * (S / 280); st.y += (e.clientY - p0.y) * (S / 280); }
+        pts[e.pointerId] = { x: e.clientX, y: e.clientY };
+        if(ids.length >= 2){ var a = pts[ids[0]], c = pts[ids[1]], d = Math.hypot(a.x - c.x, a.y - c.y); if(pinch){ st.z = Math.max(1, Math.min(4, st.z * d / pinch)); Z.value = Math.round(st.z * 100); } pinch = d; }
+        paint(); });
+      ['pointerup', 'pointercancel', 'pointerleave'].forEach(function(t){ cv.addEventListener(t, function(e){ delete pts[e.pointerId]; pinch = 0; }); });
+      cv.addEventListener('wheel', function(e){ e.preventDefault(); st.z = Math.max(1, Math.min(4, st.z * (e.deltaY < 0 ? 1.08 : 0.92))); Z.value = Math.round(st.z * 100); paint(); }, { passive: false });
+      o.onclick = function(e){ var b = e.target.closest('[data-z],[data-e]'); if(!b) return;
+        if(b.hasAttribute('data-z')){ st.z = Math.max(1, Math.min(4, st.z + (b.getAttribute('data-z') === '+' ? 0.15 : -0.15))); Z.value = Math.round(st.z * 100); paint(); return; }
+        var k = b.getAttribute('data-e');
+        if(k === 'rot'){ st.rot = (st.rot + 90) % 360; paint(); }
+        else if(k === 'reset'){ st = { z: 1, x: 0, y: 0, rot: 0, b: 100, k: 100 }; Z.value = 100; B.value = 100; K.value = 100; paint(); }
+        else if(k === 'x'){ o.remove(); URL.revokeObjectURL(url); }
+        else if(k === 'ok'){
+          /* صرف گول دائرے والا حصہ — 320×320 */
+          var big = document.createElement('canvas'); big.width = S; big.height = S; draw(big.getContext('2d'), S);
+          var out = document.createElement('canvas'); out.width = 320; out.height = 320; var oc = out.getContext('2d'); oc.fillStyle = '#fff'; oc.fillRect(0, 0, 320, 320);
+          oc.drawImage(big, (S - R) / 2, (S - R) / 2, R, R, 0, 0, 320, 320);
+          o.remove(); URL.revokeObjectURL(url); cb(out.toDataURL('image/jpeg', 0.85));
+        } };
+    };
+    img.onerror = function(){ alert('یہ تصویر نہیں کھلی'); URL.revokeObjectURL(url); };
+    img.src = url;
+  }
+  window.jmaPhotoPick = choose;
+  /* داخلے کا «📷 تصویر لیں / چنیں» اب یہ (پرانا صرف گیلری والا نہیں) */
+  document.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('#jmaAdm [data-a="photo"]'); if(!b) return;
+    e.stopPropagation(); e.preventDefault();
+    choose(function(d){ try{ if(window.jmaAdmGrab) jmaAdmGrab(); var F = window.jmaAdmF && jmaAdmF(); if(F){ F.photo = d; if(window.jmaAdmRedraw) jmaAdmRedraw(); } }catch(x){} });
+  }, true);
+})();
+</script>
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO033" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
