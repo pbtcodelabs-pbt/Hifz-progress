@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO030</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO031</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9262,6 +9262,8 @@ async function mdDevSavePass(){
     $('md28x').onclick = function(){ o.remove(); };
     o.addEventListener('click', function(e){ if(e.target === o) o.remove(); var t = e.target.closest && e.target.closest('[data-pk]'); if(!t) return;
       sel = t.getAttribute('data-pk'); o.querySelectorAll('.pk').forEach(function(x){ x.classList.toggle('on', x === t); });
+      /* MD2311MO031 (مالک کا حکم): چنا ہوا پیکج سرور پر اسی MD ID کے ساتھ — ہیلپ ڈیسک کی فہرست میں «📩 گاہک نے مانگا» اور پہلے سے چنا */
+      try{ var mw = me(); if(mw.id && mw.dev){ post('/aioid', { op: 'want', id: mw.id, dev: mw.dev, pkg: sel }).then(function(r){ var s2 = $('md28sel'); if(r && r.ok && s2 && s2.innerHTML.indexOf('📩') < 0) s2.innerHTML += '<br><b style="color:#15803d">📩 آپ کا چنا ہوا پیکج ہمیں پہنچ گیا</b>'; }).catch(function(){}); } }catch(x){}
       var p = PK.filter(function(x){ return x.id === sel; })[0], s = $('md28sel'); s.classList.add('on');
       s.innerHTML = '✔️ چنا ہوا: <b>' + p.nm + ' — ' + p.du + '</b> · <b style="font-family:Arial">' + fm(p.pr) + '</b> روپے<br><small>نیچے بٹن دبا کر بتائیں — ادائیگی کی تفصیل وہیں سے</small>'; });
     $('md28req').onclick = function(){
@@ -9423,7 +9425,7 @@ async function mdDevSavePass(){
   document.addEventListener('visibilitychange', paint);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO030" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO031" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
