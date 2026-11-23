@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO024</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO025</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7191,7 +7191,7 @@ async function mdDevSavePass(){
   function can(what){
     if(!users().length) return true;              /* کوئی صارف نہیں بنا — پہلے جیسی کھلی ایپ */
     var u = cur(); if(!u) return false;
-    var R = { restore: ['admin'], users: ['admin'], backup: ['admin', 'mohtamim'], delete: ['admin', 'mohtamim'], classes: ['admin', 'mohtamim'], allClasses: ['admin', 'mohtamim', 'treasurer'] };
+    var R = { fees: ['admin', 'mohtamim', 'treasurer'], restore: ['admin'], users: ['admin'], backup: ['admin', 'mohtamim'], delete: ['admin', 'mohtamim'], classes: ['admin', 'mohtamim'], allClasses: ['admin', 'mohtamim', 'treasurer'] };
     return (R[what] || ['admin']).indexOf(u.role) > -1;
   }
   window.jmaCan = can; window.jmaUser = cur;
@@ -7555,7 +7555,7 @@ async function mdDevSavePass(){
       + '<div class="jm2-chips">' + allowed.map(function(c){ return '<button data-cl="' + E(c.id) + '" class="' + (c.id === curCls ? 'on' : '') + '">' + E(c.name) + (c.incharge ? ' · ' + E(c.incharge) : '') + '</button>'; }).join('')
         + (canAdmin() ? '<button data-a="cls" style="border-style:dashed">➕ جماعت</button><button data-a="clsed">✏️</button>' : '') + '</div>'
       + '<input class="jm2-in" id="jm2Q" type="search" placeholder="🔍 نام یا رول نمبر سے تلاش" value="' + E(q) + '">'
-      + '<button class="jm2-add" data-a="new">➕ نیا داخلہ</button>' + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><button class="jm5-att-btn" data-att-open="' + E(curCls) + '">🕌 حاضری — 6 اوقات</button><button class="jm5-att-btn" data-exm-open="' + E(curCls) + '" style="background:linear-gradient(135deg,#d97706,#b45309)">🎓 امتحانات</button></div>' + '<button class="jm5-att-btn" data-crep="' + E(curCls) + '" style="background:linear-gradient(135deg,#475569,#334155)">📄 جماعت کی ماہانہ رپورٹ</button>'
+      + '<button class="jm2-add" data-a="new">➕ نیا داخلہ</button>' + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><button class="jm5-att-btn" data-att-open="' + E(curCls) + '">🕌 حاضری — 6 اوقات</button><button class="jm5-att-btn" data-exm-open="' + E(curCls) + '" style="background:linear-gradient(135deg,#d97706,#b45309)">🎓 امتحانات</button></div>' + '<button class="jm5-att-btn" data-crep="' + E(curCls) + '" style="background:linear-gradient(135deg,#475569,#334155)">📄 جماعت کی ماہانہ رپورٹ</button>' + (window.jmaCan && !jmaCan('fees') ? '' : '<button class="jm5-att-btn" data-fee-open="1" style="background:linear-gradient(135deg,#15803d,#166534)">💰 فیس اور حساب</button>')
       + '<div style="font-size:14px;color:#475569;margin:6px 2px 0">کل: <span class="jm2-n">' + stuOf(curCls).length + '</span> طلبہ' + (qq ? ' · ملے: <span class="jm2-n">' + list.length + '</span>' : '') + '</div>'
       + (window.jmaLegend || '')
       + (list.length ? '<div class="jm2-grid">' + list.map(function(s){ var cb = window.jmaCardBits ? jmaCardBits(s.sid) : { cls: '', html: '' }; return '<div class="jm2-c' + cb.cls + '" data-p="' + E(s.sid) + '"><span class="rl">' + (s.roll ? E(s.roll) : '—') + '</span><div class="ph" style="' + photoBg(s.photo) + '">' + (s.photo ? '' : '👤') + '</div><div class="tx"><div class="nm">' + E(s.n) + '</div><div class="fa">' + (s.w ? 'ولد ' + E(s.w) : '&nbsp;') + '</div>' + cb.html + '</div></div>'; }).join('') + '</div>'
@@ -7688,14 +7688,15 @@ async function mdDevSavePass(){
     x += window.jmaProAtt ? jmaProAtt(s) : '';   /* MD2311MO020 */
     x += window.jmaProExams ? jmaProExams(s) : '';   /* MD2311MO021 */
     x += window.jmaProAkh ? jmaProAkh(s) : '';   /* MD2311MO022 */
-    x += window.jmaProAnalysis ? jmaProAnalysis(s) : '';   /* MD2311MO023 */   /* MD2311MO019: آج کا اندراج، غیر حاضر، پچھلے اندراج */
+    x += window.jmaProAnalysis ? jmaProAnalysis(s) : '';   /* MD2311MO023 */
+    x += window.jmaProFee ? jmaProFee(s) : '';   /* MD2311MO025 — صرف منتظم / مہتمم / خزانچی */   /* MD2311MO019: آج کا اندراج، غیر حاضر، پچھلے اندراج */
     x += '<div class="jm2-card"><h4>📖 حفظ کی ترقی</h4><dl class="jm2-kv"><dt>پہلے سے یاد (داخلے پر)</dt><dd>مکمل پارے: <span class="jm2-n">' + full + '</span> · جزوی: <span class="jm2-n">' + part + '</span></dd>'
       + '</dl>'
       + (full + part ? '<div class="jm2-paras" style="margin-top:8px">' + Array.from({ length: 30 }, function(_, i){ var st = (s.bParas || {})[i + 1] || ''; return '<button type="button" disabled class="' + st + '" style="height:32px;font-size:13px;cursor:default">' + (i + 1) + '</button>'; }).join('') + '</div>' : '')
       + '<div class="jm2-soon">🛠️ پارہ وار لائنیں / رکوع / پاؤ اور دوہری گنتی سے پاک خودکار حساب — <b>مرحلہ 6</b> میں (مدرسے کے مصحف کا نقشہ ملنے کے بعد)</div></div>';
     x += '<div class="jm2-card"><h4>🎓 ابتدائی تعلیمی ریکارڈ</h4><dl class="jm2-kv"><dt>سورتیں</dt><dd>' + E(s.surahs || '—') + '</dd><dt>ناظرہ</dt><dd>' + E(s.nazra || '—') + '</dd><dt>نورانی قاعدہ</dt><dd>' + E(s.qaida || '—') + '</dd><dt>دیگر</dt><dd>' + E(s.notes || '—') + '</dd></dl></div>';
     x += '<div class="jm2-card"><h4>🗂️ تعلیمی تاریخ</h4>' + (Array.isArray(s.adm) && s.adm.length ? s.adm.map(function(a){ return '<div style="font-size:15px;line-height:1.95">• <span class="jm2-n">' + fmtD(a.date) + '</span> — ' + E(a.note || 'داخلہ') + ' — ' + E(clsName(a.classId)) + (a.roll ? ' · رول <span class="jm2-n">' + E(a.roll) + '</span>' : '') + '</div>'; }).join('') : '<div style="font-size:15px;color:#64748b">پرانا طالب علم — داخلے کی تاریخ درج نہیں۔ «✏️ معلومات بدلیں» سے مکمل کریں۔</div>') + '</div>';
-    x += '<div class="jm2-card"><h4>⏳ اگلے مراحل میں اسی پروفائل میں</h4><div class="jm2-soon" style="margin:0">💰 فیس (مرحلہ 12)</div></div>';
+    x += '<div class="jm2-card"><h4>⏳ اگلے مراحل میں اسی پروفائل میں</h4><div class="jm2-soon" style="margin:0">📖 پارہ وار حفظ کا حساب (مرحلہ 6 — مصحف کے نقشے کے بعد) · 👪 والدین کا آن لائن لنک (مرحلہ 10)</div></div>';
     if(canAdmin()) x += '<button class="jm2-btn r" data-a="arch" style="width:100%">🗄️ سابقہ طلبہ میں بھیجیں (ریکارڈ محفوظ رہے گا)</button>';
     x += '</div>';
     el.innerHTML = x; el.scrollTop = 0;
@@ -8692,7 +8693,176 @@ async function mdDevSavePass(){
 })();
 </script>
 
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO024" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<!-- ============================================================
+     MD2311MO025 — جامعہ مینجمنٹ، مرحلہ 12 (مالک کا حکم، ہیلپ ڈیسک #359): فیس اور مالیاتی نظام
+     صرف منتظم / مہتمم / خزانچی (`jmaCan('fees')`) — استاد کو کبھی نہیں۔ حساب پیسوں میں پوری گنتی (روپے × 100)۔
+     ہر طالب علم: مقررہ ماہانہ فیس، رعایت / معافی، شروع کا مہینہ، سابقہ بقایا → ہر مہینے خود واجب؛ وصولی: پوری / اس مہینے کی / جزوی — ہر ایک کی الگ رسید نمبر۔
+     اخراجات؛ رپورٹ: روزانہ / ماہانہ وصولی، طالب علم وار بقایا، آمدن − اخراجات؛ رسید پرنٹ / واٹس ایپ۔ حذف = del نشان + آڈٹ۔
+     ڈیٹا jamia_mgmt_fees_v1 = {plans:{sid:{fee,disc,from,prev,upd}}, rec:[…], exp:[…], seq}
+     ============================================================ -->
+<style id="jma025css">
+#jmaFee{position:fixed;inset:0;z-index:2147481270;display:none;background:#f1f5f9;color:#0f172a;direction:rtl;font-family:var(--nastaliq),'Jameel Noori Nastaleeq',serif;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.jm12-box{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.jm12-box div{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:5px;text-align:center;font-size:13.5px;line-height:1.8}
+.jm12-box b{display:block;font:800 17px Arial;direction:ltr}
+.jm12-box .due b{color:#b91c1c}.jm12-box .ok b{color:#15803d}
+.jm12-row{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed #e2e8f0;padding:4px 0;font-size:14.5px;line-height:1.9}
+.jm12-row b{font:800 15px Arial;direction:ltr}
+.jm12-pay{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-top:8px}
+.jm12-pay button{border:0;border-radius:12px;padding:7px 2px;font:inherit;font-size:14.5px;line-height:1.7;color:#fff;cursor:pointer;background:#15803d}
+.jm12-pay button.b{background:#0369a1}.jm12-pay button.c{background:#b45309}
+</style>
+<div id="jmaFee" class="no-print"></div>
+<script id="jma025">
+(function(){
+  'use strict';
+  var FK = 'jamia_mgmt_fees_v1', MON = ['جنوری', 'فروری', 'مارچ', 'اپریل', 'مئی', 'جون', 'جولائی', 'اگست', 'ستمبر', 'اکتوبر', 'نومبر', 'دسمبر'];
+  var HEADS = ['تنخواہ', 'بجلی / گیس', 'کھانا', 'مرمت', 'کتب / اسٹیشنری', 'دیگر'];
+  function E(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function $(id){ return document.getElementById(id); }
+  var F = (function(){ try{ var o = JSON.parse(localStorage.getItem(FK) || 'null'); return o && o.plans ? o : null; }catch(e){ return null; } })() || { plans: {}, rec: [], exp: [], seq: 0 };
+  function save(){ try{ localStorage.setItem(FK, JSON.stringify(F)); return true; }catch(e){ alert('❌ محفوظ نہیں ہو سکا'); return false; } }
+  function pk(){ return window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10); }
+  function fmtD(s){ var p = String(s || '').split('-'); return p.length === 3 ? (+p[2]) + '/' + (+p[1]) + '/' + p[0] : (s || ''); }
+  function mName(ym){ var p = ym.split('-'); return MON[+p[1] - 1] + ' ' + p[0]; }
+  /* رقم: پیسوں میں پوری گنتی */
+  function toP(v){ v = String(v == null ? '' : v).replace(/[۰-۹]/g, function(d){ return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d); }).replace(/[, ]/g, ''); if(!/^\d+(\.\d{1,2})?$/.test(v)) return null; var p = v.split('.'); return parseInt(p[0], 10) * 100 + (p[1] ? parseInt((p[1] + '0').slice(0, 2), 10) : 0); }
+  function rs(p){ p = Math.round(p || 0); var neg = p < 0; p = Math.abs(p); var r = Math.floor(p / 100), c = p % 100; return (neg ? '-' : '') + 'Rs ' + r.toLocaleString('en-US') + (c ? '.' + String(c).padStart(2, '0') : ''); }
+  function me(){ var u = typeof jmaUser === 'function' ? jmaUser() : null; return u ? u.name : 'منتظم'; }
+  function devId(){ return localStorage.getItem('jamia_dev_v1') || ''; }
+  function can(){ return typeof jmaCan === 'function' ? jmaCan('fees') : true; }
+  function S(){ return (window.jmaMgmt && jmaMgmt.students()) || []; }
+  function stu(sid){ return S().find(function(s){ return s.sid === sid; }); }
+  function madName(){ try{ return (typeof cfg !== 'undefined' && cfg.name) || ($('homeMadrasaName') || {}).textContent || 'جامعہ'; }catch(e){ return 'جامعہ'; } }
+  function monthsBetween(a, b){ if(!a || a > b) return 0; var x = a.split('-'), y = b.split('-'); return (+y[0] - +x[0]) * 12 + (+y[1] - +x[1]) + 1; }
+
+  /* ---------------- حساب (آزمودہ اصول) ----------------
+     واجب = سابقہ بقایا + (ماہانہ فیس − رعایت) × (شروع کے مہینے سے اس مہینے تک کے مہینے)؛ وصول = سب رسیدیں (del کے سوا)؛ باقی = واجب − وصول */
+  function bal(sid, ym){
+    ym = ym || pk().slice(0, 7); var p = F.plans[sid];
+    var paid = F.rec.filter(function(r){ return !r.del && r.sid === sid; }).reduce(function(a, r){ return a + r.amt; }, 0);
+    if(!p) return { plan: null, due: 0, paid: paid, left: -paid, monthly: 0, months: 0 };
+    var monthly = Math.max(0, (p.fee || 0) - (p.disc || 0)), n = monthsBetween(p.from, ym), due = (p.prev || 0) + monthly * n;
+    return { plan: p, monthly: monthly, months: n, due: due, paid: paid, left: due - paid, prevMonths: (p.prev || 0) + monthly * Math.max(0, n - 1) };
+  }
+  window.jmaFeeBal = bal;
+  function addRec(sid, amt, kind, note){
+    if(!(amt > 0)){ alert('رقم صفر سے زیادہ ہو'); return null; }
+    F.seq = (F.seq || 0) + 1; var t = Date.now();
+    var r = { id: 'R' + t.toString(36), no: F.seq, sid: sid, date: pk(), amt: amt, kind: kind, note: note || '', by: me(), t: t, upd: t, dev: devId() };
+    F.rec.push(r); if(!save()){ F.rec.pop(); F.seq--; return null; }
+    try{ jmaAudit('فیس وصولی — رسید ' + r.no, sid, (stu(sid) || {}).n, rs(amt)); }catch(e){}
+    return r;
+  }
+  window.jma025 = { F: function(){ return F; }, bal: bal, toP: toP, rs: rs, addRec: addRec, monthsBetween: monthsBetween };
+
+  /* ---------------- پروفائل میں ---------------- */
+  window.jmaProFee = function(s){
+    if(!can()) return '';
+    var b = bal(s.sid), p = b.plan;
+    var h = '<div class="jm2-card"><h4>💰 فیس</h4>';
+    if(!p) return h + '<div style="font-size:15px;color:#64748b">ابھی فیس مقرر نہیں</div><div class="jm2-acts"><button data-fplan="' + E(s.sid) + '">⚙️ فیس مقرر کریں</button></div></div>';
+    h += '<div class="jm12-box"><div>ماہانہ فیس<b>' + rs(b.monthly) + '</b></div><div class="ok">وصول شدہ<b>' + rs(b.paid) + '</b></div><div class="' + (b.left > 0 ? 'due' : 'ok') + '">' + (b.left >= 0 ? 'باقی' : 'پیشگی') + '<b>' + rs(Math.abs(b.left)) + '</b></div></div>';
+    h += '<div style="font-size:13.5px;color:#475569;line-height:1.9;margin-top:6px">مقررہ <span class="jm2-n">' + rs(p.fee) + '</span>' + (p.disc ? ' − رعایت <span class="jm2-n">' + rs(p.disc) + '</span>' : '') + ' · شروع ' + mName(p.from) + (p.prev ? ' · سابقہ بقایا <span class="jm2-n">' + rs(p.prev) + '</span>' : '') + ' · کل واجب <span class="jm2-n">' + rs(b.due) + '</span> (<span class="jm2-n">' + b.months + '</span> مہینے)</div>';
+    h += '<div class="jm12-pay"><button data-fpay="all" ' + (b.left > 0 ? '' : 'disabled style="opacity:.4"') + '>✅ پوری وصول<br><span class="jm2-n" style="font-size:12px;color:#fff">' + rs(Math.max(0, b.left)) + '</span></button><button class="b" data-fpay="month">📅 اس مہینے کی<br><span class="jm2-n" style="font-size:12px;color:#fff">' + rs(b.monthly) + '</span></button><button class="c" data-fpay="part">✍️ جزوی / بقایا</button></div>';
+    var L = F.rec.filter(function(r){ return !r.del && r.sid === s.sid; }).sort(function(a, c){ return c.t - a.t; }).slice(0, 8);
+    if(L.length) h += '<div style="margin-top:8px;font-size:14px;color:#065f46">🧾 رسیدیں</div>' + L.map(function(r){ return '<div class="jm12-row" data-frec="' + E(r.id) + '" style="cursor:pointer"><span>رسید <span class="jm2-n">#' + r.no + '</span> · <span class="jm2-n">' + fmtD(r.date) + '</span> · ' + E(r.by) + '</span><b>' + rs(r.amt) + '</b></div>'; }).join('');
+    h += '<div class="jm2-acts"><button data-fplan="' + E(s.sid) + '">⚙️ فیس / رعایت بدلیں</button></div>';
+    return h + '</div>';
+  };
+  function planForm(sid){
+    var s = stu(sid), p = F.plans[sid] || {};
+    var fee = prompt('«' + s.n + '» کی مقررہ ماہانہ فیس (روپے):', p.fee != null ? p.fee / 100 : ''); if(fee == null) return; var fp = toP(fee); if(fp == null){ alert('رقم صرف ہندسوں میں'); return; }
+    var disc = prompt('رعایت / معافی ہر مہینے (روپے — نہ ہو تو 0):', p.disc != null ? p.disc / 100 : '0'); if(disc == null) return; var dp = toP(disc || '0'); if(dp == null || dp > fp){ alert('رعایت درست نہیں (فیس سے زیادہ نہیں)'); return; }
+    var from = prompt('فیس کس مہینے سے شروع؟ (سال-مہینہ)', p.from || pk().slice(0, 7)); if(from == null) return; from = from.trim(); if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(from)){ alert('مثلاً 2026-11'); return; }
+    var prev = prompt('اس سے پہلے کا سابقہ بقایا (روپے — نہ ہو تو 0):', p.prev != null ? p.prev / 100 : '0'); if(prev == null) return; var pp = toP(prev || '0'); if(pp == null){ alert('رقم صرف ہندسوں میں'); return; }
+    F.plans[sid] = { fee: fp, disc: dp, from: from, prev: pp, upd: Date.now(), dev: devId(), by: me() };
+    if(!save()) return; try{ jmaAudit('فیس مقرر / تبدیل', sid, s.n, rs(fp) + (dp ? ' − ' + rs(dp) : '')); }catch(e){}
+    try{ jmaProRedraw(); }catch(e){}
+  }
+  function receiptHTML(r){ var s = stu(r.sid) || {}, b = bal(r.sid);
+    return '<div class="pg"><div style="max-width:120mm;margin:0 auto;border:2px solid #064e3b;border-radius:10px;padding:10px 14px"><div class="hd"><img src="logo.png" onerror="this.remove()"> <span class="t">' + E(madName()) + '</span><div class="s">فیس کی رسید</div></div>'
+      + '<table><tr><th>رسید نمبر</th><td class="n">' + r.no + '</td></tr><tr><th>تاریخ</th><td class="n">' + fmtD(r.date) + '</td></tr><tr><th>طالب علم</th><td>' + E(s.n || '') + ' ولد ' + E(s.w || '') + '</td></tr><tr><th>رول نمبر</th><td class="n">' + E(s.roll || '') + '</td></tr>'
+      + '<tr><th>وصول رقم</th><td class="n" style="font-size:18px">' + rs(r.amt) + '</td></tr><tr><th>باقی بقایا</th><td class="n">' + rs(Math.max(0, b.left)) + '</td></tr><tr><th>وصول کنندہ</th><td>' + E(r.by) + '</td></tr></table>'
+      + '<div style="display:flex;justify-content:space-between;margin-top:14mm;font-size:14px"><span style="border-top:1px solid #000;width:40%;text-align:center">دستخط</span><span style="border-top:1px solid #000;width:40%;text-align:center">مہر</span></div></div></div>'; }
+  function receiptMsg(r){ var s = stu(r.sid) || {}, b = bal(r.sid); return 'السلام علیکم! ' + madName() + '\nفیس کی رسید #' + r.no + ' — ' + fmtD(r.date) + '\n*' + s.n + '*\nوصول: ' + rs(r.amt) + '\nباقی: ' + rs(Math.max(0, b.left)) + '\nجزاک اللہ'; }
+  function showRec(id){
+    var r = F.rec.find(function(x){ return x.id === id; }); if(!r) return; var s = stu(r.sid) || {};
+    var ch = prompt('رسید #' + r.no + ' — ' + rs(r.amt) + '\n\n1 = پرنٹ / PDF\n2 = واٹس ایپ پر بھیجیں\n3 = رسید منسوخ کریں (منتظم)\n\nنمبر لکھیں:', '1'); if(!ch) return;
+    if(ch.trim() === '1'){ if(window.jmaPrintHTML) jmaPrintHTML(receiptHTML(r)); }
+    else if(ch.trim() === '2'){ var n = String(s.mob || '').replace(/\D/g, '').replace(/^0/, '92'); window.open('https://wa.me/' + n + '?text=' + encodeURIComponent(receiptMsg(r)), '_blank'); }
+    else if(ch.trim() === '3'){ if(typeof jmaCan === 'function' && !jmaCan('users')){ alert('🔒 رسید صرف منتظم منسوخ کر سکتا ہے'); return; } if(!confirm('رسید #' + r.no + ' منسوخ کریں؟ (ریکارڈ میں نشان رہے گا)')) return; r.del = Date.now(); r.upd = Date.now(); r.delBy = me(); save(); try{ jmaAudit('رسید منسوخ #' + r.no, r.sid, s.n, rs(r.amt)); }catch(e){} try{ jmaProRedraw(); }catch(e){} }
+  }
+
+  /* ---------------- مالیاتی رپورٹ اسکرین ---------------- */
+  var V = { ym: '' };
+  window.jmaFeeOpen = function(){ if(!can()){ alert('🔒 فیس صرف منتظم / مہتمم / خزانچی دیکھ سکتا ہے'); return; } V.ym = pk().slice(0, 7); $('jmaFee').style.display = 'block'; draw(); };
+  function monthSum(ym){
+    var R = F.rec.filter(function(r){ return !r.del && r.date.slice(0, 7) === ym; }), X = F.exp.filter(function(x){ return !x.del && x.date.slice(0, 7) === ym; });
+    var byDay = {}; R.forEach(function(r){ byDay[r.date] = (byDay[r.date] || 0) + r.amt; });
+    var inc = R.reduce(function(a, r){ return a + r.amt; }, 0), out = X.reduce(function(a, x){ return a + x.amt; }, 0);
+    var dues = S().filter(function(s){ return !s.del && F.plans[s.sid]; }).map(function(s){ return { s: s, b: bal(s.sid, ym) }; }).filter(function(x){ return x.b.left > 0; }).sort(function(a, b){ return b.b.left - a.b.left; });
+    return { R: R, X: X, byDay: byDay, inc: inc, out: out, dues: dues, totalDue: dues.reduce(function(a, x){ return a + x.b.left; }, 0) };
+  }
+  window.jmaFeeMonth = monthSum;
+  function draw(){
+    var M = monthSum(V.ym), today = pk(), todayInc = F.rec.filter(function(r){ return !r.del && r.date === today; }).reduce(function(a, r){ return a + r.amt; }, 0);
+    $('jmaFee').innerHTML = '<div class="jm2-top"><b>💰 فیس اور حساب</b><button data-fx="1">✕</button></div><div class="jm2-wrap">'
+      + '<div class="jm2-card"><label class="jm2-l">مہینہ</label><input type="month" class="jm2-in" id="jm12M" value="' + V.ym + '" style="font-family:Arial">'
+      + '<div class="jm12-box" style="margin-top:8px"><div class="ok">وصولی<b>' + rs(M.inc) + '</b></div><div class="due">اخراجات<b>' + rs(M.out) + '</b></div><div class="' + (M.inc - M.out >= 0 ? 'ok' : 'due') + '">آمدن − خرچ<b>' + rs(M.inc - M.out) + '</b></div></div>'
+      + '<div style="font-size:14px;margin-top:6px">آج کی وصولی: <b class="jm2-n">' + rs(todayInc) + '</b> · کل بقایا: <b class="jm2-n" style="color:#b91c1c">' + rs(M.totalDue) + '</b> (<span class="jm2-n">' + M.dues.length + '</span> طلبہ)</div>'
+      + '<div class="jm11-act"><button data-fpr="1">🖨️ ماہانہ حساب پرنٹ / PDF</button><button data-fexp="1" style="background:#b45309">➖ خرچ درج کریں</button></div></div>'
+      + '<div class="jm2-card"><h4>📅 روزانہ وصولی</h4>' + (Object.keys(M.byDay).length ? Object.keys(M.byDay).sort().reverse().map(function(d){ return '<div class="jm12-row"><span class="jm2-n">' + fmtD(d) + '</span><b>' + rs(M.byDay[d]) + '</b></div>'; }).join('') : '<div style="color:#64748b;font-size:14px">اس مہینے کوئی وصولی نہیں</div>') + '</div>'
+      + '<div class="jm2-card"><h4>🧾 بقایا — طالب علم وار</h4>' + (M.dues.length ? M.dues.map(function(x){ return '<div class="jm12-row"><span>' + E(x.s.n) + ' <span style="color:#64748b">(' + E(x.s.roll || '') + ')</span></span><b style="color:#b91c1c">' + rs(x.b.left) + '</b></div>'; }).join('') : '<div style="color:#64748b;font-size:14px">کوئی بقایا نہیں</div>') + '</div>'
+      + '<div class="jm2-card"><h4>➖ اخراجات</h4>' + (M.X.length ? M.X.map(function(x){ return '<div class="jm12-row"><span><span class="jm2-n">' + fmtD(x.date) + '</span> · ' + E(x.head) + (x.note ? ' — ' + E(x.note) : '') + '</span><b>' + rs(x.amt) + '</b></div>'; }).join('') : '<div style="color:#64748b;font-size:14px">اس مہینے کوئی خرچ نہیں</div>') + '</div></div>';
+    var m = $('jm12M'); m.onchange = function(){ if(m.value){ V.ym = m.value; draw(); } };
+  }
+  function addExp(){
+    var h = prompt('خرچ کی مد:\n' + HEADS.map(function(x, i){ return (i + 1) + ' = ' + x; }).join('\n') + '\n\nنمبر یا نام لکھیں:', '1'); if(!h) return; h = h.trim(); var head = /^\d$/.test(h) ? HEADS[+h - 1] : h; if(!head) return;
+    var a = prompt('رقم (روپے):', ''); if(a == null) return; var ap = toP(a); if(!ap){ alert('رقم صرف ہندسوں میں'); return; }
+    var note = prompt('تفصیل (اختیاری):', '') || ''; var t = Date.now();
+    F.exp.push({ id: 'X' + t.toString(36), date: pk(), head: head, amt: ap, note: note.trim(), by: me(), t: t, upd: t, dev: devId() }); save();
+    try{ jmaAudit('خرچ درج', '', head, rs(ap)); }catch(e){} draw();
+  }
+  function printMonth(){
+    var M = monthSum(V.ym);
+    var html = '<div class="pg rp"><div class="hd"><img src="logo.png" onerror="this.remove()"> <span class="t">' + E(madName()) + '</span><div class="s">ماہانہ مالیاتی رپورٹ — ' + mName(V.ym) + '</div></div>'
+      + '<table><tr><th>کل وصولی</th><th>کل اخراجات</th><th>آمدن − اخراجات</th><th>کل بقایا</th></tr><tr><td class="n">' + rs(M.inc) + '</td><td class="n">' + rs(M.out) + '</td><td class="n">' + rs(M.inc - M.out) + '</td><td class="n">' + rs(M.totalDue) + '</td></tr></table>'
+      + '<h3>🧾 رسیدیں</h3>' + (M.R.length ? '<table><tr><th>رسید</th><th>تاریخ</th><th>طالب علم</th><th>رقم</th><th>وصول کنندہ</th></tr>' + M.R.sort(function(a, b){ return a.no - b.no; }).map(function(r){ var s = stu(r.sid) || {}; return '<tr><td class="n">' + r.no + '</td><td class="n">' + fmtD(r.date) + '</td><td class="nm">' + E(s.n || '') + '</td><td class="n">' + rs(r.amt) + '</td><td>' + E(r.by) + '</td></tr>'; }).join('') + '</table>' : '<div>کوئی وصولی نہیں</div>')
+      + '<h3>➖ اخراجات</h3>' + (M.X.length ? '<table><tr><th>تاریخ</th><th>مد</th><th>تفصیل</th><th>رقم</th></tr>' + M.X.map(function(x){ return '<tr><td class="n">' + fmtD(x.date) + '</td><td>' + E(x.head) + '</td><td>' + E(x.note) + '</td><td class="n">' + rs(x.amt) + '</td></tr>'; }).join('') + '</table>' : '<div>کوئی خرچ نہیں</div>')
+      + '<h3>📋 بقایا</h3>' + (M.dues.length ? '<table><tr><th>رول</th><th>نام</th><th>بقایا</th></tr>' + M.dues.map(function(x){ return '<tr><td class="n">' + E(x.s.roll || '') + '</td><td class="nm">' + E(x.s.n) + '</td><td class="n">' + rs(x.b.left) + '</td></tr>'; }).join('') + '</table>' : '<div>کوئی بقایا نہیں</div>') + '</div>';
+    if(window.jmaPrintHTML) jmaPrintHTML(html);
+  }
+
+  document.addEventListener('click', function(e){
+    var t = e.target, b = t.closest && t.closest('[data-fplan],[data-fpay],[data-frec],[data-fee-open]');
+    if(b && b.dataset.feeOpen != null && $('jmaStu').contains(b)){ e.stopPropagation(); jmaFeeOpen(); return; }
+    if(b && $('jmaPro').contains(b)){
+      e.stopPropagation(); if(!can()){ alert('🔒 صرف منتظم / مہتمم / خزانچی'); return; }
+      var sid = window.jmaProSid && jmaProSid(); if(!sid) return; var d = b.dataset;
+      if(d.fplan){ planForm(sid); return; }
+      if(d.frec){ showRec(d.frec); return; }
+      if(d.fpay){ var bl = bal(sid), amt = 0, kind = d.fpay;
+        if(kind === 'all') amt = Math.max(0, bl.left);
+        else if(kind === 'month') amt = bl.monthly;
+        else { var v = prompt('کتنی رقم وصول ہوئی؟ (روپے)\nموجودہ باقی: ' + rs(Math.max(0, bl.left)), ''); if(v == null) return; amt = toP(v); if(amt == null){ alert('رقم صرف ہندسوں میں'); return; } }
+        if(!amt){ alert('وصول کرنے کو کچھ نہیں'); return; }
+        if(!confirm('«' + (stu(sid) || {}).n + '» سے ' + rs(amt) + ' وصول؟')) return;
+        var r = addRec(sid, amt, kind); if(!r) return;
+        try{ jmaProRedraw(); }catch(x){}
+        if(confirm('✅ رسید #' + r.no + ' بن گئی — ' + rs(amt) + '\n\nابھی پرنٹ / PDF کریں؟')){ if(window.jmaPrintHTML) jmaPrintHTML(receiptHTML(r)); }
+        return; }
+    }
+    if(!$('jmaFee').contains(t)) return;
+    b = t.closest('button'); if(!b) return; var dd = b.dataset;
+    if(dd.fx){ $('jmaFee').style.display = 'none'; return; }
+    if(dd.fexp){ addExp(); return; }
+    if(dd.fpr){ printMonth(); return; }
+  }, true);
+})();
+</script>
+
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO025" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
