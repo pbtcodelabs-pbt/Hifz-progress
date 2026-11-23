@@ -1,5 +1,5 @@
 // جامعہ امتحانی سافٹ ویئر — سروس ورکر (آف لائن سپورٹ)
-const CACHE_NAME = 'jamia-hifz-cache-MD2311MO038';
+const CACHE_NAME = 'jamia-hifz-cache-MD2311MO039';
 const CORE_ASSETS = [
   './index.html',
   './manifest.json',
@@ -32,6 +32,8 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   /* ہیلپ ڈیسک (#33): pbtcodelabs-pbt.github.io/help/ کی فائلیں (widget.js) کبھی کیش نہیں — ہر ایپ میں نیا بٹن فوراً */
   try { const _hd = new URL(event.request.url); if (_hd.hostname === 'pbtcodelabs-pbt.github.io' && _hd.pathname.startsWith('/help/')) return; } catch (_e) {}
+  /* MD2311MO039: آن لائن ڈیٹا (فائربیس، سرور) کبھی کیش نہیں — ورنہ پرانا جواب (جڑے موبائل، مدت) دکھتا رہتا ہے */
+  try { const _u = new URL(event.request.url); if (/(^|\.)googleapis\.com$|(^|\.)workers\.dev$/.test(_u.hostname) || (_u.origin !== self.location.origin && /^(127\.0\.0\.1|localhost)$/.test(_u.hostname))) return; } catch (_e) {}
   const req = event.request;
   if (req.method !== 'GET') return;
 
