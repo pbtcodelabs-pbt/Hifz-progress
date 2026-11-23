@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO031</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO032</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9307,6 +9307,25 @@ async function mdDevSavePass(){
     }).catch(function(){}).then(function(){ busy = false; paint(); });
   }
   window.mdIdCheck = check; window.mdIdMe = me;
+  /* MD2311MO032 (مالک کا حکم — سب ایپس کا اصول): پیکج ختم ہونے کی وارننگ — 15 دن سے کم: ایک بار؛ 7 دن سے کم: روز ایک بار (3 دن سے کم پر بھی دن میں ایک بار)؛ کلید jamia_pkwarn_v1 */
+  function warn(){
+    try{
+      var a = pkgAct(); if(!a || a.life) return; var left = Math.ceil((a.expiry - Date.now()) / 864e5); if(left > 15 || left < 0) return;
+      var W0 = jget('jamia_pkwarn_v1') || {}, d = new Date(), day = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(), key = String(a.expiry);
+      if(left > 7){ if(W0.k15 === key) return; W0.k15 = key; } else { if(W0.day === day && W0.k7 === key) return; W0.day = day; W0.k7 = key; }
+      try{ localStorage.setItem('jamia_pkwarn_v1', JSON.stringify(W0)); }catch(e){}
+      var o = document.createElement('div'); o.id = 'md32w';
+      o.style.cssText = 'position:fixed;inset:0;z-index:2147483000;background:rgba(2,44,34,.82);display:flex;align-items:center;justify-content:center;padding:16px;direction:rtl';
+      var red = left <= 3, col = red ? '#b91c1c' : left <= 7 ? '#c2410c' : '#a16207';
+      o.innerHTML = '<div style="background:#fff;border-radius:20px;max-width:380px;width:100%;padding:18px 16px;text-align:center;font-family:var(--font-nastaliq,serif);box-shadow:0 12px 40px rgba(0,0,0,.45)">'
+        + '<div style="font-size:46px;line-height:1.2">' + (red ? '⛔' : '⏳') + '</div><div style="font-family:var(--font-kasheeda,serif);font-size:23px;color:' + col + ';margin:4px 0 8px">آپ کا پیکج ختم ہونے والا ہے</div>'
+        + '<div style="font-size:17px;line-height:2.1;color:#334155">صرف <b style="font:900 24px Arial;color:' + col + '">' + left + '</b> دن باقی — ' + dmy(a.expiry) + ' تک<br>ایپ بند ہونے سے پہلے پیکج دوبارہ چالو کروا لیں</div>'
+        + '<div style="display:flex;gap:8px;margin-top:12px"><button type="button" data-w="x" style="flex:1;border:1.5px solid #94a3b8;background:#fff;border-radius:12px;padding:9px;font:inherit;font-size:16px">بعد میں</button><button type="button" data-w="p" style="flex:2;border:0;background:#059669;color:#fff;border-radius:12px;padding:9px;font:inherit;font-size:17px">📦 پیکج دوبارہ لیں</button></div></div>';
+      o.onclick = function(e){ var b = e.target.closest('[data-w]'); if(!b) return; o.remove(); if(b.getAttribute('data-w') === 'p') openPkg(); };
+      document.body.appendChild(o);
+    }catch(e){}
+  }
+  setTimeout(warn, 6000); document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'visible') setTimeout(warn, 1500); });
 
   /* ———— شروع ———— */
   function boot(){
@@ -9425,7 +9444,7 @@ async function mdDevSavePass(){
   document.addEventListener('visibilitychange', paint);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO031" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO032" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
