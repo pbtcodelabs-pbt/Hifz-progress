@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO044</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO045</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7892,8 +7892,15 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
         + '<div class="jm3-q" style="display:block"><span>پاؤ (جتنے حصے پڑھے)</span><div class="jm3-pao" style="margin-top:4px">' + PAO.map(function(n, i){ return '<button data-pao="' + (i + 1) + '" data-p="' + it.para + '" class="' + ((it.pao || []).indexOf(i + 1) > -1 ? 'on' : '') + '">' + n + ' پاؤ</button>'; }).join('') + '</div></div></div>';
     });
     h += '</div>';
-    h += '<div class="jm2-card"><h4>👂 کس نے سنا؟</h4><div class="jm2-opts"><button data-lis="teacher" class="' + (F.lis.type === 'teacher' ? 'on' : '') + '">👳 استاد (' + E(me().name) + ')</button><button data-lis="student" class="' + (F.lis.type === 'student' ? 'on' : '') + '">🧒 کسی طالب علم نے</button></div>'
-      + (F.lis.type === 'student' ? '<div class="jm2-opts" style="margin-top:6px">' + (cls.length ? cls.map(function(x){ return '<button data-lsid="' + E(x.sid) + '" class="' + (F.lis.id === x.sid ? 'on' : '') + '">' + E(x.n) + (x.roll ? ' (' + E(x.roll) + ')' : '') + '</button>'; }).join('') : '<span style="font-size:14px;color:#64748b">اس جماعت میں کوئی اور طالب علم نہیں</span>') + '</div>' : '')
+    /* MD2311MO045: «کس نے سنا؟» — استاد محترم نے خود / کس طالب علم نے (ڈراپ ڈاؤن: پوری جماعت، اپنا نام دھندلا) */
+    var mates = S().filter(function(x){ return !x.del && x.classId === s.classId; }).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9) || String(a.n).localeCompare(String(b.n), 'ur'); });
+    var tn = me().name && me().name !== 'استاد' ? '<small>' + E(me().name) + '</small>' : '';
+    var picked = F.lis.type === 'student' && F.lis.id ? stu(F.lis.id) : null;
+    h += '<div class="jm2-card"><h4>👂 کس نے سنا؟</h4><div class="jm45">'
+      + '<button data-lis="teacher" class="' + (F.lis.type === 'teacher' ? 'on' : '') + '">' + (F.lis.type === 'teacher' ? '✓ ' : '') + '👳 استاد محترم نے خود سنا' + tn + '</button>'
+      + '<button data-lis="student" class="' + (F.lis.type === 'student' ? 'on' : '') + '">' + (F.lis.type === 'student' ? '✓ ' : '') + '🧒 کسی طالب علم نے سنا</button></div>'
+      + (F.lis.type === 'student' ? '<button class="jm45dd' + (picked ? ' ok' : '') + '" data-dd="1">' + (picked ? (picked.photo ? '<img src="' + E(picked.photo) + '" alt="">' : '<i>🧒</i>') + '<span>' + E(picked.n) + (picked.roll ? ' <b class="jm2-n">' + E(picked.roll) + '</b>' : '') + '<small>نے ' + E(F._sname) + ' کی ' + k[1] + ' سنی</small></span>' : '<span>🔽 کس طالب علم نے سنا؟ — نام چنیں</span>') + '<em>' + (F._dd ? '▴' : '▾') + '</em></button>'
+        + (F._dd ? '<div class="jm45l">' + mates.map(function(x){ var self = x.sid === s.sid; return '<button' + (self ? ' disabled' : ' data-lsid="' + E(x.sid) + '"') + ' class="' + (F.lis.id === x.sid ? 'on' : '') + (self ? ' self' : '') + '">' + (x.photo ? '<img src="' + E(x.photo) + '" alt="">' : '<i>👤</i>') + '<span>' + E(x.n) + (self ? ' <small>(خود — اپنا سبق خود نہیں سن سکتا)</small>' : '') + '</span>' + (x.roll ? '<b class="jm2-n">' + E(x.roll) + '</b>' : '') + '</button>'; }).join('') + (mates.length < 2 ? '<div style="font-size:14px;color:#64748b;padding:6px">اس جماعت میں کوئی اور طالب علم نہیں</div>' : '') + '</div>' : '') : '')
       + '<div style="font-size:13px;color:#64748b;margin-top:4px">سنانے والا: ' + E(F._sname) + '</div></div>';
     h += '<div class="jm2-card"><h4>📊 جانچ</h4>' + (F.kind === 'sabaq' ? '' : '<div class="jm3-q"><span>اٹکن</span>' + stepper('atkan', F.atkan) + '</div>') + '<div class="jm3-q"><span>غلطیاں</span>' + stepper('mist', F.mist) + '</div>'
       + '<label class="jm2-l">کارکردگی</label><div class="jm2-opts">' + PERF.map(function(p){ return '<button data-perf="' + p + '" class="' + (F.perf === p ? 'on' : '') + '">' + p + '</button>'; }).join('') + '</div>'
@@ -7939,8 +7946,9 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     if(d.para && !d.pao){ var p = +d.para, it = item(p); if(it) F.items = F.items.filter(function(x){ return x !== it; }); else { F.items.push({ para: p, lines: 0, ruku: 0, pao: [] }); F.items.sort(function(a, c){ return a.para - c.para; }); } draw(); return; }
     if(d.st){ var v = (+d.d); if(d.p){ var it2 = item(+d.p); if(it2) it2[d.st] = Math.max(0, Math.min(d.st === 'lines' ? 400 : 40, (it2[d.st] || 0) + v)); } else F[d.st] = Math.max(0, Math.min(99, (F[d.st] || 0) + v)); draw(); return; }
     if(d.pao){ var it3 = item(+d.p), q = +d.pao; if(it3){ it3.pao = it3.pao || []; var ix = it3.pao.indexOf(q); if(ix > -1) it3.pao.splice(ix, 1); else { it3.pao.push(q); it3.pao.sort(); } } draw(); return; }
-    if(d.lis){ F.lis = d.lis === 'teacher' ? { type: 'teacher', id: me().id, name: me().name } : { type: 'student', id: '', name: '' }; draw(); return; }
-    if(d.lsid){ var ls = stu(d.lsid); F.lis = { type: 'student', id: d.lsid, name: ls ? ls.n : '' }; draw(); return; }
+    if(d.lis){ if(d.lis === 'teacher'){ F.lis = { type: 'teacher', id: me().id, name: me().name }; F._dd = false; } else { if(F.lis.type !== 'student') F.lis = { type: 'student', id: '', name: '' }; F._dd = !F.lis.id; } draw(); return; }
+    if(d.dd){ F._dd = !F._dd; draw(); return; }
+    if(d.lsid){ if(d.lsid === F.sid) return; var ls = stu(d.lsid); F.lis = { type: 'student', id: d.lsid, name: ls ? ls.n : '' }; F._dd = false; draw(); return; }
     if(d.perf){ F.perf = F.perf === d.perf ? '' : d.perf; draw(); return; }
     if(d.sv){ save(); return; }
     if(d.del){ if(!confirm('یہ اندراج ہٹا دیں؟ (ریکارڈ میں نشان رہے گا)')) return; var e2 = EN.find(function(x){ return x.id === F.id; }); if(e2){ e2.del = Date.now(); e2.upd = Date.now(); e2.delBy = me().name; saveEN(); try{ jmaAudit('اندراج ہٹایا', F.sid, F._sname, F.date); }catch(x){} } $('jmaEnt').style.display = 'none'; redraw(); return; }
@@ -7974,6 +7982,22 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 .jm42 .r{display:flex;gap:8px;margin-top:6px}
 .jm42 .r button{flex:1;border:0;border-radius:12px;padding:8px;font:inherit;font-size:16px}
 .jm42 .y{background:#16a34a;color:#fff;flex:2!important}.jm42 .n{background:#fff;color:#b91c1c;border:2px solid #fca5a5!important}
+.jm45{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.jm45 button{border:2px solid #0f766e;background:#fff;color:#065f46;border-radius:14px;padding:6px 4px;font:inherit;font-size:16px;line-height:1.7}
+.jm45 button.on{background:#065f46;color:#fff}
+.jm45 button small{display:block;font-size:12.5px;opacity:.85}
+.jm45dd{display:flex;align-items:center;gap:8px;width:100%;margin-top:8px;border:2px solid #f59e0b;background:#fffbeb;color:#92400e;border-radius:14px;padding:6px 10px;font:inherit;font-size:16px;text-align:right}
+.jm45dd.ok{border-color:#16a34a;background:#f0fdf4;color:#14532d}
+.jm45dd span{flex:1;line-height:1.6}.jm45dd small{display:block;font-size:12.5px;color:#475569}
+.jm45dd em{font-style:normal;font-size:18px}
+.jm45dd img,.jm45l img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none}
+.jm45dd i,.jm45l i{font-style:normal;width:38px;height:38px;border-radius:50%;background:#d1fae5;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.jm45l{border:1.5px solid #cbd5e1;border-radius:14px;margin-top:4px;max-height:300px;overflow-y:auto;background:#fff}
+.jm45l button{display:flex;align-items:center;gap:8px;width:100%;border:0;border-bottom:1px solid #f1f5f9;background:#fff;padding:5px 10px;font:inherit;font-size:16px;text-align:right;color:#0f172a}
+.jm45l button span{flex:1}.jm45l button small{font-size:12px;color:#94a3b8}
+.jm45l button b{font:700 13px Arial;background:#ecfdf5;color:#065f46;border-radius:8px;padding:0 6px}
+.jm45l button.on{background:#dcfce7}
+.jm45l button.self{opacity:.35;filter:grayscale(1);cursor:not-allowed}
 .jm5-r{background:#fff;border-radius:14px;padding:8px 10px;margin-bottom:7px;box-shadow:0 1px 4px rgba(15,23,42,.07);border-right:5px solid #cbd5e1}
 .jm5-r.p{border-right-color:#16a34a}.jm5-r.h{border-right-color:#f59e0b}.jm5-r.a{border-right-color:#dc2626;background:#fef2f2}
 .jm5-r .t{display:flex;align-items:center;gap:8px;font-size:16px;line-height:1.8}
@@ -9619,7 +9643,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO044" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO045" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
