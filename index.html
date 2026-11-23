@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO038</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO039</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9349,7 +9349,7 @@ async function mdDevSavePass(){
   /* MD2311MO032 (مالک کا حکم — سب ایپس کا اصول): پیکج ختم ہونے کی وارننگ — 15 دن سے کم: ایک بار؛ 7 دن سے کم: روز ایک بار (3 دن سے کم پر بھی دن میں ایک بار)؛ کلید jamia_pkwarn_v1 */
   function warn(){
     try{
-      var a = pkgAct(); if(!a || a.life) return; var left = Math.ceil((a.expiry - Date.now()) / 864e5); if(left > 15 || left < 0) return;
+      var a = pkgAct(); if(!a || a.life || a.staff) return; var left = Math.ceil((a.expiry - Date.now()) / 864e5); if(left > 15 || left < 0) return;
       var W0 = jget('jamia_pkwarn_v1') || {}, d = new Date(), day = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(), key = String(a.expiry);
       if(left > 7){ if(W0.k15 === key) return; W0.k15 = key; } else { if(W0.day === day && W0.k7 === key) return; W0.day = day; W0.k7 = key; }
       try{ localStorage.setItem('jamia_pkwarn_v1', JSON.stringify(W0)); }catch(e){}
@@ -9588,7 +9588,7 @@ async function mdDevSavePass(){
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO038" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO039" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -9881,6 +9881,382 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
     }catch(e){}
   }
   setInterval(scan, 600); document.addEventListener('click', function(){ setTimeout(scan, 60); }, true);
+})();
+</script>
+<!-- ============================================================
+     MD2311MO039 — ☁️ دو موبائل کا جوڑ (مالک کا حکم؛ ONLINE-PLAN.md؛ اپنا فائربیس madrasa-md، اصول firestore.rules)
+     • صرف «دو موبائل» پیکج (یا ٹرائل) پر؛ مین موبائل = مالک (منتظم)؛ دوسرا موبائل جوڑنے کے کوڈ <MD ID>-<8 ہندسے> سے (پہلے خالی استاد —
+       مالک جماعتیں / اختیار دیتا ہے)؛ استاد کے موبائل پر پیکج کا کوئی ذکر نہیں — مدت مدرسے کے دستاویز (exp) سے۔
+     • «👑 مالک کا خفیہ کوڈ» (12 حروف، کاغذ پر لکھ کر رکھیں) — مالک کا موبائل بدلے / گم ہو تو نیا موبائل اسی سے مالک بنتا ہے۔
+     • ہم آہنگی REST سے (SDK نہیں): ہر ریکارڈ madrasas/<MD>/records/<قسم>__<شناخت> {c,k,u,g,j,by,dev} (فیس fees/)؛ u = سرور کا وقت؛
+       پہلے لینا پھر بھیجنا؛ مقامی تبدیلی = j کا ہیش پچھلی ہم آہنگی سے مختلف؛ دونوں طرف بدلا ہو تو نیا (upd / t) جیتے؛
+       آنے والا ڈیٹا ماڈیولوں کی یادداشت میں اسی جگہ (in place) — کوئی ماڈیول پرانی فہرست سے اوپر نہیں لکھتا۔
+     • کلید mdcloud_v1 (صرف اس موبائل کی؛ jamia_ سے شروع نہیں تاکہ بیک اپ میں نہ جائے)۔ کچھ مٹتا نہیں — حذف صرف del نشان۔
+     ============================================================ -->
+<style id="jma039css">
+#jm39{position:fixed;inset:0;z-index:2147481295;background:#f0fdf4;overflow-y:auto;direction:rtl;font-family:var(--font-nastaliq,'Jameel Noori Nastaleeq'),serif}
+#jm39 .hd{position:sticky;top:0;z-index:3;background:linear-gradient(135deg,#1e3a8a,#0f766e);color:#fff;padding:calc(8px + env(safe-area-inset-top,0px)) 12px 8px;display:flex;align-items:center;gap:8px}
+#jm39 .hd b{flex:1;font-size:19px;font-weight:400;font-family:var(--font-kasheeda,serif)}
+#jm39 .hd button{border:0;background:rgba(255,255,255,.18);color:#fff;border-radius:10px;width:38px;height:36px;font-size:18px}
+#jm39 .wr{max-width:600px;margin:0 auto;padding:10px 10px 40px}
+#jm39 .cd{background:#fff;border-radius:16px;padding:10px 12px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,.08)}
+#jm39 .cd h4{margin:0 0 6px;font-size:17px;color:#065f46;font-weight:400;font-family:var(--font-kasheeda,serif)}
+#jm39 .t{font-size:15px;line-height:2;color:#334155}
+#jm39 .code{font:900 24px Arial;letter-spacing:2px;text-align:center;background:#eff6ff;border:2px dashed #2563eb;border-radius:12px;padding:8px;color:#1e3a8a;direction:ltr;margin:6px 0}
+#jm39 .code.o{background:#fef3c7;border-color:#d97706;color:#92400e}
+#jm39 .bt{display:block;width:100%;border:0;border-radius:14px;padding:10px;font:inherit;font-size:17px;margin-top:8px;color:#fff;background:linear-gradient(135deg,#059669,#065f46)}
+#jm39 .bt.b{background:linear-gradient(135deg,#2563eb,#1e3a8a)}
+#jm39 .bt.o{background:#fff;color:#065f46;border:2px solid #0f766e}
+#jm39 .bt.r{background:#fff;color:#b91c1c;border:2px solid #fca5a5}
+#jm39 .rw{display:flex;gap:6px}
+#jm39 .rw .bt{flex:1}
+#jm39 .mb{border:1.5px solid #cbd5e1;border-radius:12px;padding:6px 8px;margin-top:6px}
+#jm39 .mb .n{font-size:16px}
+#jm39 .ch{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+#jm39 .ch button{border:1.5px solid #0f766e;background:#fff;color:#0f766e;border-radius:999px;padding:2px 10px;font:inherit;font-size:14px}
+#jm39 .ch button.on{background:#0f766e;color:#fff}
+#jm39 .ok{color:#15803d}.bad{color:#b91c1c}
+#jm39 input{width:100%;box-sizing:border-box;border:1.5px solid #94a3b8;border-radius:12px;padding:8px 10px;font:inherit;font-size:17px;margin-top:4px}
+#jm39 input.ltr{direction:ltr;text-align:center;font:800 20px Arial;letter-spacing:1px}
+#jm39 .er{color:#b91c1c;min-height:20px;font-size:14px;text-align:center}
+.jm39t{grid-column:1/-1}
+#jm39dot{position:fixed;left:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:2147480800;background:#0f172a;color:#fff;border-radius:999px;padding:2px 10px;font:12px Arial;opacity:.8;display:none;direction:rtl}
+</style>
+<div id="jm39" class="no-print" style="display:none"></div>
+<div id="jm39dot" class="no-print"></div>
+<script id="jma039">
+(function(){
+  'use strict';
+  var CK = 'mdcloud_v1';   /* jamia_ سے نہیں — بیک اپ فائل / نقل میں اس موبائل کی شناخت نہ جائے */
+  var CFG = window.MD_FIREBASE || { apiKey: 'AIzaSyDGrNZQXtQaoHOaVl8bP1940oIRrId8moM', projectId: 'madrasa-md' };
+  var EMU = window.MD_CLOUD_EMU || null;   /* جانچ: { fs: 'http://127.0.0.1:8085', auth: 'http://127.0.0.1:9099' } */
+  var FS = (EMU ? EMU.fs : 'https://firestore.googleapis.com') + '/v1/projects/' + CFG.projectId + '/databases/(default)/documents';
+  var IDT = (EMU ? EMU.auth + '/identitytoolkit.googleapis.com' : 'https://identitytoolkit.googleapis.com') + '/v1/accounts:signUp?key=' + CFG.apiKey;
+  var STK = (EMU ? EMU.auth + '/securetoken.googleapis.com' : 'https://securetoken.googleapis.com') + '/v1/token?key=' + CFG.apiKey;
+  var ROLE = { admin: 'منتظم', moh: 'مہتمم', teacher: 'استاد', fin: 'خزانچی' };
+  function $(i){ return document.getElementById(i); }
+  function E(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function J(k, d){ try{ var v = JSON.parse(localStorage.getItem(k) || 'null'); return v == null ? d : v; }catch(e){ return d; } }
+  function st(){ return J(CK, null); }
+  function setSt(o){ try{ localStorage.setItem(CK, JSON.stringify(o)); }catch(e){} }
+  function devId(){ return localStorage.getItem('jamia_dev_v1') || ''; }
+  function rnd(n, abc){ abc = abc || 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; var a = new Uint32Array(n), s = ''; crypto.getRandomValues(a); for(var i = 0; i < n; i++) s += abc[a[i] % abc.length]; return s; }
+  function h32(s){ var h = 2166136261; for(var i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0).toString(36) + ':' + s.length; }
+  function act(){ return J('jamia_act_v4', null); }
+  function mdInfo(){ return J('jamia_mdid_v1', {}) || {}; }
+
+  /* ---------------- شناخت (گمنام، فائربیس) ---------------- */
+  function token(S){
+    if(S.auth && S.auth.tok && S.auth.exp > Date.now() + 60e3) return Promise.resolve(S.auth.tok);
+    if(S.auth && S.auth.rt) return fetch(STK, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'grant_type=refresh_token&refresh_token=' + encodeURIComponent(S.auth.rt) })
+      .then(function(r){ return r.json(); }).then(function(d){ if(!d.id_token) throw new Error('auth'); var S2 = st() || S; S2.auth = { uid: d.user_id, tok: d.id_token, rt: d.refresh_token, exp: Date.now() + (+d.expires_in || 3600) * 1000 }; setSt(S2); Object.assign(S, S2); return d.id_token; });
+    return newUser().then(function(a){ S.auth = a; return a.tok; });
+  }
+  function newUser(){ return fetch(IDT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ returnSecureToken: true }) }).then(function(r){ return r.json(); })
+    .then(function(d){ if(!d.idToken) throw new Error((d.error && d.error.message) || 'auth'); return { uid: d.localId, tok: d.idToken, rt: d.refreshToken, exp: Date.now() + (+d.expiresIn || 3600) * 1000 }; }); }
+
+  /* ---------------- Firestore REST ---------------- */
+  function tv(v){ if(v === null || v === undefined) return { nullValue: null }; if(typeof v === 'boolean') return { booleanValue: v }; if(typeof v === 'number') return Number.isInteger(v) ? { integerValue: String(v) } : { doubleValue: v };
+    if(Array.isArray(v)) return { arrayValue: { values: v.map(tv) } }; if(typeof v === 'object') return { mapValue: { fields: tf(v) } }; return { stringValue: String(v) }; }
+  function tf(o){ var f = {}; Object.keys(o).forEach(function(k){ if(o[k] !== undefined) f[k] = tv(o[k]); }); return f; }
+  function fv(v){ if(!v) return null; if('stringValue' in v) return v.stringValue; if('integerValue' in v) return +v.integerValue; if('doubleValue' in v) return v.doubleValue; if('booleanValue' in v) return v.booleanValue; if('timestampValue' in v) return v.timestampValue;
+    if('arrayValue' in v) return (v.arrayValue.values || []).map(fv); if('mapValue' in v) return ff(v.mapValue.fields || {}); return null; }
+  function ff(f){ var o = {}; Object.keys(f || {}).forEach(function(k){ o[k] = fv(f[k]); }); return o; }
+  function req(S, method, path, body){
+    return token(S).then(function(t){ return fetch(FS + path, { method: method, cache: 'no-store', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: body ? JSON.stringify(body) : undefined }); })
+      .then(function(r){ return r.text().then(function(x){ var d = null; try{ d = x ? JSON.parse(x) : {}; }catch(e){} if(!r.ok){ var er = new Error((d && d.error && (d.error.status || d.error.message)) || ('HTTP ' + r.status)); er.status = r.status; throw er; } return d; }); });
+  }
+  function docName(path){ return 'projects/' + CFG.projectId + '/databases/(default)/documents/' + path; }
+  function getDoc(S, path){ return req(S, 'GET', '/' + path).then(function(d){ return ff(d.fields); }); }
+  function setDoc(S, path, obj, mustNotExist){ return req(S, 'PATCH', '/' + path + (mustNotExist ? '?currentDocument.exists=false' : ''), { fields: tf(obj) }); }
+  function patch(S, path, obj){ return req(S, 'PATCH', '/' + path + '?' + Object.keys(obj).map(function(k){ return 'updateMask.fieldPaths=' + k; }).join('&'), { fields: tf(obj) }); }
+  function del(S, path){ return req(S, 'DELETE', '/' + path); }
+  function list(S, path){ return req(S, 'GET', '/' + path).then(function(d){ return (d.documents || []).map(function(x){ var o = ff(x.fields); o._id = x.name.split('/').pop(); return o; }); }); }
+
+  /* ---------------- مقامی ڈیٹا ↔ ریکارڈ ---------------- */
+  function safe(id){ id = String(id); if(/^[A-Za-z0-9_.:|-]{1,70}$/.test(id)) return id; return 'h' + h32(id).replace(/:/g, '_') + '_' + id.replace(/[^A-Za-z0-9_.:|-]/g, '').slice(0, 40); }
+  function stores(){
+    var M = window.jmaMgmt, J19 = window.jma019, J21 = window.jma021, J22 = window.jma022, J25 = window.jma025;
+    return { MS: M ? M.students() : J('jamia_mgmt_students_v1', []), MC: M ? M.classes() : J('jamia_mgmt_classes_v1', []),
+      EN: J19 ? J19.EN() : J('jamia_mgmt_entries_v1', []), AT: J19 ? J19.AT() : J('jamia_mgmt_att_v1', {}),
+      EX: J21 ? J21.EX() : J('jamia_mgmt_exams_v1', []), AK: J22 ? J22.AK() : J('jamia_mgmt_akh_v1', []),
+      F: J25 ? J25.F() : (J('jamia_mgmt_fees_v1', null) || { plans: {}, rec: [], exp: [], seq: 0 }) };
+  }
+  var KEYS = { MS: 'jamia_mgmt_students_v1', MC: 'jamia_mgmt_classes_v1', EN: 'jamia_mgmt_entries_v1', AT: 'jamia_mgmt_att_v1', EX: 'jamia_mgmt_exams_v1', AK: 'jamia_mgmt_akh_v1', F: 'jamia_mgmt_fees_v1' };
+  function collect(){
+    var D = stores(), out = {}, clsOf = {};
+    (D.MS || []).forEach(function(s){ clsOf[s.sid] = s.classId || ''; });
+    function add(coll, k, id, g, v){ var rid = k + '__' + safe(id); out[rid] = { coll: coll, k: k, g: String(g || ''), j: JSON.stringify({ id: id, v: v }), v: v }; }
+    (D.MS || []).forEach(function(s){ if(s && s.sid) add('records', 'stu', s.sid, s.classId, s); });
+    (D.MC || []).forEach(function(c){ if(c && c.id) add('records', 'cls', c.id, c.id, c); });
+    (D.EN || []).forEach(function(e){ if(e && e.id) add('records', 'ent', e.id, clsOf[e.sid], e); });
+    Object.keys(D.AT || {}).forEach(function(key){ add('records', 'att', key, clsOf[key.split('|')[0]], D.AT[key]); });
+    (D.EX || []).forEach(function(x){ if(x && x.id) add('records', 'exm', x.id, x.classId, x); });
+    (D.AK || []).forEach(function(a){ if(a && a.id) add('records', 'akh', a.id, clsOf[a.sid], a); });
+    var RN = J('jamia_mgmt_rnote_v1', {}) || {}; Object.keys(RN).forEach(function(key){ add('records', 'akh', 'RN:' + key, clsOf[key.split('|')[0]], RN[key]); });
+    (J('jamia_mgmt_ann_v1', []) || []).forEach(function(a){ if(a && a.id) add('records', 'ann', a.id, '', a); });
+    var C = J('jamia_mgmt_cfg_v1', null); if(C) add('records', 'cfg', 'main', '', C);
+    var F = D.F || {}; add('fees', 'fee', 'plans', '', { plans: F.plans || {}, seq: F.seq || 0 });
+    (F.rec || []).forEach(function(r){ if(r && r.id) add('fees', 'fee', r.id, '', r); });
+    (F.exp || []).forEach(function(x){ if(x && x.id) add('fees', 'fexp', x.id, '', x); });
+    return out;
+  }
+  function when(v){ return v ? (+v.upd || +v.t || +v.created || 0) : 0; }
+  function upsert(arr, key, v){ var i = arr.findIndex(function(x){ return x && x[key] === v[key]; }); if(i > -1) arr[i] = v; else arr.push(v); }
+  var applying = false;
+  function apply(list){
+    applying = true;
+    var D = stores(), touched = {}, RN = null, ANN = null, CF = null;
+    list.forEach(function(r){
+      var o; try{ o = JSON.parse(r.j); }catch(e){ return; } var id = o.id, v = o.v; if(v == null) return;
+      if(r.k === 'stu'){ upsert(D.MS, 'sid', v); touched.MS = 1; }
+      else if(r.k === 'cls'){ upsert(D.MC, 'id', v); touched.MC = 1; }
+      else if(r.k === 'ent'){ upsert(D.EN, 'id', v); touched.EN = 1; }
+      else if(r.k === 'att'){ D.AT[id] = v; touched.AT = 1; }
+      else if(r.k === 'exm'){ upsert(D.EX, 'id', v); touched.EX = 1; }
+      else if(r.k === 'akh'){ if(String(id).indexOf('RN:') === 0){ RN = RN || J('jamia_mgmt_rnote_v1', {}) || {}; RN[id.slice(3)] = v; } else { upsert(D.AK, 'id', v); touched.AK = 1; } }
+      else if(r.k === 'ann'){ ANN = ANN || J('jamia_mgmt_ann_v1', []) || []; upsert(ANN, 'id', v); }
+      else if(r.k === 'cfg'){ CF = v; }
+      else if(r.k === 'fee' && id === 'plans'){ D.F.plans = D.F.plans || {}; Object.keys(D.F.plans).forEach(function(k){ delete D.F.plans[k]; }); Object.assign(D.F.plans, v.plans || {}); D.F.seq = Math.max(+D.F.seq || 0, +v.seq || 0); touched.F = 1; }
+      else if(r.k === 'fee'){ D.F.rec = D.F.rec || []; upsert(D.F.rec, 'id', v); D.F.seq = Math.max(+D.F.seq || 0, +v.no || 0); touched.F = 1; }
+      else if(r.k === 'fexp'){ D.F.exp = D.F.exp || []; upsert(D.F.exp, 'id', v); touched.F = 1; }
+    });
+    Object.keys(touched).forEach(function(k){ try{ localStorage.setItem(KEYS[k], JSON.stringify(D[k])); }catch(e){} });
+    try{ if(RN) localStorage.setItem('jamia_mgmt_rnote_v1', JSON.stringify(RN)); if(ANN) localStorage.setItem('jamia_mgmt_ann_v1', JSON.stringify(ANN)); if(CF) localStorage.setItem('jamia_mgmt_cfg_v1', JSON.stringify(CF)); }catch(e){}
+    applying = false;
+    refreshUI();
+  }
+  function refreshUI(){
+    try{ document.dispatchEvent(new Event('jma-changed')); }catch(e){}
+    var vis = function(id){ var el = $(id); return el && el.style.display === 'block'; };
+    try{ if(vis('jmaStu') && window.jmaStuRedraw) jmaStuRedraw(); }catch(e){}
+    try{ if(vis('jmaPro') && window.jmaProRedraw) jmaProRedraw(); }catch(e){}
+    try{ if(vis('jmaDash') && !vis('jmaEnt') && window.jmaDashOpen) jmaDashOpen(); }catch(e){}
+  }
+
+  /* ---------------- اختیار (کون کیا بھیج سکتا ہے) ---------------- */
+  function boss(S){ return S.role === 'admin' || S.role === 'moh' || S.owner; }
+  function canSend(S, r){
+    if(r.coll === 'fees') return boss(S) || S.role === 'fin';
+    if(boss(S)) return true;
+    if(S.role === 'teacher') return ['ent', 'att', 'akh', 'exm'].indexOf(r.k) > -1 && (S.cls || []).indexOf(r.g) > -1;
+    return false;
+  }
+
+  /* ---------------- ہم آہنگی ---------------- */
+  var busy = false, again = false;
+  function dot(t){ var d = $('jm39dot'); if(!d) return; if(!t){ d.style.display = 'none'; return; } d.textContent = t; d.style.display = 'block'; clearTimeout(dot._t); dot._t = setTimeout(function(){ d.style.display = 'none'; }, 2500); }
+  function pull(S, coll, H, local, got){
+    var cur = (S.lp || {})[coll] || '1970-01-01T00:00:00Z';
+    var q = { structuredQuery: { from: [{ collectionId: coll }], where: { fieldFilter: { field: { fieldPath: 'u' }, op: 'GREATER_THAN', value: { timestampValue: cur } } }, orderBy: [{ field: { fieldPath: 'u' }, direction: 'ASCENDING' }], limit: 300 } };
+    return req(S, 'POST', '/madrasas/' + S.md + ':runQuery', q).then(function(rows){
+      var docs = (rows || []).filter(function(x){ return x.document; }).map(function(x){ var o = ff(x.document.fields); o._id = x.document.name.split('/').pop(); return o; });
+      docs.forEach(function(r){
+        var rid = r._id, L = local[rid], rh = h32(r.j || '');
+        if(L){ var lh = h32(L.j); if(lh === rh){ H[rid] = rh; return; }
+          if(H[rid] && H[rid] !== lh){   /* دونوں طرف بدلا — نیا جیتے */
+            var rv = null; try{ rv = JSON.parse(r.j).v; }catch(e){} if(when(L.v) > when(rv)) return; } }
+        got.push({ k: r.k, j: r.j }); H[rid] = rh;
+      });
+      if(docs.length && docs[docs.length - 1].u) cur = docs[docs.length - 1].u;   /* ترتیب u سے — آخری ہی سب سے نیا */
+      S.lp = S.lp || {}; S.lp[coll] = cur;
+      if(docs.length === 300) return pull(S, coll, H, local, got);
+    });
+  }
+  function push(S, H, local){
+    var todo = Object.keys(local).filter(function(rid){ var L = local[rid], h = h32(L.j); return H[rid] !== h && (S.bad || {})[rid] !== h && canSend(S, L); });
+    if(!todo.length) return Promise.resolve(0);
+    var chunks = []; for(var i = 0; i < todo.length; i += 80) chunks.push(todo.slice(i, i + 80));
+    var me = (window.jmaUser && jmaUser()) || null, by = (me && me.name) || S.name || '';
+    function write(rid){ var L = local[rid]; return { update: { name: docName('madrasas/' + S.md + '/' + L.coll + '/' + rid), fields: tf({ c: 1, k: L.k, g: L.g, j: L.j, by: String(by).slice(0, 60), dev: devId().slice(0, 40) }) }, updateTransforms: [{ fieldPath: 'u', setToServerValue: 'REQUEST_TIME' }] }; }
+    var sent = 0;
+    return chunks.reduce(function(p, ch){ return p.then(function(){
+      return req(S, 'POST', ':commit', { writes: ch.map(write) }).then(function(){ ch.forEach(function(rid){ H[rid] = h32(local[rid].j); }); sent += ch.length; })
+        .catch(function(e){ if(e.status !== 403 && e.status !== 400) throw e;   /* ایک غلط ریکارڈ پوری قسط نہ روکے — ایک ایک کر کے */
+          return ch.reduce(function(p2, rid){ return p2.then(function(){ return req(S, 'POST', ':commit', { writes: [write(rid)] }).then(function(){ H[rid] = h32(local[rid].j); sent++; }).catch(function(e2){ if(e2.status === 403 || e2.status === 400){ S.bad = S.bad || {}; S.bad[rid] = h32(local[rid].j); } else throw e2; }); }); }, Promise.resolve()); }); }); }, Promise.resolve()).then(function(){ return sent; });
+  }
+  function meta(S){   /* مدرسے کا دستاویز: مالک مدت لکھے، باقی موبائل مدت پڑھیں؛ ممبر کی حالت */
+    return getDoc(S, 'madrasas/' + S.md + '/members/' + S.auth.uid).then(function(m){ S.role = m.role; S.cls = m.cls || []; S.name = m.name || S.name; })
+      .catch(function(e){ if(e.status === 404 || e.status === 403){ S.removed = 1; throw e; } throw e; })
+      .then(function(){ return getDoc(S, 'madrasas/' + S.md); }).then(function(M){
+        S.owner = M.owner === S.auth.uid; S.mname = M.name || S.mname; S.exp = +M.exp || 0; S.devs = +M.devs || 2;
+        if(S.owner){ var a = act(), want = pkgExp(); if(want !== S.exp || (a && (a.devices || 1)) !== S.devs){ S.exp = want; S.devs = Math.max(2, (a && a.devices) || 2); return patch(S, 'madrasas/' + S.md, { exp: S.exp, devs: S.devs, name: S.mname || '' }).catch(function(){}); } }
+        else { staffAct(S); try{ var mi = mdInfo(); if(S.mname && mi.mad !== S.mname){ mi.mad = S.mname; localStorage.setItem('jamia_mdid_v1', JSON.stringify(mi)); } }catch(e){} }
+      });
+  }
+  function pkgExp(){ var a = act(); if(a && a.md && !a.staff && a.expiry > Date.now() && (a.devices || 1) >= 2) return a.life ? Date.now() + 100 * 365 * 864e5 : a.expiry;
+    var t = J('jamia_trial_v4', null); if(t && t.start && !(a && a.md && a.expiry > Date.now())) return t.start + 3 * 864e5; return 0; }
+  function staffAct(S){   /* استاد / دوسرے موبائل پر تالا مدرسے کی مدت سے — پیکج کا کوئی ذکر نہیں */
+    var a = act() || {}; if(a.md && !a.staff) return;
+    var n = { expiry: S.exp || 0, md: S.md, devices: S.devs || 2, staff: true, pkg: 'جڑا موبائل', at: a.at || Date.now() };
+    if(a.expiry !== n.expiry || !a.staff){ try{ localStorage.setItem('jamia_act_v4', JSON.stringify(n)); }catch(e){}
+      try{ var on = $('lockScreen') && $('lockScreen').style.display === 'flex'; if(n.expiry > Date.now() && on) unlockApp(); else if(n.expiry <= Date.now() && !on) initLock(); }catch(e){} }
+  }
+  function sync(manual){
+    var S = st(); if(!S || !S.md || !S.on) return Promise.resolve();
+    if(navigator.onLine === false){ if(manual) alert('📶 انٹرنیٹ نہیں'); return Promise.resolve(); }
+    if(busy){ again = true; return Promise.resolve(); } busy = true; if(manual) dot('☁️ ہم آہنگی…');
+    var H = S.h = S.h || {}, got = [], local;
+    return meta(S).then(function(){ local = collect(); return pull(S, 'records', H, local, got); })
+      .then(function(){ return (boss(S) || S.role === 'fin') ? pull(S, 'fees', H, local, got) : null; })
+      .then(function(){ if(got.length) apply(got); local = collect(); return push(S, H, local); })
+      .then(function(n){ S.last = Date.now(); S.err = ''; var S0 = st() || {}; S.auth = S0.auth || S.auth; setSt(S); if(manual || got.length || n) dot('☁️ ✓ ' + (got.length ? '⬇' + got.length + ' ' : '') + (n ? '⬆' + n : '')); paintScr(); return { got: got.length, sent: n }; })
+      .catch(function(e){ S.err = String(e && e.message || e); var S0 = st() || {}; S.auth = S0.auth || S.auth; setSt(S); if(S.removed) removedNow(S); else if(manual) dot('⚠️ ' + S.err); paintScr(); })
+      .then(function(r){ busy = false; if(again){ again = false; setTimeout(sync, 800); } return r; });
+  }
+  window.jmaCloudSync = sync;
+  function removedNow(S){ S.on = false; setSt(S); alert('🚪 یہ موبائل مدرسے سے الگ کر دیا گیا ہے — آن لائن ہم آہنگی بند'); if(S.role !== 'admin') try{ var a = act(); if(a && a.staff){ a.expiry = 0; localStorage.setItem('jamia_act_v4', JSON.stringify(a)); initLock(); } }catch(e){} }
+
+  /* تبدیلی کے 3 سیکنڈ بعد بھیجیں؛ ہر 2 منٹ (سامنے ہو تو) لیں */
+  var tmr = null;
+  try{ var _set = Storage.prototype.setItem; Storage.prototype.setItem = function(k, v){ var r = _set.apply(this, arguments); try{ if(this === localStorage && !applying && /^jamia_mgmt_/.test(k) && st() && st().on){ clearTimeout(tmr); tmr = setTimeout(sync, 3000); } }catch(e){} return r; }; }catch(e){}
+  setInterval(function(){ if(document.visibilityState === 'visible') sync(); }, 120e3);
+  document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'visible') setTimeout(sync, 1500); });
+  window.addEventListener('online', function(){ setTimeout(sync, 1500); });
+  setTimeout(sync, 4000);
+
+  /* استاد / خزانچی کے موبائل پر اختیار مدرسے والا (یہاں کے صارفین کے اوپر) */
+  var R = { fees: ['admin', 'moh', 'fin'], restore: ['admin'], users: ['admin'], backup: ['admin', 'moh'], delete: ['admin', 'moh'], classes: ['admin', 'moh'], allClasses: ['admin', 'moh', 'fin'] };
+  function wrapCan(){
+    var c0 = window.jmaCan, a0 = window.jmaAllowedClass; if(!c0 || c0._j39) return;
+    window.jmaCan = function(w){ var S = st(); if(S && S.on && !S.owner && S.role && S.role !== 'admin') return (R[w] || ['admin']).indexOf(S.role) > -1 && c0(w); return c0(w); }; window.jmaCan._j39 = 1;
+    window.jmaAllowedClass = function(id){ var S = st(); if(S && S.on && !S.owner && (S.role === 'teacher')) return (S.cls || []).indexOf(id) > -1; return a0 ? a0(id) : true; };
+  }
+  wrapCan(); setTimeout(wrapCan, 1500);
+
+  /* ---------------- آن لائن چالو (مین موبائل) ---------------- */
+  function canEnable(){ var a = act(); if(a && a.md && !a.staff && a.expiry > Date.now()) return (a.devices || 1) >= 2; return pkgExp() > Date.now(); }
+  function enable(){
+    var m = mdInfo(); if(!m.id){ alert('📶 پہلے MD ID بن جائے (انٹرنیٹ چالو کر کے «🔄 تازہ کریں»)'); return; }
+    if(!canEnable()){ alert('☁️ دو موبائل کا جوڑ صرف «📱📱 دو موبائل» پیکج میں ہے — 📦 پیکج و سبسکرپشن سے منگوائیں'); return; }
+    var S = { md: m.id, on: false, h: {}, lp: {}, name: (window.jmaCfg && jmaCfg().moh) || m.per || 'منتظم', mname: (window.jmaMadName && jmaMadName()) || m.mad || '' };
+    dot('☁️ چالو ہو رہا ہے…');
+    return newUser().then(function(a){ S.auth = a; setSt(S);
+      var okey = rnd(12), jkey = rnd(8, '0123456789');
+      return setDoc(S, 'madrasas/' + S.md, { owner: a.uid, name: S.mname, at: Date.now(), exp: pkgExp(), devs: 2 }, true)
+        .then(function(){ return setDoc(S, 'madrasas/' + S.md + '/members/' + a.uid, { role: 'admin', cls: [], name: S.name, at: Date.now() }); })
+        .then(function(){ return setDoc(S, 'madrasas/' + S.md + '/secret/owner', { key: okey }); })
+        .then(function(){ return setDoc(S, 'madrasas/' + S.md + '/secret/join', { key: jkey }); })
+        .then(function(){ S.on = true; S.owner = true; S.role = 'admin'; S.okey = okey; S.jkey = jkey; setSt(S); return sync(true); })
+        .then(function(){ open(); alert('✅ آن لائن چالو!\n\n👑 مالک کا خفیہ کوڈ: ' + okey + '\n\nیہ کوڈ کاغذ پر لکھ کر محفوظ جگہ رکھیں — موبائل بدلے یا گم ہو تو اسی سے نیا موبائل مالک بنے گا۔'); });
+    }).catch(function(e){ var s = String(e && e.message || e);
+      if(/ALREADY_EXISTS|409|PERMISSION/.test(s) || e.status === 409){ alert('یہ MD ID پہلے سے آن لائن ہے — اگر آپ ہی مالک ہیں تو «👑 میں مالک ہوں — خفیہ کوڈ» سے یہ موبائل جوڑیں'); claimDlg(m.id); }
+      else alert('⚠️ آن لائن چالو نہیں ہو سکا — انٹرنیٹ دیکھ کر دوبارہ کوشش کریں (' + s + ')'); });
+  }
+
+  /* ---------------- جوڑنا (دوسرا موبائل) ---------------- */
+  function wipeLocal(){
+    try{ if(window.jmaSnapshot) jmaSnapshot('جوڑنے سے پہلے'); }catch(e){}
+    var D = stores(); ['MS', 'MC', 'EN', 'EX', 'AK'].forEach(function(k){ if(Array.isArray(D[k])) D[k].length = 0; });
+    Object.keys(D.AT || {}).forEach(function(k){ delete D.AT[k]; }); if(D.F){ D.F.plans = {}; D.F.rec = []; D.F.exp = []; D.F.seq = 0; }
+    Object.keys(KEYS).forEach(function(k){ try{ localStorage.setItem(KEYS[k], JSON.stringify(D[k])); }catch(e){} });
+    ['jamia_mgmt_rnote_v1', 'jamia_mgmt_ann_v1'].forEach(function(k){ try{ localStorage.removeItem(k); }catch(e){} });
+  }
+  function join(code, name){
+    var mm = /^(MD\d{3,8})-?(\d{8})$/i.exec(String(code || '').replace(/[\s]/g, '').replace(/[۰-۹]/g, function(d){ return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d); }).toUpperCase());
+    if(!mm) return Promise.reject(new Error('کوڈ درست نہیں — شکل: MD12345-12345678'));
+    var S = { md: mm[1], on: false, h: {}, lp: {}, name: name };
+    return newUser().then(function(a){ S.auth = a;
+      return setDoc(S, 'madrasas/' + S.md + '/members/' + a.uid, { key: mm[2], role: 'teacher', cls: [], name: name, at: Date.now() })
+        .catch(function(){ throw new Error('کوڈ غلط ہے یا پرانا ہو گیا — مین موبائل سے نیا کوڈ لیں'); }); })
+      .then(function(){ wipeLocal(); S.on = true; S.role = 'teacher'; S.cls = []; setSt(S);
+        var m = mdInfo(); m.joined = S.md; try{ localStorage.setItem('jamia_mdid_v1', JSON.stringify(m)); }catch(e){}
+        return sync(true); });
+  }
+  /* ---------------- مالک کا نیا موبائل ---------------- */
+  function claim(md, key, name){
+    md = String(md || '').trim().toUpperCase(); key = String(key || '').replace(/\s/g, '').toUpperCase();
+    if(!/^MD\d{3,8}$/.test(md) || key.length < 8) return Promise.reject(new Error('MD ID اور خفیہ کوڈ درست لکھیں'));
+    var S = { md: md, on: false, h: {}, lp: {}, name: name || 'منتظم' };
+    return newUser().then(function(a){ S.auth = a;
+      return setDoc(S, 'madrasas/' + md + '/claims/' + a.uid, { key: key, at: Date.now() })
+        .then(function(){ return patch(S, 'madrasas/' + md, { owner: a.uid }); })
+        .catch(function(){ throw new Error('خفیہ کوڈ غلط ہے'); })
+        .then(function(){ return setDoc(S, 'madrasas/' + md + '/members/' + a.uid, { role: 'admin', cls: [], name: S.name, at: Date.now() }); }); })
+      .then(function(){ wipeLocal(); S.on = true; S.owner = true; S.role = 'admin'; S.okey = key; setSt(S);
+        return getDoc(S, 'madrasas/' + md).then(function(M){ var m = mdInfo(); m.id = m.id || md; m.mad = m.mad || M.name; m.claimed = md; try{ localStorage.setItem('jamia_mdid_v1', JSON.stringify(m)); }catch(e){}
+          var a = { expiry: +M.exp || 0, md: md, devices: +M.devs || 2, pkg: 'دو موبائل', at: Date.now(), claimed: true }; try{ localStorage.setItem('jamia_act_v4', JSON.stringify(a)); }catch(e){}
+          try{ var su = $('md28su'); if(su) su.remove(); if(a.expiry > Date.now()) unlockApp(); }catch(e){} }); })
+      .then(function(){ return sync(true); });
+  }
+
+  /* ---------------- اسکرین ---------------- */
+  var MEM = null, CL = null;
+  function open(){ var el = $('jm39'); el.style.display = 'block'; MEM = null; paintScr(); var S = st(); if(S && S.on && S.owner) loadMembers(); }
+  function loadMembers(){ var S = st(); list(S, 'madrasas/' + S.md + '/members').then(function(L){ MEM = L; paintScr();
+      if(L.length >= (S.devs || 2) && S.jkey){ var nk = rnd(8, '0123456789'); setDoc(S, 'madrasas/' + S.md + '/secret/join', { key: nk }).then(function(){ var S2 = st(); S2.jkey = ''; setSt(S2); paintScr(); }).catch(function(){}); } })
+    .catch(function(e){ MEM = []; paintScr(); }); }
+  function ago(t){ if(!t) return 'ابھی نہیں'; var m = Math.round((Date.now() - t) / 60e3); return m < 1 ? 'ابھی' : m < 60 ? m + ' منٹ پہلے' : Math.round(m / 60) + ' گھنٹے پہلے'; }
+  function paintScr(){
+    var el = $('jm39'); if(!el || el.style.display !== 'block') return;
+    var S = st(), h = '<div class="hd"><b>☁️ دو موبائل — آن لائن جوڑ</b><button type="button" data-c="x">✕</button></div><div class="wr">';
+    if(!S || !S.on){
+      h += '<div class="cd"><h4>☁️ یہ کیا ہے؟</h4><div class="t">مین موبائل (منتظم) اور استاد کا موبائل <b>ایک ہی ڈیٹا</b> پر — استاد سبق / حاضری لکھے تو منتظم کے موبائل پر خود آ جائے۔ انٹرنیٹ نہ ہو تو بھی کام چلتا رہے؛ انٹرنیٹ آتے ہی خود پہنچ جائے۔<br>📱📱 صرف «دو موبائل» پیکج میں۔</div></div>'
+        + '<div class="cd"><h4>👑 یہ مین موبائل ہے (منتظم)</h4><button type="button" class="bt" data-c="en">☁️ آن لائن چالو کریں</button></div>'
+        + '<div class="cd"><h4>👳 یہ استاد / دوسرا موبائل ہے</h4><div class="t">مین موبائل کے «☁️ دو موبائل» سے ملا کوڈ لکھیں</div><input id="jm39n" placeholder="آپ کا نام (مثلاً قاری محمد حسن)" maxlength="40"><input id="jm39k" class="ltr" placeholder="MD12345-12345678" maxlength="20"><div class="er" id="jm39e"></div><button type="button" class="bt b" data-c="jn">🔗 مدرسے سے جوڑیں</button></div>'
+        + '<div class="cd"><h4>📲 مالک کا نیا موبائل؟</h4><button type="button" class="bt o" data-c="cl">👑 میں مالک ہوں — خفیہ کوڈ سے</button></div>';
+    } else {
+      h += '<div class="cd"><h4>' + (S.owner ? '👑 مین موبائل (مالک)' : '📱 جڑا موبائل — ' + E(ROLE[S.role] || '')) + '</h4><div class="t">🕌 ' + E(S.mname || '') + ' · 🆔 <b style="font-family:Arial">' + E(S.md) + '</b><br>☁️ آخری ہم آہنگی: <b>' + ago(S.last) + '</b>' + (S.err ? '<br><span class="bad">⚠️ ' + E(S.err) + '</span>' : ' <span class="ok">✓</span>')
+        + (!S.owner && S.role === 'teacher' ? '<br>📚 آپ کی جماعتیں: ' + ((S.cls || []).length ? (S.cls || []).map(function(c){ var x = ((window.jmaMgmt && jmaMgmt.classes()) || []).find(function(q){ return q.id === c; }); return '<b>' + E(x ? x.name : c) + '</b>'; }).join('، ') : '<span class="bad">ابھی کوئی نہیں — مین موبائل سے جماعت دلوائیں</span>') : '') + '</div>'
+        + '<button type="button" class="bt" data-c="sy">🔄 ابھی ہم آہنگ کریں</button></div>';
+      if(S.owner){
+        h += '<div class="cd"><h4>🔗 دوسرا موبائل جوڑیں</h4>' + (S.jkey ? '<div class="t">استاد کے موبائل میں ایپ کھول کر «☁️ دو موبائل» ← «👳 استاد کا موبائل» میں یہ کوڈ لکھیں:</div><div class="code">' + E(S.md + '-' + S.jkey) + '</div><div class="rw"><button type="button" class="bt o" data-c="cp">📋 کاپی</button><button type="button" class="bt o" data-c="wa">💬 واٹس ایپ</button></div>'
+          : '<div class="t">جوڑنے کا کوڈ بند ہے (موبائل پورے ہیں یا کوڈ استعمال ہو چکا)۔</div>') + '<button type="button" class="bt b" data-c="nk">🔑 نیا جوڑنے کا کوڈ بنائیں</button></div>';
+        h += '<div class="cd"><h4>📱 جڑے موبائل' + (MEM ? ' (' + MEM.length + ' / ' + (S.devs || 2) + ')' : '') + '</h4>';
+        if(!MEM) h += '<div class="t">⏳ …</div>';
+        else { CL = ((window.jmaMgmt && jmaMgmt.classes()) || []).filter(function(c){ return !c.del; });
+          h += MEM.map(function(x){ var mine = x._id === S.auth.uid;
+            return '<div class="mb"><div class="n">' + (mine ? '👑 ' : '📱 ') + E(x.name || 'بے نام') + ' — <b>' + E(ROLE[x.role] || x.role) + '</b>' + (mine ? ' (یہ موبائل)' : '') + '</div>'
+              + (mine ? '' : '<div class="ch">' + ['teacher', 'moh', 'fin'].map(function(r){ return '<button type="button" data-rl="' + E(x._id) + '" data-r="' + r + '" class="' + (x.role === r ? 'on' : '') + '">' + ROLE[r] + '</button>'; }).join('') + '</div>'
+                + (x.role === 'teacher' ? '<div class="t" style="font-size:13.5px">جماعتیں (ٹچ کریں):</div><div class="ch">' + (CL.length ? CL.map(function(c){ return '<button type="button" data-cs="' + E(x._id) + '" data-ci="' + E(c.id) + '" class="' + ((x.cls || []).indexOf(c.id) > -1 ? 'on' : '') + '">' + E(c.name) + '</button>'; }).join('') : '<span class="t">پہلے جماعت بنائیں</span>') + '</div>' : '')
+                + '<button type="button" class="bt r" data-rm="' + E(x._id) + '" style="padding:5px;font-size:15px">🚪 یہ موبائل الگ کریں</button>') + '</div>'; }).join(''); }
+        h += '</div><div class="cd"><h4>👑 مالک کا خفیہ کوڈ</h4><div class="t">موبائل بدلے / گم ہو تو نیا موبائل اسی کوڈ سے مالک بنتا ہے — کاغذ پر لکھ کر محفوظ رکھیں، کسی کو نہ دیں۔</div>'
+          + (S.showO ? '<div class="code o">' + E(S.okey || '—') + '</div>' : '') + '<button type="button" class="bt o" data-c="so">' + (S.showO ? '🙈 چھپائیں' : '👁️ دکھائیں') + '</button></div>';
+      } else h += '<div class="cd"><button type="button" class="bt r" data-c="lv">🚪 یہ موبائل مدرسے سے الگ کریں</button></div>';
+    }
+    el.innerHTML = h + '</div>';
+  }
+  function claimDlg(md){
+    var m = prompt('👑 مدرسے کی MD ID لکھیں:', md || ''); if(!m) return;
+    var k = prompt('👑 مالک کا خفیہ کوڈ (12 حروف) لکھیں:'); if(!k) return;
+    if(!confirm('⚠️ اس موبائل کا موجودہ جامعہ ڈیٹا مدرسے کے آن لائن ڈیٹا سے بدل جائے گا (پہلے نقل محفوظ ہوگی)۔ جاری رکھیں؟')) return;
+    dot('☁️ …'); claim(m, k).then(function(){ alert('✅ یہ موبائل اب مالک ہے — سارا ڈیٹا آ گیا'); open(); }).catch(function(e){ alert('⚠️ ' + (e.message || e)); });
+  }
+  document.addEventListener('click', function(e){
+    var el = $('jm39'); if(!el || !el.contains(e.target)) return;
+    var b = e.target.closest('button'); if(!b) return; e.stopPropagation(); var d = b.dataset, S = st();
+    if(d.c === 'x'){ el.style.display = 'none'; return; }
+    if(d.c === 'en'){ if(confirm('یہ موبائل مین موبائل (مالک) بنے گا اور اس کا جامعہ ڈیٹا آن لائن جائے گا۔ جاری رکھیں؟')) enable(); return; }
+    if(d.c === 'jn'){ var nm = ($('jm39n').value || '').trim(), kc = ($('jm39k').value || '').trim(), er = $('jm39e');
+      if(nm.length < 3){ er.textContent = 'اپنا نام لکھیں'; return; } if(!confirm('⚠️ اس موبائل کا موجودہ جامعہ ڈیٹا مدرسے کے ڈیٹا سے بدل جائے گا (پہلے نقل محفوظ ہوگی)۔ جاری رکھیں؟')) return;
+      b.disabled = true; b.textContent = '⏳ جڑ رہا ہے…'; join(kc, nm).then(function(){ alert('✅ مدرسے سے جڑ گیا — مین موبائل سے آپ کو جماعت ملتے ہی کام شروع کریں'); open(); }).catch(function(x){ er.textContent = '⚠️ ' + (x.message || x); b.disabled = false; b.textContent = '🔗 مدرسے سے جوڑیں'; }); return; }
+    if(d.c === 'cl'){ claimDlg(mdInfo().id); return; }
+    if(d.c === 'sy'){ sync(true); return; }
+    if(d.c === 'so'){ S.showO = !S.showO; setSt(S); paintScr(); return; }
+    if(d.c === 'cp'){ var c = S.md + '-' + S.jkey; try{ navigator.clipboard.writeText(c).then(function(){ b.textContent = '✅ کاپی'; }); }catch(x){ prompt('کوڈ', c); } return; }
+    if(d.c === 'wa'){ window.open('https://wa.me/?text=' + encodeURIComponent('🕌 ' + (S.mname || '') + '\nمدرسہ سافٹ ویئر میں «☁️ دو موبائل» ← «👳 استاد کا موبائل» میں یہ کوڈ لکھیں:\n' + S.md + '-' + S.jkey), '_blank'); return; }
+    if(d.c === 'nk'){ if(MEM && MEM.length >= (S.devs || 2)){ alert('📱 موبائل پورے ہیں (' + MEM.length + ' / ' + (S.devs || 2) + ') — پہلے کوئی موبائل الگ کریں'); return; }
+      var k = rnd(8, '0123456789'); setDoc(S, 'madrasas/' + S.md + '/secret/join', { key: k }).then(function(){ S.jkey = k; setSt(S); paintScr(); }).catch(function(x){ alert('⚠️ ' + x.message); }); return; }
+    if(d.c === 'lv'){ if(!confirm('یہ موبائل مدرسے سے الگ کریں؟ (یہاں کا ڈیٹا ویسا رہے گا، آگے ہم آہنگی نہیں)')) return; del(S, 'madrasas/' + S.md + '/members/' + S.auth.uid).catch(function(){}).then(function(){ S.on = false; setSt(S); try{ var a = act(); if(a && a.staff){ a.expiry = 0; localStorage.setItem('jamia_act_v4', JSON.stringify(a)); } }catch(x){} open(); }); return; }
+    if(d.rl){ patch(S, 'madrasas/' + S.md + '/members/' + d.rl, { role: d.r }).then(loadMembers).catch(function(x){ alert('⚠️ ' + x.message); }); return; }
+    if(d.cs){ var x0 = (MEM || []).find(function(q){ return q._id === d.cs; }); if(!x0) return; var cl = (x0.cls || []).slice(), i = cl.indexOf(d.ci); if(i > -1) cl.splice(i, 1); else cl.push(d.ci);
+      patch(S, 'madrasas/' + S.md + '/members/' + d.cs, { cls: cl }).then(loadMembers).catch(function(x){ alert('⚠️ ' + x.message); }); return; }
+    if(d.rm){ if(!confirm('یہ موبائل الگ کریں؟ اسی وقت اس کی رسائی بند ہو جائے گی۔')) return; del(S, 'madrasas/' + S.md + '/members/' + d.rm).then(loadMembers).catch(function(x){ alert('⚠️ ' + x.message); }); return; }
+  }, true);
+  window.jmaCloudOpen = open;
+  window.jmaCloud = { st: st, collect: collect, sync: sync, join: join, claim: claim, enable: enable };
+
+  /* ڈیش بورڈ میں بٹن؛ سائن اپ پر «جڑا موبائل؟» */
+  function addTile(){
+    var t = document.querySelector('#jmaDash .jm13-tiles'); if(t && !t.querySelector('.jm39t')){ var S = st();
+      var b = document.createElement('button'); b.className = 'jm39t'; b.setAttribute('data-d39', '1'); b.style.background = 'linear-gradient(135deg,#2563eb,#1e3a8a)';
+      b.innerHTML = '<i>☁️</i>دو موبائل — آن لائن جوڑ' + (S && S.on ? ' ✓' : ''); t.appendChild(b); }
+    var su = $('md28su'); if(su && !su.querySelector('.jm39j')){ var bx = su.querySelector('.bx'); if(bx){ var j = document.createElement('button'); j.type = 'button'; j.className = 'jm39j';
+      j.style.cssText = 'display:block;width:100%;margin-top:8px;border:2px solid #2563eb;background:#eff6ff;color:#1e3a8a;border-radius:12px;padding:8px;font:inherit;font-size:16px';
+      j.textContent = '🔗 یہ استاد / دوسرا موبائل ہے — مدرسے سے جوڑیں'; j.onclick = function(){ su.style.display = 'none'; open(); var w = setInterval(function(){ if($('jm39').style.display !== 'block'){ clearInterval(w); var S = st(); if(S && S.on){ su.remove(); try{ unlockApp(); }catch(x){} } else su.style.display = ''; } }, 500); }; bx.appendChild(j); } }
+  }
+  setInterval(function(){ addTile(); try{ var a = act(), hb = $('md28home'); if(hb) hb.style.display = a && a.staff ? 'none' : ''; }catch(e){} }, 700);
+  document.addEventListener('click', function(e){ var b = e.target.closest && e.target.closest('#jmaDash [data-d39]'); if(!b) return; e.stopPropagation(); e.preventDefault(); open(); }, true);
 })();
 </script>
 </body></html>

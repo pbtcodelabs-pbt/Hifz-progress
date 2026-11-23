@@ -41,13 +41,18 @@ service cloud.firestore {
     match /madrasas/{mdId} {
       // MD ID شکل: MD + ہندسے؛ بنانے والا ہی مالک؛ صرف یہ خانے
       allow create: if signedIn() && mdId.matches('^MD[0-9]{3,8}$') &&
-        request.resource.data.keys().hasOnly(['owner', 'name', 'at']) &&
+        request.resource.data.keys().hasOnly(['owner', 'name', 'at', 'exp', 'devs']) &&
         request.resource.data.owner == request.auth.uid &&
         (!('name' in request.resource.data) || (request.resource.data.name is string && request.resource.data.name.size() <= 80));
       allow get: if isMember(mdId);
-      // مالک نام بدل سکے؛ مالکی (owner) کبھی کوئی اور نہ لے
-      allow update: if isOwner(mdId) && request.resource.data.owner == resource.data.owner &&
-        request.resource.data.keys().hasOnly(['owner', 'name', 'at']);
+      // مالک نام / پیکج کی مدت بدل سکے؛ مالکی صرف «مالک کے خفیہ کوڈ» سے (مالک کا نیا موبائل) — اور صرف اپنے نام
+      allow update: if (isOwner(mdId) && request.resource.data.owner == resource.data.owner &&
+        request.resource.data.keys().hasOnly(['owner', 'name', 'at', 'exp', 'devs'])) || (
+        signedIn() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['owner']) &&
+        request.resource.data.owner == request.auth.uid &&
+        exists(/databases/$(db)/documents/madrasas/$(mdId)/claims/$(request.auth.uid)) &&
+        get(/databases/$(db)/documents/madrasas/$(mdId)/claims/$(request.auth.uid)).data.key ==
+          get(/databases/$(db)/documents/madrasas/$(mdId)/secret/owner).data.key);
       allow list, delete: if false;
 
       // جڑے موبائل
@@ -70,7 +75,13 @@ service cloud.firestore {
         // ہٹانا: مالک (اپنے سوا)، منتظم صرف استاد / خزانچی
         allow delete: if uid != mad(mdId).owner && (isOwner(mdId) || (isBoss(mdId) && resource.data.role in ['teacher', 'fin']));
       }
-      // جوڑنے کا کوڈ صرف مالک دیکھے / بدلے
+      // مالک کا خفیہ کوڈ دینے کی جگہ — ہر موبائل صرف اپنی، کوئی پڑھ نہیں سکتا
+      match /claims/{uid} {
+        allow create, update: if signedIn() && uid == request.auth.uid && request.resource.data.keys().hasOnly(['key', 'at']) &&
+          request.resource.data.key is string && request.resource.data.key.size() <= 40;
+        allow read, delete: if false;
+      }
+      // جوڑنے کا کوڈ اور مالک کا خفیہ کوڈ صرف مالک دیکھے / بدلے
       match /secret/{doc} {
         allow read, write: if isOwner(mdId);
       }
