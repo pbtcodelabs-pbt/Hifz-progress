@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO042</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO043</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7965,7 +7965,9 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 .jm42 .h{font-size:14px;color:#065f46;line-height:1.9;margin-bottom:5px}
 .jm42 .g{display:block;width:100%;border:0;border-radius:12px;padding:8px;font:inherit;font-size:17px;color:#fff;background:linear-gradient(135deg,#059669,#065f46)}
 .jm42 .q{font-size:16px;line-height:1.9;color:#0f172a;text-align:center}
-.jm42 .q small{display:block;font-size:13px;color:#475569}
+.jm42 .q .ab{color:#b91c1c;background:#fef2f2;border-radius:10px;padding:2px 8px;margin-bottom:4px}
+.jm42 .q .hf{color:#92400e;background:#fffbeb;border-radius:10px;padding:2px 8px;margin-bottom:4px}
+.jm42 .q .nb{color:#b45309;font-size:14px}
 .jm42 .r{display:flex;gap:8px;margin-top:6px}
 .jm42 .r button{flex:1;border:0;border-radius:12px;padding:8px;font:inherit;font-size:16px}
 .jm42 .y{background:#16a34a;color:#fff;flex:2!important}.jm42 .n{background:#fff;color:#b91c1c;border:2px solid #fca5a5!important}
@@ -8051,13 +8053,17 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       + '<div class="jm5-sum"><span>✅ حاضر <b class="jm2-n">' + cnt.p + '</b></span><span>🌗 آدھی <b class="jm2-n">' + cnt.h + '</b></span><span>❌ غیر حاضر <b class="jm2-n">' + cnt.a + '</b></span><span>⬜ باقی <b class="jm2-n">' + cnt.x + '</b></span></div>'
       + '</div>';
     h += L.length ? L.map(function(s){ var x = sesOf(s.sid, cur.date, cur.ses), st = x ? x.st : '';
-      return '<div class="jm5-r ' + st + '"><div class="t">' + (s.photo ? '<img class="jm41a" src="' + E(s.photo) + '" alt="">' : '<span class="jm41a">👤</span>') + '<b>' + E(s.roll || '—') + '</b>' + E(s.n) + '</div><div class="jm5-b">' + ['p', 'h', 'a'].map(function(k){ return '<button data-at="' + k + '" data-sid="' + E(s.sid) + '" class="' + k + (st === k ? ' on' : '') + '">' + ST[k] + '</button>'; }).join('') + '</div>'
+      return '<div class="jm5-r ' + st + '"><div class="t">' + (s.photo ? '<img class="jm41a" src="' + E(s.photo) + '" alt="">' : '<span class="jm41a">👤</span>') + '<b>' + E(s.roll || '—') + '</b>' + E(s.n) + '</div><div class="jm5-b">' + ['p', 'h', 'a'].map(function(k){ return '<button data-at="' + k + '" data-sid="' + E(s.sid) + '" class="' + k + (st === k ? ' on' : '') + '">' + (st === k ? '✓ ' : '') + ST[k] + '</button>'; }).join('') + '</div>'
         + (st === 'a' || st === 'h' ? '<div class="jm5-why">' + WHY.map(function(w){ return '<button data-why="' + w + '" data-sid="' + E(s.sid) + '" class="' + (x.reason === w || (w === 'دیگر' && x.reason && WHY.indexOf(x.reason) < 0) ? 'on' : '') + '">' + w + '</button>'; }).join('') + (x.reason && WHY.indexOf(x.reason) < 0 ? '<span style="font-size:13px;color:#991b1b">' + E(x.reason) + '</span>' : '') + '</div>' : '')
         + '</div>'; }).join('') : '<div class="jm2-empty">اس جماعت میں کوئی طالب علم نہیں</div>';
     /* MD2311MO042: «باقی سب حاضر» فہرست کے آخر میں + دوسری تصدیق — غلطی سے پوری جماعت حاضر نہ لگے */
     if(L.length && cnt.x){ var left = L.filter(function(s){ return !sesOf(s.sid, cur.date, cur.ses); });
       h += '<div class="jm42">' + (cur.conf
-        ? '<div class="q">کیا یہ <b class="jm2-n">' + left.length + '</b> طلبہ «' + SES[cur.ses] + '» میں حاضر لگا دیں؟<small>' + left.map(function(s){ return E(s.n); }).join('، ') + '</small></div><div class="r"><button class="y" data-all="1">✓ ہاں، حاضر لگائیں</button><button class="n" data-allno="1">✕ نہیں</button></div>'
+        ? (function(){ var ab = L.filter(function(s){ var x = sesOf(s.sid, cur.date, cur.ses); return x && x.st === 'a'; }), hf = L.filter(function(s){ var x = sesOf(s.sid, cur.date, cur.ses); return x && x.st === 'h'; });
+            return '<div class="q">' + (ab.length ? '<div class="ab">❌ غیر حاضر: ' + ab.map(function(s){ return E(s.n); }).join('، ') + '</div>' : '<div class="nb">کوئی طالب علم غیر حاضر نہیں چنا</div>')
+              + (hf.length ? '<div class="hf">🌗 آدھی حاضری: ' + hf.map(function(s){ return E(s.n); }).join('، ') + '</div>' : '')
+              + 'ان کے علاوہ باقی <b class="jm2-n">' + left.length + '</b> طلبہ «' + SES[cur.ses] + '» میں حاضر لگا دیں؟</div>'; })()
+          + '<div class="r"><button class="y" data-all="1">✓ ہاں، حاضر لگائیں</button><button class="n" data-allno="1">✕ نہیں</button></div>'
         : '<div class="h">پہلے اوپر غیر حاضر / آدھی حاضری والے طلبہ کا بٹن دبائیں، پھر باقی طلبہ ایک بٹن سے:</div><button class="g" data-allask="1">✅ باقی <b class="jm2-n">' + left.length + '</b> طلبہ حاضر — ' + SES[cur.ses] + '</button>') + '</div>'; }
     h += '<div style="font-size:13px;color:#64748b;text-align:center;margin:8px 0">ہر بٹن دباتے ہی محفوظ — وجہ صرف آپ لکھیں تو درج ہوتی ہے</div></div>';
     var y = el.scrollTop; el.innerHTML = h; el.scrollTop = y;
@@ -9608,7 +9614,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO042" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO043" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
