@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO047</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO048</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7898,8 +7898,8 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     var picked = F.lis.type === 'student' && F.lis.id ? stu(F.lis.id) : null;
     h += '<div class="jm2-card"><h4>👂 کس نے سنا؟</h4><div class="jm45">'
       + '<button data-lis="teacher" class="' + (F.lis.type === 'teacher' ? 'on' : '') + '">' + (F.lis.type === 'teacher' ? '✓ ' : '') + '👳 استاد محترم نے خود سنا' + tn + '</button>'
-      + '<button data-lis="student" class="' + (F.lis.type === 'student' ? 'on' : '') + '">' + (F.lis.type === 'student' ? '✓ ' : '') + '🧒 کسی طالب علم نے سنا</button></div>'
-      + (F.lis.type === 'student' ? '<select class="jm45sel' + (picked ? ' ok' : '') + '" id="jm45Sel"><option value="">🔽 کس طالب علم نے سنا؟ — نام چنیں</option>' + mates.map(function(x){ var self = x.sid === s.sid; return '<option value="' + E(x.sid) + '"' + (self ? ' disabled' : '') + (F.lis.id === x.sid ? ' selected' : '') + '>' + E(x.roll || '–') + ' — ' + E(x.n) + (self ? ' (خود)' : '') + '</option>'; }).join('') + '</select>' : '')
+      + '<button data-lis="student" class="' + (F.lis.type === 'student' ? 'on' : '') + '">' + (F.lis.type === 'student' ? '✓ ' : '') + '🧒 سننے والے طالب علم کا نام</button></div>'
+      + (F.lis.type === 'student' ? '<select class="jm45sel' + (picked ? ' ok' : '') + '" id="jm45Sel"><option value="">🔽 سننے والے طالب علم کا نام چنیں</option>' + mates.map(function(x){ var self = x.sid === s.sid; return '<option value="' + E(x.sid) + '"' + (self ? ' disabled' : '') + (F.lis.id === x.sid ? ' selected' : '') + '>' + E(x.roll || '–') + ' — ' + E(x.n) + (self ? ' (خود)' : '') + '</option>'; }).join('') + '</select>' : '')
       + '<div style="font-size:13px;color:#64748b;margin-top:4px">سنانے والا: ' + E(F._sname) + '</div></div>';
     h += '<div class="jm2-card"><h4>📊 جانچ</h4>' + (F.kind === 'sabaq' ? '' : '<div class="jm3-q"><span>اٹکن</span>' + stepper('atkan', F.atkan) + '</div>') + '<div class="jm3-q"><span>غلطیاں</span>' + stepper('mist', F.mist) + '</div>'
       + '<label class="jm2-l">کارکردگی</label><div class="jm2-opts">' + PERF.map(function(p){ return '<button data-perf="' + p + '" class="' + (F.perf === p ? 'on' : '') + '">' + p + '</button>'; }).join('') + '</div>'
@@ -9635,7 +9635,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO047" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO048" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
