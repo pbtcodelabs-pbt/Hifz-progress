@@ -1,8 +1,11 @@
 rules_version = '2';
-// 🕌 مدرسہ سافٹ ویئر (madrasa-md) — فائربیس کے حفاظتی اصول
-// ہر مدرسے کا ڈیٹا صرف madrasas/<MD ID>/… میں؛ صرف اسی مدرسے کے جڑے موبائل (members) پڑھ / لکھ سکیں۔
-// کسی دوسری ایپ (سبزی منڈی، AIO، آڑھت بک…) کا کوئی ڈیٹا یہاں نہیں — یہ پروجیکٹ صرف مدرسے کا۔
-// والدین فائربیس کو سیدھا نہیں دیکھتے — ان کی رپورٹ سرور (worker) سے۔
+// 🕌 مدرسہ سافٹ ویئر (madrasa-md) — فائربیس کے حفاظتی اصول (v2، 23 نومبر 2026)
+// • ہر مدرسہ صرف madrasas/<MD ID>/… میں؛ صرف اسی مدرسے کے جڑے موبائل (members) — دوسرا مدرسہ / اجنبی کچھ نہیں دیکھتا۔
+// • کسی دوسری ایپ (سبزی منڈی، AIO، آڑھت بک…) کا ڈیٹا یہاں نہیں، کوئی اور کلیکشن بالکل بند۔
+// • اختیار: مالک (مین موبائل) › منتظم / مہتمم › خزانچی (صرف فیس) › استاد (صرف اپنی جماعت، اپنی قسم کے ریکارڈ)۔
+// • ریکارڈ کی شکل پکی (فالتو خانے، بڑی چیزیں، غلط قسم رد)؛ وقت سرور کا (فون کی غلط گھڑی سے ہم آہنگی خراب نہیں)؛
+//   کچھ مٹتا نہیں — صرف d (حذف کا نشان)؛ پرانا ریکارڈ اپنی قسم / پیدائش نہیں بدل سکتا۔
+// • والدین فائربیس کو سیدھا نہیں دیکھتے — ان کی رپورٹ سرور (worker) سے۔
 service cloud.firestore {
   match /databases/{db}/documents {
     function signedIn() { return request.auth != null; }
@@ -10,42 +13,89 @@ service cloud.firestore {
     function isOwner(id) { return signedIn() && mad(id).owner == request.auth.uid; }
     function isMember(id) { return signedIn() && exists(/databases/$(db)/documents/madrasas/$(id)/members/$(request.auth.uid)); }
     function me(id) { return get(/databases/$(db)/documents/madrasas/$(id)/members/$(request.auth.uid)).data; }
-    // منتظم / مہتمم = پورا اختیار؛ خزانچی = فیس؛ استاد = صرف اپنی جماعتیں
     function isBoss(id) { return isOwner(id) || (isMember(id) && me(id).role in ['admin', 'moh']); }
     function canFee(id) { return isBoss(id) || (isMember(id) && me(id).role == 'fin'); }
-    function myClass(id, g) { return isBoss(id) || (isMember(id) && me(id).role == 'teacher' && g in me(id).cls); }
+    function isTeacher(id) { return isMember(id) && me(id).role == 'teacher'; }
+    // استاد صرف یہ قسمیں لکھ سکے: سبق / سبقی / منزل، حاضری، تربیت، امتحان کے نمبر — اور صرف اپنی جماعت
+    function teacherOk(id, d) { return isTeacher(id) && d.k in ['ent', 'att', 'akh', 'exm'] && d.g in me(id).cls; }
+
+    // ریکارڈ کی پکی شکل: c پیدائش، k قسم، u سرور کا وقت، g جماعت، d حذف، j ڈیٹا (JSON)، by کس نے، dev کون سا موبائل
+    function recShape(d, rid) {
+      return d.keys().hasOnly(['c', 'k', 'u', 'g', 'd', 'j', 'by', 'dev']) &&
+        d.keys().hasAll(['c', 'k', 'u', 'g', 'j']) &&
+        d.k is string && d.k in ['stu', 'cls', 'ent', 'att', 'exm', 'akh', 'ann', 'usr', 'cfg', 'fee', 'fexp'] &&
+        rid.matches('^' + d.k + '__[A-Za-z0-9_.:|-]{1,80}$') &&
+        d.u == request.time &&
+        d.c is int && d.g is string && d.g.size() <= 40 &&
+        d.j is string && d.j.size() <= 400000 &&
+        (!('d' in d) || d.d is bool) &&
+        (!('by' in d) || (d.by is string && d.by.size() <= 60)) &&
+        (!('dev' in d) || (d.dev is string && d.dev.size() <= 40));
+    }
+    // بدلتے وقت: قسم اور پیدائش وہی؛ حذف شدہ ریکارڈ واپس صرف منتظم
+    function recKeep(id) {
+      return request.resource.data.k == resource.data.k && request.resource.data.c == resource.data.c &&
+        (resource.data.get('d', false) == false || request.resource.data.get('d', false) == true || isBoss(id));
+    }
 
     match /madrasas/{mdId} {
-      // MD ID شکل: MD + ہندسے
-      allow create: if signedIn() && mdId.matches('^MD[0-9]{3,8}$') && request.resource.data.owner == request.auth.uid;
+      // MD ID شکل: MD + ہندسے؛ بنانے والا ہی مالک؛ صرف یہ خانے
+      allow create: if signedIn() && mdId.matches('^MD[0-9]{3,8}$') &&
+        request.resource.data.keys().hasOnly(['owner', 'name', 'at']) &&
+        request.resource.data.owner == request.auth.uid &&
+        (!('name' in request.resource.data) || (request.resource.data.name is string && request.resource.data.name.size() <= 80));
       allow get: if isMember(mdId);
-      allow update: if isOwner(mdId);
+      // مالک نام بدل سکے؛ مالکی (owner) کبھی کوئی اور نہ لے
+      allow update: if isOwner(mdId) && request.resource.data.owner == resource.data.owner &&
+        request.resource.data.keys().hasOnly(['owner', 'name', 'at']);
       allow list, delete: if false;
 
-      // جڑے موبائل: مالک خود، یا جو جوڑنے کا کوڈ جانتا ہو (پہلے صرف استاد، کوئی جماعت نہیں — منتظم بعد میں دے)
+      // جڑے موبائل
       match /members/{uid} {
         allow read: if isMember(mdId);
-        allow create: if signedIn() && uid == request.auth.uid && (
-          mad(mdId).owner == request.auth.uid ||
+        // مالک خود (منتظم)؛ باقی صرف صحیح جوڑنے کے کوڈ سے — اور صرف خالی استاد (اختیار منتظم بعد میں دے)
+        allow create: if signedIn() && uid == request.auth.uid &&
+          request.resource.data.keys().hasOnly(['key', 'role', 'cls', 'name', 'at']) &&
+          request.resource.data.cls is list &&
+          (!('name' in request.resource.data) || (request.resource.data.name is string && request.resource.data.name.size() <= 60)) && (
+          (mad(mdId).owner == request.auth.uid && request.resource.data.role == 'admin') ||
           (request.resource.data.key == get(/databases/$(db)/documents/madrasas/$(mdId)/secret/join).data.key &&
            request.resource.data.role == 'teacher' && request.resource.data.cls.size() == 0));
-        allow update, delete: if isBoss(mdId);
+        // مالک سب بدلے؛ منتظم / مہتمم صرف استاد / خزانچی کو (مالک یا دوسرے منتظم کو نہیں، کسی کو منتظم نہیں بنا سکتے)
+        allow update: if request.resource.data.keys().hasOnly(['key', 'role', 'cls', 'name', 'at']) &&
+          request.resource.data.cls is list && request.resource.data.cls.size() <= 40 &&
+          request.resource.data.role in ['admin', 'moh', 'teacher', 'fin'] && (
+          (isOwner(mdId) && (uid != mad(mdId).owner || request.resource.data.role == 'admin')) ||
+          (isBoss(mdId) && uid != mad(mdId).owner && resource.data.role in ['teacher', 'fin'] && request.resource.data.role in ['teacher', 'fin']));
+        // ہٹانا: مالک (اپنے سوا)، منتظم صرف استاد / خزانچی
+        allow delete: if uid != mad(mdId).owner && (isOwner(mdId) || (isBoss(mdId) && resource.data.role in ['teacher', 'fin']));
       }
       // جوڑنے کا کوڈ صرف مالک دیکھے / بدلے
       match /secret/{doc} {
         allow read, write: if isOwner(mdId);
       }
-      // ریکارڈ (طلبہ، جماعتیں، سبق، حاضری، امتحان، تربیت، اعلان…) — g = جماعت
+      // ریکارڈ (طلبہ، جماعتیں، سبق، حاضری، امتحان، تربیت، اعلان…)
       match /records/{rid} {
         allow read: if isMember(mdId);
-        allow create: if isMember(mdId) && myClass(mdId, request.resource.data.g);
-        allow update: if isMember(mdId) && myClass(mdId, resource.data.g) && myClass(mdId, request.resource.data.g);
+        allow create: if isMember(mdId) && recShape(request.resource.data, rid) && !(request.resource.data.k in ['fee', 'fexp']) &&
+          (isBoss(mdId) || teacherOk(mdId, request.resource.data));
+        allow update: if isMember(mdId) && recShape(request.resource.data, rid) && recKeep(mdId) && !(request.resource.data.k in ['fee', 'fexp']) &&
+          (isBoss(mdId) || (teacherOk(mdId, resource.data) && teacherOk(mdId, request.resource.data)));
         allow delete: if false;   // حذف ہمیشہ نشان (d) سے
       }
-      // فیس — صرف منتظم / مہتمم / خزانچی (استاد کو نظر بھی نہیں)
+      // فیس / اخراجات — الگ ڈبہ، صرف منتظم / مہتمم / خزانچی (استاد کو نظر بھی نہیں)
       match /fees/{rid} {
-        allow read, create, update: if canFee(mdId);
+        allow read: if canFee(mdId);
+        allow create: if canFee(mdId) && recShape(request.resource.data, rid) && request.resource.data.k in ['fee', 'fexp'];
+        allow update: if canFee(mdId) && recShape(request.resource.data, rid) && recKeep(mdId) && request.resource.data.k in ['fee', 'fexp'];
         allow delete: if false;
+      }
+      // تبدیلیوں کا ریکارڈ — صرف جوڑنا، بدلنا / مٹانا نہیں
+      match /log/{lid} {
+        allow read: if isBoss(mdId);
+        allow create: if isMember(mdId) && request.resource.data.keys().hasOnly(['t', 'by', 'a', 's']) &&
+          request.resource.data.t == request.time && request.resource.data.a is string && request.resource.data.a.size() <= 300;
+        allow update, delete: if false;
       }
     }
     // باقی سب بند
