@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO043</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO044</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7961,6 +7961,9 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 .jm5-ses button{position:relative;border:1.5px solid #065f46;background:#fff;color:#065f46;border-radius:12px;padding:4px 2px;font:inherit;font-size:14px;line-height:1.8;cursor:pointer}
 .jm5-ses button.on{background:#065f46;color:#fff}
 .jm5-ses button i{position:absolute;top:-6px;left:-4px;font:800 10px Arial;font-style:normal;background:#16a34a;color:#fff;border-radius:999px;padding:1px 5px}
+.jm44{background:linear-gradient(135deg,#dcfce7,#bbf7d0);border:2px solid #16a34a;border-radius:14px;padding:8px 10px;margin:4px 0 8px;text-align:center;font-size:18px;line-height:1.9;color:#14532d}
+.jm44 b{font-weight:400;color:#065f46}
+.jm44 small{display:block;font-size:14px;color:#166534}
 .jm42{background:#ecfdf5;border:2px dashed #10b981;border-radius:14px;padding:8px 10px;margin:4px 0 8px}
 .jm42 .h{font-size:14px;color:#065f46;line-height:1.9;margin-bottom:5px}
 .jm42 .g{display:block;width:100%;border:0;border-radius:12px;padding:8px;font:inherit;font-size:17px;color:#fff;background:linear-gradient(135deg,#059669,#065f46)}
@@ -8065,6 +8068,8 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
               + 'ان کے علاوہ باقی <b class="jm2-n">' + left.length + '</b> طلبہ «' + SES[cur.ses] + '» میں حاضر لگا دیں؟</div>'; })()
           + '<div class="r"><button class="y" data-all="1">✓ ہاں، حاضر لگائیں</button><button class="n" data-allno="1">✕ نہیں</button></div>'
         : '<div class="h">پہلے اوپر غیر حاضر / آدھی حاضری والے طلبہ کا بٹن دبائیں، پھر باقی طلبہ ایک بٹن سے:</div><button class="g" data-allask="1">✅ باقی <b class="jm2-n">' + left.length + '</b> طلبہ حاضر — ' + SES[cur.ses] + '</button>') + '</div>'; }
+    /* MD2311MO044: پوری جماعت کی حاضری مکمل ہو تو صاف پیغام */
+    if(L.length && !cnt.x) h += '<div class="jm44">🎉 <b>«' + SES[cur.ses] + '»</b> میں پوری جماعت کی حاضری مکمل ہو گئی ہے<small>✅ حاضر <span class="jm2-n">' + cnt.p + '</span> · 🌗 آدھی <span class="jm2-n">' + cnt.h + '</span> · ❌ غیر حاضر <span class="jm2-n">' + cnt.a + '</span> — محفوظ ہو چکی</small></div>';
     h += '<div style="font-size:13px;color:#64748b;text-align:center;margin:8px 0">ہر بٹن دباتے ہی محفوظ — وجہ صرف آپ لکھیں تو درج ہوتی ہے</div></div>';
     var y = el.scrollTop; el.innerHTML = h; el.scrollTop = y;
     var di = $('jm5Date'); if(di) di.onchange = function(){ if(di.value && di.value <= pk()){ cur.date = di.value; draw(); } };
@@ -8079,8 +8084,8 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     if(d.as != null){ cur.ses = +d.as; cur.conf = false; draw(); return; }
     if(d.allask){ cur.conf = true; draw(); return; }
     if(d.allno){ cur.conf = false; draw(); return; }
-    if(d.all){ if(!cur.conf) return; cur.conf = false; list().forEach(function(s){ if(!sesOf(s.sid, cur.date, cur.ses)) setSes(s.sid, cur.date, cur.ses, 'p'); }); if(save()){ try{ jmaAudit('سب حاضر', '', '', SES[cur.ses] + ' · ' + cur.date); }catch(x){} if(window.jmaToast) jmaToast('✓ محفوظ — ' + SES[cur.ses] + ' کی حاضری مکمل'); } draw(); return; }
-    if(d.at){ var x = sesOf(d.sid, cur.date, cur.ses); if(x && x.st === d.at){ setSes(d.sid, cur.date, cur.ses, null); } else setSes(d.sid, cur.date, cur.ses, d.at, x ? x.reason : ''); if(save() !== false && window.jmaToast) jmaToast('✓ محفوظ — ' + SES[cur.ses]); draw(); return; }
+    if(d.all){ if(!cur.conf) return; cur.conf = false; list().forEach(function(s){ if(!sesOf(s.sid, cur.date, cur.ses)) setSes(s.sid, cur.date, cur.ses, 'p'); }); if(save()){ try{ jmaAudit('سب حاضر', '', '', SES[cur.ses] + ' · ' + cur.date); }catch(x){} } setTimeout(function(){ var b = document.querySelector('#jmaAtt .jm44'); if(b) b.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 60); draw(); return; }
+    if(d.at){ var x = sesOf(d.sid, cur.date, cur.ses); if(x && x.st === d.at){ setSes(d.sid, cur.date, cur.ses, null); } else setSes(d.sid, cur.date, cur.ses, d.at, x ? x.reason : ''); var full = list().every(function(s){ return sesOf(s.sid, cur.date, cur.ses); }); if(save() !== false && window.jmaToast && !full) jmaToast('✓ محفوظ — ' + SES[cur.ses]); draw(); if(full) setTimeout(function(){ var q = document.querySelector('#jmaAtt .jm44'); if(q) q.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 60); return; }
     if(d.why){ var y = sesOf(d.sid, cur.date, cur.ses); if(!y) return; var r = d.why;
       if(r === 'دیگر'){ r = prompt('وجہ لکھیں:', WHY.indexOf(y.reason) < 0 ? y.reason : ''); if(r === null) return; r = r.trim(); }
       else if(y.reason === r) r = '';
@@ -9614,7 +9619,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO043" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO044" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
