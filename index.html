@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO035</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO036</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -8149,6 +8149,15 @@ async function mdDevSavePass(){
   function canMng(){ return typeof jmaCan === 'function' ? jmaCan('classes') : true; }
   function madName(){ try{ return ((window.jmaMadName && jmaMadName()) || (typeof cfg !== 'undefined' && cfg.name)) || ($('homeMadrasaName') || {}).textContent || 'جامعہ'; }catch(e){ return 'جامعہ'; } }
   function classRoster(classId){ return S().filter(function(s){ return !s.del && s.classId === classId; }).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9) || String(a.n).localeCompare(String(b.n), 'ur'); }); }
+  /* MD2311MO036: امتحان کے پارے — روزانہ ریکارڈ (jmaHifzCalc) سے خود؛ x.miq[sid] = چنے ہوئے پارے (کم کیے ہوں تو) */
+  function hifzParas(st){ try{ return jmaHifzCalc(st).rows.filter(function(r){ return r.st; }).map(function(r){ return { p: r.para, f: r.st === 'f' }; }); }catch(e){ return []; } }
+  function miqSel(x, st){ var all = hifzParas(st), o = x.miq && x.miq[st.sid]; return o ? all.filter(function(a){ return o.indexOf(a.p) > -1; }) : all; }
+  function rng(a){ a = a.slice().sort(function(x, y){ return x - y; }); var out = [], i = 0; while(i < a.length){ var j = i; while(j + 1 < a.length && a[j + 1] === a[j] + 1) j++; out.push(j > i ? a[i] + ' تا ' + a[j] : String(a[i])); i = j + 1; } return out.join('، '); }
+  function miqText(x, st){ var sel = miqSel(x, st); if(!sel.length) return hifzParas(st).length ? '— (کوئی پارہ نہیں چنا)' : (st.nazra ? 'ناظرہ: ' + st.nazra : st.qaida ? 'قاعدہ: ' + st.qaida : '—');
+    var f = sel.filter(function(a){ return a.f; }).map(function(a){ return a.p; }), p = sel.filter(function(a){ return !a.f; }).map(function(a){ return a.p; });
+    return (f.length ? 'پارہ ' + rng(f) + ' · کل ' + f.length : '') + (p.length ? (f.length ? ' · ' : '') + 'ادھورا: ' + rng(p) : ''); }
+  function grade(r){ if(!r.done) return ''; if(r.abs && !r.got) return 'غیر حاضر'; return r.pct >= 90 ? 'ممتاز' : r.pct >= 75 ? 'جید' : r.pass ? 'قابل قبول' : 'ناکام'; }
+  window.jmaExamMiq = miqText;
   function exRoster(x){ return (x.students || []).map(stu).filter(Boolean).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9); }); }
 
   /* ---------------- حساب (آزمودہ اصول) ----------------
@@ -8189,6 +8198,7 @@ async function mdDevSavePass(){
     else if(V.view === 'ex') h += exV();
     else if(V.view === 'marks') h += marksV();
     else if(V.view === 'res') h += resV();
+    else if(V.view === 'miq') h += miqV();
     el.innerHTML = h + '</div>'; bindInputs();
   }
   function listV(){
@@ -8198,7 +8208,7 @@ async function mdDevSavePass(){
   }
   var NF = null;
   function newV(){
-    if(!NF) NF = { name: NAMES[2], date: pk(), pass: (window.jmaPassDefault ? jmaPassDefault() : 40), subjects: [{ id: 's1', name: 'سبق', max: 50 }, { id: 's2', name: 'سبقی', max: 25 }, { id: 's3', name: 'منزل', max: 25 }] };
+    if(!NF) NF = { name: NAMES[2], date: pk(), pass: (window.jmaPassDefault ? jmaPassDefault() : 40), subjects: [{ id: 's1', name: 'حفظ (مقدار خواندگی)', max: 100 }, { id: 's2', name: 'نماز حنفی', max: 100 }] };
     var tot = NF.subjects.reduce(function(a, s){ return a + (Number(s.max) || 0); }, 0);
     return '<div class="jm2-card"><h4>➕ نیا امتحان</h4><label class="jm2-l">امتحان کا نام</label><div class="jm2-opts">' + NAMES.map(function(n){ return '<button data-nn="' + n + '" class="' + (NF.name === n ? 'on' : '') + '">' + n + '</button>'; }).join('') + '</div>'
       + '<input class="jm2-in" id="jm7Name" value="' + E(NF.name) + '" style="margin-top:6px">'
@@ -8234,6 +8244,7 @@ async function mdDevSavePass(){
       + (x.subjects || []).map(function(s){ return E(s.name) + ' <span class="jm2-n">' + s.max + '</span>'; }).join(' · ') + ' — کل <span class="jm2-n">' + c.tot + '</span> · کامیابی <span class="jm2-n">' + x.pass + '%</span><br>'
       + 'طلبہ <span class="jm2-n">' + c.rows.length + '</span> · ' + (c.allDone ? '✅ نتیجہ مکمل' : '⏳ <span class="jm2-n">' + c.pending + '</span> کے نمبر باقی') + '</div></div>'
       + (newcomers.length && canMng() ? '<div class="jm7-warn">اس امتحان کے بعد <b class="jm2-n">' + newcomers.length + '</b> نئے طلبہ جماعت میں آئے ہیں <button class="jm2-btn o" data-xadd="1" style="padding:2px 10px;font-size:14px;flex:none">شامل کریں</button></div>' : '')
+      + '<button class="jm2-btn o" data-xv="miq" style="width:100%;margin-bottom:8px">📖 امتحان کے پارے (روزانہ ریکارڈ سے — کم / زیادہ کریں)</button>'
       + '<button class="jm2-btn" data-xv="marks" style="width:100%;margin-bottom:8px">✍️ نمبر درج کریں</button>'
       + '<button class="jm2-btn o" data-xv="res" style="width:100%;margin-bottom:8px">📊 نتیجہ دیکھیں</button>'
       + '<button class="jm2-btn o" data-pr="blank" style="width:100%;margin-bottom:8px">🖨️ خالی شیٹ (کاغذ پر نمبر لکھنے کے لیے)</button>'
@@ -8241,6 +8252,18 @@ async function mdDevSavePass(){
       + '<button class="jm2-btn o" data-pr="cards" style="width:100%;margin-bottom:8px">🖨️ سب کے رزلٹ کارڈ (پرنٹ / PDF)</button>'
       + (canMng() ? '<button class="jm2-btn r" data-xdel="1" style="width:100%">🗑️ امتحان ہٹائیں</button>' : '');
   }
+  function miqV(){
+    var x = ex(), R = exRoster(x);
+    return '<div class="jm7-warn">📖 ہر طالب علم کے پارے <b>روزانہ ریکارڈ سے خود</b> آئے ہیں (دوبارہ لکھنے کی ضرورت نہیں)۔ جو پارہ اس امتحان میں نہیں، اس پر ٹچ کریں — ہٹ جائے گا؛ دوبارہ ٹچ = واپس۔ ٹوٹی لکیر = ادھورا پارہ۔</div>'
+      + R.map(function(st){ var all = hifzParas(st), sel = miqSel(x, st).map(function(a){ return a.p; });
+        return '<div class="jm2-card"><h4><span class="jm2-n">' + E(st.roll || '—') + '</span> ' + E(st.n) + '</h4><div class="jm36-mq">امتحان: <b>' + E(miqText(x, st)) + '</b></div>'
+          + (all.length ? '<div class="jm36-ch">' + all.map(function(a){ return '<button type="button" data-mq="' + E(st.sid) + '" data-p="' + a.p + '" class="' + (sel.indexOf(a.p) > -1 ? 'on' : '') + (a.f ? '' : ' pt') + '">' + a.p + '</button>'; }).join('') + '</div>'
+            + '<div class="jm2-acts"><button data-mqa="' + E(st.sid) + '">✔ سب پارے</button><button data-mqn="' + E(st.sid) + '">✖ کوئی نہیں</button></div>'
+            : '<div style="font-size:14px;color:#64748b">روزانہ ریکارڈ میں ابھی کوئی پارہ نہیں — داخلے میں «پہلے سے مکمل پارے» یا روزانہ سبق لکھیں</div>') + '</div>'; }).join('');
+  }
+  function setMiq(sid, list){ var x = ex(); x.miq = x.miq || {}; var st = stu(sid), all = st ? hifzParas(st).map(function(a){ return a.p; }) : [];
+    if(list === null || (list.length === all.length && all.every(function(p){ return list.indexOf(p) > -1; }))) delete x.miq[sid]; else x.miq[sid] = list.slice().sort(function(a, b){ return a - b; });
+    x.upd = Date.now(); x.dev = devId(); save(); }
   function wide(){ return window.innerWidth >= 700; }
   function mv(v){ return v === 'A' ? '' : (v == null ? '' : v); }
   function marksV(){
@@ -8280,25 +8303,32 @@ async function mdDevSavePass(){
   /* ---------------- پرنٹ / PDF ---------------- */
   function head(sub){ return '<div class="hd"><img src="logo.png" onerror="this.remove()"> <span class="t">' + E(madName()) + '</span><div class="s">' + sub + '</div></div>'; }
   function doPrint(kind){
-    var x = ex(), c = calc(x), sub = x.subjects || [], cl = cls(x.classId), out = '';
+    var x = ex(), c = calc(x), sub = x.subjects || [], cl = cls(x.classId), out = '', ls = false;
     var info = E(x.name) + ' — ' + E(cl.name || '') + (cl.incharge ? ' (' + E(cl.incharge) + ')' : '') + ' — تاریخ <span class="n">' + fmtD(x.date) + '</span>';
-    if(kind === 'blank') out = '<div class="pg">' + head(info + '<br>نمبر لکھنے کی شیٹ') + '<table><tr><th>رول</th><th>نام</th><th>ولدیت</th>' + sub.map(function(s){ return '<th>' + E(s.name) + ' (<span class="n">' + s.max + '</span>)</th>'; }).join('') + '<th>دستخط ممتحن</th></tr>'
-      + c.rows.map(function(r){ return '<tr><td class="n">' + E(r.st.roll || '') + '</td><td class="nm">' + E(r.st.n) + '</td><td class="nm">' + E(r.st.w || '') + '</td>' + sub.map(function(){ return '<td style="height:9mm"></td>'; }).join('') + '<td></td></tr>'; }).join('') + '</table></div>';
-    else if(kind === 'res') out = '<div class="pg">' + head(info + '<br>نتائج') + (c.allDone ? '' : '<div style="text-align:center;font-size:15px;margin-bottom:6px">⏳ نتیجہ نامکمل — پوزیشن نہیں دی گئی</div>') + '<table><tr><th>رول</th><th>نام</th>' + sub.map(function(s){ return '<th>' + E(s.name) + ' (<span class="n">' + s.max + '</span>)</th>'; }).join('') + '<th>حاصل</th><th>فیصد</th><th>نتیجہ</th><th>پوزیشن</th></tr>'
-      + c.rows.map(function(r){ return '<tr><td class="n">' + E(r.st.roll || '') + '</td><td class="nm">' + E(r.st.n) + '</td>' + sub.map(function(s){ var v = r.mk[s.id]; return '<td class="n">' + (v === 'A' ? 'غ' : v == null ? '—' : v) + '</td>'; }).join('') + '<td class="n">' + (r.done ? r.got + '/' + r.tot : '—') + '</td><td class="n">' + (r.done ? r.pct + '%' : '—') + '</td><td>' + (r.done ? (r.pass ? 'کامیاب' : 'ناکام') : 'نامکمل') + '</td><td class="n">' + (r.pos || '—') + '</td></tr>'; }).join('') + '</table></div>';
-    else out = c.rows.map(function(r){ var st = r.st;
-      return '<div class="pg"><div class="card"><div class="top"><img src="logo.png" style="height:22mm" onerror="this.remove()"><div class="mid"><div style="font-family:\'Jameel Noori Nastaleeq Kasheeda\',serif;font-size:28px;line-height:1.6">' + E(madName()) + '</div><div style="font-size:20px">' + E(x.name) + ' — نتیجہ کارڈ</div><div style="font-size:15px">تاریخ <span class="n">' + fmtD(x.date) + '</span></div></div><div class="ph" style="' + (st.photo ? 'background-image:url(' + String(st.photo).replace(/"/g, '%22') + ')' : '') + '"></div></div>'
-        + '<div class="inf"><div>نام: <b>' + E(st.n) + '</b></div><div>ولدیت: <b>' + E(st.w || '') + '</b></div><div>رول نمبر: <b class="n">' + E(st.roll || '') + '</b></div><div>جماعت: <b>' + E(cl.name || '') + '</b></div></div>'
-        + '<table><tr><th>مضمون</th><th>کل نمبر</th><th>حاصل کردہ</th></tr>' + sub.map(function(s){ var v = r.mk[s.id]; return '<tr><td>' + E(s.name) + '</td><td class="n">' + s.max + '</td><td class="n">' + (v === 'A' ? 'غیر حاضر' : v == null ? '—' : v) + '</td></tr>'; }).join('') + '<tr><th>مجموعی</th><th class="n">' + r.tot + '</th><th class="n">' + (r.done ? r.got : '—') + '</th></tr></table>'
-        + '<div class="big"><div>فیصد<b>' + (r.done ? r.pct + '%' : '—') + '</b></div><div>نتیجہ<b style="font-family:inherit">' + (r.done ? (r.pass ? 'کامیاب' : 'ناکام') : 'نامکمل') + '</b></div><div>پوزیشن<b>' + (r.pos || '—') + '</b></div></div>'
-        + '<div class="sig"><div>دستخط استاد</div><div>مہر مدرسہ</div></div></div></div>'; }).join('');
-    var P = $('jm7Print'); P.innerHTML = out;
-    var os = document.createElement('style'); os.id = 'jm7Page'; os.textContent = '@media print{@page{size:' + (kind === 'cards' ? 'A4 portrait' : (sub.length > 4 ? 'A4 landscape' : 'A4 portrait')) + ';margin:6mm}}'; document.head.appendChild(os);
-    var oo = $('printOrientStyle'), ot = oo ? oo.textContent : null; if(oo) oo.textContent = '';
-    document.body.classList.add('jm7p');
-    var done = function(){ document.body.classList.remove('jm7p'); try{ os.remove(); }catch(e){} if(oo) oo.textContent = ot; window.removeEventListener('afterprint', done); };
-    window.addEventListener('afterprint', done);
-    setTimeout(function(){ try{ window.print(); }catch(e){} setTimeout(done, 1500); }, 300);
+    var sig = '<div class="sg"><div>دستخط ممتحن</div><div>دستخط مہتمم / مہر</div></div>';
+    if(kind === 'blank'){
+      ls = sub.length >= 4;
+      out = '<div class="pg">' + head(info + '<br>ممتحن کی شیٹ — نمبر لکھنے کے لیے') + '<table class="wr"><colgroup><col style="width:6%"><col style="width:15%"><col style="width:15%"><col style="width:' + (ls ? 20 : 22) + '%">' + sub.map(function(){ return '<col>'; }).join('') + '<col style="width:12%"></colgroup>'
+        + '<thead><tr><th>رول</th><th>نام</th><th>ولدیت</th><th>مقدار خواندگی</th>' + sub.map(function(s){ return '<th>' + E(s.name) + '<br>(<span class="n">' + s.max + '</span>)</th>'; }).join('') + '<th>کیفیت</th></tr></thead><tbody>'
+        + c.rows.map(function(r){ return '<tr><td class="n">' + E(r.st.roll || '') + '</td><td class="nm">' + E(r.st.n) + '</td><td class="nm">' + E(r.st.w || '') + '</td><td style="font-size:15px">' + E(miqText(x, r.st)) + '</td>' + sub.map(function(){ return '<td></td>'; }).join('') + '<td></td></tr>'; }).join('')
+        + '</tbody></table>' + sig + '</div>';
+    } else if(kind === 'res'){
+      ls = true;
+      out = '<div class="pg">' + head(info + '<br>نتائج') + (c.allDone ? '' : '<div style="text-align:center;font-size:15px;margin-bottom:6px">⏳ نتیجہ نامکمل — پوزیشن نہیں دی گئی</div>')
+        + '<table class="lst"><colgroup><col style="width:5%"><col style="width:13%"><col style="width:13%"><col style="width:18%">' + sub.map(function(){ return '<col>'; }).join('') + '<col style="width:8%"><col style="width:6%"><col style="width:9%"><col style="width:6%"></colgroup>'
+        + '<thead><tr><th>رول</th><th>نام</th><th>ولدیت</th><th>مقدار خواندگی</th>' + sub.map(function(s){ return '<th>' + E(s.name) + '<br>(<span class="n">' + s.max + '</span>)</th>'; }).join('') + '<th>مجموعہ</th><th>%</th><th>کیفیت</th><th>پوزیشن</th></tr></thead><tbody>'
+        + c.rows.map(function(r){ return '<tr><td class="n">' + E(r.st.roll || '') + '</td><td class="nm">' + E(r.st.n) + '</td><td class="nm">' + E(r.st.w || '') + '</td><td style="font-size:14.5px">' + E(miqText(x, r.st)) + '</td>'
+          + sub.map(function(s){ var v = r.mk[s.id]; return '<td class="n">' + (v === 'A' ? 'غ' : v == null || v === '' ? '—' : v) + '</td>'; }).join('')
+          + '<td class="n">' + (r.done ? r.got + '/' + r.tot : '—') + '</td><td class="n">' + (r.done ? r.pct : '—') + '</td><td>' + (r.done ? grade(r) : 'نامکمل') + '</td><td class="n">' + (r.pos || '—') + '</td></tr>'; }).join('')
+        + '</tbody></table>' + sig + '</div>';
+    } else out = c.rows.map(function(r){ var st = r.st;
+      return '<div class="pg"><div class="card"><div class="top">' + (st.photo ? '<div class="ph" style="background-image:url(' + E(st.photo) + ')"></div>' : '<img src="logo.png" style="height:22mm" onerror="this.remove()">') + '<div class="mid"><div style="font-family:\'Jameel Noori Nastaleeq Kasheeda\',serif;font-size:28px;line-height:1.6">' + E(madName()) + '</div><div style="font-size:20px">' + E(x.name) + ' — نتیجہ</div><div style="font-size:15px">تاریخ <span class="n">' + fmtD(x.date) + '</span></div></div></div>'
+        + '<div class="inf"><div>نام: <b>' + E(st.n) + '</b></div><div>ولدیت: <b>' + E(st.w || '') + '</b></div><div>رول نمبر: <b class="n">' + E(st.roll || '') + '</b></div><div>جماعت: <b>' + E(cl.name || '') + '</b></div><div style="grid-column:1/-1">مقدار خواندگی: <b>' + E(miqText(x, st)) + '</b></div></div>'
+        + '<table><thead><tr><th>مضمون</th><th>کل نمبر</th><th>حاصل کردہ</th></tr></thead><tbody>' + sub.map(function(s){ var v = r.mk[s.id]; return '<tr><td>' + E(s.name) + '</td><td class="n">' + s.max + '</td><td class="n">' + (v === 'A' ? 'غیر حاضر' : v == null ? '—' : v) + '</td></tr>'; }).join('') + '<tr><th>مجموعہ</th><th class="n">' + r.tot + '</th><th class="n">' + (r.done ? r.got : '—') + '</th></tr></tbody></table>'
+        + '<div class="big"><div>فیصد<b>' + (r.done ? r.pct + '%' : '—') + '</b></div><div>کیفیت<b style="font-family:inherit">' + (r.done ? grade(r) : 'نامکمل') + '</b></div><div>پوزیشن<b>' + (r.pos || '—') + '</b></div></div>'
+        + '<div class="sig"><div>دستخط ممتحن</div><div>دستخط مہتمم / مہر</div></div></div></div>'; }).join('');
+    var T = { blank: 'ممتحن کی خالی شیٹ', res: 'نتائج کی شیٹ', cards: 'رزلٹ کارڈ' }[kind];
+    if(window.jmaPrintNow) jmaPrintNow(out, ls ? 'landscape' : 'portrait', T);
   }
   window.jmaExmPrint = doPrint;
 
@@ -8319,6 +8349,9 @@ async function mdDevSavePass(){
     if(d.tb != null){ V.tab = +d.tb; draw(); return; }
     if(d.ab){ var x = ex(), m = ((x.marks || {})[d.ab] || {}); setMark(d.ab, d.sj, m[d.sj] === 'A' ? '' : 'غ', 0); draw(); return; }
     if(d.pr){ doPrint(d.pr); return; }
+    if(d.mq){ var xq = ex(), sq = stu(d.mq), cur = miqSel(xq, sq).map(function(a){ return a.p; }), pp = +d.p, k = cur.indexOf(pp); if(k > -1) cur.splice(k, 1); else cur.push(pp); setMiq(d.mq, cur); draw(); return; }
+    if(d.mqa){ setMiq(d.mqa, null); draw(); return; }
+    if(d.mqn){ setMiq(d.mqn, []); draw(); return; }
     if(d.xadd){ var x2 = ex(), nw = classRoster(x2.classId).filter(function(s){ return x2.students.indexOf(s.sid) < 0; }); nw.forEach(function(s){ x2.students.push(s.sid); }); x2.upd = Date.now(); save(); draw(); return; }
     if(d.xdel){ var x3 = ex(); if(!confirm('«' + x3.name + '» ہٹا دیں؟ (ریکارڈ میں نشان رہے گا)')) return; x3.del = Date.now(); x3.upd = Date.now(); save(); try{ jmaAudit('امتحان ہٹایا', '', x3.name, x3.id); }catch(x){} V.view = 'list'; draw(); return; }
   }, true);
@@ -8621,6 +8654,7 @@ async function mdDevSavePass(){
   }
   window.jmaReportHTML = reportHTML;
   function printHTML(html){
+    if(window.jmaPrintNow){ jmaPrintNow(html, 'portrait'); return; }
     var P = $('jm7Print'); P.innerHTML = html;
     var os = document.createElement('style'); os.textContent = '@media print{@page{size:A4 portrait;margin:6mm}}'; document.head.appendChild(os);
     var oo = $('printOrientStyle'), ot = oo ? oo.textContent : null; if(oo) oo.textContent = '';
@@ -8989,7 +9023,7 @@ async function mdDevSavePass(){
       if(d === 'stu') jmaStuOpen();
       else if(d === 'att') pickClass(function(id){ jmaAttOpen(id); });
       else if(d === 'exm') pickClass(function(id){ jmaExmOpen(id); });
-      else if(d === 'rep') pickClass(function(id){ var ym = prompt('کس مہینے کی جماعت رپورٹ؟ (سال-مہینہ)', pk().slice(0, 7)); if(ym && /^\d{4}-\d{2}$/.test(ym.trim()) && window.jmaPrintHTML) jmaPrintHTML(jmaClassReport(id, ym.trim())); });
+      else if(d === 'rep') pickClass(function(id){ if(window.jmaRepMenu) jmaRepMenu(id); });
       else if(d === 'fee') jmaFeeOpen();
       else if(d === 'ann'){ AF = null; $('jmaAnn').style.display = 'block'; annDraw(); }
       else if(d === 'mgr') jmaMgrOpen(can('users') ? 'users' : 'me');
@@ -9554,7 +9588,7 @@ async function mdDevSavePass(){
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO035" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO036" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -9679,6 +9713,122 @@ window.pbtHubPwOk = async function(p){
   }
   setInterval(addTile, 700);
   document.addEventListener('click', function(e){ var b = e.target.closest && e.target.closest('#jmaDash [data-d35]'); if(!b) return; e.stopPropagation(); e.preventDefault(); start(); }, true);
+})();
+</script>
+<!-- ============================================================
+     MD2311MO036 — پرنٹ پکا اور سادہ (مالک کا حکم): ہر پرنٹ پہلے اسکرین پر صفحے کی شکل میں (A4، کھڑا / لیٹا خود)،
+     اوپر «🖨️ پرنٹ / PDF» اور «✕ واپس» — پرنٹ کے دوران ایپ کی اسکرین واپس نہیں آتی (پرانا 1.5 سیکنڈ والا ٹائمر ختم —
+     اینڈرائیڈ پر آدھا / غلط صفحہ اسی سے آتا تھا)؛ کالا سفید، جدول کا سر ہر صفحے پر، قطار بیچ سے نہیں کٹتی، چوڑائی پوری۔
+     jmaPrintNow(html, 'portrait'|'landscape') — امتحان (jma021) اور رپورٹیں (jma024) اسی سے۔
+     📄 رپورٹیں: ماہانہ جماعت رپورٹ (یہ / پچھلا مہینہ)، 📞 رابطہ فہرست، 📋 طلبہ کی فہرست (حفظ کی مقدار کے ساتھ)۔
+     ============================================================ -->
+<style id="jma036css">
+#jm36Bar{display:none}
+body.jm7v{overflow:hidden!important}
+body.jm7v #jm7Print{display:block!important;position:fixed;inset:0;z-index:2147483200;overflow:auto;background:#475569;padding:calc(58px + env(safe-area-inset-top,0px)) 6px 30px}
+body.jm7v #jm36Bar{display:flex;position:fixed;top:0;left:0;right:0;z-index:2147483201;gap:8px;align-items:center;padding:calc(8px + env(safe-area-inset-top,0px)) 10px 8px;background:#0f172a;direction:rtl;font-family:var(--font-nastaliq,serif)}
+#jm36Bar b{flex:1;color:#fff;font-weight:400;font-size:15px;line-height:1.5}
+#jm36Bar button{border:0;border-radius:12px;padding:7px 14px;font:inherit;font-size:16px}
+#jm36Bar .p{background:linear-gradient(180deg,#059669,#065f46);color:#fff}
+#jm36Bar .x{background:#fff;color:#0f172a}
+body.jm7v #jm7Print .pz{margin:0 auto;transform-origin:top center}
+body.jm7v #jm7Print .pg{background:#fff;margin:0 auto 10px;box-shadow:0 4px 18px rgba(0,0,0,.35);box-sizing:border-box;width:198mm;min-height:285mm}
+body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
+#jm7Print table{table-layout:fixed;word-wrap:break-word;overflow-wrap:anywhere;font-size:18px!important}
+#jm7Print th{font-size:15.5px}
+#jm7Print td.nm{font-size:18px}
+#jm7Print .n{font-size:15px}
+#jm7Print thead{display:table-header-group}
+#jm7Print tr{break-inside:avoid;page-break-inside:avoid}
+#jm7Print th{background:#e5e5e5!important;color:#000!important}
+#jm7Print .hd,#jm7Print .card,#jm7Print .card .top{border-color:#000!important}
+#jm7Print .sg{display:flex;justify-content:space-between;margin-top:14mm;font-size:16px}
+#jm7Print .sg div{border-top:1.5px solid #000;width:40%;text-align:center;padding-top:3px}
+#jm7Print .lst td{height:8mm}
+#jm7Print .wr td{height:11mm}
+@media print{
+  html,body{background:#fff!important;height:auto!important;overflow:visible!important;min-width:0!important;width:auto!important;margin:0!important;padding:0!important}
+  body.jm7v #jm7Print{position:static!important;padding:0!important;background:#fff!important;overflow:visible!important;display:block!important}
+  body.jm7v #jm7Print .pz{zoom:1!important;transform:none!important;width:auto!important}
+  body.jm7v #jm7Print .pg{box-shadow:none!important;margin:0!important;width:auto!important;min-height:0!important;padding:0!important}
+  #jm36Bar{display:none!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+#jm36M{position:fixed;inset:0;z-index:2147481296;background:rgba(2,44,34,.86);display:flex;align-items:center;justify-content:center;padding:14px;direction:rtl}
+#jm36M .bx{background:#fff;border-radius:18px;max-width:420px;width:100%;padding:14px;font-family:var(--font-nastaliq,serif)}
+#jm36M h3{margin:0 0 8px;text-align:center;font-family:var(--font-kasheeda,serif);font-weight:400;color:#065f46;font-size:22px}
+#jm36M button{display:block;width:100%;margin-top:7px;border:2px solid #0f766e;background:#ecfdf5;color:#065f46;border-radius:14px;padding:9px;font:inherit;font-size:17px;text-align:right}
+#jm36M button.x{border-color:#94a3b8;background:#fff;color:#475569;text-align:center}
+.jm36-ch{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;direction:ltr;justify-content:flex-end}
+.jm36-ch button{width:42px;height:38px;border-radius:10px;border:2px solid #0f766e;background:#fff;color:#0f766e;font:700 16px Arial;padding:0}
+.jm36-ch button.on{background:#0f766e;color:#fff}
+.jm36-ch button.pt{border-style:dashed}
+.jm36-mq{font-size:15px;color:#334155;line-height:1.9}
+</style>
+<div id="jm36Bar"><b id="jm36T">پرنٹ سے پہلے دیکھ لیں</b><button type="button" class="p" id="jm36P">🖨️ پرنٹ / PDF</button><button type="button" class="x" id="jm36X">✕ واپس</button></div>
+<script id="jma036">
+(function(){
+  'use strict';
+  function $(i){ return document.getElementById(i); }
+  function E(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  var pageStyle = null, saved = null;
+  function fit(){
+    var P = $('jm7Print'), z = P && P.querySelector('.pz'); if(!z) return;
+    var pw = P.classList.contains('ls') ? 1077 : 748;   /* 285mm / 198mm پکسل میں */
+    var s = Math.min(1, (window.innerWidth - 12) / pw); z.style.zoom = s;
+  }
+  function close(){
+    document.body.classList.remove('jm7v', 'jm7p'); var P = $('jm7Print'); P.innerHTML = ''; P.classList.remove('ls');
+    if(pageStyle){ try{ pageStyle.remove(); }catch(e){} pageStyle = null; }
+    var oo = $('printOrientStyle'); if(oo && saved != null){ oo.textContent = saved; saved = null; }
+  }
+  /* ایک ہی پرنٹ کا راستہ — پہلے اسکرین پر صفحہ، پھر پرنٹ */
+  window.jmaPrintNow = function(html, orient, title){
+    close();
+    var ls = orient === 'landscape', P = $('jm7Print');
+    P.innerHTML = '<div class="pz">' + html + '</div>'; P.classList.toggle('ls', ls);
+    pageStyle = document.createElement('style'); pageStyle.textContent = '@media print{@page{size:A4 ' + (ls ? 'landscape' : 'portrait') + ';margin:7mm}}'; document.head.appendChild(pageStyle);
+    var oo = $('printOrientStyle'); if(oo){ saved = oo.textContent; oo.textContent = ''; }
+    $('jm36T').textContent = (title || 'پرنٹ سے پہلے دیکھ لیں') + ' · ' + (ls ? 'لیٹا صفحہ' : 'کھڑا صفحہ');
+    document.body.classList.add('jm7p', 'jm7v'); P.scrollTop = 0; fit();
+  };
+  $('jm36P').onclick = function(){ try{ window.print(); }catch(e){ alert('پرنٹ نہیں کھلا — فون کے مینو (⋮) سے «Share / Print» آزمائیں'); } };
+  $('jm36X').onclick = close;
+  window.addEventListener('resize', fit);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && document.body.classList.contains('jm7v')) close(); });
+
+  /* ---------------- 📄 رپورٹوں کا مینو ---------------- */
+  function S(cid){ return ((window.jmaMgmt && jmaMgmt.students()) || []).filter(function(s){ return !s.del && s.classId === cid; }).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9) || String(a.n).localeCompare(String(b.n)); }); }
+  function cls(cid){ return ((window.jmaMgmt && jmaMgmt.classes()) || []).find(function(c){ return c.id === cid; }) || {}; }
+  function mad(){ try{ return (window.jmaMadName && jmaMadName()) || 'جامعہ'; }catch(e){ return 'جامعہ'; } }
+  function pk(){ return window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10); }
+  function fmtD(s){ var p = String(s || '').split('-'); return p.length === 3 ? (+p[2]) + '/' + (+p[1]) + '/' + p[0] : s; }
+  function head(sub){ var c = window.jmaCfg ? jmaCfg() : {}; return '<div class="hd">' + (c.logo ? '<img src="' + E(c.logo) + '">' : '') + ' <span class="t">' + E(mad()) + '</span>' + (c.full ? '<div class="s">' + E(c.full) + '</div>' : '') + '<div class="s">' + sub + '</div></div>'; }
+  function hifzTxt(s){ try{ var h = jmaHifzCalc(s); if(!h.full && !h.part) return s.nazra ? 'ناظرہ: ' + s.nazra : s.qaida ? 'قاعدہ: ' + s.qaida : '—'; return h.full + ' پارے' + (h.part ? ' + ' + h.part + ' ادھورے' : ''); }catch(e){ return '—'; } }
+  function ymShift(ym, d){ var y = +ym.slice(0, 4), m = +ym.slice(5, 7) + d; while(m < 1){ m += 12; y--; } while(m > 12){ m -= 12; y++; } return y + '-' + String(m).padStart(2, '0'); }
+  var MN = ['جنوری', 'فروری', 'مارچ', 'اپریل', 'مئی', 'جون', 'جولائی', 'اگست', 'ستمبر', 'اکتوبر', 'نومبر', 'دسمبر'];
+  function ymName(ym){ return MN[+ym.slice(5, 7) - 1] + ' ' + ym.slice(0, 4); }
+  window.jmaRepMenu = function(cid){
+    var o = $('jm36M'); if(o) o.remove(); o = document.createElement('div'); o.id = 'jm36M';
+    var ym = pk().slice(0, 7), py = ymShift(ym, -1);
+    o.innerHTML = '<div class="bx"><h3>📄 رپورٹیں — ' + E(cls(cid).name || '') + '</h3>'
+      + '<button data-r="m" data-ym="' + ym + '">📅 ماہانہ جماعت رپورٹ — ' + ymName(ym) + '</button>'
+      + '<button data-r="m" data-ym="' + py + '">📅 ماہانہ جماعت رپورٹ — ' + ymName(py) + '</button>'
+      + '<button data-r="c">📞 رابطہ فہرست (والد / سرپرست، موبائل، پتہ)</button>'
+      + '<button data-r="l">📋 طلبہ کی فہرست (حفظ کی مقدار کے ساتھ)</button>'
+      + '<button data-r="x" class="x">✕ واپس</button></div>';
+    document.body.appendChild(o);
+    o.onclick = function(e){ var b = e.target.closest('[data-r]'); if(!b && e.target !== o) return; var r = b ? b.dataset.r : 'x'; o.remove(); if(r === 'x') return;
+      var st = S(cid), c = cls(cid), info = E(c.name || '') + (c.incharge ? ' (' + E(c.incharge) + ')' : '') + ' — <span class="n">' + fmtD(pk()) + '</span>';
+      if(r === 'm'){ jmaPrintNow(jmaClassReport(cid, b.dataset.ym), 'portrait', 'ماہانہ جماعت رپورٹ'); return; }
+      if(r === 'c'){ jmaPrintNow('<div class="pg">' + head(info + '<br>رابطہ فہرست') + '<table class="lst"><colgroup><col style="width:7%"><col style="width:20%"><col style="width:20%"><col style="width:17%"><col style="width:36%"></colgroup><thead><tr><th>رول</th><th>نام</th><th>والد / سرپرست</th><th>موبائل</th><th>پتہ</th></tr></thead><tbody>'
+        + st.map(function(s){ return '<tr><td class="n">' + E(s.roll || '') + '</td><td class="nm">' + E(s.n) + '</td><td class="nm">' + E(s.w || s.grd || '') + (s.rel && s.grd && !s.w ? ' (' + E(s.rel) + ')' : '') + '</td><td class="n" style="direction:ltr">' + E(s.mob || '') + '</td><td class="nm">' + E(s.addr || '') + '</td></tr>'; }).join('')
+        + '</tbody></table><div style="font-size:14px;margin-top:6px">کل طلبہ: <span class="n">' + st.length + '</span></div></div>', 'portrait', 'رابطہ فہرست'); return; }
+      if(r === 'l'){ jmaPrintNow('<div class="pg">' + head(info + '<br>طلبہ کی فہرست') + '<table class="lst"><colgroup><col style="width:7%"><col style="width:24%"><col style="width:24%"><col style="width:25%"><col style="width:20%"></colgroup><thead><tr><th>رول</th><th>نام</th><th>ولدیت</th><th>حفظ کی مقدار</th><th>کیفیت</th></tr></thead><tbody>'
+        + st.map(function(s){ return '<tr><td class="n">' + E(s.roll || '') + '</td><td class="nm">' + E(s.n) + '</td><td class="nm">' + E(s.w || '') + '</td><td>' + E(hifzTxt(s)) + '</td><td>' + E(s.status || '') + '</td></tr>'; }).join('')
+        + '</tbody></table><div style="font-size:14px;margin-top:6px">کل طلبہ: <span class="n">' + st.length + '</span></div></div>', 'portrait', 'طلبہ کی فہرست'); return; }
+    };
+  };
 })();
 </script>
 </body></html>
