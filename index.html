@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO026</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO027</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7566,7 +7566,7 @@ async function mdDevSavePass(){
 
   /* ---------------- داخلہ (3 قدم) ---------------- */
   var F = null, step = 1;
-  function blank(){ var c = curCls || (MC[0] || {}).id || ''; return { sid: '', n: '', w: '', grd: '', mob: '', rel: 'والد', admDate: today(), gender: 'طالب', photo: '', classId: c, roll: String(nextRoll(c)), tId: '', tName: '', status: 'حفظ جاری', bParas: {}, surahs: '', nazra: '', qaida: '', notes: '', addr: '' }; }
+  function blank(){ var c = curCls || (MC[0] || {}).id || ''; return { sid: '', n: '', w: '', grd: '', mob: '', rel: 'والد', admDate: today(), gender: 'طالب', photo: '', classId: c, roll: String(nextRoll(c)), tId: '', tName: '', status: 'حفظ جاری', bParas: {}, bPao: {}, surahs: '', nazra: '', qaida: '', notes: '', addr: '' }; }
   function teachers(){ var t = []; try{ (JSON.parse(localStorage.getItem('jamia_users_v1') || '[]') || []).forEach(function(u){ if(u && !u.off && u.role === 'teacher') t.push({ id: u.id, name: u.name }); }); }catch(e){}
     cls().forEach(function(c){ if(c.incharge && !t.some(function(x){ return x.name === c.incharge; })) t.push({ id: '', name: c.incharge }); }); return t; }
   window.jmaAdmOpen = function(sid){
@@ -7605,7 +7605,7 @@ async function mdDevSavePass(){
       var fc = 0, pc = 0; for(var k in F.bParas){ if(F.bParas[k] === 'f') fc++; else if(F.bParas[k] === 'p') pc++; }
       h += '<div class="jm2-card"><h4>📖 پہلے سے یاد شدہ پارے</h4><div style="font-size:14px;color:#475569;line-height:1.9;margin-bottom:6px">پارہ دبائیں: ایک بار = مکمل (سبز)، دوبارہ = جزوی (پیلا)، تیسری بار = ہٹائیں</div>'
         + '<div class="jm2-paras">' + Array.from({ length: 30 }, function(_, i){ var p = i + 1, st = F.bParas[p] || ''; return '<button type="button" data-para="' + p + '" class="' + st + '">' + p + '</button>'; }).join('') + '</div>'
-        + '<div class="jm2-leg"><span style="--c:#16a34a">مکمل: <b class="jm2-n">' + fc + '</b></span><span style="--c:#fde68a">جزوی: <b class="jm2-n">' + pc + '</b></span></div></div>';
+        + '<div class="jm2-leg"><span style="--c:#16a34a">مکمل: <b class="jm2-n">' + fc + '</b></span><span style="--c:#fde68a">جزوی: <b class="jm2-n">' + pc + '</b></span></div>' + (window.jmaAdmHifzBox ? jmaAdmHifzBox(F) : '') + '</div>';
       h += '<div class="jm2-card"><label class="jm2-l">سورتوں کا ریکارڈ (جو یاد ہیں)</label><textarea class="jm2-in" data-f="surahs" rows="2" placeholder="مثلاً: سورۃ یٰس، سورۃ الملک، آخری 10 سورتیں">' + E(F.surahs) + '</textarea>'
         + '<label class="jm2-l">ناظرہ کی موجودہ حالت</label>' + sel('nazra', NAZRA, F.nazra)
         + '<label class="jm2-l">نورانی قاعدہ (کون سا سبق / مکمل)</label><input class="jm2-in" data-f="qaida" value="' + E(F.qaida) + '" placeholder="مثلاً: سبق 12 / مکمل">'
@@ -7635,7 +7635,7 @@ async function mdDevSavePass(){
     var t = Date.now(), dv = devId(), s = F._edit ? bySid(F.sid) : null;
     var dupName = MS.find(function(x){ return x && !x.del && x !== s && x.n && x.n.trim() === F.n && String(x.w || '').trim() === F.w && x.classId === F.classId; });
     if(dupName && !confirm('اسی جماعت میں «' + F.n + ' ولد ' + F.w + '» پہلے سے موجود ہے۔ پھر بھی نیا داخلہ کریں؟')) return;
-    var o = { n: F.n, w: F.w, grd: F.grd || F.w, rel: F.rel, mob: F.mob, gender: F.gender, admDate: F.admDate, photo: F.photo || '', addr: F.addr, classId: F.classId, roll: F.roll, tId: F.tId || '', tName: F.tName || '', status: F.status, bParas: F.bParas, surahs: F.surahs, nazra: F.nazra, qaida: F.qaida, notes: F.notes, upd: t, dev: dv };
+    var o = { n: F.n, w: F.w, grd: F.grd || F.w, rel: F.rel, mob: F.mob, gender: F.gender, admDate: F.admDate, photo: F.photo || '', addr: F.addr, classId: F.classId, roll: F.roll, tId: F.tId || '', tName: F.tName || '', status: F.status, bParas: F.bParas, bPao: F.bPao || {}, surahs: F.surahs, nazra: F.nazra, qaida: F.qaida, notes: F.notes, upd: t, dev: dv };
     if(s){
       var moved = s.classId !== F.classId || String(s.roll || '') !== String(F.roll);
       Object.assign(s, o);
@@ -7690,13 +7690,10 @@ async function mdDevSavePass(){
     x += window.jmaProAkh ? jmaProAkh(s) : '';   /* MD2311MO022 */
     x += window.jmaProAnalysis ? jmaProAnalysis(s) : '';   /* MD2311MO023 */
     x += window.jmaProFee ? jmaProFee(s) : '';   /* MD2311MO025 — صرف منتظم / مہتمم / خزانچی */   /* MD2311MO019: آج کا اندراج، غیر حاضر، پچھلے اندراج */
-    x += '<div class="jm2-card"><h4>📖 حفظ کی ترقی</h4><dl class="jm2-kv"><dt>پہلے سے یاد (داخلے پر)</dt><dd>مکمل پارے: <span class="jm2-n">' + full + '</span> · جزوی: <span class="jm2-n">' + part + '</span></dd>'
-      + '</dl>'
-      + (full + part ? '<div class="jm2-paras" style="margin-top:8px">' + Array.from({ length: 30 }, function(_, i){ var st = (s.bParas || {})[i + 1] || ''; return '<button type="button" disabled class="' + st + '" style="height:32px;font-size:13px;cursor:default">' + (i + 1) + '</button>'; }).join('') + '</div>' : '')
-      + '<div class="jm2-soon">🛠️ پارہ وار لائنیں / رکوع / پاؤ اور دوہری گنتی سے پاک خودکار حساب — <b>مرحلہ 6</b> میں (مدرسے کے مصحف کا نقشہ ملنے کے بعد)</div></div>';
+    x += window.jmaProHifz ? jmaProHifz(s) : '';   /* MD2311MO027: پارہ وار حفظ */
     x += '<div class="jm2-card"><h4>🎓 ابتدائی تعلیمی ریکارڈ</h4><dl class="jm2-kv"><dt>سورتیں</dt><dd>' + E(s.surahs || '—') + '</dd><dt>ناظرہ</dt><dd>' + E(s.nazra || '—') + '</dd><dt>نورانی قاعدہ</dt><dd>' + E(s.qaida || '—') + '</dd><dt>دیگر</dt><dd>' + E(s.notes || '—') + '</dd></dl></div>';
     x += '<div class="jm2-card"><h4>🗂️ تعلیمی تاریخ</h4>' + (Array.isArray(s.adm) && s.adm.length ? s.adm.map(function(a){ return '<div style="font-size:15px;line-height:1.95">• <span class="jm2-n">' + fmtD(a.date) + '</span> — ' + E(a.note || 'داخلہ') + ' — ' + E(clsName(a.classId)) + (a.roll ? ' · رول <span class="jm2-n">' + E(a.roll) + '</span>' : '') + '</div>'; }).join('') : '<div style="font-size:15px;color:#64748b">پرانا طالب علم — داخلے کی تاریخ درج نہیں۔ «✏️ معلومات بدلیں» سے مکمل کریں۔</div>') + '</div>';
-    x += '<div class="jm2-card"><h4>⏳ اگلے مراحل میں اسی پروفائل میں</h4><div class="jm2-soon" style="margin:0">📖 پارہ وار حفظ کا حساب (مرحلہ 6 — مصحف کے نقشے کے بعد) · 👪 والدین کا آن لائن لنک (مرحلہ 10)</div></div>';
+    x += '<div class="jm2-card"><h4>⏳ اگلے مراحل میں اسی پروفائل میں</h4><div class="jm2-soon" style="margin:0">👪 والدین کا آن لائن لنک (مرحلہ 10)</div></div>';
     if(canAdmin()) x += '<button class="jm2-btn r" data-a="arch" style="width:100%">🗄️ سابقہ طلبہ میں بھیجیں (ریکارڈ محفوظ رہے گا)</button>';
     x += '</div>';
     el.innerHTML = x; el.scrollTop = 0;
@@ -7732,7 +7729,7 @@ async function mdDevSavePass(){
       if(o === 'tName') F.tId = b.getAttribute('data-tid') || '';
       if(o === 'classId'){ if(!F._edit || F.classId !== F._oldCls) F.roll = String(nextRoll(F.classId, F.sid)); else F.roll = F._oldRoll || F.roll; var c = cls().find(function(x){ return x.id === F.classId; }); if(c && c.incharge && !F.tId) F.tName = c.incharge; }
       admDraw(); return; }
-    b = t.closest('[data-para]'); if(b){ grab(); var p = b.getAttribute('data-para'), v = F.bParas[p]; if(!v) F.bParas[p] = 'f'; else if(v === 'f') F.bParas[p] = 'p'; else delete F.bParas[p]; admDraw(); return; }
+    b = t.closest('[data-para]'); if(b){ grab(); var p = b.getAttribute('data-para'), v = F.bParas[p]; if(!v) F.bParas[p] = 'f'; else if(v === 'f') F.bParas[p] = 'p'; else delete F.bParas[p]; if(F.bParas[p] !== 'p' && F.bPao) delete F.bPao[p]; admDraw(); return; }
     b = t.closest('[data-a]'); if(!b) return;
     var a = b.getAttribute('data-a');
     if(a === 'photo'){ $('jm2File').click(); return; }
@@ -7742,6 +7739,7 @@ async function mdDevSavePass(){
     if(a === 'save'){ save(); return; }
   });
 
+  window.jmaAdmF = function(){ return F; }; window.jmaAdmRedraw = function(){ admDraw(); }; window.jmaAdmGrab = function(){ grab(); };
   window.jmaStuRedraw = function(){ stuDraw(); }; window.jmaProRedraw = function(){ proDraw(); }; window.jmaProSid = function(){ return proSid; };
   /* ---------------- ہوم کا بٹن ---------------- */
   function homeBtn(){ var hb = document.querySelector('#homeScreen .home-btns'); if(!hb || $('jmaStuBtn')) return;
@@ -9017,7 +9015,83 @@ async function mdDevSavePass(){
 })();
 </script>
 
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO026" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<!-- ============================================================
+     MD2311MO027 — جامعہ مینجمنٹ، مرحلہ 6 (مالک کا حکم، ہیلپ ڈیسک #361): حفظ کی پارہ وار خودکار ترقی
+     نقشہ وہی جو پرانی ایپ میں پہلے سے ہے (مالک کا حکم): 16 سطری حفظی مصحف، 547 صفحے = 8,752 لائنیں، 540 رکوع، 120 پاؤ، 30 پارے
+     → ہر پارہ ≈ 291.7 لائن، 18 رکوع، 4 پاؤ (رکوع ≈ 16.2 لائن، پاؤ ≈ 72.9 لائن)۔ پارہ چنتے ہی لائنیں / رکوع / پاؤ خود۔
+     حساب (دوہری گنتی سے پاک): داخلے کا ابتدائی ریکارڈ الگ، روزانہ نیا حفظ صرف «سبق» سے؛ سبقی / منزل کبھی نیا حفظ نہیں؛
+     ایک پارے کے پاؤ سیٹ کی طرح (ایک پاؤ دوبارہ نہیں گنا جاتا)، لائن / رکوع ملا کر بھی پارے کی کل لائنوں سے زیادہ نہیں۔
+     ============================================================ -->
+<style id="jma027css">
+.jm6-tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+.jm6-tbl th,.jm6-tbl td{border:1px solid #e2e8f0;padding:2px 4px;text-align:center;line-height:1.8}
+.jm6-tbl th{background:#ecfdf5;color:#065f46;font-weight:400}
+.jm6-tbl tr.f td{background:#f0fdf4}.jm6-tbl tr.p td{background:#fffbeb}
+.jm6-bar{height:10px;border-radius:6px;background:#e2e8f0;overflow:hidden;margin:6px 0}
+.jm6-bar s{display:block;height:100%;background:linear-gradient(90deg,#16a34a,#0f766e);text-decoration:none}
+.jm6-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.jm6-sum div{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:4px;text-align:center;font-size:13px;line-height:1.8}
+.jm6-sum b{display:block;font:800 18px Arial}
+.jm6-pp{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px;font-size:14px}
+.jm6-pp button{border:1.5px solid #f59e0b;background:#fff;color:#78350f;border-radius:999px;padding:1px 10px;font:inherit;font-size:13.5px;cursor:pointer}
+.jm6-pp button.on{background:#f59e0b;color:#fff}
+</style>
+<script id="jma027">
+(function(){
+  'use strict';
+  function E(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  var TL = (typeof LINES_PER_PAGE !== 'undefined' && typeof TOTAL_PAGES !== 'undefined') ? LINES_PER_PAGE * TOTAL_PAGES : 16 * 547;
+  var TR = (typeof DEFAULT_TOTAL !== 'undefined' && DEFAULT_TOTAL.ruku) || 540, TP = (typeof DEFAULT_TOTAL !== 'undefined' && DEFAULT_TOTAL.pao) || 120;
+  var CAP = { lines: TL / 30, ruku: TR / 30, pao: TP / 30 }, L_RUKU = CAP.lines / CAP.ruku, L_PAO = CAP.lines / CAP.pao;
+  window.JMA_MUSHAF = { totalLines: TL, totalRuku: TR, totalPao: TP, para: CAP, linesPerRuku: L_RUKU, linesPerPao: L_PAO };
+  function r1(x){ return Math.round(x * 10) / 10; }
+  /* ایک پارے کی مقدار → لائنیں (پاؤ الگ سیٹ میں) */
+  function hifz(s){
+    var EN = ((window.jma019 && jma019.EN()) || []).filter(function(e){ return !e.del && e.sid === s.sid && e.kind === 'sabaq'; });
+    var P = {};
+    for(var p = 1; p <= 30; p++) P[p] = { base: 0, baseKind: '', pao: {}, loose: 0, entries: 0 };
+    Object.keys(s.bParas || {}).forEach(function(k){ var x = P[k]; if(!x) return; if(s.bParas[k] === 'f'){ x.base = CAP.lines; x.baseKind = 'f'; } else if(s.bParas[k] === 'p'){ x.baseKind = 'p'; x.base = ((s.bPao || {})[k] || 0) * L_PAO; } });
+    EN.forEach(function(e){ (e.items || []).forEach(function(it){ var x = P[it.para]; if(!x) return; x.entries++; (it.pao || []).forEach(function(q){ x.pao[q] = 1; }); x.loose += (it.lines || 0) + (it.ruku || 0) * L_RUKU; }); });
+    var rows = [], tot = 0, base = 0, neu = 0, full = 0, part = 0;
+    for(var q = 1; q <= 30; q++){ var x = P[q], np = Object.keys(x.pao).length * L_PAO;
+      var cov = Math.min(CAP.lines, x.base + np + x.loose), add = Math.max(0, cov - Math.min(CAP.lines, x.base));
+      var st = cov >= CAP.lines - 0.01 ? 'f' : cov > 0 || x.baseKind === 'p' ? 'p' : '';
+      if(st === 'f') full++; else if(st === 'p') part++;
+      tot += cov; base += Math.min(CAP.lines, x.base); neu += add;
+      rows.push({ para: q, lines: cov, ruku: cov / L_RUKU, pao: cov / L_PAO, base: Math.min(CAP.lines, x.base), add: add, st: st, entries: x.entries, paoSet: Object.keys(x.pao).map(Number) }); }
+    return { rows: rows, total: tot, base: base, neu: neu, full: full, part: part, pct: Math.round(tot * 1000 / TL) / 10 };
+  }
+  window.jmaHifzCalc = hifz;
+  window.jmaProHifz = function(s){
+    var H = hifz(s), any = H.rows.filter(function(r){ return r.st; });
+    var h = '<div class="jm2-card"><h4>📖 حفظ کی ترقی (پارہ وار)</h4>';
+    h += '<div class="jm6-bar"><s style="width:' + Math.min(100, H.pct) + '%"></s></div><div style="font-size:14px;text-align:center">مجموعی: <b class="jm2-n">' + H.pct + '%</b> قرآن (<span class="jm2-n">' + Math.round(H.total) + '</span> / <span class="jm2-n">' + TL + '</span> لائن)</div>';
+    h += '<div class="jm6-sum" style="margin-top:6px"><div>مکمل پارے<b style="color:#15803d">' + H.full + '</b></div><div>جزوی پارے<b style="color:#b45309">' + H.part + '</b></div><div>کل پاؤ<b style="color:#0f766e">' + r1(H.total / L_PAO) + '</b></div></div>';
+    h += '<div style="font-size:13.5px;color:#475569;line-height:1.9;margin-top:6px">پہلے سے یاد (داخلے پر): <span class="jm2-n">' + Math.round(H.base) + '</span> لائن ≈ <span class="jm2-n">' + r1(H.base / CAP.lines) + '</span> پارے · روزانہ نیا حفظ (سبق): <span class="jm2-n">' + Math.round(H.neu) + '</span> لائن ≈ <span class="jm2-n">' + r1(H.neu / L_PAO) + '</span> پاؤ</div>';
+    if(any.length) h += '<div style="overflow-x:auto"><table class="jm6-tbl"><tr><th>پارہ</th><th>لائنیں</th><th>رکوع</th><th>پاؤ</th><th>حالت</th><th>ذریعہ</th></tr>' + any.map(function(r){
+      return '<tr class="' + r.st + '"><td class="jm2-n">' + r.para + '</td><td class="jm2-n">' + Math.round(r.lines) + '/' + Math.round(CAP.lines) + '</td><td class="jm2-n">' + r1(r.ruku) + '</td><td class="jm2-n">' + r1(r.pao) + '</td><td>' + (r.st === 'f' ? '✅ مکمل' : '🟡 جزوی') + '</td><td style="font-size:12px">' + (r.base && r.add ? 'داخلہ + سبق' : r.base ? 'داخلہ' : 'سبق') + '</td></tr>'; }).join('') + '</table></div>';
+    else h += '<div style="font-size:14px;color:#64748b;margin-top:6px">ابھی کوئی حفظ درج نہیں — داخلے میں پہلے سے یاد پارے یا روزانہ «سبق» کا اندراج کریں</div>';
+    h += '<div style="font-size:12px;color:#64748b;line-height:1.8;margin-top:6px">نقشہ: 16 سطری حفظی مصحف — ہر پارہ ≈ ' + r1(CAP.lines) + ' لائن، ' + r1(CAP.ruku) + ' رکوع، ' + CAP.pao + ' پاؤ۔ سبقی / منزل نیا حفظ نہیں گنی جاتیں؛ ایک پاؤ دو بار نہیں گنا جاتا؛ پارے کی کل لائنوں سے زیادہ کبھی نہیں۔</div>';
+    return h + '</div>';
+  };
+  /* داخلے میں: چنے ہوئے پاروں کا خود حساب + جزوی پارے کے پاؤ */
+  window.jmaAdmHifzBox = function(F){
+    var keys = Object.keys(F.bParas || {}).map(Number).sort(function(a, b){ return a - b; }); if(!keys.length) return '';
+    var lines = 0, h = '';
+    keys.forEach(function(p){ if(F.bParas[p] === 'f') lines += CAP.lines; else lines += ((F.bPao || {})[p] || 0) * L_PAO; });
+    keys.filter(function(p){ return F.bParas[p] === 'p'; }).forEach(function(p){ var n = (F.bPao || {})[p] || 0;
+      h += '<div class="jm6-pp">پارہ <b class="jm2-n">' + p + '</b> (جزوی) — کتنے پاؤ یاد؟ ' + [1, 2, 3].map(function(k){ return '<button type="button" data-bpao="' + p + '" data-n="' + k + '" class="' + (n === k ? 'on' : '') + '">' + k + ' پاؤ</button>'; }).join('') + '</div>'; });
+    return h + '<div style="margin-top:8px;font-size:14.5px;line-height:1.9;color:#065f46">📐 خود حساب: <span class="jm2-n">' + Math.round(lines) + '</span> لائنیں · <span class="jm2-n">' + r1(lines / L_RUKU) + '</span> رکوع · <span class="jm2-n">' + r1(lines / L_PAO) + '</span> پاؤ · <span class="jm2-n">' + r1(lines / CAP.lines) + '</span> پارے</div>';
+  };
+  document.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('[data-bpao]'); if(!b || !document.getElementById('jmaAdm').contains(b)) return;
+    e.stopPropagation(); var F = window.jmaAdmF && jmaAdmF(); if(!F) return; try{ jmaAdmGrab(); }catch(x){}
+    F.bPao = F.bPao || {}; var p = b.dataset.bpao, n = +b.dataset.n; if(F.bPao[p] === n) delete F.bPao[p]; else F.bPao[p] = n; jmaAdmRedraw();
+  }, true);
+})();
+</script>
+
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO027" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
