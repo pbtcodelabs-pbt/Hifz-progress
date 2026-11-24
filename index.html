@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO057</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO058</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9654,7 +9654,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO057" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO058" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10846,7 +10846,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2311MO057', n: 'نیا ہوم ڈیزائن (فائنل): تصویر پر سیدھی نوری کشیدہ لکھائی — مدرسہ، مہتمم صاحب، قاری استاد صاحب؛ سنہری کنارے والے گول بٹن؛ نیچے ہیلپ ڈیسک' };
+window.MD_NOTE = { v: 'MD2311MO058', n: 'ہوم کا اوپر والا حصہ نیا: صاف خوبصورت تصویر (مسجد، چاند)، مدرسے کا نام کبھی نہیں کٹتا؛ «🖼️ تصویر بدلیں» سے اپنے مدرسے کی تصویر لگائیں' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
@@ -10951,6 +10951,21 @@ window.MD_NOTE = { v: 'MD2311MO057', n: 'نیا ہوم ڈیزائن (فائنل)
 .jm54 .hdb img{height:80%;width:auto}
 .jm54 .vr{position:absolute;left:0;right:0;bottom:3px;text-align:center;font:700 10px Arial;color:rgba(255,255,255,.9);line-height:1.2;pointer-events:none}
 @media (min-width:700px){.jm54 .g6 .t{font-size:36px}}
+/* MD2311MO058: نیا اوپر کا حصہ — صاف تصویر (یا مدرسے کی اپنی)، نام کبھی نہیں کٹتا */
+.jm54 .h58{position:relative;overflow:hidden;min-height:clamp(190px,52vw,280px);display:flex;align-items:flex-end;border-bottom:3px solid #d4af37;box-shadow:0 4px 10px rgba(0,0,0,.25)}
+.jm54 .h58 .sky{position:absolute;inset:0;width:100%;height:100%}
+.jm54 .h58 .ph{position:absolute;inset:0;background:center/cover no-repeat}
+.jm54 .h58.has .ph:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.2) 0%,rgba(0,40,15,.5) 40%,rgba(0,35,12,.88) 100%)}
+.jm54 .h58 .in{position:relative;z-index:1;width:100%;display:flex;align-items:center;gap:8px;padding:44px 3% 12px;direction:rtl;box-sizing:border-box}
+.jm54 .h58 .lg{width:clamp(62px,19vw,96px);height:clamp(62px,19vw,96px);border-radius:50%;object-fit:cover;flex:none;border:3px solid #d4af37;box-shadow:0 3px 8px rgba(0,0,0,.4);background:#064420;order:2}
+.jm54 .h58 .tx{flex:1;min-width:0;text-align:center;color:#fff}
+.jm54 .nm58{font-family:'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;line-height:1.55;color:#fff;text-shadow:0 2px 0 #064420,0 0 10px rgba(0,0,0,.55);white-space:nowrap;overflow:hidden;max-width:100%}
+.jm54 .h58 .fl{height:3px;margin:2px 12% 4px;background:linear-gradient(90deg,transparent,#f6d365,#d4af37,#f6d365,transparent);border-radius:3px}
+.jm54 .l58{font-family:'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;line-height:1.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.7)}
+.jm54 .l58 span{color:#fde68a;font-size:clamp(13px,3.7vw,19px)}.jm54 .l58 b{font-weight:400;color:#fff;font-size:clamp(15px,4.6vw,24px)}
+.jm54 .g58{position:absolute;right:2.5%;top:8px;z-index:2;width:40px;height:40px;border-radius:50%;border:2px solid #d4af37;background:rgba(6,68,32,.85);color:#fff;font-size:20px;line-height:1;padding:0}
+.jm54 .p58{position:absolute;left:2.5%;top:10px;z-index:2;border:1.5px solid #d4af37;background:rgba(6,68,32,.8);color:#fff;border-radius:999px;padding:0 10px;font-family:var(--nastaliq),serif;font-size:13px;line-height:1.9}
+.jm54 .g6{margin-top:12px}
 </style>
 <script id="jma054">
 (function(){
@@ -10976,10 +10991,13 @@ window.MD_NOTE = { v: 'MD2311MO057', n: 'نیا ہوم ڈیزائن (فائنل)
     var ver = ''; try{ ver = window.MD_VER ? MD_VER() : ''; }catch(e){} var vs = (/(\d{3})$/.exec(ver) || [])[1];
     var cls = []; try{ cls = ((window.jmaMgmt && jmaMgmt.classes()) || []).filter(function(x){ return !x.del && x.incharge && (typeof jmaAllowedClass !== 'function' || jmaAllowedClass(x.id)); }); }catch(e){}
     var qari = cls.length ? cls.map(function(x){ return x.incharge; }).filter(function(v, i, a){ return a.indexOf(v) === i; }).slice(0, 2).join('، ') : '';
-    el.innerHTML = '<div class="w"><div class="hd"><img src="ui/home-top.jpg" alt=""><div class="nm">' + E(mad) + '</div>'
-      + (c.moh ? '<div class="ln l1"><span>مہتمم صاحب:</span><b>' + E(c.moh) + '</b></div>' : '')
-      + (qari ? '<div class="ln l2"><span>قاری استاد صاحب:</span><b>' + E(qari) + '</b></div>' : '')
-      + '<button type="button" class="gear" data-d="cfg" aria-label="ترتیبات"></button></div>'
+    var canPic = typeof jmaCan !== 'function' || jmaCan('classes');
+    el.innerHTML = '<div class="w"><div class="h58" id="jm58hd"><svg class="sky" viewBox="0 0 400 200" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs><linearGradient id="h58g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a5a2a"/><stop offset=".55" stop-color="#11803a"/><stop offset="1" stop-color="#2a9d3f"/></linearGradient><radialGradient id="h58r" cx=".5" cy=".35" r=".6"><stop offset="0" stop-color="#fff6c8" stop-opacity=".45"/><stop offset="1" stop-color="#fff6c8" stop-opacity="0"/></radialGradient></defs><rect width="400" height="200" fill="url(#h58g)"/><rect width="400" height="200" fill="url(#h58r)"/><g fill="#fde68a" opacity=".85"><circle cx="40" cy="30" r="1.2"/><circle cx="90" cy="18" r="1"/><circle cx="150" cy="40" r="1.1"/><circle cx="250" cy="22" r="1"/><circle cx="310" cy="45" r="1.2"/><circle cx="360" cy="20" r="1"/><circle cx="205" cy="12" r="1"/></g><path d="M338 30a16 16 0 1 0 14 24a13 13 0 1 1 -14 -24z" fill="#fde68a"/><g fill="#064420"><path d="M0 200V172q20-8 40 0v-18h4v-6l3-6 3 6v6h4v24q18-10 36 0V200z"/><path d="M80 200V150h6v-26l4-8 4 8v26h6v50z"/><path d="M120 200v-30q8-30 40-34 0-6 3-8 3 2 3 8 32 4 40 34v30z" /><path d="M150 200v-40q0-38 50-50 0-8 4-11 4 3 4 11 50 12 50 50v40z"/><path d="M300 200V150h6v-26l4-8 4 8v26h6v50z"/><path d="M240 200v-30q8-30 40-34 0-6 3-8 3 2 3 8 32 4 40 34v30z"/><path d="M330 200v-28q18-10 36 0v-18h4v-6l3-6 3 6v6h4v24q10-6 20 0V200z"/></g><path d="M0 199h400" stroke="#d4af37" stroke-width="2"/></svg><div class="ph" id="jm58ph"></div>'
+      + '<button type="button" class="g58" data-d="cfg" aria-label="ترتیبات">⚙️</button>' + (canPic ? '<button type="button" class="p58" data-k54="pic">🖼️ تصویر بدلیں</button>' : '')
+      + '<div class="in"><img class="lg" src="' + E(c.logo || 'ui/emblem.png') + '" alt=""><div class="tx"><div class="nm58" id="jm58nm">' + E(mad) + '</div><div class="fl"></div>'
+      + (c.moh ? '<div class="l58"><span>مہتمم صاحب:</span> <b>' + E(c.moh) + '</b></div>' : '')
+      + (qari ? '<div class="l58"><span>قاری استاد صاحب:</span> <b>' + E(qari) + '</b></div>' : '')
+      + '</div></div></div>'
       + '<div class="g6">'
       + btn('b-sabaq', 'h-sabaq.png', 'سبق', L.sabaq ? 'data-d="kpient"' : 'data-d35="1"', bd(L.sabaq, 'باقی'))
       + btn('b-sabqi', 'h-sabqi.png', 'سبقی', L.sabqi ? 'data-d="kpient"' : 'data-d35="1"', bd(L.sabqi, 'باقی'))
@@ -10995,7 +11013,33 @@ window.MD_NOTE = { v: 'MD2311MO057', n: 'نیا ہوم ڈیزائن (فائنل)
       + (function(){ var D = window.jmaDrive, on = D && D.connected(), td = on && D.lastDay() === pk; return '<button type="button" data-k54="drive" class="' + (td ? '' : 'r') + '">' + (td ? '☁️ آج کا بیک اپ ✓' : on ? '☁️ بیک اپ — آج نہیں ہوا' : '☁️ ڈرائیو بیک اپ جوڑیں') + '</button>'; })()
       + '</div>'
       + '<div class="ft"><img src="ui/home-bot.jpg" alt=""><button type="button" class="hdb" data-k54="help"><img src="ui/h-help.png" alt=""> ہیلپ ڈیسک</button>' + (vs ? '<div class="vr">V' + vs + '</div>' : '') + '</div></div>';
+    fitName(); paintPhoto();
   }
+  /* MD2311MO058: نام کبھی نہ کٹے — جگہ کے حساب سے خود چھوٹا، پھر بھی بڑا ہو تو دو لائن */
+  function fitName(){ var n = $('jm58nm'); if(!n) return; var fs = Math.min(44, Math.max(24, n.parentNode.clientWidth / 7)); n.style.whiteSpace = 'nowrap'; n.style.fontSize = fs + 'px';
+    var g = 0; while(n.scrollWidth > n.clientWidth + 1 && fs > 28 && g++ < 40){ fs -= 1; n.style.fontSize = fs + 'px'; }
+    if(n.scrollWidth > n.clientWidth + 1){ n.style.whiteSpace = 'normal'; n.style.lineHeight = '1.45'; n.style.fontSize = '30px'; } }
+  window.addEventListener('resize', function(){ try{ fitName(); }catch(e){} });
+  /* ہوم کی اپنی تصویر (IndexedDB md_ui_v1 / kv / home) */
+  function idb(){ return new Promise(function(res, rej){ var r = indexedDB.open('md_ui_v1', 1); r.onupgradeneeded = function(){ r.result.createObjectStore('kv'); }; r.onsuccess = function(){ res(r.result); }; r.onerror = function(){ rej(r.error); }; }); }
+  function imgGet(){ return idb().then(function(db){ return new Promise(function(res){ var q = db.transaction('kv').objectStore('kv').get('home'); q.onsuccess = function(){ res(q.result || null); }; q.onerror = function(){ res(null); }; }); }).catch(function(){ return null; }); }
+  function imgSet(v){ return idb().then(function(db){ return new Promise(function(res){ var t = db.transaction('kv', 'readwrite'); if(v == null) t.objectStore('kv').delete('home'); else t.objectStore('kv').put(v, 'home'); t.oncomplete = function(){ res(true); }; t.onerror = function(){ res(false); }; }); }); }
+  var photoUrl = null;
+  function paintPhoto(){ var ph = $('jm58ph'), hd = $('jm58hd'); if(!ph) return;
+    if(photoUrl){ ph.style.backgroundImage = 'url(' + photoUrl + ')'; hd.classList.add('has'); return; }
+    imgGet().then(function(v){ if(!v) return; photoUrl = v; var a = $('jm58ph'), b = $('jm58hd'); if(a){ a.style.backgroundImage = 'url(' + v + ')'; b.classList.add('has'); } }); }
+  function pickPhoto(){
+    var has = !!photoUrl;
+    if(has && !confirm('نئی تصویر لگائیں؟\n\n(«Cancel» دبائیں تو پہلے والی سادہ تصویر واپس لانے کا پوچھا جائے گا)')){ if(confirm('اپنی تصویر ہٹا کر پہلے والی تصویر واپس لگائیں؟')){ imgSet(null).then(function(){ photoUrl = null; jmaDashOpen(); }); } return; }
+    var f = document.createElement('input'); f.type = 'file'; f.accept = 'image/*';
+    f.onchange = function(){ var file = f.files && f.files[0]; if(!file) return; var rd = new FileReader();
+      rd.onload = function(){ var im = new Image(); im.onload = function(){ var W = 1200, sc = Math.min(1, W / im.width), cv = document.createElement('canvas'); cv.width = Math.round(im.width * sc); cv.height = Math.round(im.height * sc);
+        cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height); var d = cv.toDataURL('image/jpeg', 0.82);
+        imgSet(d).then(function(ok){ if(ok){ photoUrl = d; jmaDashOpen(); if(window.jmaToast) jmaToast('✅ ہوم کی تصویر بدل گئی'); } else alert('❌ تصویر محفوظ نہیں ہو سکی'); }); };
+        im.src = rd.result; }; rd.readAsDataURL(file); };
+    f.click();
+  }
+  window.jmaHomePhoto = pickPhoto;
   var orig = window.jmaDashOpen;
   window.jmaDashOpen = function(){ var el = $('jmaDash'); el.style.display = 'block'; try{ draw(); }catch(e){ el.classList.remove('jm54'); if(orig) orig(); } };
   document.addEventListener('click', function(e){
@@ -11005,6 +11049,7 @@ window.MD_NOTE = { v: 'MD2311MO057', n: 'نیا ہوم ڈیزائن (فائنل)
     else if(k === 'help'){ try{ openHelpDesk({ type: 'chat' }); }catch(x){ try{ openHelpDesk(); }catch(y){} } }
     else if(k === 'out'){ if(window.jmaAskExit) jmaAskExit(); }
     else if(k === 'drive'){ if(window.jmaDriveOpen) jmaDriveOpen(); }
+    else if(k === 'pic'){ if(window.jmaHomePhoto) jmaHomePhoto(); }
   }, true);
   /* ایپ کھلتے ہی یہی ہوم (سائن اپ / پرانا تالا نہ ہو تو) */
   function boot(){ var n = 0, t = setInterval(function(){ n++;
