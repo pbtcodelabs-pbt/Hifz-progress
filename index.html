@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU069</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU070</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7589,7 +7589,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       + '<button class="jm2-add" data-a="new">➕ نیا داخلہ</button>' + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><button class="jm5-att-btn" data-att-open="' + E(curCls) + '">🕌 حاضری — 6 اوقات</button><button class="jm5-att-btn" data-exm-open="' + E(curCls) + '" style="background:linear-gradient(135deg,#d97706,#b45309)">🎓 امتحانات</button></div>' + '<button class="jm5-att-btn" data-crep="' + E(curCls) + '" style="background:linear-gradient(135deg,#475569,#334155)">📄 جماعت کی ماہانہ رپورٹ</button>' + (window.jmaCan && !jmaCan('fees') ? '' : '<button class="jm5-att-btn" data-fee-open="1" style="background:linear-gradient(135deg,#15803d,#166534)">💰 فیس اور حساب</button>')
       + '<div style="font-size:14px;color:#475569;margin:6px 2px 0">کل: <span class="jm2-n">' + stuOf(curCls).length + '</span> طلبہ' + (qq ? ' · ملے: <span class="jm2-n">' + list.length + '</span>' : '') + '</div>'
       + (window.jmaLegend || '')
-      + (list.length ? '<div class="jm2-grid">' + list.map(function(s){ var cb = window.jmaCardBits ? jmaCardBits(s.sid) : { cls: '', html: '' }; return '<div class="jm2-c' + cb.cls + '" data-p="' + E(s.sid) + '"><span class="rl">' + (s.roll ? E(s.roll) : '—') + '</span><div class="ph" style="' + photoBg(s.photo) + '">' + (s.photo ? '' : '👤') + '</div><div class="tx"><div class="nm">' + E(s.n) + '</div><div class="fa">' + (s.w ? 'ولد ' + E(s.w) : '&nbsp;') + '</div>' + cb.html + '</div></div>'; }).join('') + '</div>'
+      + (list.length ? '<div class="jm2-grid">' + list.map(function(s){ var cb = window.jmaCardBits ? jmaCardBits(s.sid) : { cls: '', html: '' }; if(window.jmaKhatmTag) cb = { cls: cb.cls, html: cb.html + jmaKhatmTag(s) }; return '<div class="jm2-c' + cb.cls + '" data-p="' + E(s.sid) + '"><span class="rl">' + (s.roll ? E(s.roll) : '—') + '</span><div class="ph" style="' + photoBg(s.photo) + '">' + (s.photo ? '' : '👤') + '</div><div class="tx"><div class="nm">' + E(s.n) + '</div><div class="fa">' + (s.w ? 'ولد ' + E(s.w) : '&nbsp;') + '</div>' + cb.html + '</div></div>'; }).join('') + '</div>'
         : '<div class="jm2-empty">' + (qq ? 'کوئی طالب علم نہیں ملا' : 'اس جماعت میں ابھی کوئی طالب علم نہیں — «➕ نیا داخلہ» دبائیں') + '</div>')
       + '</div>';
     var i = $('jm2Q'); if(i){ i.oninput = function(){ q = i.value; var pos = i.selectionStart; stuDraw(); var j = $('jm2Q'); j.focus(); try{ j.setSelectionRange(pos, pos); }catch(e){} }; }
@@ -7750,6 +7750,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     var x = '<div class="jm2-top"><b>👤 ' + E(s.n) + '</b><button data-x="pro">✕</button></div><div class="jm2-wrap">';
     x += '<div class="jm2-hd"><div class="pv" style="' + photoBg(s.photo) + '">' + (s.photo ? '' : '👤') + '</div><div style="min-width:0"><div class="nm">' + E(s.n) + '</div><div class="mt">' + (s.w ? 'ولد ' + E(s.w) + '<br>' : '') + 'رول نمبر: <span class="jm2-n">' + E(s.roll || '—') + '</span> · ' + E(clsName(s.classId)) + '<br>🆔 <span class="jm2-n">' + E(s.sid) + '</span></div></div></div>';
     x += '<div class="jm2-pn"><button data-nv="' + (ix > 0 ? E(list[ix - 1].sid) : '') + '"' + (ix > 0 ? '' : ' disabled') + '>→ پچھلا طالب علم</button><button data-nv="' + (ix > -1 && ix < list.length - 1 ? E(list[ix + 1].sid) : '') + '"' + (ix > -1 && ix < list.length - 1 ? '' : ' disabled') + '>اگلا طالب علم ←</button></div>';
+    x += window.jmaKhatmBox ? jmaKhatmBox(s) : '';   /* MD2411TU070: ختم قرآن کا تخمینہ */
     x += '<div class="jm2-card"><h4>📋 بنیادی معلومات</h4><dl class="jm2-kv"><dt>سرپرست</dt><dd>' + E(s.grd || s.w || '—') + (s.rel ? ' (' + E(s.rel) + ')' : '') + '</dd><dt>موبائل</dt><dd><span class="jm2-n">' + E(s.mob || '—') + '</span></dd><dt>داخلہ</dt><dd><span class="jm2-n">' + fmtD(s.admDate) + '</span></dd><dt>جنس</dt><dd>' + E(s.gender || '—') + '</dd><dt>ذمہ دار استاد</dt><dd>' + E(s.tName || '—') + '</dd><dt>تعلیمی حیثیت</dt><dd>' + E(s.status || '—') + '</dd>' + (s.addr ? '<dt>پتہ</dt><dd>' + E(s.addr) + '</dd>' : '') + '</dl>'
       + '<div class="jm2-acts">' + (mob ? '<a href="tel:' + E(mob) + '">📞 کال</a><a class="wa" href="https://wa.me/' + E(wa) + '" target="_blank">💬 واٹس ایپ</a>' : '') + '<button data-a="edit">✏️ معلومات بدلیں</button><button data-rep-open="1" style="background:#ecfdf5;color:#065f46">📄 ماہانہ رپورٹ / واٹس ایپ</button></div></div>';
     x += window.jmaProToday ? jmaProToday(s) : '';
@@ -9270,6 +9271,73 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
+<style id="jma070css">
+.jm70{border:2px solid #d4af37;background:linear-gradient(180deg,#fffbea,#fff)}
+.jm70 .t{font:400 17px/1.7 'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;color:#065f46;text-align:center}
+.jm70 .d{text-align:center;font:400 22px/1.7 'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;color:#b45309}
+.jm70 .d .n,.jm70 .n{font-family:Arial,sans-serif;font-weight:800;direction:ltr;unicode-bidi:isolate}
+.jm70 .g{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:4px}
+.jm70 .g div{background:#f8fafc;border-radius:8px;text-align:center;font-size:12.5px;line-height:1.6;color:#475569;padding:2px}
+.jm70 .g b{display:block;font:800 15px Arial;color:#0f172a}
+.jm70 .s{font-size:12.5px;color:#64748b;text-align:center;line-height:1.7;margin-top:3px}
+.jm70 .up{color:#15803d}.jm70 .dn{color:#b91c1c}
+.jm70k{display:block;font-size:11.5px;color:#92400e;line-height:1.6;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jm70k .n{font-family:Arial,sans-serif;font-weight:700}
+</style>
+<script id="jma070">
+/* MD2411TU070 (مالک کا حکم): ختم قرآن کی متوقع تاریخ — صرف «سبق» (سبقی / منزل نہیں)؛ باقی لائنیں = کل − یاد (jmaHifzCalc)؛
+   رفتار = پچھلے 30 دن میں سبق کی لائنیں ÷ سبق والے دن؛ ہفتے میں سبق کے دن اسی مدت سے؛ رفتار بدلتے ہی تاریخ خود آگے / پیچھے؛
+   کم از کم 3 دن کا سبق نہ ہو تو صرف بتاتا ہے (کبھی فرضی تاریخ نہیں)۔ */
+(function(){
+  'use strict';
+  var MN = ['جنوری', 'فروری', 'مارچ', 'اپریل', 'مئی', 'جون', 'جولائی', 'اگست', 'ستمبر', 'اکتوبر', 'نومبر', 'دسمبر'], DY = ['اتوار', 'پیر', 'منگل', 'بدھ', 'جمعرات', 'جمعہ', 'ہفتہ'];
+  function today(){ return window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10); }
+  function ymd(d){ return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function addD(ds, n){ var d = new Date(ds + 'T00:00:00'); d.setDate(d.getDate() + n); return d; }
+  function dd(a, b){ return Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 864e5); }
+  function linesOf(e){ var M = window.JMA_MUSHAF || { linesPerRuku: 16, linesPerPao: 72.9 }; return (e.items || []).reduce(function(t, it){ return t + (+it.lines || 0) + (+it.ruku || 0) * M.linesPerRuku + ((it.pao || []).length) * M.linesPerPao; }, 0); }
+  function rateWin(sid, from, to){
+    var EN = ((window.jma019 && jma019.EN()) || []).filter(function(e){ return !e.del && e.sid === sid && e.kind === 'sabaq' && e.date >= from && e.date <= to; });
+    var days = {}, L = 0; EN.forEach(function(e){ var l = linesOf(e); L += l; days[e.date] = (days[e.date] || 0) + l; });
+    var ks = Object.keys(days).sort(); return { lines: L, days: ks.length, per: ks.length ? L / ks.length : 0, first: ks[0] };
+  }
+  function est(s){
+    var H = window.jmaHifzCalc ? jmaHifzCalc(s) : null; if(!H) return null;
+    var TL = (window.JMA_MUSHAF || {}).totalLines || 8752, rem = Math.max(0, TL - H.total), td = today();
+    if(rem < 1) return { done: true, H: H };
+    var f30 = ymd(addD(td, -29)), R = rateWin(s.sid, f30, td);
+    var o = { H: H, rem: rem, per: R.per, sd: R.days, ok: R.days >= 3 && R.per > 0 };
+    if(!o.ok) return o;
+    var sp = Math.max(1, dd(R.first, td) + 1), wk = sp >= 7 ? Math.min(7, Math.max(1, R.days * 7 / sp)) : 6;
+    o.wk = wk; o.cal = Math.ceil(rem / R.per * 7 / wk); o.date = addD(td, o.cal);
+    var a = rateWin(s.sid, ymd(addD(td, -14)), td), b = rateWin(s.sid, f30, ymd(addD(td, -15)));
+    if(a.days >= 2 && b.days >= 2 && b.per){ var ch = (a.per - b.per) / b.per; o.trend = ch > 0.1 ? 'up' : ch < -0.1 ? 'dn' : ''; }
+    return o;
+  }
+  function N(x){ return '<span class="n">' + x + '</span>'; }
+  function fmtD(d){ return DY[d.getDay()] + '، ' + N(d.getDate()) + ' ' + MN[d.getMonth()] + ' ' + N(d.getFullYear()); }
+  function span(days){ var y = Math.floor(days / 365), m = Math.floor((days % 365) / 30.4), r = Math.round(days - y * 365 - m * 30.4), p = []; if(y) p.push(N(y) + ' سال'); if(m) p.push(N(m) + ' ماہ'); if(!y && r > 0) p.push(N(r) + ' دن'); return p.join(' ') || 'چند دن'; }
+  window.jmaKhatm = est;
+  window.jmaKhatmBox = function(s){
+    try{
+      if(/ناظرہ|قاعدہ/.test(s.status || '')) return '';
+      var o = est(s); if(!o) return '';
+      if(o.done) return '<div class="jm2-card jm70"><div class="t">🎉 ماشاء اللہ — حفظ قرآن مکمل</div></div>';
+      var g = '<div class="g"><div>یاد<b>' + o.H.pct + '%</b></div><div>باقی لائنیں<b>' + Math.round(o.rem).toLocaleString('en-US') + '</b></div><div>روزانہ سبق<b>' + (o.ok ? Math.round(o.per) : '—') + '</b></div></div>';
+      if(!o.ok) return '<div class="jm2-card jm70"><div class="t">🏁 ختم قرآن کا تخمینہ</div>' + g + '<div class="s">تخمینے کے لیے کم از کم ' + N(3) + ' دن کا «سبق» درج کریں (ابھی ' + N(o.sd) + ') — پھر تاریخ خود بنے گی</div></div>';
+      return '<div class="jm2-card jm70"><div class="t">🏁 ختم قرآن کی متوقع تاریخ</div><div class="d">' + fmtD(o.date) + '</div>' + g
+        + '<div class="s">اسی رفتار سے تقریباً ' + span(o.cal) + ' باقی · ہفتے میں ' + N(Math.round(o.wk * 10) / 10) + ' دن سبق'
+        + (o.trend === 'up' ? ' · <b class="up">⬆️ رفتار بڑھی — تاریخ قریب آئی</b>' : o.trend === 'dn' ? ' · <b class="dn">⬇️ رفتار کم ہوئی — تاریخ آگے گئی</b>' : '')
+        + '<br>صرف سبق کی لائنوں سے (پچھلے ' + N(30) + ' دن، روزانہ لائن اوسط) — سبق بڑھے گا تو تاریخ خود پہلے آئے گی</div></div>';
+    }catch(e){ return ''; }
+  };
+  window.jmaKhatmTag = function(s){
+    try{ if(/ناظرہ|قاعدہ/.test(s.status || '')) return ''; var o = est(s); if(!o || !(o.ok || o.done)) return '';
+      if(o.done) return '<span class="jm70k">🎉 حفظ مکمل</span>';
+      return '<span class="jm70k">🏁 ختم: ' + N(o.date.getDate()) + ' ' + MN[o.date.getMonth()] + ' ' + N(o.date.getFullYear()) + '</span>'; }catch(e){ return ''; }
+  };
+})();
+</script>
 <!-- ============================================================
      MD2311MO028 — سائن اپ، MD ID، 3 دن ٹرائل، پیکج (مالک کا حکم، ہیلپ ڈیسک #368 — سبزی منڈی / AIO Direct جیسا)
      • پہلی بار کھلنے پر سائن اپ: مدرسے کا نام، مہتمم / ذمہ دار، موبائل، ضلع → سرور (AIO worker /aioid، app MD) سے MD ID (مثلاً MD48213)
@@ -9745,7 +9813,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU069" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU070" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10981,7 +11049,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2411TU069', n: 'داخلے کا پیش نظارہ اب قابلِ ترمیم: غلط یا خالی خانہ سرخ نظر آتا ہے، وہیں لکھ کر درست کریں اور سیدھا «✅ محفوظ کریں» — فارم پر واپس جانے کی ضرورت نہیں' };
+window.MD_NOTE = { v: 'MD2411TU070', n: '🏁 ہر طالب علم کے پروفائل اور کارڈ پر ختم قرآن کی متوقع تاریخ — صرف روزانہ سبق کی لائنوں سے؛ سبق بڑھے تو تاریخ قریب، کم ہو تو آگے، خود بخود' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
