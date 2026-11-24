@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU074</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU075</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9366,6 +9366,8 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 .md28id .r button{border:1.5px solid #059669;background:#fff;color:#065f46;border-radius:10px;padding:4px 12px;font:inherit;font-size:14px;line-height:1.7}
 .md28id .r button.p{background:#059669;color:#fff}
 #md28pk .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+#md28pk .grid.g3{grid-template-columns:repeat(3,1fr);gap:6px}
+#md28pk .grid.g3 .pk{padding-left:2px!important;padding-right:2px!important}
 #md28pk .pk{position:relative;border:2px solid #cbd5e1;border-radius:16px;padding:8px 6px 10px;text-align:center;background:linear-gradient(180deg,#fff,#f8fafc);box-shadow:0 3px 0 #cbd5e1;cursor:pointer;line-height:1.7}
 #md28pk .pk.on{border-color:#059669;box-shadow:0 3px 0 #059669;background:linear-gradient(180deg,#ecfdf5,#d1fae5)}
 #md28pk .pk .nm{font-size:15px;color:#0f172a}
@@ -9389,8 +9391,9 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 (function(){
   'use strict';
   var W = 'https://aio-pos-verify.pbtcodelabs.workers.dev', K = 'jamia_mdid_v1', TD = 3;
-  var PK = [ { id: 'md-1-1m', dev: 1, nm: 'ایک موبائل', du: '1 مہینہ', pr: 500 }, { id: 'md-1-1y', dev: 1, nm: 'ایک موبائل', du: '1 سال', pr: 5000, tag: '2 مہینے مفت' },
-             { id: 'md-2-1m', dev: 2, nm: 'دو موبائل', du: '1 مہینہ', pr: 1000 }, { id: 'md-2-1y', dev: 2, nm: 'دو موبائل', du: '1 سال', pr: 10000, tag: '2 مہینے مفت' } ];
+  /* MD2411TU075 (مالک کا حکم): درمیان میں 6 مہینے کا پیکج — ایک موبائل 2,750 (250 بچت)، دو موبائل 5,500 (500 بچت) */
+  var PK = [ { id: 'md-1-1m', dev: 1, nm: 'ایک موبائل', du: '1 مہینہ', pr: 500 }, { id: 'md-1-6m', dev: 1, nm: 'ایک موبائل', du: '6 مہینے', pr: 2750, tag: '250 کی بچت' }, { id: 'md-1-1y', dev: 1, nm: 'ایک موبائل', du: '1 سال', pr: 5000, tag: '1,000 کی بچت' },
+             { id: 'md-2-1m', dev: 2, nm: 'دو موبائل', du: '1 مہینہ', pr: 1000 }, { id: 'md-2-6m', dev: 2, nm: 'دو موبائل', du: '6 مہینے', pr: 5500, tag: '500 کی بچت' }, { id: 'md-2-1y', dev: 2, nm: 'دو موبائل', du: '1 سال', pr: 10000, tag: '2,000 کی بچت' } ];
   function E(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function $(i){ return document.getElementById(i); }
   function me(){ try{ return JSON.parse(localStorage.getItem(K) || 'null') || {}; }catch(e){ return {}; } }
@@ -9499,8 +9502,8 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     o = document.createElement('div'); o.id = 'md28pk';
     var tile = function(p){ return '<div class="pk" data-pk="' + p.id + '">' + (p.tag ? '<span class="tg">' + p.tag + '</span>' : '') + '<div class="nm">' + (p.dev > 1 ? '📱📱 ' : '📱 ') + p.nm + '</div><div class="pr">' + fm(p.pr) + ' <small>روپے</small></div><div class="du">' + p.du + '</div></div>'; };
     o.innerHTML = '<div class="bx"><button type="button" class="x" id="md28x">✕</button><h3>📦 پیکج و سبسکرپشن</h3><div id="md28pkid"></div>'
-      + '<div class="hd2">📱 ایک موبائل</div><div class="grid">' + tile(PK[0]) + tile(PK[1]) + '</div>'
-      + '<div class="hd2">📱📱 دو موبائل <small style="font-size:13px;color:#475569">(منتظم + استاد، والدین کا لنک شامل)</small></div><div class="grid">' + tile(PK[2]) + tile(PK[3]) + '</div>'
+      + '<div class="hd2">📱 ایک موبائل</div><div class="grid g3">' + PK.filter(function(p){ return p.dev === 1; }).map(function(p){ return tile(p); }).join('') + '</div>'
+      + '<div class="hd2">📱📱 دو موبائل <small style="font-size:13px;color:#475569">(منتظم + استاد، والدین کا لنک شامل)</small></div><div class="grid g3">' + PK.filter(function(p){ return p.dev === 2; }).map(function(p){ return tile(p); }).join('') + '</div>'
       + '<div class="nt">دو موبائل پر ایک ہی ڈیٹا اور والدین کا آن لائن لنک — آن لائن نظام کے ساتھ چالو ہوگا</div>'
       + '<div class="sel" id="md28sel"></div>'
       + '<button type="button" class="go" id="md28req">✅ یہ پیکج منگوائیں</button>'
@@ -9813,7 +9816,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU074" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU075" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -11074,7 +11077,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2411TU074', n: 'تالے والے صفحے اور سیٹنگز میں «📲 ایپ شیئر کریں» — جسے لنک بھیجیں اس کے فون پر «📲 ایپ انسٹال کریں» کا بٹن خود آتا ہے' };
+window.MD_NOTE = { v: 'MD2411TU075', n: '📦 نیا 6 مہینے کا پیکج: ایک موبائل 2,750 (250 بچت)، دو موبائل 5,500 (500 بچت) — سال والے پر 1,000 / 2,000 کی بچت' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
