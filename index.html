@@ -1450,7 +1450,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE089</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE090</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7941,7 +7941,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   /* تاریخ ہمیشہ پاکستان کے وقت سے (فجر سے پہلے کا اندراج اسی دن کا) */
   function pkDate(t){ try{ return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Karachi', year: 'numeric', month: '2-digit', day: '2-digit' }).format(t ? new Date(t) : new Date()); }catch(e){ var d = t ? new Date(t) : new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); } }
   function pkHour(){ try{ return parseInt(new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Karachi', hour: '2-digit', hour12: false }).format(new Date()), 10); }catch(e){ return new Date().getHours(); } }
-  function guessSes(){ var h = pkHour(); return h < 5 ? 0 : h < 8 ? 1 : h < 12 ? 2 : h < 17 ? 3 : h < 20 ? 4 : 5; }
+  function guessSes(){ var h = pkHour(), g = h < 5 ? 0 : h < 8 ? 1 : h < 12 ? 2 : h < 17 ? 3 : h < 20 ? 4 : 5; return window.jmaSesFix ? jmaSesFix(g) : g; }
   function fmtD(s){ var p = String(s || '').split('-'); return p.length === 3 ? (+p[2]) + '/' + (+p[1]) + '/' + p[0] : (s || '—'); }
   function me(){ var u = typeof jmaUser === 'function' ? jmaUser() : null; return u ? { id: u.id, name: u.name } : { id: '', name: 'استاد' }; }
   function canPast(){ return typeof jmaCan === 'function' ? jmaCan('classes') : true; }
@@ -8000,10 +8000,20 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   function openEnt(sid, kind, id){
     var s = stu(sid); if(!s) return;
     if(id){ var e = EN.find(function(x){ return x.id === id; }); if(!e) return; F = JSON.parse(JSON.stringify(e)); F._old = true; }
-    else F = { id: '', sid: sid, kind: kind || 'sabaq', date: pkDate(), ses: guessSes(), items: [], lis: { type: 'teacher', id: me().id, name: me().name }, atkan: 0, mist: 0, perf: '', note: '' };
+    else F = { id: '', sid: sid, kind: kind || 'sabaq', date: pkDate(), ses: guessSes(), items: [], lis: { type: '', id: '', name: '' }, atkan: 0, mist: 0, perf: '', note: '' };
     F._sname = s.n; $('jmaEnt').style.display = 'block'; draw();
   }
   window.jmaEntOpen = openEnt;
+  /* MD2511WE090: «کس نے سنا» کی فہرست — نیچے سے شیٹ (#jmaEnt کے اندر، تاکہ وہی کلک ہینڈلر)؛ ہر قطار: رول (دائیں) · نام · تصویر؛ اپنا نام دھندلا */
+  function lisSheet(){
+    var s = stu(F.sid); if(!s) return; var old = $('jm90'); if(old) old.remove();
+    var mates = S().filter(function(x){ return !x.del && x.classId === s.classId; }).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9) || String(a.n).localeCompare(String(b.n), 'ur'); });
+    var o = document.createElement('div'); o.id = 'jm90';
+    o.innerHTML = '<div class="bx"><div class="hd"><b>👂 سننے والے طالب علم کا نام چنیں</b><button type="button" data-lx="1">✕</button></div><div class="ls">' + mates.map(function(x){ var self = x.sid === s.sid, on = F.lis.id === x.sid;
+      return '<button type="button" data-lsid="' + E(x.sid) + '" class="' + (on ? 'on' : '') + '"' + (self ? ' disabled' : '') + '><b class="r">' + E(x.roll || '–') + '</b><span class="n">' + E(x.n) + (self ? ' <small>(خود)</small>' : '') + '</span>' + (x.photo ? '<img src="' + E(x.photo) + '" alt="">' : '<i class="ph">👤</i>') + '</button>'; }).join('') + '</div></div>';
+    o.addEventListener('click', function(ev){ if(ev.target === o) o.remove(); });
+    $('jmaEnt').appendChild(o);
+  }
   function findDup(){ return EN.find(function(e){ return !e.del && e.id !== F.id && e.sid === F.sid && e.date === F.date && e.kind === F.kind && e.ses === F.ses; }); }
   function stepper(key, val, para){ return '<div class="jm3-st"><button class="m" data-st="' + key + '" data-p="' + (para || '') + '" data-d="-1">−</button><b>' + (val || 0) + '</b><button data-st="' + key + '" data-p="' + (para || '') + '" data-d="1">+</button></div>'; }
   function draw(){
@@ -8012,7 +8022,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     var h = '<div class="jm2-top jm41st">' + (s.photo ? '<img class="jm41av" src="' + E(s.photo) + '" alt="">' : '<span class="jm41av">👤</span>') + '<b><span>' + E(F._sname) + (s.roll ? ' <span class="jm41r">' + E(s.roll) + '</span>' : '') + '</span><small>' + (F._old ? '✏️ اندراج بدلیں' : '➕ روزانہ اندراج') + ' · ' + k[1] + '</small></b><button data-ex="1">✕</button></div><div class="jm2-wrap">';
     h += '<div class="jm3-kinds">' + KINDS.map(function(x){ return '<button data-k="' + x[0] + '" class="' + x[2] + (F.kind === x[0] ? ' on' : '') + '">' + x[1] + '</button>'; }).join('') + '</div>';
     h += '<div class="jm2-card"><label class="jm2-l">تاریخ</label><input type="date" class="jm2-in" id="jm3Date" value="' + E(F.date) + '" max="' + pkDate() + '" style="font-family:Arial"' + (canPast() ? '' : ' disabled') + '>' + (canPast() ? '' : '<div style="font-size:13px;color:#64748b;margin-top:3px">پرانے دن کا اندراج صرف منتظم / مہتمم</div>')
-      + '<label class="jm2-l">نشست</label><div class="jm3-ses">' + SES.map(function(n, i){ return '<button data-ses="' + i + '" class="' + (F.ses === i ? 'on' : '') + '">' + n + '</button>'; }).join('') + '</div></div>';
+      + '<label class="jm2-l">نشست ' + (window.jmaSesBtn ? jmaSesBtn() : '') + '</label><div class="jm3-ses">' + SES.map(function(n, i){ if(!(!window.jmaSesOn || jmaSesOn(F.date)[i]) && F.ses !== i) return ''; return '<button data-ses="' + i + '" class="' + (F.ses === i ? 'on' : '') + '">' + n + '</button>'; }).join('') + '</div></div>';
     h += '<div class="jm2-card"><h4>📖 پارہ <span style="font-size:14px;color:#64748b">(ایک یا زیادہ چنیں — ہر پارے کی مقدار الگ)</span></h4><div class="jm2-paras">' + Array.from({ length: 30 }, function(_, i){ var p = i + 1, on = F.items.some(function(it){ return it.para === p; }); return '<button type="button" data-para="' + p + '" class="' + (on ? 'f' : '') + '">' + p + '<small class="pn">' + jmaParaName(p) + '</small></button>'; }).join('') + '</div>';
     F.items.forEach(function(it){
       h += '<div class="jm3-row"><h5>پارہ <span class="jm2-n">' + it.para + '</span> — ' + jmaParaName(it.para) + '</h5>'
@@ -8026,9 +8036,10 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     var tn = me().name && me().name !== 'استاد' ? '<small>' + E(me().name) + '</small>' : '';
     var picked = F.lis.type === 'student' && F.lis.id ? stu(F.lis.id) : null;
     h += '<div class="jm2-card"><h4>👂 کس نے سنا؟</h4><div class="jm45">'
-      + '<button data-lis="teacher" class="' + (F.lis.type === 'teacher' ? 'on' : '') + '">' + (F.lis.type === 'teacher' ? '✓ ' : '') + JMA_ICO_UST + 'استاد محترم نے خود سنا' + tn + '</button>'
+      + '<button data-lis="teacher" class="' + (F.lis.type === 'teacher' ? 'on' : '') + '">' + (F.lis.type === 'teacher' ? '✓ ' : '') + 'استاد محترم نے خود سنا' + tn + '</button>'
       + '<button data-lis="student" class="' + (F.lis.type === 'student' ? 'on' : '') + '">' + (F.lis.type === 'student' ? '✓ ' : '') + JMA_ICO_STU + 'سننے والے طالب علم کا نام</button></div>'
-      + (F.lis.type === 'student' ? '<select class="jm45sel' + (picked ? ' ok' : '') + '" id="jm45Sel"><option value="">🔽 سننے والے طالب علم کا نام چنیں</option>' + mates.map(function(x){ var self = x.sid === s.sid; return '<option value="' + E(x.sid) + '"' + (self ? ' disabled' : '') + (F.lis.id === x.sid ? ' selected' : '') + '>' + E(x.roll || '–') + ' — ' + E(x.n) + (self ? ' (خود)' : '') + '</option>'; }).join('') + '</select>' : '')
+      /* MD2511WE090 (مالک کا حکم): ڈراپ ڈاؤن کی جگہ چنا ہوا طالب علم (رول · نام · تصویر) کا خانہ؛ دبائیں تو نیچے سے فہرست `#jm90` (رول دائیں، نام، واضح تصویر) */
+      + (F.lis.type === 'student' ? '<button type="button" class="jm90f' + (picked ? ' ok' : '') + '" data-lpick="1">' + (picked ? '<b class="r">' + E(picked.roll || '–') + '</b><span class="n">' + E(picked.n) + '</span>' + (picked.photo ? '<img src="' + E(picked.photo) + '" alt="">' : '<i class="ph">👤</i>') + '<small>بدلیں ▾</small>' : '🔽 سننے والے طالب علم کا نام چنیں') + '</button>' : '')
       + '<div style="font-size:13px;color:#64748b;margin-top:4px">سنانے والا: ' + E(F._sname) + '</div></div>';
     h += '<div class="jm2-card"><h4>📊 جانچ</h4>' + (F.kind === 'sabaq' ? '' : '<div class="jm3-q"><span>اٹکن</span>' + stepper('atkan', F.atkan) + '</div>') + '<div class="jm3-q"><span>غلطیاں</span>' + stepper('mist', F.mist) + '</div>'
       + '<label class="jm2-l">کارکردگی</label><div class="jm2-opts">' + PERF.map(function(p){ return '<button data-perf="' + p + '" class="' + (F.perf === p ? 'on' : '') + '">' + p + '</button>'; }).join('') + '</div>'
@@ -8046,6 +8057,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     if(!F.items.length) er = 'پارہ چنیں اور مقدار (لائن / رکوع / پاؤ) لکھیں';
     else if(F.kind === 'manzil' && F.items.some(function(it){ return it.lines; })) F.items.forEach(function(it){ it.lines = 0; });
     if(!er && F.date > pkDate()) er = 'آنے والی تاریخ کا اندراج نہیں ہو سکتا';
+    if(!er && !F.lis.type) er = '👂 کس نے سنا؟ — «استاد محترم» یا «طالب علم» چنیں';
     if(!er && F.lis.type === 'student' && !F.lis.id) er = 'سننے والا طالب علم چنیں';
     if(er){ $('jm3Err').textContent = er; draw(); $('jm3Err').textContent = er; return; }
     var dup = findDup();
@@ -8078,9 +8090,11 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       var nb = b.parentNode && b.parentNode.querySelector('b'); if(nb){ nb.textContent = String(d.p ? (it2 ? it2[d.st] : 0) : (F[d.st] || 0)); return; }
       draw(); return; }
     if(d.pao){ var it3 = item(+d.p), q = +d.pao; if(it3){ it3.pao = it3.pao || []; var ix = it3.pao.indexOf(q); if(ix > -1) it3.pao.splice(ix, 1); else { it3.pao.push(q); it3.pao.sort(); } } draw(); return; }
-    if(d.lis){ if(d.lis === 'teacher'){ F.lis = { type: 'teacher', id: me().id, name: me().name }; F._dd = false; } else { if(F.lis.type !== 'student') F.lis = { type: 'student', id: '', name: '' }; } draw(); setTimeout(function(){ var q = $('jm45Sel'); if(q && !q.value){ try{ q.showPicker ? q.showPicker() : q.focus(); }catch(e){ q.focus(); } } }, 80); return; }
+    if(d.lis){ if(d.lis === 'teacher'){ F.lis = { type: 'teacher', id: me().id, name: me().name }; F._dd = false; draw(); return; } if(F.lis.type !== 'student') F.lis = { type: 'student', id: '', name: '' }; draw(); if(!F.lis.id) lisSheet(); return; }
+    if(d.lpick){ lisSheet(); return; }
+    if(d.lx){ var sh = $('jm90'); if(sh) sh.remove(); return; }
     if(d.dd){ F._dd = !F._dd; draw(); return; }
-    if(d.lsid){ if(d.lsid === F.sid) return; var ls = stu(d.lsid); F.lis = { type: 'student', id: d.lsid, name: ls ? ls.n : '' }; F._dd = false; draw(); return; }
+    if(d.lsid){ if(d.lsid === F.sid) return; var ls = stu(d.lsid); F.lis = { type: 'student', id: d.lsid, name: ls ? ls.n : '' }; F._dd = false; var sh2 = $('jm90'); if(sh2) sh2.remove(); draw(); return; }
     if(d.perf){ F.perf = F.perf === d.perf ? '' : d.perf; draw(); return; }
     if(d.sv){ save(); return; }
     if(d.del){ if(!confirm('یہ اندراج ہٹا دیں؟ (ریکارڈ میں نشان رہے گا)')) return; var e2 = EN.find(function(x){ return x.id === F.id; }); if(e2){ e2.del = Date.now(); e2.upd = Date.now(); e2.delBy = me().name; saveEN(); try{ jmaAudit('اندراج ہٹایا', F.sid, F._sname, F.date); }catch(x){} } $('jmaEnt').style.display = 'none'; redraw(); return; }
@@ -8125,6 +8139,20 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 .jm49i{width:30px;height:30px;flex:none;vertical-align:middle}
 .jm45 button small{flex-basis:100%;text-align:center}
 .jm45sel{display:block;width:100%;margin-top:6px;border:2px solid #f59e0b;background:#fffbeb;color:#92400e;border-radius:12px;padding:4px 10px;font-family:var(--nastaliq),'Jameel Noori Nastaleeq',serif;font-size:16px;line-height:1.8;direction:rtl;height:auto}
+.jm90f{display:flex;align-items:center;gap:8px;width:100%;margin-top:6px;border:2px solid #f59e0b;background:#fffbeb;color:#92400e;border-radius:12px;padding:6px 10px;font:inherit;font-size:16px;line-height:1.6;text-align:right;cursor:pointer}
+.jm90f.ok{border-color:#0f766e;background:#ecfdf5;color:#065f46}
+.jm90f .r,#jm90 .r{flex:0 0 auto;min-width:30px;font:800 17px Arial,sans-serif;color:#065f46;text-align:center}
+.jm90f .n,#jm90 .n{flex:1;min-width:0;font-size:17px;color:#0f172a;text-align:right}
+.jm90f img,#jm90 img,.jm90f .ph,#jm90 .ph{flex:0 0 auto;width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #d4af37;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:20px}
+.jm90f small{flex:0 0 auto;font-size:12.5px;color:#0f766e}
+#jm90{position:fixed;inset:0;z-index:2147483300;background:rgba(15,23,42,.45);display:flex;align-items:flex-end;justify-content:center}
+#jm90 .bx{background:#fff;width:100%;max-width:560px;max-height:78vh;border-radius:18px 18px 0 0;display:flex;flex-direction:column;overflow:hidden}
+#jm90 .hd{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #e2e8f0}
+#jm90 .hd b{font-size:17px;color:#065f46}#jm90 .hd button{border:0;background:#f1f5f9;border-radius:10px;padding:4px 10px;font-size:16px}
+#jm90 .ls{overflow-y:auto;padding:4px 8px 10px}
+#jm90 .ls button{display:flex;align-items:center;gap:10px;width:100%;border:0;border-bottom:1px solid #f1f5f9;background:#fff;padding:5px 4px;font:inherit;cursor:pointer;direction:rtl}
+#jm90 .ls button.on{background:#ecfdf5}#jm90 .ls button[disabled]{opacity:.4}
+#jm90 .ls button small{font-size:12px;color:#64748b}
 .jm45sel.ok{border-color:#16a34a;background:#f0fdf4;color:#14532d}
 .jm45sel option{font-family:Arial,sans-serif;font-size:16px;color:#0f172a;background:#fff}
 .jm45sel option:disabled{color:#cbd5e1}
@@ -8161,7 +8189,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   function save(){ return window.jma019 && jma019.saveAT ? jma019.saveAT() : false; }
   function pk(){ return window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10); }
   function hr(){ try{ return parseInt(new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Karachi', hour: '2-digit', hour12: false }).format(new Date()), 10); }catch(e){ return new Date().getHours(); } }
-  function guess(){ var h = hr(); return h < 5 ? 0 : h < 8 ? 1 : h < 12 ? 2 : h < 17 ? 3 : h < 20 ? 4 : 5; }
+  function guess(){ var h = hr(), g = h < 5 ? 0 : h < 8 ? 1 : h < 12 ? 2 : h < 17 ? 3 : h < 20 ? 4 : 5; return window.jmaSesFix ? jmaSesFix(g) : g; }
   function me(){ var u = typeof jmaUser === 'function' ? jmaUser() : null; return u ? u.name : 'استاد'; }
   function canPast(){ return typeof jmaCan === 'function' ? jmaCan('classes') : true; }
   function fmtD(s){ var p = String(s || '').split('-'); return p.length === 3 ? (+p[2]) + '/' + (+p[1]) + '/' + p[0] : s; }
@@ -8179,18 +8207,18 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   window.jmaSesOf = function(sid, i){ return sesOf(sid, pk(), i); };
 
   /* ---------------- کارڈ اور پروفائل کے لیے ---------------- */
-  window.jmaAttDots = function(sid){ var d = pk(); return '<div class="jm5-dots" title="آج کی 6 نشستیں">' + SES.map(function(_, i){ var x = sesOf(sid, d, i); return '<i class="' + (x ? x.st : '') + '"></i>'; }).join('') + '</div>'; };
+  window.jmaAttDots = function(sid){ var d = pk(); return '<div class="jm5-dots" title="آج کی نشستیں">' + SES.map(function(_, i){ if(!(!window.jmaSesOn || jmaSesOn(d)[i])) return ''; var x = sesOf(sid, d, i); return '<i class="' + (x ? x.st : '') + '"></i>'; }).join('') + '</div>'; };
   /* مہینے کا فیصد — صرف درج نشستوں سے (آدھی = نصف)؛ کچھ درج نہ ہو تو null */
   function monthStat(sid, ym){
     var A = AT(), p = 0, h = 0, a = 0, days = {};
     Object.keys(A).forEach(function(k){ var ix = k.indexOf('|'); if(k.slice(0, ix) !== sid) return; var d = k.slice(ix + 1); if(d.slice(0, 7) !== ym) return; var s = (A[k] || {}).s || {};
-      Object.keys(s).forEach(function(i){ var x = s[i]; if(!x) return; days[d] = 1; if(x.st === 'p') p++; else if(x.st === 'h') h++; else if(x.st === 'a') a++; }); });
+      Object.keys(s).forEach(function(i){ var x = s[i]; if(!x || !(!window.jmaSesOn || jmaSesOn(d)[i])) return; days[d] = 1; if(x.st === 'p') p++; else if(x.st === 'h') h++; else if(x.st === 'a') a++; }); });
     var n = p + h + a; return { p: p, h: h, a: a, n: n, days: Object.keys(days).length, pct: n ? Math.round((p + h * 0.5) * 100 / n) : null };
   }
   window.jmaMonthAtt = monthStat;
   window.jmaProAtt = function(s){
     var d = pk(), ym = d.slice(0, 7), m = monthStat(s.sid, ym);
-    var h = '<div class="jm2-card"><h4>🕌 حاضری — آج کی 6 نشستیں</h4><div class="jm5-six">' + SES.map(function(n, i){ var x = sesOf(s.sid, d, i); return '<div class="' + (x ? x.st : '') + '">' + n + '<br><b style="font-weight:400">' + (x ? ST[x.st] + (x.reason ? ' — ' + E(x.reason) : '') : '—') + '</b></div>'; }).join('') + '</div>';
+    var h = '<div class="jm2-card"><h4>🕌 حاضری — آج کی نشستیں</h4><div class="jm5-six">' + SES.map(function(n, i){ if(!(!window.jmaSesOn || jmaSesOn(d)[i])) return ''; var x = sesOf(s.sid, d, i); return '<div class="' + (x ? x.st : '') + '">' + n + '<br><b style="font-weight:400">' + (x ? ST[x.st] + (x.reason ? ' — ' + E(x.reason) : '') : '—') + '</b></div>'; }).join('') + '</div>';
     h += '<div style="margin-top:8px;font-size:15px;line-height:1.9">📅 اس مہینے: ' + (m.n ? 'حاضر <span class="jm2-n">' + m.p + '</span> · آدھی <span class="jm2-n">' + m.h + '</span> · غیر حاضر <span class="jm2-n">' + m.a + '</span> نشستیں (<span class="jm2-n">' + m.days + '</span> دن) — حاضری <b class="jm2-n" style="color:#065f46">' + m.pct + '%</b>' : 'ابھی اس مہینے کی حاضری درج نہیں') + '</div>';
     if(m.n && m.n < 12) h += '<div style="font-size:13px;color:#64748b">⚠️ ابھی کم نشستیں درج ہیں — فیصد حتمی نہیں</div>';
     var reasons = []; var A = AT(); Object.keys(A).sort().reverse().forEach(function(k){ if(k.indexOf(s.sid + '|') !== 0) return; var dd = k.split('|')[1], r = A[k] || {};
@@ -8210,7 +8238,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     var h = '<div class="jm2-top"><b>🕌 حاضری — ' + E(c.name || '') + '</b><button data-ax="1">✕</button></div><div class="jm2-wrap">';
     h += '<div class="jm41g"><b>حاضری کا طریقہ:</b> ① تاریخ اور <u>نشست</u> چنیں ② ہر طالب علم کے آگے ✅ حاضر / 🌗 آدھی / ❌ غیر حاضر دبائیں ③ ہر بٹن دباتے ہی خود محفوظ ④ آخر میں نیچے «باقی طلبہ حاضر»</div>';
     h += '<div class="jm2-card"><label class="jm2-l">تاریخ</label><input type="date" class="jm2-in" id="jm5Date" value="' + E(cur.date) + '" max="' + pk() + '" style="font-family:Arial"' + (canPast() ? '' : ' disabled') + '>'
-      + '<label class="jm2-l">نشست</label><div class="jm5-ses">' + SES.map(function(n, i){ var done = L.length && L.every(function(s){ return sesOf(s.sid, cur.date, i); }); return '<button data-as="' + i + '" class="' + (cur.ses === i ? 'on' : '') + '">' + n + (done ? '<i>✓</i>' : '') + '</button>'; }).join('') + '</div>'
+      + '<label class="jm2-l">نشست ' + (window.jmaSesBtn ? jmaSesBtn() : '') + '</label><div class="jm5-ses">' + SES.map(function(n, i){ if(!(!window.jmaSesOn || jmaSesOn(cur.date)[i]) && cur.ses !== i) return ''; var done = L.length && L.every(function(s){ return sesOf(s.sid, cur.date, i); }); return '<button data-as="' + i + '" class="' + (cur.ses === i ? 'on' : '') + '">' + n + (done ? '<i>✓</i>' : '') + '</button>'; }).join('') + '</div>'
       + '<div class="jm5-sum"><span>✅ حاضر <b class="jm2-n">' + cnt.p + '</b></span><span>🌗 آدھی <b class="jm2-n">' + cnt.h + '</b></span><span>❌ غیر حاضر <b class="jm2-n">' + cnt.a + '</b></span><span>⬜ باقی <b class="jm2-n">' + cnt.x + '</b></span></div>'
       + '</div>';
     if(cur.left) h += '<div class="jm51l">⏳ صرف وہ طلبہ جن کی «' + SES[cur.ses] + '» کی حاضری باقی ہے <button data-aleft="0">👁️ سب دکھائیں</button></div>';
@@ -8829,7 +8857,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     h += '<h3>🕌 حاضری — ' + mName(ym) + '</h3>' + (D.att && D.att.n ? '<div>حاضر <b class="n">' + D.att.p + '</b> · آدھی <b class="n">' + D.att.h + '</b> · غیر حاضر <b class="n">' + D.att.a + '</b> نشستیں — حاضری <b class="n">' + D.att.pct + '%</b>' + (D.att.n < 12 ? ' (کم نشستیں درج — حتمی نہیں)' : '') + '</div>' : '<div>اس مہینے کی حاضری درج نہیں</div>');
     var attRows = dayKeys.filter(function(d){ var r = D.days[d]; return r && (r.s || r.day === 'absent'); });
     if(attRows.length) h += '<table><tr><th>تاریخ</th>' + SES.map(function(n){ return '<th>' + n + '</th>'; }).join('') + '<th>وجہ</th></tr>' + attRows.map(function(d){ var r = D.days[d], why = [];
-      return '<tr><td class="n">' + fmtD(d) + '</td>' + SES.map(function(_, i){ var x = r.s && r.s[i]; if(x && x.reason) why.push(x.reason); return '<td>' + (x ? SS[x.st] : (r.day === 'absent' ? 'غ' : '—')) + '</td>'; }).join('') + '<td>' + E(why.filter(function(v, i, a){ return a.indexOf(v) === i; }).join('، ') || (r.day === 'absent' && r.reason ? r.reason : '')) + '</td></tr>'; }).join('') + '</table><div style="font-size:12px">ح = حاضر · ½ = آدھی · غ = غیر حاضر · — = درج نہیں</div>';
+      return '<tr><td class="n">' + fmtD(d) + '</td>' + SES.map(function(_, i){ if(!(!window.jmaSesOn || jmaSesOn(d)[i])) return '<td style="color:#cbd5e1">بند</td>'; var x = r.s && r.s[i]; if(x && x.reason) why.push(x.reason); return '<td>' + (x ? SS[x.st] : (r.day === 'absent' ? 'غ' : '—')) + '</td>'; }).join('') + '<td>' + E(why.filter(function(v, i, a){ return a.indexOf(v) === i; }).join('، ') || (r.day === 'absent' && r.reason ? r.reason : '')) + '</td></tr>'; }).join('') + '</table><div style="font-size:12px">ح = حاضر · ½ = آدھی · غ = غیر حاضر · — = درج نہیں</div>';
     h += '<h3>📖 سبق / سبقی / منزل — روزانہ تفصیل</h3>';
     if(D.EN.length){ var byDay = {}; D.EN.forEach(function(e){ (byDay[e.date] = byDay[e.date] || []).push(e); });
       h += '<table><tr><th>تاریخ</th><th>سبق</th><th>سبقی</th><th>منزل</th></tr>' + Object.keys(byDay).sort().map(function(d){ return '<tr><td class="n">' + fmtD(d) + '</td>' + ['sabaq', 'sabqi', 'manzil'].map(function(k){ var L = byDay[d].filter(function(e){ return e.kind === k; });
@@ -9867,7 +9895,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE089" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE090" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10130,9 +10158,9 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
     if(b > t) b = t; return { a: dStr(a), b: dStr(b), nm: nm }; }
   function attOf(sid, P){ var A = (window.jma019 && jma019.AT) ? jma019.AT() : {}, days = [], c = { p: 0, h: 0, a: 0 };
     Object.keys(A).forEach(function(k){ var ix = k.indexOf('|'); if(k.slice(0, ix) !== sid) return; var d = k.slice(ix + 1); if(d < P.a || d > P.b) return; var r = A[k] || {}, ss = r.s || {}, row = [], why = [];
-      for(var i = 0; i < 6; i++){ var x = ss[i]; var st = x && x.st ? x.st : (r.day === 'absent' ? 'a' : ''); row.push(st); if(st) c[st]++; if(x && x.reason) why.push(x.reason); }
+      for(var i = 0; i < 6; i++){ if(!(!window.jmaSesOn || jmaSesOn(d)[i])){ row.push('c'); continue; } var x = ss[i]; var st = x && x.st ? x.st : (r.day === 'absent' ? 'a' : ''); row.push(st); if(st) c[st]++; if(x && x.reason) why.push(x.reason); }
       if(r.reason) why.push(r.reason);
-      if(row.some(Boolean)) days.push({ d: d, row: row, why: why.filter(function(v, i, s2){ return s2.indexOf(v) === i; }).join('، '), ab: row.filter(Boolean).every(function(v){ return v === 'a'; }) }); });
+      var rr = row.filter(function(v){ return v && v !== 'c'; }); if(rr.length) days.push({ d: d, row: row, why: why.filter(function(v, i, s2){ return s2.indexOf(v) === i; }).join('، '), ab: rr.every(function(v){ return v === 'a'; }) }); });
     days.sort(function(x, y){ return x.d < y.d ? -1 : 1; }); var n = c.p + c.h + c.a;
     return { days: days, c: c, n: n, pct: n ? Math.round((c.p + c.h * 0.5) * 100 / n) : null, abDays: days.filter(function(x){ return x.ab; }) }; }
   function dLbl(ds){ return '<span class="n">' + fmtD(ds) + '</span> ' + AT_DAY[dOf(ds).getDay()]; }
@@ -10144,7 +10172,7 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
       jmaPrintNow('<div class="pg">' + head(info + '<br>حاضری رپورٹ — ' + E(s.n || '') + (s.roll ? ' (رول <span class="n">' + E(s.roll) + '</span>)' : '') + (s.w ? ' ولد ' + E(s.w) : '')) + '<div style="font-size:15px;margin:4px 0 8px">' + sum(R) + '</div>'
         + (R.abDays.length ? '<div style="font-size:14px;margin-bottom:6px;color:#b91c1c">❌ پورے دن غیر حاضر (<span class="n">' + R.abDays.length + '</span>): ' + R.abDays.map(function(x){ return dLbl(x.d); }).join('، ') + '</div>' : '')
         + '<table class="lst"><thead><tr><th>تاریخ / دن</th>' + AT_SES.map(function(n){ return '<th>' + n + '</th>'; }).join('') + '<th>وجہ</th></tr></thead><tbody>'
-        + (R.days.map(function(x){ return '<tr><td>' + dLbl(x.d) + '</td>' + x.row.map(function(v){ return '<td style="text-align:center">' + (SYM[v] || '—') + '</td>'; }).join('') + '<td>' + E(x.why) + '</td></tr>'; }).join('') || '<tr><td colspan="8">اس مدت میں کوئی حاضری درج نہیں</td></tr>')
+        + (R.days.map(function(x){ return '<tr><td>' + dLbl(x.d) + '</td>' + x.row.map(function(v){ return '<td style="text-align:center' + (v === 'c' ? ';color:#cbd5e1' : '') + '">' + (v === 'c' ? 'بند' : (SYM[v] || '—')) + '</td>'; }).join('') + '<td>' + E(x.why) + '</td></tr>'; }).join('') || '<tr><td colspan="8">اس مدت میں کوئی حاضری درج نہیں</td></tr>')
         + '</tbody></table><div style="font-size:12px;margin-top:6px">ح = حاضر · ½ = آدھی · غ = غیر حاضر · — = درج نہیں</div></div>', 'landscape', 'حاضری رپورٹ — ' + (s.n || ''));
       return; }
     var L = S(cid), rows = L.map(function(st){ var R = attOf(st.sid, P);
@@ -10328,10 +10356,10 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
   function dLbl(ds){ return '<span class="n">' + fmtD(ds) + '</span> ' + DAYN[dOf(ds).getDay()]; }
   /* حاضری: ہر دن کی 6 نشستیں */
   function attDay(sid, d){ var A = (window.jma019 && jma019.AT) ? jma019.AT() : {}, r = A[sid + '|' + d]; if(!r) return null; var ss = r.s || {}, row = [], why = [];
-    for(var i = 0; i < 6; i++){ var x = ss[i]; var st = x && x.st ? x.st : (r.day === 'absent' ? 'a' : ''); row.push(st); if(x && x.reason) why.push(x.reason); }
-    if(r.reason) why.push(r.reason); if(!row.some(Boolean)) return null;
-    return { row: row, why: why.filter(function(v, i, s2){ return s2.indexOf(v) === i; }).join('، '), ab: row.filter(Boolean).every(function(v){ return v === 'a'; }) }; }
-  function atStr(row){ return row.map(function(v){ return v === 'p' ? 'ح' : v === 'h' ? '½' : v === 'a' ? 'غ' : '·'; }).join(' '); }
+    for(var i = 0; i < 6; i++){ if(!(!window.jmaSesOn || jmaSesOn(d)[i])){ row.push('c'); continue; } var x = ss[i]; var st = x && x.st ? x.st : (r.day === 'absent' ? 'a' : ''); row.push(st); if(x && x.reason) why.push(x.reason); }
+    if(r.reason) why.push(r.reason); var rr = row.filter(function(v){ return v && v !== 'c'; }); if(!rr.length) return null;
+    return { row: row, why: why.filter(function(v, i, s2){ return s2.indexOf(v) === i; }).join('، '), ab: rr.every(function(v){ return v === 'a'; }) }; }
+  function atStr(row){ return row.filter(function(v){ return v !== 'c'; }).map(function(v){ return v === 'p' ? 'ح' : v === 'h' ? '½' : v === 'a' ? 'غ' : '·'; }).join(' '); }
   function ENs(sid, P){ return ((window.jma019 && jma019.EN()) || []).filter(function(e){ return !e.del && e.sid === sid && e.date >= P.a && e.date <= P.b; }); }
   function score(e){ var b = PS[e.perf]; if(b == null) return null; var pen = Math.min(40, (e.kind === 'sabaq' ? 0 : (e.atkan || 0) * 3) + (e.mist || 0) * 2); return Math.max(0, b - pen); }
   function itemTxt(it){ var p = []; if(it.lines) p.push(it.lines + ' لائن'); if(it.ruku) p.push(it.ruku + ' رکوع'); if(it.pao && it.pao.length) p.push('پاؤ ' + it.pao.join('،'));
@@ -10343,7 +10371,7 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
   function sumOf(sid, P){
     var EN = ENs(sid, P), days = {}, c = { p: 0, h: 0, a: 0 }, abDays = 0;
     var d = dOf(P.a), end = dOf(P.b);
-    for(; d <= end; d.setDate(d.getDate() + 1)){ var ds = dStr(d), at = attDay(sid, ds); if(at){ at.row.forEach(function(v){ if(v) c[v]++; }); if(at.ab) abDays++; days[ds] = 1; } }
+    for(; d <= end; d.setDate(d.getDate() + 1)){ var ds = dStr(d), at = attDay(sid, ds); if(at){ at.row.forEach(function(v){ if(v && v !== 'c') c[v]++; }); if(at.ab) abDays++; days[ds] = 1; } }
     var k = {}; KIND.forEach(function(x){ var L = EN.filter(function(e){ return e.kind === x[0]; }); var dd = {}; L.forEach(function(e){ dd[e.date] = 1; days[e.date] = 1; });
       var lines = 0, ruku = 0, pao = 0; L.forEach(function(e){ (e.items || []).forEach(function(it){ lines += +it.lines || 0; ruku += +it.ruku || 0; pao += (it.pao || []).length; }); });
       k[x[0]] = { n: L.length, days: Object.keys(dd).length, lines: lines, ruku: ruku, pao: pao }; });
@@ -10362,7 +10390,7 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
         if(!at && !L.length) continue;
         var by = function(k){ return entTxt(L.filter(function(e){ return e.kind === k; }).sort(function(a, b){ return (a.ses || 0) - (b.ses || 0); })); };
         var cnt = at ? at.row.filter(function(v){ return v === 'p' || v === 'h'; }).length : 0;
-        rows.push('<tr' + (at && at.ab ? ' class="ab"' : '') + '><td>' + dLbl(ds) + '</td><td class="at">' + (at ? atStr(at.row) : '—') + '</td><td class="n">' + (at ? cnt + '/' + at.row.filter(Boolean).length : '—') + '</td><td class="nm" style="white-space:normal">' + by('sabaq') + '</td><td class="nm" style="white-space:normal">' + by('sabqi') + '</td><td class="nm" style="white-space:normal">' + by('manzil') + '</td><td class="sm">' + E(at ? at.why : '') + '</td></tr>'); }
+        rows.push('<tr' + (at && at.ab ? ' class="ab"' : '') + '><td>' + dLbl(ds) + '</td><td class="at">' + (at ? atStr(at.row) : '—') + '</td><td class="n">' + (at ? cnt + '/' + at.row.filter(function(v){ return v !== 'c'; }).length : '—') + '</td><td class="nm" style="white-space:normal">' + by('sabaq') + '</td><td class="nm" style="white-space:normal">' + by('sabqi') + '</td><td class="nm" style="white-space:normal">' + by('manzil') + '</td><td class="sm">' + E(at ? at.why : '') + '</td></tr>'); }
       var sumBox = '<div class="sum"><div>درج دن: <b>' + R.days + '</b></div><div>حاضری: <b>' + (R.pct != null ? R.pct + '%' : '—') + '</b> <span class="sm">(ح ' + R.c.p + ' · ½ ' + R.c.h + ' · غ ' + R.c.a + ')</span></div><div>پورے دن غیر حاضر: <b>' + R.abDays + '</b></div><div>کارکردگی: <b>' + (R.sc != null ? R.sc + '/100' : '—') + '</b> <span class="sm">(' + R.scN + ')</span></div>'
         + '<div>سبق: ' + qty(R.k.sabaq) + '</div><div>سبقی: ' + qty(R.k.sabqi) + '</div><div>منزل: ' + qty(R.k.manzil) + '</div><div>اٹکن: <b>' + R.atkan + '</b> · غلطی: <b>' + R.mist + '</b></div></div>';
       jmaPrintNow('<div class="pg p86">' + head(info + '<br>مکمل کارکردگی رپورٹ — <b>' + E(s.n || '') + '</b>' + (s.roll ? ' (رول <span class="n">' + E(s.roll) + '</span>)' : '') + (s.w ? ' ولد ' + E(s.w) : '')) + sumBox
@@ -10373,8 +10401,8 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
     var L = S(cid), T = { c: { p: 0, h: 0, a: 0 }, k: { sabaq: 0, sabqi: 0, manzil: 0 }, at: 0, mi: 0, ab: 0 }, rows;
     if(P.one){
       rows = L.map(function(st){ var at = attDay(st.sid, P.a), EN = ENs(st.sid, P), by = function(k){ return entTxt(EN.filter(function(e){ return e.kind === k; })); }, cnt = at ? at.row.filter(function(v){ return v === 'p' || v === 'h'; }).length : 0;
-        if(at) at.row.forEach(function(v){ if(v) T.c[v]++; }); if(at && at.ab) T.ab++; KIND.forEach(function(x){ if(EN.some(function(e){ return e.kind === x[0]; })) T.k[x[0]]++; });
-        return '<tr' + (at && at.ab ? ' class="ab"' : '') + '><td class="n">' + E(st.roll || '') + '</td><td class="nm">' + E(st.n) + '</td><td class="at">' + (at ? atStr(at.row) : '—') + '</td><td class="n">' + (at ? cnt + '/' + at.row.filter(Boolean).length : '—') + '</td><td class="nm" style="white-space:normal">' + by('sabaq') + '</td><td class="nm" style="white-space:normal">' + by('sabqi') + '</td><td class="nm" style="white-space:normal">' + by('manzil') + '</td></tr>'; }).join('');
+        if(at) at.row.forEach(function(v){ if(v && v !== 'c') T.c[v]++; }); if(at && at.ab) T.ab++; KIND.forEach(function(x){ if(EN.some(function(e){ return e.kind === x[0]; })) T.k[x[0]]++; });
+        return '<tr' + (at && at.ab ? ' class="ab"' : '') + '><td class="n">' + E(st.roll || '') + '</td><td class="nm">' + E(st.n) + '</td><td class="at">' + (at ? atStr(at.row) : '—') + '</td><td class="n">' + (at ? cnt + '/' + at.row.filter(function(v){ return v !== 'c'; }).length : '—') + '</td><td class="nm" style="white-space:normal">' + by('sabaq') + '</td><td class="nm" style="white-space:normal">' + by('sabqi') + '</td><td class="nm" style="white-space:normal">' + by('manzil') + '</td></tr>'; }).join('');
       jmaPrintNow('<div class="pg p86 p86c">' + head(info + '<br>پوری جماعت کی کارکردگی — <span class="n">' + L.length + '</span> طلبہ')
         + '<div class="sum"><div>سبق ہوا: <b>' + T.k.sabaq + '</b>/' + L.length + '</div><div>سبقی ہوئی: <b>' + T.k.sabqi + '</b>/' + L.length + '</div><div>منزل ہوئی: <b>' + T.k.manzil + '</b>/' + L.length + '</div><div>پورے دن غیر حاضر: <b>' + T.ab + '</b> <span class="sm">(نشستیں: ح ' + T.c.p + ' · ½ ' + T.c.h + ' · غ ' + T.c.a + ')</span></div></div>'
         + '<table class="lst"><colgroup><col style="width:4%"><col style="width:14%"><col style="width:11%"><col style="width:5%"><col style="width:23%"><col style="width:21%"><col style="width:22%"></colgroup><thead><tr><th>رول</th><th>نام</th><th>حاضری (6 نشستیں)</th><th>حاضر</th><th>سبق</th><th>سبقی</th><th>منزل</th></tr></thead><tbody>'
@@ -10400,7 +10428,7 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
     var per = P.one ? dLbl(P.a) : '<span class="n">' + fmtD(P.a) + '</span> تا <span class="n">' + fmtD(P.b) + '</span>';
     var tile = function(cls, ic, t, v, sub){ return '<div class="t c' + cls + '"><i>' + ic + '</i><span>' + t + '</span><b>' + v + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</div>'; };
     var q = function(o){ var a = []; if(o.lines) a.push(o.lines + ' لائن'); if(o.ruku) a.push(o.ruku + ' رکوع'); if(o.pao) a.push(o.pao + ' پاؤ'); return a.join(' · '); };
-    var dayBox = function(x){ var sym = x.at ? x.at.row.map(function(v){ return '<u class="' + (v || 'x') + '">' + (v === 'p' ? 'ح' : v === 'h' ? '½' : v === 'a' ? 'غ' : '·') + '</u>'; }).join('') : '<u class="x">—</u>';
+    var dayBox = function(x){ var sym = x.at ? x.at.row.filter(function(v){ return v !== 'c'; }).map(function(v){ return '<u class="' + (v || 'x') + '">' + (v === 'p' ? 'ح' : v === 'h' ? '½' : v === 'a' ? 'غ' : '·') + '</u>'; }).join('') : '<u class="x">—</u>';
       var k = function(kind, nm, cl){ var L = x.L.filter(function(e){ return e.kind === kind; }); return '<div class="kb ' + cl + (L.length ? ' ok' : '') + '"><b>' + (L.length ? '✓ ' : '✗ ') + nm + '</b>' + (L.length ? entTxt(L) : '<span class="k no">نہیں سنایا</span>') + '</div>'; };
       var empty = !x.at && !x.L.length;
       if(empty) return '<div class="dy em"><div class="dh"><span class="dt">' + dLbl(x.ds) + '</span><span class="why" style="color:#64748b">' + (x.fut ? 'آنے والا دن' : 'کچھ درج نہیں') + '</span></div></div>';
@@ -10420,6 +10448,7 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
       + tile('y', '⭐', 'کارکردگی', R.sc != null ? '<span class="n">' + R.sc + '<small style="display:inline;font-size:12px">/100</small></span>' : '—', R.scN ? R.scN + ' جانچ والے اندراج' : 'جانچ درج نہیں')
       + tile('t', '📅', 'مدت', '<span class="n">' + days.filter(function(x){ return !x.fut; }).length + '</span> دن', P.one ? 'ایک دن' : '')
       + '</div>'
+      + (window.jmaRankHTML ? jmaRankHTML(sid) : '')   /* MD2511WE090: سبق / سبقی / منزل کی درجہ بندی */
       + '<div class="sh">📋 دن بہ دن ریکارڈ</div>' + (days.map(dayBox).join('') || '<div class="dy"><div class="abm">اس مدت میں کوئی ریکارڈ درج نہیں</div></div>')
       + '<div class="ky">ح = حاضر · ½ = آدھی · غ = غیر حاضر · · = درج نہیں (6 نشستیں: فجر سے پہلے سے عشاء کے بعد تک) · پ = پارہ · کارکردگی 100 میں سے (ممتاز 100، بہت اچھا 85، اچھا 70، مناسب 55، کمزور 35؛ اٹکن −3، غلطی −2)</div>'
       + '</div></div>';
@@ -11439,6 +11468,154 @@ body.jm7v #jm51nav{display:none!important}
 #jm53ok .n{display:block;color:#78350f;font-size:16px;max-height:34vh;overflow:auto}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
+<style id="jma090css">
+/* MD2511WE090 — لمبی فہرستیں نوری نستعلیق (کشیدہ نہیں) میں، تنگ */
+#jm90 .n,#jm91 .ls button,#jm92 .ls button,#jm92 .hd b,.jm90f .n{font-family:'Jameel Noori Nastaleeq',var(--nastaliq),serif!important}
+#jm91,#jm92{position:fixed;inset:0;z-index:2147483300;background:rgba(15,23,42,.45);display:flex;align-items:flex-end;justify-content:center}
+#jm91 .bx,#jm92 .bx{background:#fff;width:100%;max-width:520px;max-height:82vh;border-radius:18px 18px 0 0;display:flex;flex-direction:column;overflow:hidden;direction:rtl}
+#jm91 .hd,#jm92 .hd{display:flex;align-items:center;gap:6px;padding:8px 12px;border-bottom:1px solid #e2e8f0}
+#jm91 .hd b,#jm92 .hd b{flex:1;font-size:17px;color:#065f46}
+#jm91 .hd button,#jm92 .hd button{border:0;background:#f1f5f9;border-radius:10px;padding:3px 10px;font:inherit;font-size:15px}
+#jm91 .in{padding:8px 12px 12px;overflow-y:auto}
+#jm91 .rw{display:flex;align-items:center;gap:8px;border-bottom:1px solid #f1f5f9;padding:4px 0}
+#jm91 .rw span{flex:1;font-size:17px}
+#jm91 .rw button{border:2px solid #16a34a;background:#16a34a;color:#fff;border-radius:999px;padding:2px 14px;font:inherit;font-size:15px;min-width:92px}
+#jm91 .rw button.off{background:#fff;color:#b91c1c;border-color:#b91c1c}
+#jm91 .dt{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:15px}
+#jm91 .dt input{font-family:Arial,sans-serif;font-size:15px;padding:4px 6px;border:1.5px solid #94a3b8;border-radius:8px}
+#jm91 .go{display:block;width:100%;margin-top:10px;border:0;background:#065f46;color:#fff;border-radius:12px;padding:8px;font:inherit;font-size:17px}
+#jm91 .nt{font-size:12.5px;color:#64748b;line-height:1.8;margin-top:6px}
+.jm90se{display:inline-block;border:1px solid #94a3b8;background:#f8fafc;color:#334155;border-radius:999px;padding:0 9px;font:inherit;font-size:12.5px;line-height:1.9;cursor:pointer;vertical-align:middle}
+#jm92 .bx{max-width:300px;border-radius:16px;margin-bottom:10vh}
+#jm92 .sr{display:flex;gap:6px;padding:6px 10px}
+#jm92 .sr button{flex:1;border:1.5px solid #0f766e;background:#fff;color:#065f46;border-radius:10px;padding:2px 4px;font:inherit;font-size:14px}
+#jm92 .sr button.on{background:#065f46;color:#fff}
+#jm92 .ls{overflow-y:auto;padding:0 10px 10px}
+#jm92 .ls button{display:block;width:100%;border:0;border-bottom:1px solid #f1f5f9;background:#fff;text-align:right;padding:3px 6px;font-size:17px;line-height:1.9;cursor:pointer}
+#jm92 .ls button.on{background:#ecfdf5;color:#065f46}
+#jm92 .ot{display:flex;gap:6px;padding:6px 10px;border-top:1px solid #e2e8f0}
+#jm92 .ot input{flex:1;min-width:0;border:1.5px solid #94a3b8;border-radius:8px;padding:3px 8px;font:inherit;font-size:16px}
+#jm92 .ot button{border:0;background:#065f46;color:#fff;border-radius:8px;padding:0 12px;font:inherit}
+.jm92f{display:block;width:100%;text-align:right;border:2px solid #cbd5e1;background:#fff;border-radius:12px;padding:4px 10px;font:inherit;font-size:17px;color:#0f172a;cursor:pointer}
+.jm92f.mt{color:#94a3b8}
+</style>
+<script id="jma090">
+/* 🕌 MD2511WE090 (مالک کا حکم):
+   (1) نشستیں بند / چالو — `jamia_mgmt_ses_v1 = {hist:[{from:'YYYY-MM-DD', on:[1,1,1,1,1,1], by, t}]}` (تاریخ وار — ہر تاریخ پر وہ ترتیب جو اس دن سے پہلے آخری بار لگی)؛
+       `jmaSesOn(date?)` → 6 ہاں / نہیں، `jmaSesFix(i)` → بند ہو تو اگلی چالو، `jmaSesBtn()` → «⚙️ نشستیں» بٹن (اندراج، جماعت کی حاضری، پروفائل)؛
+       بند نشست: بٹن غائب، حاضری / فیصد / رپورٹ میں شامل نہیں (رپورٹ میں «بند»)؛ پرانی تاریخوں کا ریکارڈ اپنی اس وقت کی ترتیب سے۔
+   (2) سائن اپ کا ضلع: لکھنے کا خانہ (`#md28d`، وہی) چھپا کر بٹن → تنگ فہرست `#jm92` (اردو، نوری نستعلیق، «الف ← ے» / «ے ← الف»، تلاش، «دیگر: خود لکھیں») */
+(function(){
+  'use strict';
+  var K = 'jamia_mgmt_ses_v1', SES = ['فجر سے پہلے', 'فجر کے بعد', 'ناشتے کے بعد', 'ظہر کے بعد', 'مغرب کے بعد', 'عشاء کے بعد'];
+  function $(id){ return document.getElementById(id); }
+  function today(){ return window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10); }
+  function load(){ try{ var o = JSON.parse(localStorage.getItem(K) || 'null'); return o && Array.isArray(o.hist) ? o : { hist: [] }; }catch(e){ return { hist: [] }; } }
+  window.jmaSesOn = function(d){ d = d || today(); var H = load().hist.filter(function(h){ return h.from <= d; }).sort(function(a, b){ return a.from < b.from ? -1 : a.from > b.from ? 1 : (a.t || 0) - (b.t || 0); }), L = H[H.length - 1];
+    return L && Array.isArray(L.on) && L.on.length === 6 && L.on.some(Boolean) ? L.on.map(Boolean) : [true, true, true, true, true, true]; };
+  window.jmaSesFix = function(g){ var on = jmaSesOn(); if(on[g]) return g; for(var i = g + 1; i < 6; i++) if(on[i]) return i; for(var j = g - 1; j >= 0; j--) if(on[j]) return j; return g; };
+  window.jmaSesBtn = function(){ return '<button type="button" class="jm90se" data-sesed="1">⚙️ نشستیں</button>'; };
+  function open(){
+    var old = $('jm91'); if(old) old.remove(); var on = jmaSesOn(today()).slice(), from = today();
+    var o = document.createElement('div'); o.id = 'jm91';
+    var draw = function(){ o.innerHTML = '<div class="bx"><div class="hd"><b>⚙️ نشستیں — کون سی پڑھائی ہوتی ہے؟</b><button type="button" data-x="1">✕</button></div><div class="in">'
+      + SES.map(function(n, i){ return '<div class="rw"><span>' + n + '</span><button type="button" data-t="' + i + '" class="' + (on[i] ? '' : 'off') + '">' + (on[i] ? '✔ چالو' : '⛔ بند') + '</button></div>'; }).join('')
+      + '<div class="dt"><span>کب سے؟</span><input type="date" id="jm91d" value="' + from + '"></div>'
+      + '<button type="button" class="go" data-s="1">✅ محفوظ کریں</button>'
+      + '<div class="nt">مثلاً گرمیوں میں «فجر سے پہلے» اور «عشاء کے بعد» بند کریں — بند نشست کی حاضری / اندراج کہیں نہیں آئے گا، نہ رپورٹ میں گنی جائے گی۔ سردیوں میں دوبارہ «چالو» کر دیں۔ پچھلی تاریخوں کا ریکارڈ ویسا ہی رہتا ہے۔</div></div></div>'; };
+    draw();
+    o.addEventListener('click', function(e){ var t = e.target; if(t === o){ o.remove(); return; } var b = t.closest && t.closest('button'); if(!b) return; e.stopPropagation();
+      if(b.dataset.x){ o.remove(); return; }
+      if(b.dataset.t != null){ var i = +b.dataset.t; on[i] = !on[i]; if(!on.some(Boolean)){ on[i] = true; alert('کم از کم ایک نشست چالو رہنی چاہیے'); } var dv = $('jm91d'); from = (dv && dv.value) || from; draw(); return; }
+      if(b.dataset.s){ var dv2 = $('jm91d'); from = (dv2 && dv2.value) || today(); var o2 = load(); o2.hist = o2.hist.filter(function(h){ return h.from !== from; });
+        o2.hist.push({ from: from, on: on.map(function(x){ return x ? 1 : 0; }), by: (typeof jmaUser === 'function' && jmaUser() ? jmaUser().name : 'استاد'), t: Date.now() });
+        try{ localStorage.setItem(K, JSON.stringify(o2)); }catch(x){ alert('❌ محفوظ نہیں ہو سکا'); return; }
+        o.remove(); try{ if(window.jmaToast) jmaToast('✓ نشستیں محفوظ'); }catch(x){}
+        try{ document.dispatchEvent(new Event('jma-changed')); }catch(x){} try{ if(window.jmaProRedraw && $('jmaPro') && $('jmaPro').style.display === 'block') jmaProRedraw(); }catch(x){}
+        ['jmaEnt', 'jmaAtt'].forEach(function(id){ var c = $(id); if(c && c.style.display === 'block'){ var on2 = c.querySelector('[data-ses].on'); if(on2) on2.click(); } });
+      } }, true);
+    document.body.appendChild(o);
+  }
+  window.addEventListener('click', function(e){ var b = e.target && e.target.closest && e.target.closest('[data-sesed]'); if(!b) return; e.stopPropagation(); e.preventDefault(); open(); }, true);
+  window.jmaSesEdit = open;
+
+  /* ———— (2) ضلع کی فہرست ———— */
+  var DIST = 'اٹک، بہاولنگر، بہاولپور، بھکر، چکوال، ڈیرہ غازی خان، فیصل آباد، گوجرانوالہ، گجرات، حافظ آباد، جھنگ، جہلم، قصور، خانیوال، خوشاب، لاہور، لیہ، لودھراں، منڈی بہاؤالدین، میانوالی، ملتان، مظفرگڑھ، ننکانہ صاحب، نارووال، اوکاڑہ، پاکپتن، رحیم یار خان، راجن پور، راولپنڈی، ساہیوال، سرگودھا، شیخوپورہ، سیالکوٹ، ٹوبہ ٹیک سنگھ، وہاڑی، چنیوٹ، تلہ گنگ، مری، کوٹ ادو، وزیرآباد، تونسہ، کراچی، حیدرآباد، سکھر، لاڑکانہ، نوابشاہ، میرپورخاص، دادو، بدین، ٹھٹھہ، جیکب آباد، شکارپور، خیرپور، نوشہرو فیروز، سانگھڑ، عمرکوٹ، تھرپارکر، گھوٹکی، کشمور، قمبر شہدادکوٹ، جامشورو، مٹیاری، ٹنڈو الہ یار، ٹنڈو محمد خان، سجاول، پشاور، مردان، نوشہرہ، چارسدہ، صوابی، کوہاٹ، بنوں، ڈیرہ اسماعیل خان، ایبٹ آباد، مانسہرہ، ہری پور، سوات، دیر، چترال، بونیر، شانگلہ، کرک، لکی مروت، ہنگو، ٹانک، باجوڑ، مہمند، خیبر، کرم، اورکزئی، شمالی وزیرستان، جنوبی وزیرستان، ملاکنڈ، بٹگرام، کوہستان، تورغر، کوئٹہ، پشین، قلعہ عبداللہ، چمن، ژوب، لورالائی، سبی، نصیرآباد، جعفرآباد، خضدار، قلات، مستونگ، گوادر، تربت، پنجگور، لسبیلہ، حب، خاران، نوشکی، چاغی، ڈیرہ بگٹی، کوہلو، بارکھان، موسیٰ خیل، اسلام آباد، مظفرآباد، میرپور، کوٹلی، باغ، راولاکوٹ، بھمبر، گلگت، سکردو، ہنزہ، دیامر، غذر'.split('، ').filter(function(v, i, a){ return a.indexOf(v) === i; });
+  var asc = true;
+  function cmp(a, b){ return a.localeCompare(b, 'ur'); }
+  function distSheet(inp){
+    var old = $('jm92'); if(old) old.remove(); var q = '';
+    var o = document.createElement('div'); o.id = 'jm92';
+    var list = function(){ var L = DIST.filter(function(d){ return !q || d.indexOf(q) > -1; }).sort(cmp); if(!asc) L.reverse(); return L; };
+    var draw = function(){ o.innerHTML = '<div class="bx"><div class="hd"><b>📍 ضلع چنیں</b><button type="button" data-x="1">✕</button></div>'
+      + '<div class="sr"><button type="button" data-o="a" class="' + (asc ? 'on' : '') + '">الف ← ے</button><button type="button" data-o="z" class="' + (asc ? '' : 'on') + '">ے ← الف</button></div>'
+      + '<div class="ls">' + list().map(function(d){ return '<button type="button" data-d="' + d + '" class="' + (inp.value === d ? 'on' : '') + '">' + d + '</button>'; }).join('') + '</div>'
+      + '<div class="ot"><input id="jm92q" placeholder="تلاش / دوسرا ضلع لکھیں" value="' + q.replace(/"/g, '') + '"><button type="button" data-w="1">✓</button></div></div>'; };
+    draw();
+    o.addEventListener('input', function(e){ if(e.target.id !== 'jm92q') return; q = e.target.value.trim(); var y = e.target.selectionStart; draw(); var n = $('jm92q'); n.focus(); try{ n.setSelectionRange(y, y); }catch(x){} });
+    o.addEventListener('click', function(e){ var t = e.target; if(t === o){ o.remove(); return; } var b = t.closest && t.closest('button'); if(!b) return; e.stopPropagation();
+      if(b.dataset.x){ o.remove(); return; }
+      if(b.dataset.o){ asc = b.dataset.o === 'a'; draw(); return; }
+      var val = b.dataset.d || (b.dataset.w ? ($('jm92q').value || '').trim() : ''); if(!val) return;
+      inp.value = val.slice(0, 25); try{ inp.dispatchEvent(new Event('input', { bubbles: true })); }catch(x){} o.remove(); paintField(inp); });
+    document.body.appendChild(o);
+  }
+  function paintField(inp){ var f = inp.previousElementSibling && inp.previousElementSibling.classList.contains('jm92f') ? inp.previousElementSibling : null;
+    if(!f){ f = document.createElement('button'); f.type = 'button'; f.className = 'jm92f'; inp.before(f); f.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); distSheet(inp); }); inp.style.display = 'none'; }
+    f.classList.toggle('mt', !inp.value); f.textContent = inp.value ? '📍 ' + inp.value + '  ▾' : '🔽 ضلع چنیں'; }
+  setInterval(function(){ var inp = $('md28d'); if(inp && !inp.__j92){ inp.__j92 = 1; paintField(inp); } }, 700);
+})();
+</script>
+<style id="jma090rk">
+.jm90rk{background:#fff;border:2px solid #0f766e;border-radius:14px;padding:8px 10px;margin:6px 0}
+.jm90rk h4{margin:0 0 4px;font-size:16px;color:#065f46;display:flex;align-items:center;gap:6px}
+.jm90rk h4 small{font-size:12px;color:#64748b;font-weight:400}
+.jm90rk .r{display:grid;grid-template-columns:22px 52px 1fr 46px;align-items:center;gap:6px;margin:3px 0}
+.jm90rk .r .i{font:800 14px Arial,sans-serif;color:#64748b;text-align:center}
+.jm90rk .r b{font-size:16px}
+.jm90rk .bar{height:12px;border-radius:6px;background:#e2e8f0;overflow:hidden}
+.jm90rk .bar i{display:block;height:100%;border-radius:6px}
+.jm90rk .r .p{font:800 14px Arial,sans-serif;text-align:left;direction:ltr}
+.jm90rk .r .p small{font:700 11px Arial;display:block;color:#64748b}
+.jm90rk .tip{margin-top:4px;padding:4px 8px;border-radius:10px;background:#fef2f2;color:#991b1b;font-size:14px;line-height:1.8}
+.jm90rk .tip.ok{background:#ecfdf5;color:#065f46}
+@media print{.jm90rk{border-color:#000}.jm90rk .bar i{background:#000!important}.jm90rk .tip{background:#fff;color:#000;border:1px solid #000}}
+</style>
+<script id="jma090r">
+/* 📈 MD2511WE090 (مالک کا حکم — «سبق، سبقی، منزل میں کون اوپر، کون نیچے؛ جس میں غلطیاں / اٹکن زیادہ وہ کمزور»):
+   `jmaRankHTML(sid, days=10)` — پچھلے 10 دن کے اندراج (کم ہوں تو 30 دن)؛ ہر اندراج = کارکردگی کا پیمانہ (ممتاز 100 … کمزور 35، نہ لکھی ہو تو 100) − اٹکن×3 (سبق کے سوا) − غلطی×2 (کمی 40 تک) — `jma023` والا ہی؛
+   اوسط سے ترتیب (سب سے اوپر = سب سے مضبوط)، ہر ایک کی پٹی + %، پچھلے آدھے بمقابلہ اگلے آدھے دن ↑ / ↓، اوسط غلطی + اٹکن فی دن؛ سب سے نیچے والے کے لیے «… ٹائٹ کرنے کی ضرورت»۔ کم از کم 2 اندراج ورنہ «ابھی کم ریکارڈ»۔ ریکارڈ صرف پڑھتا ہے۔ */
+(function(){
+  'use strict';
+  var PS = { 'ممتاز': 100, 'بہت اچھا': 85, 'اچھا': 70, 'مناسب': 55, 'کمزور': 35 }, KN = [['sabaq', 'سبق', '#16a34a'], ['sabqi', 'سبقی', '#2563eb'], ['manzil', 'منزل', '#9333ea']];
+  function dAdd(ds, n){ var d = new Date(ds + 'T12:00:00'); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); }
+  function sc(e){ var b = PS[e.perf]; if(b == null) b = 100; return Math.max(0, b - Math.min(40, (e.kind === 'sabaq' ? 0 : (e.atkan || 0) * 3) + (e.mist || 0) * 2)); }
+  window.jmaRank = function(sid, days){
+    var t = window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10), EN = (window.jma019 && jma019.EN()) || [];
+    var pick = function(n){ var a = dAdd(t, -(n - 1)); return EN.filter(function(e){ return !e.del && e.sid === sid && e.date >= a && e.date <= t; }); };
+    var D = days || 10, L = pick(D); if(L.filter(function(e){ return e.kind; }).length < 4){ D = 30; L = pick(D); }
+    var mid = dAdd(t, -Math.floor(D / 2));
+    var R = KN.map(function(k){ var x = L.filter(function(e){ return e.kind === k[0]; }); if(x.length < 2) return { k: k, n: x.length, pct: null };
+      var avg = function(a){ return a.length ? Math.round(a.reduce(function(s, e){ return s + sc(e); }, 0) / a.length) : null; };
+      var o = x.filter(function(e){ return e.date < mid; }), nw = x.filter(function(e){ return e.date >= mid; }), ao = avg(o), an = avg(nw);
+      var dd = {}; x.forEach(function(e){ dd[e.date] = 1; }); var nd = Object.keys(dd).length || 1;
+      return { k: k, n: x.length, pct: avg(x), tr: (ao != null && an != null) ? an - ao : 0, mist: Math.round(x.reduce(function(s, e){ return s + (e.mist || 0); }, 0) * 10 / nd) / 10, atk: Math.round(x.reduce(function(s, e){ return s + (e.kind === 'sabaq' ? 0 : (e.atkan || 0)); }, 0) * 10 / nd) / 10 }; });
+    return { days: D, list: R.filter(function(r){ return r.pct != null; }).sort(function(a, b){ return b.pct - a.pct || a.mist - b.mist; }), none: R.filter(function(r){ return r.pct == null; }) };
+  };
+  window.jmaRankHTML = function(sid, days){
+    var X = jmaRank(sid, days); if(!X.list.length && !X.none.some(function(r){ return r.n; })) return '';
+    var col = function(p){ return p >= 85 ? '#16a34a' : p >= 70 ? '#65a30d' : p >= 55 ? '#d97706' : '#dc2626'; };
+    var h = '<div class="jm90rk"><h4>📈 سبق · سبقی · منزل — کون اوپر، کون نیچے <small>(پچھلے ' + X.days + ' دن)</small></h4>';
+    h += X.list.map(function(r, i){ return '<div class="r"><span class="i">' + (i + 1) + '</span><b style="color:' + r.k[2] + '">' + r.k[1] + '</b><div class="bar"><i style="width:' + r.pct + '%;background:' + col(r.pct) + '"></i></div><span class="p">' + r.pct + '%' + (r.tr >= 5 ? ' ↑' : r.tr <= -5 ? ' ↓' : '') + '<small>' + (r.mist ? 'غ ' + r.mist : '') + (r.atk ? ' ا ' + r.atk : '') + '</small></span></div>'; }).join('');
+    X.none.forEach(function(r){ h += '<div class="r" style="opacity:.6"><span class="i">–</span><b style="color:' + r.k[2] + '">' + r.k[1] + '</b><span style="grid-column:span 2;font-size:13px;color:#64748b">ابھی کم ریکارڈ</span></div>'; });
+    if(X.list.length >= 2){ var w = X.list[X.list.length - 1], b = X.list[0];
+      h += w.pct < 85 || b.pct - w.pct >= 10 ? '<div class="tip">⚠️ <b>' + w.k[1] + '</b> نسبتاً کمزور (' + w.pct + '%) — ' + (w.mist || w.atk ? 'غلطیاں / اٹکن زیادہ، ' : '') + w.k[1] + ' کو ٹائٹ کرنے اور مزید محنت کی ضرورت ہے۔ سب سے مضبوط: <b>' + b.k[1] + '</b> (' + b.pct + '%)</div>'
+        : '<div class="tip ok">✅ تینوں اچھے جا رہے ہیں — سب سے مضبوط: <b>' + b.k[1] + '</b> (' + b.pct + '%)</div>'; }
+    h += '<div style="font-size:11.5px;color:#64748b;margin-top:2px">غ = روزانہ اوسط غلطیاں · ا = اٹکن · ↑ / ↓ = پچھلے دنوں سے بہتر / کمزور</div></div>';
+    return h;
+  };
+})();
+</script>
 <style id="jma088css">
 /* MD2511WE088 (مالک کا حکم — طالب علم کا صفحہ ایک اسکرین کے قریب): صرف ترتیب و سائز؛ کوئی خانہ / حساب ختم نہیں */
 #jmaPro.jm88 .jm2-wrap{padding-top:6px}
@@ -11494,9 +11671,9 @@ details.jm88i>summary::-webkit-details-marker{display:none}
   function h4(c){ var h = c.querySelector(':scope > h4'); return h ? h.textContent.trim() : ''; }
   function attHTML(sid){
     if(selSes === null && window.jmaSesGuess) selSes = jmaSesGuess();
-    var cells = SES.map(function(n, i){ var x = window.jmaSesOf ? jmaSesOf(sid, i) : null; return '<button type="button" data-j88s="' + i + '" class="' + (x ? x.st : '') + (i === selSes ? ' on' : '') + '">' + SH[i] + '<b>' + (x ? STT[x.st] + (x.reason === 'رخصت' ? ' ·رخصت' : '') : '—') + '</b></button>'; }).join('');
-    return '<div class="jm88s">' + cells + '</div><div class="jm88a"><button type="button" class="p" data-j88a="p">✔ حاضر</button><button type="button" class="h" data-j88a="h">🌗 آدھی</button><button type="button" class="a" data-j88a="a">✖ غیر حاضر</button><button type="button" class="l" data-j88a="l">🏠 رخصت</button></div>'
-      + '<div style="font-size:12.5px;color:#64748b;margin-top:4px">«' + SES[selSes] + '» کے لیے — نشست بدلنی ہو تو اوپر دبائیں</div>';
+    var cells = SES.map(function(n, i){ if(window.jmaSesOn && !jmaSesOn()[i]) return ''; var x = window.jmaSesOf ? jmaSesOf(sid, i) : null; return '<button type="button" data-j88s="' + i + '" class="' + (x ? x.st : '') + (i === selSes ? ' on' : '') + '">' + SH[i] + '<b>' + (x ? STT[x.st] + (x.reason === 'رخصت' ? ' ·رخصت' : '') : '—') + '</b></button>'; }).join('');
+    return '<div class="jm88s" style="grid-template-columns:repeat(' + Math.max(1, (cells.match(/data-j88s/g) || []).length) + ',1fr)">' + cells + '</div><div class="jm88a"><button type="button" class="p" data-j88a="p">✔ حاضر</button><button type="button" class="h" data-j88a="h">🌗 آدھی</button><button type="button" class="a" data-j88a="a">✖ غیر حاضر</button><button type="button" class="l" data-j88a="l">🏠 رخصت</button></div>'
+      + '<div style="font-size:12.5px;color:#64748b;margin-top:4px">«' + SES[selSes] + '» کے لیے — نشست بدلنی ہو تو اوپر دبائیں ' + (window.jmaSesBtn ? jmaSesBtn() : '') + '</div>';
   }
   function fold(card, marker, label){   /* کارڈ کا کوئی لمبا حصہ تہہ میں — نوڈ وہی، صرف منتقل */
     var kids = Array.prototype.slice.call(card.childNodes), at = -1;
@@ -11536,7 +11713,8 @@ details.jm88i>summary::-webkit-details-marker{display:none}
       if(att){ var six = att.querySelector('.jm5-six'); if(six){ var box = document.createElement('div'); box.innerHTML = attHTML(s.sid); six.style.display = 'none'; six.after(box); }
         fold(att, '📅', '📅 اس مہینے کی حاضری اور غیر حاضری کی تفصیل ▾'); }
       if(today){ fold(today, '🕘', '🕘 پچھلے اندراج ▾'); try{ tiles(today, s.sid); }catch(e){} }
-      var keep = [hd, pn, q, att, today].filter(Boolean);
+      var rk = null; if(window.jmaRankHTML){ var rh = jmaRankHTML(s.sid); if(rh){ rk = document.createElement('div'); rk.innerHTML = rh; rk = rk.firstElementChild; } }
+      var keep = [hd, pn, q, rk, att, today].filter(Boolean);
       cards.forEach(function(c){ if(keep.indexOf(c) < 0) inn.appendChild(c); });
       keep.forEach(function(c){ w.appendChild(c); }); w.appendChild(more);
     }catch(e){ try{ console.warn('jma088', e); }catch(x){} }
@@ -11552,7 +11730,7 @@ details.jm88i>summary::-webkit-details-marker{display:none}
       else if(k === 'rep' && window.jmaRepOpen) jmaRepOpen(s.sid);
       else if(k === 'more'){ var m = $('jm88more'); if(m){ m.open = true; moreOpen = true; try{ sessionStorage.setItem('jm88more', '1'); }catch(x){} m.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }
       return; }
-    b = tg.closest('[data-j88s]'); if(b){ e.stopPropagation(); selSes = +b.getAttribute('data-j88s'); el.querySelectorAll('[data-j88s]').forEach(function(x){ x.classList.toggle('on', x === b); }); var nt = b.closest('.jm88s').parentNode.querySelector('div[style*="64748b"]'); if(nt) nt.textContent = '«' + SES[selSes] + '» کے لیے — نشست بدلنی ہو تو اوپر دبائیں'; return; }
+    b = tg.closest('[data-j88s]'); if(b){ e.stopPropagation(); selSes = +b.getAttribute('data-j88s'); el.querySelectorAll('[data-j88s]').forEach(function(x){ x.classList.toggle('on', x === b); }); var nt = b.closest('.jm88s').parentNode.querySelector('div[style*="64748b"]'); if(nt) nt.innerHTML = '«' + SES[selSes] + '» کے لیے — نشست بدلنی ہو تو اوپر دبائیں ' + (window.jmaSesBtn ? jmaSesBtn() : ''); return; }
     b = tg.closest('[data-j88a]'); if(b){ e.stopPropagation(); var s2 = stu(); if(!s2 || !window.jmaSetSesNow) return; var a = b.getAttribute('data-j88a'), y = el.scrollTop;
       jmaSetSesNow(s2.sid, selSes, a === 'l' ? 'a' : a, a === 'l' ? 'رخصت' : '');
       try{ if(window.jmaToast) jmaToast('✓ محفوظ — ' + SES[selSes]); }catch(x){}
@@ -11562,7 +11740,7 @@ details.jm88i>summary::-webkit-details-marker{display:none}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2511WE089', n: '📝 طالب علم کے صفحے پر آج کے سبق / سبقی / منزل کے خانوں میں سیدھا خلاصہ (پارہ، لائنیں، اٹکن، غلطی، کس نے سنا) — خانہ دبائیں تو اندراج' };
+window.MD_NOTE = { v: 'MD2511WE090', n: '⚙️ نشستیں بند / چالو (گرمیوں سردیوں کے لیے)؛ 📈 سبق / سبقی / منزل کی درجہ بندی؛ 👂 «کس نے سنا» کی نئی فہرست (رول، نام، تصویر)؛ 📍 ضلع کی صاف فہرست' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
