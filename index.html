@@ -1450,7 +1450,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU087</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE088</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -8173,6 +8173,10 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     if(!st){ delete r.s[i]; } else r.s[i] = { st: st, reason: st === 'p' ? '' : (reason || ''), by: me(), t: Date.now() };
     r.upd = Date.now(); r.dev = devId();
   }
+  /* MD2511WE088: پروفائل سے آج کی ایک نشست ایک ٹچ میں (وہی setSes + save — ڈیٹا کا ڈھانچہ ویسا) */
+  window.jmaSetSesNow = function(sid, i, st, reason){ setSes(sid, pk(), i, st, reason); save(); try{ document.dispatchEvent(new Event('jma-changed')); }catch(e){} try{ if(window.jmaProRedraw) jmaProRedraw(); }catch(e){} };
+  window.jmaSesGuess = function(){ return guess(); };
+  window.jmaSesOf = function(sid, i){ return sesOf(sid, pk(), i); };
 
   /* ---------------- کارڈ اور پروفائل کے لیے ---------------- */
   window.jmaAttDots = function(sid){ var d = pk(); return '<div class="jm5-dots" title="آج کی 6 نشستیں">' + SES.map(function(_, i){ var x = sesOf(sid, d, i); return '<i class="' + (x ? x.st : '') + '"></i>'; }).join('') + '</div>'; };
@@ -9863,7 +9867,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU087" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE088" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -11435,8 +11439,108 @@ body.jm7v #jm51nav{display:none!important}
 #jm53ok .n{display:block;color:#78350f;font-size:16px;max-height:34vh;overflow:auto}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
+<style id="jma088css">
+/* MD2511WE088 (مالک کا حکم — طالب علم کا صفحہ ایک اسکرین کے قریب): صرف ترتیب و سائز؛ کوئی خانہ / حساب ختم نہیں */
+#jmaPro.jm88 .jm2-wrap{padding-top:6px}
+#jmaPro.jm88 .jm2-hd{padding:8px 10px;gap:10px}
+#jmaPro.jm88 .jm2-hd .pv{width:58px!important;height:58px!important;min-width:58px;font-size:26px}
+#jmaPro.jm88 .jm2-hd .nm{font-size:20px;line-height:1.5}
+#jmaPro.jm88 .jm2-hd .mt{font-size:13px;line-height:1.7}
+#jmaPro.jm88 .jm2-pn{margin:6px 0}
+#jmaPro.jm88 .jm2-pn button{padding:5px 8px;font-size:13px}
+#jmaPro.jm88 .jm2-card{padding:8px 10px;margin:6px 0}
+#jmaPro.jm88 .jm2-card h4{margin:0 0 6px;font-size:16px}
+.jm88q{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:6px 0}
+.jm88q button{border:0;border-radius:12px;padding:8px 4px;font-weight:800;font-size:14px;color:#fff;font-family:inherit;line-height:1.6;cursor:pointer}
+.jm88q .pf{background:linear-gradient(135deg,#7c3aed,#5b21b6)}.jm88q .rp{background:linear-gradient(135deg,#0891b2,#0e7490)}.jm88q .mo{background:linear-gradient(135deg,#475569,#334155)}
+.jm88s{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-bottom:6px}
+.jm88s button{border:1.5px solid #cbd5e1;border-radius:9px;background:#fff;padding:3px 1px;font-size:11px;line-height:1.5;font-family:inherit;color:#334155;cursor:pointer}
+.jm88s button b{display:block;font-size:12.5px}
+.jm88s button.on{border:2.5px solid #b45309;background:#fffbeb}
+.jm88s button.p b{color:#15803d}.jm88s button.h b{color:#b45309}.jm88s button.a b{color:#b91c1c}
+.jm88a{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.jm88a button{border:0;border-radius:10px;padding:8px 2px;font-weight:800;font-size:14px;color:#fff;font-family:inherit;cursor:pointer}
+.jm88a .p{background:#16a34a}.jm88a .h{background:#d97706}.jm88a .a{background:#dc2626}.jm88a .l{background:#2563eb}
+details.jm88d{margin:6px 0;border:1.5px solid #cbd5e1;border-radius:12px;background:#f8fafc}
+details.jm88d>summary{cursor:pointer;padding:8px 10px;font-weight:800;font-size:15px;color:#334155;list-style:none}
+details.jm88d>summary::-webkit-details-marker{display:none}
+details.jm88d>summary::after{content:' ▼';font-size:12px;color:#64748b}
+details.jm88d[open]>summary::after{content:' ▲'}
+details.jm88d>.in{padding:0 6px 6px}
+details.jm88i{margin-top:6px}details.jm88i>summary{cursor:pointer;font-size:14px;color:#065f46;font-weight:700;list-style:none}
+details.jm88i>summary::-webkit-details-marker{display:none}
+</style>
+<script id="jma088">
+/* 📐 MD2511WE088 (مالک کا حکم — «طالب علم کا ریکارڈ صفحہ کمپیکٹ، ایک اسکرین کے قریب، کچھ ضائع نہیں»):
+   پروفائل (`#jmaPro`، `proDraw`) بننے کے بعد صرف DOM کی ترتیب — کوئی ڈیٹا، خانہ، حساب یا رپورٹ نہیں بدلتی:
+   اوپر: چھوٹا سر (تصویر، نام، رول / ID)، پچھلا / اگلا؛ فوری بٹن «📊 کارکردگی» (`jmaPerfPick` + یہی طالب علم پہلے سے چنا)، «📄 ماہانہ رپورٹ» (`jmaRepOpen`)، «ℹ️ مزید تفصیل»؛
+   🕌 آج کی حاضری: 6 نشستیں (دبائیں = نشست چنیں، خود ابھی والی) + ایک ٹچ «حاضر / آدھی / غیر حاضر / رخصت» (`jmaSetSesNow` — وہی `jamia_mgmt_att_v1`)؛ مہینے کی تفصیل تہہ میں؛
+   📝 آج: سبق / سبقی / منزل کے بٹن + آج کے اندراج (اٹکن، غلطی، کس نے سنا) ویسے؛ «پچھلے اندراج» تہہ میں؛
+   باقی سب (ختم قرآن، بنیادی معلومات، امتحانات، تربیت، تجزیہ، فیس، حفظ، ابتدائی تعلیم، تاریخ، حذف) «ℹ️ مزید تفصیل» میں — کھلا / بند یاد رہتا ہے */
+(function(){
+  'use strict';
+  var SES = ['فجر سے پہلے', 'فجر کے بعد', 'ناشتے کے بعد', 'ظہر کے بعد', 'مغرب کے بعد', 'عشاء کے بعد'], SH = ['فجر سے پہلے', 'فجر بعد', 'ناشتہ بعد', 'ظہر بعد', 'مغرب بعد', 'عشاء بعد'], STT = { p: 'حاضر', h: 'آدھی', a: 'غیر حاضر' };
+  var selSes = null, moreOpen = false, busy = false;
+  try{ moreOpen = sessionStorage.getItem('jm88more') === '1'; }catch(e){}
+  function $(id){ return document.getElementById(id); }
+  function sidNow(){ return window.jmaProSid ? jmaProSid() : ''; }
+  function stu(){ var sid = sidNow(), L = (window.jmaMgmt && jmaMgmt.students()) || []; return L.find(function(x){ return x.sid === sid; }) || null; }
+  function h4(c){ var h = c.querySelector(':scope > h4'); return h ? h.textContent.trim() : ''; }
+  function attHTML(sid){
+    if(selSes === null && window.jmaSesGuess) selSes = jmaSesGuess();
+    var cells = SES.map(function(n, i){ var x = window.jmaSesOf ? jmaSesOf(sid, i) : null; return '<button type="button" data-j88s="' + i + '" class="' + (x ? x.st : '') + (i === selSes ? ' on' : '') + '">' + SH[i] + '<b>' + (x ? STT[x.st] + (x.reason === 'رخصت' ? ' ·رخصت' : '') : '—') + '</b></button>'; }).join('');
+    return '<div class="jm88s">' + cells + '</div><div class="jm88a"><button type="button" class="p" data-j88a="p">✔ حاضر</button><button type="button" class="h" data-j88a="h">🌗 آدھی</button><button type="button" class="a" data-j88a="a">✖ غیر حاضر</button><button type="button" class="l" data-j88a="l">🏠 رخصت</button></div>'
+      + '<div style="font-size:12.5px;color:#64748b;margin-top:4px">«' + SES[selSes] + '» کے لیے — نشست بدلنی ہو تو اوپر دبائیں</div>';
+  }
+  function fold(card, marker, label){   /* کارڈ کا کوئی لمبا حصہ تہہ میں — نوڈ وہی، صرف منتقل */
+    var kids = Array.prototype.slice.call(card.childNodes), at = -1;
+    kids.forEach(function(k, i){ if(at < 0 && k.nodeType === 1 && k.textContent.indexOf(marker) === 0) at = i; });
+    if(at < 0) return; var d = document.createElement('details'); d.className = 'jm88i'; d.innerHTML = '<summary>' + label + '</summary>';
+    kids.slice(at).forEach(function(k){ d.appendChild(k); }); card.appendChild(d);
+  }
+  function apply(){
+    var el = $('jmaPro'); if(!el || busy) return; var w = el.querySelector('.jm2-wrap'); if(!w || w.getAttribute('data-j88w')) return;
+    var s = stu(); if(!s) return; busy = true;
+    try{
+      el.classList.add('jm88'); w.setAttribute('data-j88w', '1');
+      var cards = Array.prototype.slice.call(w.children), hd = w.querySelector(':scope > .jm2-hd'), pn = w.querySelector(':scope > .jm2-pn');
+      var today = null, att = null; cards.forEach(function(c){ var t = h4(c); if(!today && t.indexOf('📝') === 0) today = c; else if(!att && t.indexOf('🕌 حاضری') === 0) att = c; });
+      var q = document.createElement('div'); q.className = 'jm88q';
+      q.innerHTML = '<button type="button" class="pf" data-j88="perf">📊 کارکردگی</button><button type="button" class="rp" data-j88="rep">📄 ماہانہ رپورٹ</button><button type="button" class="mo" data-j88="more">ℹ️ مزید تفصیل</button>';
+      var more = document.createElement('details'); more.className = 'jm88d'; more.id = 'jm88more'; if(moreOpen) more.open = true;
+      more.innerHTML = '<summary>ℹ️ مزید تفصیل — بنیادی معلومات، ختم قرآن، امتحانات، تربیت، تجزیہ، حفظ، تاریخ</summary><div class="in"></div>';
+      more.addEventListener('toggle', function(){ moreOpen = more.open; try{ sessionStorage.setItem('jm88more', moreOpen ? '1' : '0'); }catch(e){} });
+      var inn = more.querySelector('.in');
+      if(att){ var six = att.querySelector('.jm5-six'); if(six){ var box = document.createElement('div'); box.innerHTML = attHTML(s.sid); six.style.display = 'none'; six.after(box); }
+        fold(att, '📅', '📅 اس مہینے کی حاضری اور غیر حاضری کی تفصیل ▾'); }
+      if(today) fold(today, '🕘', '🕘 پچھلے اندراج ▾');
+      var keep = [hd, pn, q, att, today].filter(Boolean);
+      cards.forEach(function(c){ if(keep.indexOf(c) < 0) inn.appendChild(c); });
+      keep.forEach(function(c){ w.appendChild(c); }); w.appendChild(more);
+    }catch(e){ try{ console.warn('jma088', e); }catch(x){} }
+    busy = false;
+  }
+  var t = 0; function soon(){ clearTimeout(t); t = setTimeout(apply, 0); }
+  function hook(){ var el = $('jmaPro'); if(!el){ setTimeout(hook, 500); return; } new MutationObserver(soon).observe(el, { childList: true }); soon(); }
+  hook();
+  document.addEventListener('click', function(e){
+    var el = $('jmaPro'), tg = e.target; if(!el || !tg.closest || !el.contains(tg)) return;
+    var b = tg.closest('[data-j88]'); if(b){ e.stopPropagation(); var k = b.getAttribute('data-j88'), s = stu(); if(!s) return;
+      if(k === 'perf' && window.jmaPerfPick){ jmaPerfPick(s.classId); setTimeout(function(){ var x = $('jm86s'); if(x){ x.value = s.sid; x.dispatchEvent(new Event('change', { bubbles: true })); } }, 0); }
+      else if(k === 'rep' && window.jmaRepOpen) jmaRepOpen(s.sid);
+      else if(k === 'more'){ var m = $('jm88more'); if(m){ m.open = true; moreOpen = true; try{ sessionStorage.setItem('jm88more', '1'); }catch(x){} m.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }
+      return; }
+    b = tg.closest('[data-j88s]'); if(b){ e.stopPropagation(); selSes = +b.getAttribute('data-j88s'); el.querySelectorAll('[data-j88s]').forEach(function(x){ x.classList.toggle('on', x === b); }); var nt = b.closest('.jm88s').parentNode.querySelector('div[style*="64748b"]'); if(nt) nt.textContent = '«' + SES[selSes] + '» کے لیے — نشست بدلنی ہو تو اوپر دبائیں'; return; }
+    b = tg.closest('[data-j88a]'); if(b){ e.stopPropagation(); var s2 = stu(); if(!s2 || !window.jmaSetSesNow) return; var a = b.getAttribute('data-j88a'), y = el.scrollTop;
+      jmaSetSesNow(s2.sid, selSes, a === 'l' ? 'a' : a, a === 'l' ? 'رخصت' : '');
+      try{ if(window.jmaToast) jmaToast('✓ محفوظ — ' + SES[selSes]); }catch(x){}
+      if(selSes < 5 && a === 'p') selSes = selSes;   /* نشست ویسی — استاد خود بدلے */
+      setTimeout(function(){ el.scrollTop = y; }, 30); return; }
+  }, true);
+})();
+</script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2411TU087', n: '📊 ایک طالب علم کی کارکردگی رپورٹ اب خوبصورت پروفائل کارڈ: تصویر، رنگین ڈبے، ہفتے / مہینے کا ہر دن (سبق / سبقی / منزل ✓ یا ✗، کس نے سنا)؛ پوری جماعت کی رپورٹ بھی رنگین خلاصے کے ساتھ — اسکرین پر رنگین، پرنٹ پر کالا سفید' };
+window.MD_NOTE = { v: 'MD2511WE088', n: '📐 طالب علم کا صفحہ کمپیکٹ: اوپر تصویر و نام، آج کی حاضری ایک ٹچ (حاضر / آدھی / غیر حاضر / رخصت)، سبق / سبقی / منزل فوراً، «📊 کارکردگی» بٹن؛ باقی سب «ℹ️ مزید تفصیل» میں — کچھ ختم نہیں' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
