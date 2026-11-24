@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO054</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO055</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9654,7 +9654,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO054" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO055" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10526,7 +10526,7 @@ body.jm7v #jm51nav{display:none!important}
   'use strict';
   function $(i){ return document.getElementById(i); }
   /* بند ہونے والی اسکرینیں (ڈیش بورڈ کے علاوہ) — لاگ اِن / تالا کبھی نہیں */
-  var IDS = ['jm41w', 'jm30', 'jm36M', 'jmaPick', 'jm39', 'jmaAnn', 'jmaRep', 'jmaFee', 'jmaExm', 'jmaAtt', 'jmaEnt', 'jmaAkh', 'jmaAdm', 'jmaPro', 'jm35', 'jmaStu', 'jmaMgr'];
+  var IDS = ['jm41w', 'jm30', 'jm36M', 'jmaPick', 'jm55', 'jm39', 'jmaAnn', 'jmaRep', 'jmaFee', 'jmaExm', 'jmaAtt', 'jmaEnt', 'jmaAkh', 'jmaAdm', 'jmaPro', 'jm35', 'jmaStu', 'jmaMgr'];
   function vis(el){ return el && getComputedStyle(el).display !== 'none'; }
   function zOf(el){ return +getComputedStyle(el).zIndex || 0; }
   function openList(){ return IDS.map($).filter(vis).sort(function(a, b){ return zOf(b) - zOf(a); }); }
@@ -10846,7 +10846,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2311MO054', n: 'نیا خوبصورت ڈیزائن: ہوم (مسجد، قرآن، چمکدار بٹن — سبق، سبقی، منزل، حاضری، طلبہ، رپورٹس) اور تالے کا صفحہ (پن نمبر درج کریں، داخل ہوں)' };
+window.MD_NOTE = { v: 'MD2311MO055', n: 'گوگل ڈرائیو بیک اپ: ہر روز صبح ایپ پہلی بار کھلتے ہی سارا ریکارڈ خود ڈرائیو پر؛ ہوم پر «☁️ بیک اپ» سے ابھی بیک اپ اور ڈرائیو سے واپس لانا' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
@@ -10987,7 +10987,7 @@ window.MD_NOTE = { v: 'MD2311MO054', n: 'نیا خوبصورت ڈیزائن: ہ�
       + '</div><div class="more">'
       + '<button type="button" data-d="exm">🎓 امتحانات</button><button type="button" data-d35="1">📋 آج کا کام</button><button type="button" data-d39="1">☁️ دو موبائل</button>'
       + (act.staff ? '' : '<button type="button" data-k54="pkg">📦 پیکج</button>')
-      + '<button type="button" data-d="bk" class="' + (lbDays == null || lbDays > 7 ? 'r' : '') + '">💾 بیک اپ' + (lbDays == null ? ' — ابھی نہیں بنا' : lbDays > 7 ? ' — ' + lbDays + ' دن پرانا' : '') + '</button>'
+      + (function(){ var D = window.jmaDrive, on = D && D.connected(), td = on && D.lastDay() === pk; return '<button type="button" data-k54="drive" class="' + (td ? '' : 'r') + '">' + (td ? '☁️ آج کا بیک اپ ✓' : on ? '☁️ بیک اپ — آج نہیں ہوا' : '☁️ ڈرائیو بیک اپ جوڑیں') + '</button>'; })()
       + '<button type="button" data-k54="help">❓ ہیلپ ڈیسک</button></div>'
       + '<button type="button" class="lo" data-k54="out">لاگ آؤٹ <span>⇥</span></button>'
       + '<div class="ft"><img src="ui/dash-bot.jpg" alt=""></div>' + (vs ? '<div class="vr">V' + vs + '</div>' : '') + '</div>';
@@ -11000,6 +11000,7 @@ window.MD_NOTE = { v: 'MD2311MO054', n: 'نیا خوبصورت ڈیزائن: ہ�
     if(k === 'pkg'){ if(window.mdPkgOpen) mdPkgOpen(); }
     else if(k === 'help'){ try{ openHelpDesk({ type: 'chat' }); }catch(x){ try{ openHelpDesk(); }catch(y){} } }
     else if(k === 'out'){ if(window.jmaAskExit) jmaAskExit(); }
+    else if(k === 'drive'){ if(window.jmaDriveOpen) jmaDriveOpen(); }
   }, true);
   /* ایپ کھلتے ہی یہی ہوم (سائن اپ / پرانا تالا نہ ہو تو) */
   function boot(){ var n = 0, t = setInterval(function(){ n++;
@@ -11008,6 +11009,187 @@ window.MD_NOTE = { v: 'MD2311MO054', n: 'نیا خوبصورت ڈیزائن: ہ�
     if(lkOn){ if(n > 40) clearInterval(t); return; }
     clearInterval(t); if($('jmaDash').style.display !== 'block') jmaDashOpen(); }, 400); }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+</script>
+<!-- ============================================================
+     MD2311MO055 (مالک کا حکم): ☁️ گوگل ڈرائیو بیک اپ — ہر روز صبح ایپ پہلی بار کھلتے ہی (تالا کھلنے کے بعد) خود بیک اپ؛
+     طریقہ آڑھت بک (AB/drive.js) والا: اجازت اسی صفحے پر (گوگل → واپس REDIRECT)، ٹوکن ایک گھنٹہ، دن کی پہلی بار خاموش اجازت (prompt=none)۔
+     فائل = وہی مکمل بیک اپ (buildBackupPayload — version 7 + سب jamia_* / hifz_*)؛ فولڈر «Madrasa Backup»: MD-LATEST.json + ہر دن کی نقل
+     MD<ID>-YYYYMMDD-HHMM.json (60 دن)؛ اجازت صرف drive.file۔ واپس لانا: applyRestoreData۔ کلید mddrive_v1 (صرف یہ فون، بیک اپ میں نہیں)۔
+     ⚠️ گوگل کنسول (Client «MA Library Web») کے Authorised redirect URIs میں REDIRECT درج ہونا لازمی۔
+     ============================================================ -->
+<style id="jma055css">
+#jm55{position:fixed;inset:0;z-index:2147481310;background:#f0fdf4;overflow-y:auto;direction:rtl;font-family:var(--nastaliq),'Jameel Noori Nastaleeq',serif;display:none}
+#jm55 .wr{max-width:520px;margin:0 auto;padding:10px 12px 40px}
+#jm55 .cd{background:#fff;border-radius:16px;padding:10px 12px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,.08)}
+#jm55 h4{margin:0 0 4px;font-family:'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;font-weight:400;color:#065f46;font-size:19px}
+#jm55 .st{border-radius:12px;padding:6px 10px;font-size:16px;line-height:1.9}
+#jm55 .st.ok{background:#dcfce7;color:#14532d}#jm55 .st.warn{background:#fef3c7;color:#92400e}#jm55 .st.busy{background:#e0f2fe;color:#075985}
+#jm55 .em{direction:ltr;text-align:right;font:13px Arial;color:#475569}
+#jm55 .bt{display:block;width:100%;border:0;border-radius:14px;padding:9px;font:inherit;font-size:17px;margin-top:8px;color:#fff;background:linear-gradient(135deg,#059669,#065f46)}
+#jm55 .bt.b{background:linear-gradient(135deg,#2563eb,#1e3a8a)}#jm55 .bt.o{background:#fff;color:#065f46;border:2px solid #0f766e}#jm55 .bt.r{background:#fff;color:#b91c1c;border:2px solid #fca5a5}
+#jm55 .pg{height:8px;border-radius:99px;background:#e2e8f0;overflow:hidden;margin-top:6px;display:none}#jm55 .pg i{display:block;height:100%;width:0;background:linear-gradient(90deg,#f59e0b,#10b981);transition:width .4s}
+#jm55 .pt{font-size:14px;color:#475569;min-height:22px}
+#jm55 .ls .it{border:1.5px solid #cbd5e1;border-radius:12px;padding:4px 10px;margin-top:6px;font-size:15px;cursor:pointer;line-height:1.8}
+#jm55 .ls .it b,#jm55 .st b{font:700 13px Arial;direction:ltr;unicode-bidi:isolate}#jm55 .n{font:700 14px Arial}
+#jm55 .t{font-size:14px;color:#475569;line-height:1.9}
+</style>
+<div id="jm55" class="no-print"></div>
+<script id="jma055">
+(function(){
+  'use strict';
+  var CLIENT_ID = '954131537356-2be2rne30mje71l9qibosblvj3j0eqoj.apps.googleusercontent.com';
+  var SCOPE = 'https://www.googleapis.com/auth/drive.file openid email';
+  var REDIRECT = 'https://pbtcodelabs-pbt.github.io/Hifz-progress/';
+  var USE_REDIRECT = location.origin === 'https://pbtcodelabs-pbt.github.io';
+  var FOLDER = 'Madrasa Backup', LATEST = 'MD-LATEST.json', KEEP = 60, MK = 'mddrive_v1', IK = 'mddrive_intent';
+  var DRIVE = 'https://www.googleapis.com/drive/v3/files', UPLOAD = 'https://www.googleapis.com/upload/drive/v3/files';
+  var LOAD_AT = Date.now(), busy = false;
+  function $(i){ return document.getElementById(i); }
+  function E(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  var meta = {}; try{ meta = JSON.parse(localStorage.getItem(MK) || '{}') || {}; }catch(e){ meta = {}; }
+  function saveMeta(){ try{ localStorage.setItem(MK, JSON.stringify(meta)); }catch(e){} }
+  function toast(m){ if(window.jmaToast) jmaToast(m); }
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function today(){ return window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10); }
+  function when(iso){ if(!iso) return ''; var d = new Date(iso); return pad(d.getDate()) + '-' + pad(d.getMonth() + 1) + '-' + d.getFullYear() + '  ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+  function mdId(){ try{ return (JSON.parse(localStorage.getItem('jamia_mdid_v1') || '{}') || {}).id || 'MD'; }catch(e){ return 'MD'; } }
+  function token(){ return meta.tok && meta.tokExp > Date.now() + 60000 ? meta.tok : null; }
+  /* ——— اجازت (اسی صفحے پر) ——— */
+  function goAuth(act, silent){
+    var st = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    try{ sessionStorage.setItem(IK, JSON.stringify({ act: act, st: st, silent: !!silent })); }catch(e){}
+    var q = new URLSearchParams({ client_id: CLIENT_ID, redirect_uri: REDIRECT, response_type: 'token', scope: SCOPE, include_granted_scopes: 'true', state: st });
+    if(silent) q.set('prompt', 'none'); else if(!meta.email) q.set('prompt', 'consent');
+    if(meta.email) q.set('login_hint', meta.email);
+    location.href = 'https://accounts.google.com/o/oauth2/v2/auth?' + q.toString();
+    return new Promise(function(){});
+  }
+  function takeReturn(){
+    var h = location.hash || ''; if(!/(^#|&)(access_token|error)=/.test(h)) return null;
+    var p = new URLSearchParams(h.slice(1)), it = null;
+    try{ it = JSON.parse(sessionStorage.getItem(IK) || 'null'); sessionStorage.removeItem(IK); }catch(e){}
+    try{ history.replaceState(history.state, '', location.pathname + location.search); }catch(e){}
+    if(!it || p.get('state') !== it.st) return null;
+    if(p.get('access_token')){ meta.tok = p.get('access_token'); meta.tokExp = Date.now() + (+p.get('expires_in') || 3600) * 1000; saveMeta(); }
+    else it.err = p.get('error') || 'denied';
+    return it;
+  }
+  var returned = takeReturn();
+  function getToken(interactive, act){
+    var t = token(); if(t) return Promise.resolve(t);
+    if(!/^https?:$/.test(location.protocol)) return Promise.reject(new Error('unsupported'));
+    if(!interactive) return Promise.reject(new Error('need-consent'));
+    if(!navigator.onLine) return Promise.reject(new Error('offline'));
+    if(USE_REDIRECT) return goAuth(act || 'backup', false);
+    return Promise.reject(new Error('unsupported'));
+  }
+  function api(url, opt){ opt = opt || {}; var o = Object.assign({}, opt, { headers: Object.assign({ Authorization: 'Bearer ' + meta.tok }, opt.headers || {}) });
+    return fetch(url, o).then(function(r){ if(r.status === 401){ meta.tok = null; meta.tokExp = 0; saveMeta(); throw new Error('expired'); } if(!r.ok) throw new Error('http ' + r.status); return r; }); }
+  function who(){ return api('https://www.googleapis.com/oauth2/v3/userinfo').then(function(r){ return r.json(); }).then(function(j){ if(j.email){ meta.email = j.email; saveMeta(); } }).catch(function(){}); }
+  function folder(){
+    var chk = meta.folderId ? api(DRIVE + '/' + meta.folderId + '?fields=id,trashed').then(function(r){ return r.json(); }).then(function(j){ return j.trashed ? null : j.id; }).catch(function(e){ if(e.message === 'expired') throw e; return null; }) : Promise.resolve(null);
+    return chk.then(function(id){ if(id) return id; meta.folderId = null; meta.latestId = null; meta.dailyId = null;
+      var q = encodeURIComponent("name='" + FOLDER + "' and mimeType='application/vnd.google-apps.folder' and trashed=false");
+      return api(DRIVE + '?q=' + q + '&fields=files(id)&spaces=drive').then(function(r){ return r.json(); }).then(function(f){
+        if(f.files && f.files.length){ meta.folderId = f.files[0].id; saveMeta(); return meta.folderId; }
+        return api(DRIVE + '?fields=id', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: FOLDER, mimeType: 'application/vnd.google-apps.folder' }) }).then(function(r){ return r.json(); }).then(function(m){ meta.folderId = m.id; saveMeta(); return m.id; });
+      }); });
+  }
+  function multipart(mo, content){ var b = 'md' + Date.now(); return { headers: { 'Content-Type': 'multipart/related; boundary=' + b }, body: '--' + b + '\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n' + JSON.stringify(mo) + '\r\n--' + b + '\r\nContent-Type: application/json\r\n\r\n' + content + '\r\n--' + b + '--' }; }
+  function upload(name, content, n, id){
+    var props = { name: name, appProperties: { count: String(n), app: 'madrasa', day: today(), md: mdId() } };
+    if(id) return api(UPLOAD + '/' + id + '?uploadType=multipart&fields=id', Object.assign({ method: 'PATCH' }, multipart(props, content))).then(function(r){ return r.json(); });
+    return api(UPLOAD + '?uploadType=multipart&fields=id', Object.assign({ method: 'POST' }, multipart(Object.assign({ mimeType: 'application/json', parents: [meta.folderId] }, props), content))).then(function(r){ return r.json(); });
+  }
+  function count(){ try{ return ((window.jmaMgmt && jmaMgmt.students()) || []).filter(function(s){ return !s.del; }).length; }catch(e){ return 0; } }
+  function P(pct, t){ var g = document.querySelector('#jm55 .pg'), i = g && g.querySelector('i'), x = document.querySelector('#jm55 .pt'); if(g){ g.style.display = 'block'; i.style.width = pct + '%'; } if(x) x.textContent = t || ''; }
+  function backup(interactive){
+    if(busy) return Promise.resolve(false); busy = true; draw();
+    return getToken(interactive).then(function(){ P(15, 'گوگل اکاؤنٹ…'); return meta.email ? null : who(); })
+      .then(function(){ P(30, 'ڈرائیو میں فولڈر «' + FOLDER + '»…'); return folder(); })
+      .then(function(){
+        P(50, 'سارا ریکارڈ جمع ہو رہا ہے…'); var b = buildBackupPayload(), content = b.payload, n = count();
+        var latest = meta.latestId ? Promise.resolve(meta.latestId) : api(DRIVE + '?q=' + encodeURIComponent("name='" + LATEST + "' and '" + meta.folderId + "' in parents and trashed=false") + '&fields=files(id)').then(function(r){ return r.json(); }).then(function(j){ return (j.files && j.files[0] && j.files[0].id) || null; });
+        return latest.then(function(lid){ P(65, 'تازہ ترین فائل بھیجی جا رہی ہے…'); return upload(LATEST, content, n, lid).catch(function(e){ if(lid && /404/.test(e.message)) return upload(LATEST, content, n, null); throw e; }); })
+          .then(function(r){ meta.latestId = r.id; P(85, 'آج کی نقل بھیجی جا رہی ہے…');
+            var d = new Date(), nm = mdId() + '-' + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '-' + pad(d.getHours()) + pad(d.getMinutes()) + '.json';
+            var up = (meta.dailyDay === today() && meta.dailyId) ? upload(nm, content, n, meta.dailyId).catch(function(){ return upload(nm, content, n, null); }) : upload(nm, content, n, null);
+            return up.then(function(r2){ if(meta.dailyDay !== today()) cleanup(); meta.dailyId = r2.id; meta.dailyDay = today(); meta.lastFile = nm; return n; }); });
+      })
+      .then(function(n){ meta.last = new Date().toISOString(); meta.lastCount = n; meta.lastDay = today(); saveMeta(); try{ localStorage.setItem('jamia_last_backup_v1', String(Date.now())); }catch(e){} busy = false; P(100, '✅ مکمل'); draw(); try{ var D = $('jmaDash'); if(D && D.style.display === 'block' && $('jm55').style.display !== 'block' && window.jmaDashOpen){ var y = D.scrollTop; jmaDashOpen(); D.scrollTop = y; } }catch(e){} return n; })
+      .catch(function(e){ busy = false; draw(); var m = e.message || '';
+        if(m !== 'need-consent' && (interactive || m !== 'expired')) toast(m === 'offline' ? 'انٹرنیٹ نہیں — آن لائن ہو کر دوبارہ' : m === 'unsupported' ? 'ڈرائیو صرف ویب سائٹ والی ایپ میں' : '⚠️ ڈرائیو پر بیک اپ نہیں ہو سکا — دوبارہ کوشش کریں');
+        return false; });
+  }
+  function cleanup(){
+    var cut = new Date(Date.now() - KEEP * 864e5).toISOString().slice(0, 10), q = encodeURIComponent("'" + meta.folderId + "' in parents and trashed=false");
+    api(DRIVE + '?q=' + q + '&pageSize=300&fields=files(id,name,appProperties)').then(function(r){ return r.json(); }).then(function(j){
+      (j.files || []).forEach(function(f){ if(f.name !== LATEST && f.appProperties && f.appProperties.day && f.appProperties.day < cut) api(DRIVE + '/' + f.id, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ trashed: true }) }).catch(function(){}); }); }).catch(function(){});
+  }
+  function listRestore(){
+    var box = $('jm55ls'); if(!box) return; box.innerHTML = '<div class="t">ڈرائیو سے فائلیں آ رہی ہیں…</div>';
+    getToken(true, 'restore').then(function(){ return folder(); }).then(function(){
+      var q = encodeURIComponent("'" + meta.folderId + "' in parents and trashed=false");
+      return api(DRIVE + '?q=' + q + '&orderBy=modifiedTime desc&pageSize=80&fields=files(id,name,modifiedTime,appProperties)').then(function(r){ return r.json(); });
+    }).then(function(j){
+      var f = (j.files || []).filter(function(x){ return /\.json$/.test(x.name); });
+      if(!f.length){ box.innerHTML = '<div class="t">ڈرائیو پر ابھی کوئی بیک اپ نہیں</div>'; return; }
+      f.sort(function(a, b){ return (b.name === LATEST) - (a.name === LATEST) || b.modifiedTime.localeCompare(a.modifiedTime); });
+      box.innerHTML = '<div class="t">جو بیک اپ واپس لانا ہو اسے دبائیں (پہلے تصدیق ہوگی):</div>' + f.slice(0, 40).map(function(x){ var n = (x.appProperties && x.appProperties.count) || '؟';
+        return '<div class="it" data-fid="' + E(x.id) + '">' + (x.name === LATEST ? '⭐ تازہ ترین' : '📅 روزانہ نقل') + ' — <b>' + when(x.modifiedTime) + '</b> · <span class="n">' + n + '</span> طلبہ</div>'; }).join('');
+    }).catch(function(e){ box.innerHTML = ''; toast('⚠️ ڈرائیو کی فہرست نہیں آ سکی'); });
+  }
+  function restore(id){ getToken(true, 'restore').then(function(){ return api(DRIVE + '/' + id + '?alt=media'); }).then(function(r){ return r.json(); }).then(function(j){
+      if(!window.applyRestoreData) return; var n = 0, ex = j && j.extra; try{ n = (JSON.parse((ex && ex.jamia_mgmt_students_v1) || '[]') || []).filter(function(x){ return !x.del; }).length; }catch(e){}
+      if(!confirm('☁️ گوگل ڈرائیو سے بیک اپ واپس لائیں؟\n\n👥 اس بیک اپ میں ' + n + ' طلبہ کا ریکارڈ ہے۔\n\n⚠️ اس فون کا موجودہ ریکارڈ اس سے بدل جائے گا (پہلے اس کی نقل خود محفوظ ہو جائے گی)۔')) return;
+      var c = window.confirm; window.confirm = function(){ return true; }; try{ applyRestoreData(j, 'گوگل ڈرائیو'); } finally { window.confirm = c; } }).catch(function(){ toast('⚠️ فائل نہیں آ سکی'); }); }
+  /* ——— اسکرین ——— */
+  function stateTxt(){
+    if(busy) return ['busy', '⏳ ڈرائیو پر بیک اپ ہو رہا ہے…'];
+    if(!meta.email) return ['warn', '⚠️ ابھی گوگل ڈرائیو سے نہیں جڑا — ریکارڈ صرف اسی فون میں ہے'];
+    if(meta.lastDay !== today()) return ['warn', '🕒 آج کا بیک اپ ابھی نہیں ہوا — ' + (meta.last ? 'آخری: <b>' + when(meta.last) + '</b>' : '')];
+    return ['ok', '✅ آج کا بیک اپ ڈرائیو پر محفوظ — <b>' + when(meta.last) + '</b>' + (meta.lastCount != null ? ' · ' + meta.lastCount + ' طلبہ' : '')];
+  }
+  function draw(){
+    var el = $('jm55'); if(!el || el.style.display !== 'block') return; var s = stateTxt();
+    el.innerHTML = '<div class="jm2-top"><b>☁️ گوگل ڈرائیو بیک اپ</b><button data-x55="1">✕</button></div><div class="wr">'
+      + '<div class="cd"><div class="st ' + s[0] + '">' + s[1] + '</div>' + (meta.email ? '<div class="em">' + E(meta.email) + '</div>' : '') + '<div class="pg"><i></i></div><div class="pt"></div>'
+      + '<button class="bt" data-a55="now">' + (meta.email ? '☁️ ابھی بیک اپ کریں' : '🔗 گوگل ڈرائیو جوڑیں اور بیک اپ کریں') + '</button>'
+      + '<div class="t" style="margin-top:6px">📌 ہر روز صبح ایپ پہلی بار کھلتے ہی بیک اپ خود ڈرائیو پر چلا جاتا ہے (فولڈر <b dir="ltr">' + FOLDER + '</b>) — 60 دن کی روزانہ نقلیں محفوظ رہتی ہیں۔ اجازت صرف اسی ایپ کی اپنی فائلوں کی۔</div></div>'
+      + (meta.email ? '<div class="cd"><h4>⬇️ ڈرائیو سے واپس لائیں</h4><button class="bt b" data-a55="list">📂 ڈرائیو کے بیک اپ دکھائیں</button><div class="ls" id="jm55ls"></div></div>' : '')
+      + '<div class="cd"><h4>📁 فون میں بیک اپ فائل</h4><button class="bt o" data-a55="file">📁 بیک اپ فائل بنائیں / فائل سے واپس لائیں</button></div>'
+      + (meta.email ? '<button class="bt r" data-a55="off">✕ ڈرائیو سے الگ کریں</button>' : '') + '</div>';
+  }
+  window.jmaDriveOpen = function(){ var el = $('jm55'); el.style.display = 'block'; draw(); };
+  window.jmaDrive = { connected: function(){ return !!meta.email; }, lastDay: function(){ return meta.lastDay || ''; }, last: function(){ return meta.last || ''; }, backup: backup };
+  document.addEventListener('click', function(e){
+    var el = $('jm55'); if(!el || !el.contains(e.target)) return; var b = e.target.closest('[data-x55],[data-a55],[data-fid]'); if(!b) return; e.stopPropagation();
+    if(b.dataset.x55){ el.style.display = 'none'; if($('jmaDash').style.display === 'block' && window.jmaDashOpen) jmaDashOpen(); return; }
+    if(b.dataset.fid){ restore(b.dataset.fid); return; }
+    var a = b.dataset.a55;
+    if(a === 'now') backup(true).then(function(n){ if(n !== false) toast('✅ ڈرائیو پر بیک اپ ہو گیا — ' + n + ' طلبہ'); });
+    else if(a === 'list') listRestore();
+    else if(a === 'file'){ if(typeof showBackup === 'function') showBackup(); }
+    else if(a === 'off'){ if(confirm('گوگل ڈرائیو سے الگ کریں؟ (ڈرائیو پر پرانے بیک اپ محفوظ رہیں گے)')){ meta = {}; saveMeta(); draw(); toast('ڈرائیو سے الگ کر دیا'); } }
+  }, true);
+  /* ——— روزانہ صبح: دن میں پہلی بار کھلتے ہی ——— */
+  function locked(){ var l = $('jm52'); return l && getComputedStyle(l).display !== 'none'; }
+  function typing(){ var a = document.activeElement; return a && /INPUT|TEXTAREA|SELECT/.test(a.tagName); }
+  function daily(){
+    if(!meta.email || busy || meta.lastDay === today() || !navigator.onLine || locked()) return;
+    if(token()){ backup(false).then(function(n){ if(n !== false) toast('☁️ آج کا بیک اپ ڈرائیو پر ہو گیا'); }); return; }
+    if(USE_REDIRECT && Date.now() - LOAD_AT < 25000 && !typing() && meta.silentDay !== today()){ meta.silentDay = today(); saveMeta(); goAuth('auto', true); }
+  }
+  if(returned){
+    (function go(n){ if(locked() && n < 300){ setTimeout(function(){ go(n + 1); }, 400); return; }
+      if(returned.err){ if(!returned.silent) toast('⚠️ گوگل اکاؤنٹ کی اجازت نہیں ملی'); return; }
+      if(returned.act === 'restore'){ jmaDriveOpen(); setTimeout(listRestore, 300); }
+      else if(returned.act === 'auto') backup(false).then(function(n){ if(n !== false) toast('☁️ آج کا بیک اپ ڈرائیو پر ہو گیا'); });
+      else { jmaDriveOpen(); backup(true).then(function(n){ if(n !== false) toast('✅ ڈرائیو پر بیک اپ ہو گیا — ' + n + ' طلبہ'); }); } })(0);
+  }
+  setInterval(daily, 4000);
+  document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'visible'){ LOAD_AT = Date.now(); setTimeout(daily, 2500); } });
 })();
 </script>
 </body></html>
