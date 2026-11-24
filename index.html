@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU068</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU069</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7501,7 +7501,16 @@ async function mdDevSavePass(){
 .jm68 .n{font-family:Arial,sans-serif;font-weight:700;direction:ltr;unicode-bidi:isolate}
 .jm68r{display:flex;gap:8px;border-top:1px solid #eef2f7;padding:0 2px;font-size:14px;line-height:1.55}
 .jm68r b.n{font-size:13px}
-.jm68r span{flex:none;width:92px;color:#64748b}
+.jm68r span{flex:none;width:86px;color:#64748b;padding-top:4px}
+.jm68r .v{flex:1;min-width:0}
+.jm68i{width:100%;box-sizing:border-box;border:1.5px solid #e2e8f0;border-radius:8px;padding:0 8px;height:32px;font:inherit;font-size:15px;background:#fff;color:#0f172a}
+.jm68i.n{font:700 15px Arial,sans-serif;text-align:right}
+.jm68r.bad .jm68i{border-color:#dc2626;background:#fef2f2}
+.jm68r.bad span{color:#b91c1c}
+.jm68r.mt .jm68i{border-color:#fca5a5}
+.jm68r em{display:block;font-style:normal;font-size:12.5px;color:#b91c1c;line-height:1.5}
+.jm68r .rq{color:#dc2626;font-style:normal}
+.jm68r{align-items:flex-start;padding:2px 2px!important}
 .jm68r b{flex:1;font-weight:400;color:#0f172a;overflow-wrap:anywhere}
 .jm68r i{color:#cbd5e1;font-style:normal}
 .jm68 .tip{text-align:center;font-size:13px;color:#92400e;margin-top:6px}
@@ -7626,13 +7635,24 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     } else if(step === 4){
       /* MD2411TU068 (مالک کا حکم): محفوظ کرنے سے پہلے پورا ریکارڈ ایک نظر میں */
       var pf = [], pp = []; for(var q in F.bParas){ if(F.bParas[q] === 'f') pf.push(+q); else if(F.bParas[q] === 'p') pp.push(+q); } pf.sort(function(a, b){ return a - b; }); pp.sort(function(a, b){ return a - b; });
-      var row = function(l, v, ltr){ return '<div class="jm68r"><span>' + l + '</span><b' + (ltr ? ' class="n"' : '') + '>' + (v ? E(v) : '<i>—</i>') + '</b></div>'; };
-      h += '<div class="jm2-card jm68"><div class="hd"><div class="pv" style="' + photoBg(F.photo) + '">' + (F.photo ? '' : '📷') + '</div><div><div class="nm">' + E(F.n) + '</div><div class="sb">ولد ' + E(F.w) + ' · رول <b class="n">' + E(F.roll) + '</b></div></div></div>'
-        + row('جنس', F.gender) + row('سرپرست', (F.grd || F.w) + (F.rel ? ' (' + F.rel + ')' : '')) + row('موبائل', F.mob, 1) + row('داخلہ', F.admDate, 1) + row('پتہ', F.addr)
-        + row('جماعت', clsName(F.classId)) + row('ذمہ دار استاد', F.tName) + row('تعلیمی حیثیت', F.status)
-        + row('مکمل پارے', pf.length ? pf.join('، ') + ' (' + pf.length + ')' : '', 1) + row('جزوی پارے', pp.join('، '), 1)
-        + row('سورتیں', F.surahs) + row('ناظرہ', F.nazra) + row('نورانی قاعدہ', F.qaida) + row('دیگر', F.notes)
-        + '<div class="tip">سب ٹھیک ہو تو «✅ محفوظ کریں» دبائیں — کچھ بدلنا ہو تو «→ پیچھے»</div></div>';
+      /* MD2411TU069: پیش نظارہ ہی میں ترمیم — غلط / خالی خانہ سرخ، وہیں درست کر کے سیدھا محفوظ */
+      var ER = valErr();
+      var cell = function(l, k, inp, req){ var v = String(F[k] == null ? '' : F[k]).trim(), bad = ER[k], cl = bad ? ' bad' : (!v ? (req ? ' bad' : ' mt') : '');
+        return '<div class="jm68r' + cl + '"><span>' + l + (req ? ' <i class="rq">*</i>' : '') + '</span><div class="v">' + inp + (bad ? '<em>' + E(bad) + '</em>' : '') + '</div></div>'; };
+      var tx = function(k, ph, ltr){ return '<input class="jm68i' + (ltr ? ' n' : '') + '" data-f="' + k + '" value="' + E(F[k] || '') + '"' + (ph ? ' placeholder="' + E(ph) + '"' : '') + (ltr ? ' dir="ltr" inputmode="' + (k === 'mob' ? 'tel' : 'numeric') + '"' : '') + '>'; };
+      var dd = function(k, list, cur){ return '<select class="jm68i" data-f="' + k + '">' + list.map(function(o){ var v = Array.isArray(o) ? o[0] : o, t = Array.isArray(o) ? o[1] : o; return '<option value="' + E(v) + '"' + (String(cur) === String(v) ? ' selected' : '') + (Array.isArray(o) && o[2] != null ? ' data-tid="' + E(o[2]) + '"' : '') + '>' + E(t) + '</option>'; }).join('') + '</select>'; };
+      var clsL = cls().filter(function(c){ return okCls(c.id) || c.id === F.classId; }).map(function(c){ return [c.id, c.name + (c.incharge ? ' · ' + c.incharge : '')]; });
+      var tL = [['', '—']].concat(teachers().map(function(t){ return [t.name, t.name, t.id]; }));
+      h += '<div class="jm2-card jm68"><div class="hd"><div class="pv" style="' + photoBg(F.photo) + '">' + (F.photo ? '' : '📷') + '</div><div><div class="nm">' + E(F.n || '—') + '</div><div class="sb">' + (Object.keys(ER).length ? '<b style="color:#b91c1c">⚠️ سرخ خانے درست کریں</b>' : '✅ سب ضروری خانے مکمل') + '</div></div></div>'
+        + cell('نام', 'n', tx('n'), 1) + cell('والد کا نام', 'w', tx('w'), 1) + cell('جنس', 'gender', dd('gender', ['طالب', 'طالبہ'], F.gender))
+        + cell('سرپرست', 'grd', tx('grd', 'خالی ہو تو والد')) + cell('تعلق', 'rel', dd('rel', REL, F.rel)) + cell('موبائل', 'mob', tx('mob', '03001234567', 1), 1)
+        + cell('داخلہ', 'admDate', '<input class="jm68i n" type="date" data-f="admDate" value="' + E(F.admDate) + '">') + cell('پتہ', 'addr', tx('addr'))
+        + cell('جماعت', 'classId', dd('classId', [['', '—']].concat(clsL), F.classId), 1) + cell('ذمہ دار استاد', 'tName', dd('tName', tL, F.tName)) + cell('رول نمبر', 'roll', tx('roll', '', 1), 1)
+        + cell('تعلیمی حیثیت', 'status', dd('status', STATUS, F.status))
+        + '<div class="jm68r"><span>مکمل پارے</span><div class="v"><b class="n">' + (pf.length ? pf.join('، ') + ' (' + pf.length + ')' : '—') + '</b></div></div>'
+        + '<div class="jm68r"><span>جزوی پارے</span><div class="v"><b class="n">' + (pp.join('، ') || '—') + '</b></div></div>'
+        + cell('سورتیں', 'surahs', tx('surahs')) + cell('ناظرہ', 'nazra', dd('nazra', [['', '—']].concat(NAZRA), F.nazra)) + cell('نورانی قاعدہ', 'qaida', tx('qaida')) + cell('دیگر', 'notes', tx('notes'))
+        + '<div class="tip">یہیں کسی بھی خانے میں لکھ کر درست کریں — پھر «✅ محفوظ کریں»</div></div>';
     } else {
       var fc = 0, pc = 0; for(var k in F.bParas){ if(F.bParas[k] === 'f') fc++; else if(F.bParas[k] === 'p') pc++; }
       h += '<div class="jm2-card"><h4>📖 پہلے سے یاد شدہ پارے</h4><div style="font-size:14px;color:#475569;line-height:1.9;margin-bottom:6px">پارہ دبائیں: ایک بار = مکمل (سبز)، دوبارہ = جزوی (پیلا)، تیسری بار = ہٹائیں</div>'
@@ -7655,6 +7675,15 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       img.onerror = function(){ alert('یہ تصویر نہیں کھلی'); }; img.src = r.result; };
     r.readAsDataURL(file);
   }
+  function valErr(){
+    var e = {}, mob = String(F.mob || '').replace(/\D/g, '');
+    if(!String(F.n || '').trim()) e.n = 'نام لکھیں'; if(!String(F.w || '').trim()) e.w = 'والد کا نام لکھیں';
+    if(!mob) e.mob = 'موبائل نمبر لکھیں'; else if(mob.length < 10) e.mob = 'موبائل نمبر پورا نہیں';
+    if(!F.classId) e.classId = 'جماعت چنیں';
+    if(!/^\d+$/.test(String(F.roll || ''))) e.roll = 'رول نمبر صرف ہندسوں میں';
+    else if(F.classId){ var dup = stuOf(F.classId).find(function(s){ return s.sid !== F.sid && String(s.roll || '') === String(F.roll); }); if(dup) e.roll = 'یہ رول نمبر «' + dup.n + '» کا ہے'; }
+    return e;
+  }
   function check(){
     grab(); var er = '';
     if(step === 1){ if(!F.n) er = 'طالب علم کا نام لکھیں'; else if(!F.w) er = 'والد کا نام لکھیں'; else if(F.mob && String(F.mob).replace(/\D/g, '').length < 10) er = 'موبائل نمبر درست نہیں'; else if(!F.mob) er = 'سرپرست کا موبائل نمبر لکھیں'; }
@@ -7663,7 +7692,8 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     $('jm2Err').textContent = er; return !er;
   }
   function save(){
-    if(!check()) return;
+    if(step === 4){ grab(); if(Object.keys(valErr()).length){ admDraw(); var fb = document.querySelector('#jmaAdm .jm68r.bad'); if(fb) fb.scrollIntoView({ block: 'center' }); if(window.jmaToast) jmaToast('⚠️ سرخ خانے درست کریں'); return; } }
+    else if(!check()) return;
     var t = Date.now(), dv = devId(), s = F._edit ? bySid(F.sid) : null;
     var dupName = MS.find(function(x){ return x && !x.del && x !== s && x.n && x.n.trim() === F.n && String(x.w || '').trim() === F.w && x.classId === F.classId; });
     if(dupName && !confirm('اسی جماعت میں «' + F.n + ' ولد ' + F.w + '» پہلے سے موجود ہے۔ پھر بھی نیا داخلہ کریں؟')) return;
@@ -7737,6 +7767,24 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     el.innerHTML = x; el.scrollTop = 0;
   }
 
+  /* MD2411TU069: پیش نظارہ میں خانہ بدلتے ہی حالت تازہ (سرخ / سبز) */
+  document.addEventListener('change', function(e){
+    var t = e.target; if(step !== 4 || !t.closest || !t.closest('#jmaAdm .jm68') || !t.getAttribute('data-f')) return;
+    if(t.tagName !== 'SELECT') return;   /* لکھنے والے خانے: صفحہ دوبارہ نہ بنے (کی بورڈ / اگلا خانہ نہ ٹوٹے) — رنگ «input» پر */
+    grab(); var k = t.getAttribute('data-f');
+    if(k === 'tName'){ var op = t.options[t.selectedIndex]; F.tId = (op && op.getAttribute('data-tid')) || ''; }
+    if(k === 'classId'){ F.roll = String(nextRoll(F.classId, F.sid)); var c = cls().find(function(x){ return x.id === F.classId; }); if(c && c.incharge && !F.tId) F.tName = c.incharge; }
+    var y = $('jmaAdm').scrollTop; admDraw(); $('jmaAdm').scrollTop = y;
+  }, true);
+  document.addEventListener('input', function(e){
+    var t = e.target; if(step !== 4 || !t.closest || !t.closest('#jmaAdm .jm68') || !t.getAttribute('data-f')) return;
+    grab(); var ER = valErr();
+    document.querySelectorAll('#jmaAdm .jm68 .jm68r').forEach(function(r){ var i = r.querySelector('[data-f]'); if(!i) return; var k = i.getAttribute('data-f'), v = String(i.value || '').trim(), req = !!r.querySelector('.rq'), bad = ER[k];
+      r.classList.toggle('bad', !!bad || (!v && req)); r.classList.toggle('mt', !bad && !v && !req);
+      var em = r.querySelector('em'); if(bad){ if(!em){ em = document.createElement('em'); r.querySelector('.v').appendChild(em); } em.textContent = bad; } else if(em) em.remove(); });
+    var sb = document.querySelector('#jmaAdm .jm68 .sb'); if(sb) sb.innerHTML = Object.keys(ER).length ? '<b style="color:#b91c1c">⚠️ سرخ خانے درست کریں</b>' : '✅ سب ضروری خانے مکمل';
+    if(t.getAttribute('data-f') === 'n'){ var nm = document.querySelector('#jmaAdm .jm68 .nm'); if(nm) nm.textContent = t.value || '—'; }
+  }, true);
   /* ---------------- کلک ---------------- */
   document.addEventListener('click', function(e){
     var t = e.target, b;
@@ -9697,7 +9745,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU068" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU069" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10933,7 +10981,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2411TU068', n: 'نئے داخلے میں «👁️ پیش نظارہ» — پورا ریکارڈ دیکھ کر محفوظ کریں، پھر «اگلا طالب علم ←»؛ ہوم کی تصویر پر تین ٹچ: ہر لائن کا فونٹ، رنگ، سائز، جگہ (تیر) اور تصویر کا بہترین ناپ' };
+window.MD_NOTE = { v: 'MD2411TU069', n: 'داخلے کا پیش نظارہ اب قابلِ ترمیم: غلط یا خالی خانہ سرخ نظر آتا ہے، وہیں لکھ کر درست کریں اور سیدھا «✅ محفوظ کریں» — فارم پر واپس جانے کی ضرورت نہیں' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
