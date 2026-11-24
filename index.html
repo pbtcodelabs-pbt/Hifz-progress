@@ -1212,6 +1212,7 @@ td.clickable:hover { background: #fff9e6 !important; }
   #hifzScreen .pr-quran-sub{font-size:12.5px;font-weight:700;margin:14px 0 6px;color:var(--emerald-950)}
 
 </style>
+<style id="jma092css">.jm92g{margin:10px 0;background:#f8fafc;border:1.5px dashed #94a3b8;border-radius:12px;padding:4px 10px}.jm92g summary{cursor:pointer;font-size:15px;color:#475569;padding:4px 0}.jm92g .r{display:flex;align-items:center;gap:8px;padding:5px 0;border-top:1px solid #e2e8f0;cursor:pointer}.jm92g .ph{width:30px;height:30px;border-radius:50%;background:#cbd5e1 center/cover;flex:none}.jm92g small{margin-right:auto;color:#64748b;font-size:12.5px}.jm92g .tip{font-size:13px;color:#64748b;padding:6px 0;line-height:1.9}</style>
 </head><body>
 
 <!-- ========== LOCK SCREEN ========== -->
@@ -1450,7 +1451,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE091</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE092</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -5179,7 +5180,8 @@ function applyRestoreData(data, sourceLabel) {
     alert('❌ یہ درست بیک اپ ڈیٹا نہیں ہے۔\nبراہ کرم صحیح "Jamia_exam_..." بیک اپ منتخب/پیسٹ کریں۔');
     return;
   }
-  const studentCount = data.db.length;
+  let studentCount = data.db.length;
+  try{ const m = data.extra && data.extra['jamia_mgmt_students_v1']; if(m) studentCount = JSON.parse(m).filter(s => s && !s.del && s.n).length; }catch(e){}   /* MD2511WE092: نئے جامعہ نظام کے طلبہ کی گنتی */
   const savedTag = data.saved ? `\n\nفائل کا ٹائم کوڈ: ${data.saved}` : '';
   const ok = confirm(
     `📂 ذریعہ: ${sourceLabel}\n\n` +
@@ -7128,6 +7130,7 @@ async function mdDevSavePass(){
       if(r.student._mgmt){   /* MD2311MO018: نئے نظام کا طالب علم — اسی کی فہرست میں واپس */
         var MS = (window.jmaMgmt && jmaMgmt.students()) || [], m = MS.find(function(x){ return x.sid === r.student.sid; });
         if(m){ delete m.del; m.upd = now(); } else { m = Object.assign({}, r.student); delete m._mgmt; delete m.del; MS.push(m); }
+        try{ if(m.roll && MS.some(function(x){ return x !== m && !x.del && x.classId === m.classId && String(x.roll) === String(m.roll) && !(window.jmaGone && jmaGone(x)); })){ var oldR = m.roll; m.roll = String(window.jmaFreeRoll ? jmaFreeRoll(m.classId, m.sid) : ''); alert('ℹ️ پرانا رول نمبر ' + oldR + ' اب کسی اور کا ہے — «' + m.n + '» کو خالی نمبر ' + m.roll + ' ملا'); } }catch(e){}
         try{ localStorage.setItem('jamia_mgmt_students_v1', JSON.stringify(MS)); }catch(e){ alert('❌ واپس نہیں آ سکا'); return; }
         tx('archive', 'readwrite', function(st){ return st.delete(id); }); jmaAudit('آرکائیو سے واپس (نیا نظام)', m.sid, m.n);
         alert('✅ «' + m.n + '» واپس فہرست میں آ گیا'); mgrPane('arch'); return;
@@ -7162,7 +7165,12 @@ async function mdDevSavePass(){
       snapshot('pre');   /* بحالی سے پہلے موجودہ ڈیٹا کی نقل */
       var _init = window.init, ex = data && data.extra;
       window.init = init = function(){
-        try{ if(ex && typeof ex === 'object'){ for(var k in ex){ if(isMine(k) && ['jamia_data_v4', 'jamia_cfg_v4', 'jamia_classes_v1', 'jamia_current_class_v1'].indexOf(k) < 0){ try{ localStorage.setItem(k, ex[k]); }catch(e){} } } } }catch(e){}
+        /* MD2511WE092: دوسرے موبائل کا بیک اپ اس موبائل پر لگے تو اس کی اپنی پہچان (MD ID، پیکج، ٹرائل، تالا، فون نمبر، والدین کے لنک) کبھی نہیں بدلتی — صرف مدرسے کا ریکارڈ آتا ہے */
+        var keepOwn = ['jamia_mdid_v1', 'jamia_act_v4', 'jamia_trial_v4', 'jamia_pkwarn_v1', 'jamia_dev_v1', 'jamia_uid_v4', 'jamia_applock_v1', 'jamia_pinlock_v1', 'jamia_mgmt_par_v1', 'jamia_users_v1', 'jamia_session_v1', 'jamia_last_backup_v1'];
+        var mine = null; try{ mine = JSON.parse(localStorage.getItem('jamia_mdid_v1') || 'null'); }catch(e){}
+        var other = !!(mine && mine.id) && (function(){ try{ var b = JSON.parse((ex || {})['jamia_mdid_v1'] || 'null'); return !b || b.id !== mine.id; }catch(e){ return true; } })();
+        try{ if(ex && typeof ex === 'object'){ for(var k in ex){ if(isMine(k) && ['jamia_data_v4', 'jamia_cfg_v4', 'jamia_classes_v1', 'jamia_current_class_v1'].indexOf(k) < 0 && !(other && keepOwn.indexOf(k) > -1)){ try{ localStorage.setItem(k, ex[k]); }catch(e){} } } } }catch(e){}
+        if(other) setTimeout(function(){ alert('✅ دوسرے موبائل کا سارا ریکارڈ (طلبہ، حاضری، سبق / سبقی / منزل، امتحان) اس موبائل پر آ گیا۔\n\n🔒 اس موبائل کی اپنی MD ID (' + mine.id + ')، پیکج اور تالا ویسے ہی رہے۔\n🔗 والدین کے لنک یہاں سے نئے بنائیں۔'); }, 600);
         try{ jmaAudit('فائل سے بحالی', '', '', src || ''); }catch(e){}
         window.init = init = _init; return _init.apply(this, arguments);
       };
@@ -7539,7 +7547,9 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 (function(){
   'use strict';
   var REL = ['والد', 'والدہ', 'بھائی', 'چچا', 'ماموں', 'دادا', 'نانا', 'دیگر'];
-  var STATUS = ['حفظ جاری', 'حفظ مکمل', 'سابقہ حفظ', 'ناظرہ', 'نورانی قاعدہ'];
+  var STATUS = ['حفظ جاری', 'حفظ مکمل', 'سابقہ حفظ', 'ناظرہ', 'نورانی قاعدہ', 'فارغ — حفظ مکمل کر کے', 'مدرسہ چھوڑ گیا', 'خارج'];
+  /* MD2511WE092: فارغ / چھوڑ گیا / خارج = جماعت سے باہر؛ اس کا رول نمبر خالی ہو کر نئے داخلے کو ملتا ہے، باقی سب کے رول پکے */
+  window.jmaGone = function(s){ return !!s && /فارغ|خارج|چھوڑ/.test(s.status || ''); };
   var NAZRA = ['شروع نہیں', 'جاری', 'مکمل'];
   function E(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function $(id){ return document.getElementById(id); }
@@ -7556,9 +7566,17 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   function clsName(id){ var c = cls().find(function(x){ return x.id === id; }); return c ? (c.name + (c.incharge ? ' — ' + c.incharge : '')) : '—'; }
   function okCls(id){ return typeof jmaAllowedClass === 'function' ? jmaAllowedClass(id) : true; }
   function canAdmin(){ return typeof jmaCan === 'function' ? jmaCan('classes') : true; }   /* منتظم / مہتمم */
-  function stuOf(classId){ return MS.filter(function(s){ return s && !s.del && s.n && s.classId === classId; })
+  function stuOf(classId){ return MS.filter(function(s){ return s && !s.del && s.n && s.classId === classId && !jmaGone(s); })
     .sort(function(a, b){ var ra = parseInt(a.roll, 10) || 1e9, rb = parseInt(b.roll, 10) || 1e9; return ra - rb || String(a.n).localeCompare(String(b.n), 'ur'); }); }
-  function nextRoll(classId, exceptSid){ var m = 0; stuOf(classId).forEach(function(s){ if(s.sid !== exceptSid){ var r = parseInt(s.roll, 10); if(r > m) m = r; } }); return m + 1; }
+  function nextRoll(classId, exceptSid){ var u = {}; stuOf(classId).forEach(function(s){ if(s.sid !== exceptSid){ var r = parseInt(s.roll, 10); if(r > 0) u[r] = 1; } }); var i = 1; while(u[i]) i++; return i; }   /* MD2511WE092: سب سے پہلا خالی نمبر — کسی کا رول نہیں بدلتا */
+  window.jmaFreeRoll = nextRoll;
+  function goneBox(classId){   /* MD2511WE092: فارغ / چھوڑ گئے / خارج — ریکارڈ محفوظ، رول نمبر خالی */
+    var L = MS.filter(function(s){ return s && !s.del && s.n && s.classId === classId && jmaGone(s); });
+    if(!L.length) return '';
+    return '<details class="jm92g"><summary>🚪 فارغ / چھوڑ جانے والے طلبہ (<span class="jm2-n">' + L.length + '</span>) — ریکارڈ محفوظ</summary>'
+      + L.map(function(s){ return '<div class="r" data-p="' + E(s.sid) + '"><span class="ph" style="' + photoBg(s.photo) + '"></span><b>' + E(s.n) + '</b><small>' + E(s.status) + (s.oldRoll ? ' · پرانا رول <span class="jm2-n">' + E(s.oldRoll) + '</span>' : '') + (s.left ? ' · <span class="jm2-n">' + E(s.left) + '</span>' : '') + '</small></div>'; }).join('')
+      + '<div class="tip">واپس لانا ہو تو طالب علم دبائیں ← «✏️ معلومات بدلیں» ← تعلیمی حیثیت «حفظ جاری» — اسے خود سب سے پہلا خالی رول نمبر مل جائے گا۔</div></details>';
+  }
   function bySid(sid){ return MS.find(function(s){ return s && s.sid === sid; }); }
   function persist(){ try{ localStorage.setItem(MS_K, JSON.stringify(MS)); return true; }catch(e){ alert('❌ محفوظ نہیں ہو سکا — فون میں جگہ کم ہے (تصویر چھوٹی کریں)'); return false; } }
   function refreshOld(){}
@@ -7603,6 +7621,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       + (window.jmaLegend || '')
       + (list.length ? '<div class="jm2-grid">' + list.map(function(s){ var cb = window.jmaCardBits ? jmaCardBits(s.sid) : { cls: '', html: '' }; if(window.jmaKhatmTag) cb = { cls: cb.cls, html: cb.html + jmaKhatmTag(s) }; return '<div class="jm2-c' + cb.cls + '" data-p="' + E(s.sid) + '">' + (canAdmin() ? '<button type="button" class="jm2-cdel" data-a="cdel" data-sid="' + E(s.sid) + '" title="طالب علم حذف کریں">🗑</button>' : '') + '<span class="rl">' + (s.roll ? E(s.roll) : '—') + '</span><div class="ph" style="' + photoBg(s.photo) + '">' + (s.photo ? '' : '👤') + '</div><div class="tx"><div class="nm">' + E(s.n) + '</div><div class="fa">' + (s.w ? 'ولد ' + E(s.w) : '&nbsp;') + '</div>' + cb.html + '</div></div>'; }).join('') + '</div>'
         : '<div class="jm2-empty">' + (qq ? 'کوئی طالب علم نہیں ملا' : 'اس جماعت میں ابھی کوئی طالب علم نہیں — «➕ نیا داخلہ» دبائیں') + '</div>')
+      + goneBox(curCls)
       + '</div>';
     var i = $('jm2Q'); if(i){ i.oninput = function(){ q = i.value; var pos = i.selectionStart; stuDraw(); var j = $('jm2Q'); j.focus(); try{ j.setSelectionRange(pos, pos); }catch(e){} }; }
   }
@@ -7697,6 +7716,8 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     if(!String(F.n || '').trim()) e.n = 'نام لکھیں'; if(!String(F.w || '').trim()) e.w = 'والد کا نام لکھیں';
     if(!mob) e.mob = 'موبائل نمبر لکھیں'; else if(mob.length < 10) e.mob = 'موبائل نمبر پورا نہیں';
     if(!F.classId) e.classId = 'جماعت چنیں';
+    if(jmaGone(F)){ return e; }
+    if(!String(F.roll || '').trim() && F.classId) F.roll = String(nextRoll(F.classId, F.sid));
     if(!/^\d+$/.test(String(F.roll || ''))) e.roll = 'رول نمبر صرف ہندسوں میں';
     else if(F.classId){ var dup = stuOf(F.classId).find(function(s){ return s.sid !== F.sid && String(s.roll || '') === String(F.roll); }); if(dup) e.roll = 'یہ رول نمبر «' + dup.n + '» کا ہے'; }
     return e;
@@ -7704,7 +7725,8 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   function check(){
     grab(); var er = '';
     if(step === 1){ if(!F.n) er = 'طالب علم کا نام لکھیں'; else if(!F.w) er = 'والد کا نام لکھیں'; else if(F.mob && String(F.mob).replace(/\D/g, '').length < 10) er = 'موبائل نمبر درست نہیں'; else if(!F.mob) er = 'سرپرست کا موبائل نمبر لکھیں'; }
-    if(step === 2){ if(!F.classId) er = 'جماعت چنیں'; else if(!/^\d+$/.test(F.roll || '')) er = 'رول نمبر صرف ہندسوں میں';
+    if(step === 2 && !jmaGone(F) && F.classId && !String(F.roll || '').trim()) F.roll = String(nextRoll(F.classId, F.sid));
+    if(step === 2){ if(!F.classId) er = 'جماعت چنیں'; else if(jmaGone(F)) er = ''; else if(!/^\d+$/.test(F.roll || '')) er = 'رول نمبر صرف ہندسوں میں';
       else { var dup = stuOf(F.classId).find(function(s){ return s.sid !== F.sid && String(s.roll || '') === String(F.roll); }); if(dup) er = 'رول نمبر ' + F.roll + ' اس جماعت میں «' + dup.n + '» کا ہے — دوسرا نمبر لکھیں'; } }
     $('jm2Err').textContent = er; return !er;
   }
@@ -7714,7 +7736,8 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     var t = Date.now(), dv = devId(), s = F._edit ? bySid(F.sid) : null;
     var dupName = MS.find(function(x){ return x && !x.del && x !== s && x.n && x.n.trim() === F.n && String(x.w || '').trim() === F.w && x.classId === F.classId; });
     if(dupName && !confirm('اسی جماعت میں «' + F.n + ' ولد ' + F.w + '» پہلے سے موجود ہے۔ پھر بھی نیا داخلہ کریں؟')) return;
-    var o = { n: F.n, w: F.w, grd: F.grd || F.w, rel: F.rel, mob: F.mob, gender: F.gender, admDate: F.admDate, photo: F.photo || '', addr: F.addr, classId: F.classId, roll: F.roll, tId: F.tId || '', tName: F.tName || '', status: F.status, bParas: F.bParas, bPao: F.bPao || {}, surahs: F.surahs, nazra: F.nazra, qaida: F.qaida, notes: F.notes, upd: t, dev: dv };
+    var gone = jmaGone(F); if(gone){ F.oldRoll = F.roll || (s && s.oldRoll) || ''; F.roll = ''; }
+    var o = { left: gone ? ((s && s.left) || today()) : '', oldRoll: gone ? F.oldRoll : ((s && s.oldRoll) || ''), n: F.n, w: F.w, grd: F.grd || F.w, rel: F.rel, mob: F.mob, gender: F.gender, admDate: F.admDate, photo: F.photo || '', addr: F.addr, classId: F.classId, roll: F.roll, tId: F.tId || '', tName: F.tName || '', status: F.status, bParas: F.bParas, bPao: F.bPao || {}, surahs: F.surahs, nazra: F.nazra, qaida: F.qaida, notes: F.notes, upd: t, dev: dv };
     if(s){
       var moved = s.classId !== F.classId || String(s.roll || '') !== String(F.roll);
       Object.assign(s, o);
@@ -8230,7 +8253,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   /* ---------------- جماعت کی حاضری کی اسکرین ---------------- */
   var cur = { cls: '', date: '', ses: 0, why: null };
   window.jmaAttOpen = function(classId, o){ cur.left = !!(o && o.left); cur.keep = {}; cur.conf = false; cur.cls = classId; cur.date = pk(); cur.ses = guess(); cur.why = null; $('jmaAtt').style.display = 'block'; draw(); };
-  function list(){ return ((window.jmaMgmt && jmaMgmt.students()) || []).filter(function(s){ return !s.del && s.classId === cur.cls; })
+  function list(){ return ((window.jmaMgmt && jmaMgmt.students()) || []).filter(function(s){ return !s.del && s.classId === cur.cls && !(window.jmaGone && jmaGone(s)); })
     .sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9) || String(a.n).localeCompare(String(b.n), 'ur'); }); }
   function draw(){
     var el = $('jmaAtt'), L = list(), c = ((window.jmaMgmt && jmaMgmt.classes()) || []).find(function(x){ return x.id === cur.cls; }) || {};
@@ -8369,7 +8392,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   function cls(id){ return C().find(function(c){ return c.id === id; }) || {}; }
   function canMng(){ return typeof jmaCan === 'function' ? jmaCan('classes') : true; }
   function madName(){ try{ return ((window.jmaMadName && jmaMadName()) || (typeof cfg !== 'undefined' && cfg.name)) || ($('homeMadrasaName') || {}).textContent || 'جامعہ'; }catch(e){ return 'جامعہ'; } }
-  function classRoster(classId){ return S().filter(function(s){ return !s.del && s.classId === classId; }).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9) || String(a.n).localeCompare(String(b.n), 'ur'); }); }
+  function classRoster(classId){ return S().filter(function(s){ return !s.del && s.classId === classId && !(window.jmaGone && jmaGone(s)); }).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9) || String(a.n).localeCompare(String(b.n), 'ur'); }); }
   /* MD2311MO036: امتحان کے پارے — روزانہ ریکارڈ (jmaHifzCalc) سے خود؛ x.miq[sid] = چنے ہوئے پارے (کم کیے ہوں تو) */
   function hifzParas(st){ try{ return jmaHifzCalc(st).rows.filter(function(r){ return r.st; }).map(function(r){ return { p: r.para, f: r.st === 'f' }; }); }catch(e){ return []; } }
   function miqSel(x, st){ var all = hifzParas(st), o = x.miq && x.miq[st.sid]; return o ? all.filter(function(a){ return o.indexOf(a.p) > -1; }) : all; }
@@ -8923,7 +8946,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 
   /* ---------------- جماعت کی ماہانہ رپورٹ ---------------- */
   function classReport(classId, ym){
-    var c = cls(classId), L = S().filter(function(s){ return !s.del && s.classId === classId; }).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9); });
+    var c = cls(classId), L = S().filter(function(s){ return !s.del && s.classId === classId && !(window.jmaGone && jmaGone(s)); }).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9); });
     var EN = ((window.jma019 && jma019.EN()) || []).filter(function(e){ return !e.del && e.date.slice(0, 7) === ym; }), by = {};
     EN.forEach(function(e){ if(L.some(function(s){ return s.sid === e.sid; })){ by[e.by || '—'] = (by[e.by || '—'] || 0) + 1; } });
     var rows = L.map(function(s){ var D = monthData(s.sid, ym); return '<tr><td class="n">' + E(s.roll || '') + '</td><td class="nm">' + E(s.n) + '</td><td class="n">' + (D.att && D.att.n ? D.att.pct + '%' : '—') + '</td>' + ['sabaq', 'sabqi', 'manzil'].map(function(k){ var x = D.sc[k]; return '<td class="n">' + x.n + (x.pct != null ? ' (' + x.pct + ')' : '') + '</td>'; }).join('') + '<td class="n">' + (D.ex.length && D.ex[D.ex.length - 1].r.done ? D.ex[D.ex.length - 1].r.pct + '%' : '—') + '</td></tr>'; }).join('');
@@ -9895,7 +9918,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE091" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE092" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10137,7 +10160,7 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && document.body.classList.contains('jm7v')) close(); });
 
   /* ---------------- 📄 رپورٹوں کا مینو ---------------- */
-  function S(cid){ return ((window.jmaMgmt && jmaMgmt.students()) || []).filter(function(s){ return !s.del && s.classId === cid; }).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9) || String(a.n).localeCompare(String(b.n)); }); }
+  function S(cid){ return ((window.jmaMgmt && jmaMgmt.students()) || []).filter(function(s){ return !s.del && s.classId === cid && !(window.jmaGone && jmaGone(s)); }).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9) || String(a.n).localeCompare(String(b.n)); }); }
   function cls(cid){ return ((window.jmaMgmt && jmaMgmt.classes()) || []).find(function(c){ return c.id === cid; }) || {}; }
   function mad(){ try{ return (window.jmaMadName && jmaMadName()) || 'جامعہ'; }catch(e){ return 'جامعہ'; } }
   function pk(){ return window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10); }
@@ -10342,7 +10365,7 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
   function mad(){ try{ return (window.jmaMadName && jmaMadName()) || 'جامعہ'; }catch(e){ return 'جامعہ'; } }
   function classes(){ return ((window.jmaMgmt && jmaMgmt.classes()) || []).filter(function(c){ return !c.del; }); }
   function cls(cid){ return classes().find(function(c){ return c.id === cid; }) || {}; }
-  function S(cid){ return ((window.jmaMgmt && jmaMgmt.students()) || []).filter(function(s){ return !s.del && s.classId === cid; }).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9) || String(a.n).localeCompare(String(b.n)); }); }
+  function S(cid){ return ((window.jmaMgmt && jmaMgmt.students()) || []).filter(function(s){ return !s.del && s.classId === cid && !(window.jmaGone && jmaGone(s)); }).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9) || String(a.n).localeCompare(String(b.n)); }); }
   function head(sub){ var c = window.jmaCfg ? jmaCfg() : {}; return '<div class="hd">' + (c.logo ? '<img src="' + E(c.logo) + '">' : '') + ' <span class="t">' + E(mad()) + '</span><div class="s">' + sub + '</div></div>'; }
   /* مدت */
   function period(k, a0, b0){ var t = dOf(pk()), a, b, nm;
@@ -11674,6 +11697,7 @@ body.jm7v #jm51nav{display:none!important}
     var r = await fetch(W + '/mdpar', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ op: 'put', id: m.id, dev: m.dev, sid: sid, tok: x.tok, pin: withPin ? x.pin : '', data: data }) }).then(function(z){ return z.json(); });
     if(r && r.ok){ o = P(); if(o[sid]){ o[sid].at = Date.now(); o[sid].h = h; setP(o); } } return r;
   }
+  window.jmaParData = function(sid){ var s = stu(sid); return s ? build(s) : null; };   /* MD2511WE092: پوسٹر بھی یہی ڈیٹا */
   window.jmaParBtn = function(sid){ var x = P()[sid]; return '<button type="button" class="par" data-j91="' + E(sid) + '">🔗 والدین کا لنک' + (x ? '<small>(بنا ہوا · ' + (x.at ? new Date(x.at).toLocaleDateString('en-GB') : '') + ')</small>' : '') + '</button>'; };
   function sheet(sid, note){
     var o0 = $('jm94'); if(o0) o0.remove(); var x = P()[sid], s = stu(sid); if(!x || !s) return;
@@ -11796,7 +11820,7 @@ details.jm88i>summary::-webkit-details-marker{display:none}
       var cards = Array.prototype.slice.call(w.children), hd = w.querySelector(':scope > .jm2-hd'), pn = w.querySelector(':scope > .jm2-pn');
       var today = null, att = null; cards.forEach(function(c){ var t = h4(c); if(!today && t.indexOf('📝') === 0) today = c; else if(!att && t.indexOf('🕌 حاضری') === 0) att = c; });
       var q = document.createElement('div'); q.className = 'jm88q';
-      q.innerHTML = '<button type="button" class="pf" data-j88="perf">📊 کارکردگی</button><button type="button" class="rp" data-j88="rep">📄 ماہانہ رپورٹ</button><button type="button" class="mo" data-j88="more">ℹ️ مزید تفصیل</button>' + (window.jmaParBtn ? jmaParBtn(s.sid) : '');
+      q.innerHTML = '<button type="button" class="pf" data-j88="perf">📊 کارکردگی</button><button type="button" class="rp" data-j88="rep">📄 ماہانہ رپورٹ</button><button type="button" class="mo" data-j88="more">ℹ️ مزید تفصیل</button><button type="button" class="pst" data-j93="' + s.sid + '">🎴 پروفائل پوسٹر — واٹس ایپ / PDF</button>' + (window.jmaParBtn ? jmaParBtn(s.sid) : '');
       var more = document.createElement('details'); more.className = 'jm88d'; more.id = 'jm88more'; if(moreOpen) more.open = true;
       more.innerHTML = '<summary>ℹ️ مزید تفصیل — بنیادی معلومات، ختم قرآن، امتحانات، تربیت، تجزیہ، حفظ، تاریخ</summary><div class="in"></div>';
       more.addEventListener('toggle', function(){ moreOpen = more.open; try{ sessionStorage.setItem('jm88more', moreOpen ? '1' : '0'); }catch(e){} });
@@ -11831,7 +11855,7 @@ details.jm88i>summary::-webkit-details-marker{display:none}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2511WE091', n: '🔗 والدین کا آن لائن لنک: طالب علم کے صفحے پر «والدین کا لنک» — ہر بچے کا الگ لنک + پن، والدین صرف اپنا بچہ دیکھیں (حاضری، سبق / سبقی / منزل، روزانہ ریکارڈ)' };
+window.MD_NOTE = { v: 'MD2511WE092', n: '🎴 بچے کا پروفائل پوسٹر (رنگین واٹس ایپ تصویر، کالا سفید PDF، والدین کا لنک) · 🔢 رول نمبر پکے: جو بچہ فارغ / چھوڑ جائے / خارج ہو اس کا نمبر خالی، نئے داخلے کو سب سے پہلا خالی نمبر · 📲 دوسرے موبائل کا بیک اپ لگانے سے اس موبائل کی MD ID / پیکج نہیں بدلتا' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -12667,4 +12691,37 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
 })();
 </script>
 
+<style id="jma093css">
+.jm88q .pst{grid-column:1/-1;background:linear-gradient(135deg,#0f8a5f,#065f46)}
+#jm93{position:fixed;inset:0;z-index:2147483000;overflow:auto;background:linear-gradient(180deg,#d9f2df,#bfe6c9)}
+#jm93 .top{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:8px;padding:6px 12px;background:#065f46;color:#fff;font-family:'Jameel Noori Nastaleeq',var(--nastaliq),serif;direction:rtl}
+#jm93 .top b{font-size:17px;font-weight:400}#jm93 .top button{margin-right:auto;border:0;border-radius:10px;background:rgba(255,255,255,.18);color:#fff;font-size:15px;padding:2px 12px;font-family:inherit}
+#jm93 .mdp{padding-bottom:90px}
+body:has(#jm93) #jm66{display:none}
+</style>
+<script id="jma093">
+/* 🎴 MD2511WE092 (مالک کا حکم): طالب علم کے صفحے پر «🎴 پروفائل پوسٹر» → `#jm93` (poster.js کا `MDPoster.html`) — وہی ڈیٹا جو والدین کے لنک میں جاتا ہے (`jmaParData`)؛
+   «🖼️ رنگین پوسٹر» = تصویر (واٹس ایپ)، «📄 PDF (کالا سفید)» = `jmaPrintNow` میں `.bw`، «💬 والدین کو» = والدین کا لنک (`data-j91`)۔ */
+(function(){
+  'use strict';
+  function close(){ var o = document.getElementById('jm93'); if(o) o.remove(); }
+  window.jmaPosterOpen = function(sid){
+    if(!window.MDPoster || !window.jmaParData){ alert('پوسٹر لوڈ نہیں ہوا — ایپ ایک بار بند کر کے کھولیں'); return; }
+    var D = jmaParData(sid); if(!D) return; close();
+    var o = document.createElement('div'); o.id = 'jm93';
+    o.innerHTML = '<div class="top"><b>🎴 پروفائل پوسٹر</b><button type="button" data-a="x">✕ واپس</button></div>'
+      + MDPoster.html(D, { btns: '<button type="button" data-a="pdf">📄 PDF (کالا سفید)</button><button type="button" data-a="png">🖼️ رنگین پوسٹر</button><button type="button" class="wa" data-a="par">💬 والدین کو</button>' });
+    document.body.appendChild(o);
+    o.addEventListener('click', async function(e){
+      var b = e.target.closest && e.target.closest('button[data-a]'); if(!b) return; var a = b.getAttribute('data-a');
+      if(a === 'x') return close();
+      if(a === 'pdf'){ var d2 = jmaParData(sid); close(); if(window.jmaPrintNow) jmaPrintNow(MDPoster.html(d2, { bw: true, open: true }), 'portrait', '📄 ' + ((d2.s && d2.s.n) || '') + ' — کالا سفید'); return; }
+      if(a === 'png'){ var t0 = b.textContent; b.disabled = true; b.textContent = '⏳ تصویر بن رہی ہے…'; try{ var r = await MDPoster.share(jmaParData(sid), 'report-' + ((D.s && D.s.roll) || sid)); if(r === 'saved' && window.jmaToast) jmaToast('✅ تصویر محفوظ ہو گئی — گیلری / ڈاؤن لوڈ میں'); }catch(x){ alert('❌ تصویر نہیں بن سکی'); } b.disabled = false; b.textContent = t0; return; }
+      if(a === 'par'){ var z = document.createElement('button'); z.setAttribute('data-j91', sid); z.style.display = 'none'; document.body.appendChild(z); z.click(); z.remove(); }
+    });
+  };
+  window.addEventListener('click', function(e){ var b = e.target && e.target.closest && e.target.closest('[data-j93]'); if(!b) return; e.stopPropagation(); e.preventDefault(); jmaPosterOpen(b.getAttribute('data-j93')); }, true);
+})();
+</script>
+<script src="poster.js?v=MD2511WE092"></script>
 </body></html>
