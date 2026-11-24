@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU070</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU071</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9813,7 +9813,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU070" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU071" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -11049,7 +11049,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2411TU070', n: '🏁 ہر طالب علم کے پروفائل اور کارڈ پر ختم قرآن کی متوقع تاریخ — صرف روزانہ سبق کی لائنوں سے؛ سبق بڑھے تو تاریخ قریب، کم ہو تو آگے، خود بخود' };
+window.MD_NOTE = { v: 'MD2411TU071', n: 'ہوم کی تصویر پر سرپرست / مہتمم / قاری صاحب کی لائن اب کبھی غائب نہیں ہوتی (گہرے رنگ پر روشن ہالہ، جگہ کی حد)؛ تین ٹچ پٹی میں «↺ انداز پہلے جیسا»' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
@@ -11439,9 +11439,13 @@ window.MD_NOTE = { v: 'MD2411TU070', n: '🏁 ہر طالب علم کے پروف
   function apply(){
     var d = document.getElementById('jmaDash'); if(!d) return;
     LINES.forEach(function(L){ var el = d.querySelector('.ov66 [data-hs="' + L[0] + '"]'); if(!el) return; var st = ST[L[0]] || {};
+      /* MD2411TU071: لائن کبھی تصویر سے باہر / غائب نہ ہو — جگہ کی حد، گہرے رنگ پر روشن ہالہ */
+      if(st.x) st.x = Math.max(-80, Math.min(80, st.x)); if(st.y) st.y = Math.max(L[0] === "nm" ? -16 : -8, Math.min(8, st.y));
       setI(el, 'font-family', st.ff); setI(el, 'transform', (st.x || st.y) ? 'translate(' + (st.x || 0) + 'px,' + (st.y || 0) + 'px)' : '');
+      var dark = st.c && (function(h){ var m = /^#?([0-9a-f]{6})$/i.exec(h); if(!m) return false; var n = parseInt(m[1], 16); return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) < 110; })(st.c);
+      setI(el, 'text-shadow', dark ? '0 0 3px #fff,0 0 6px #fff,0 0 10px rgba(255,255,255,.8)' : '');
       if(L[0] === 'nm'){ setI(el, 'color', st.c); }
-      else { var b = el.querySelector('b'), i = el.querySelector('i'); if(b){ setI(b, 'color', st.c); setI(b, 'font-family', st.ff); } if(i) setI(i, 'color', st.c); setI(el, 'font-size', st.fs ? st.fs + 'px' : ''); } });
+      else { var b = el.querySelector('b'), i = el.querySelector('i'); if(b){ setI(b, 'color', st.c); setI(b, 'font-family', st.ff); } if(i) setI(i, 'color', st.c); setI(el, 'font-size', st.fs ? Math.max(12, st.fs) + 'px' : ''); } });
   }
   window.jma67Cap = function(){ return (ST.nm || {}).fs || 0; };
   window.jma67Apply = apply;
@@ -11461,6 +11465,7 @@ window.MD_NOTE = { v: 'MD2411TU070', n: '🏁 ہر طالب علم کے پروف
       + '<div class="rw"><span>🎨 رنگ</span><div class="cl">' + COLORS.map(function(x){ return '<i data-c="' + x + '" style="background:' + x + '"></i>'; }).join('') + '<input type="color" id="jm67c"></div></div>'
       + '<div class="rw"><span>🔠 سائز</span><button type="button" class="sq" data-s="-1">−</button><input type="range" id="jm67s" min="10" max="48"><button type="button" class="sq" data-s="1">+</button><button type="button" class="sm" data-s="0">خود</button></div>'
       + '<div class="rw"><span>↕️ جگہ</span><div class="mv"><button type="button" data-m="0,-3">▲</button><button type="button" data-m="0,3">▼</button><button type="button" data-m="3,0">◀</button><button type="button" data-m="-3,0">▶</button><button type="button" data-m="r">⟲</button></div></div>'
+      + '<div class="rw"><span>↺ صاف</span><button type="button" class="sm" data-z="1" style="flex:1">اس لائن کا انداز پہلے جیسا</button><button type="button" class="sm" data-z="all" style="flex:1">سب لائنیں پہلے جیسی</button></div>'
       + '<div class="sec">🖼️ تصویر</div><div class="nt">بہترین تصویر: <b>چوڑائی اونچائی سے دگنی (2:1)</b> — مثلاً <b>1200 × 600</b>۔ فون <b>لیٹا کر کے</b> تصویر بنائیں؛ لگاتے وقت فریم خود اسی ناپ کا ہوتا ہے — انگلی سے کھسکائیں، زوم، روشنی اور رنگ سے سنواریں۔</div>'
       + '<div class="ph"><button type="button" data-a="pic">📷 کیمرہ / 🖼️ گیلری — تصویر بدلیں</button></div>'
       + '<div class="ft"><button type="button" class="x" data-a="x">✕ چھوڑیں</button><button type="button" class="ok" data-a="ok">✅ محفوظ کریں</button></div></div>';
@@ -11492,6 +11497,7 @@ window.MD_NOTE = { v: 'MD2411TU070', n: '🏁 ہر طالب علم کے پروف
       if((b = t.closest('[data-f]'))){ st().ff = FONTS[+b.dataset.f][1]; sync(); refit(); return; }
       if((b = t.closest('[data-c]'))){ st().c = b.dataset.c; sync(); refit(); return; }
       if((b = t.closest('[data-s]'))){ var k = +b.dataset.s; if(!k) delete st().fs; else st().fs = Math.max(10, Math.min(cur === 'nm' ? 48 : 30, (st().fs || (cur === 'nm' ? 32 : 17)) + k * 2)); sync(); refit(); return; }
+      if((b = t.closest('[data-z]'))){ if(b.dataset.z === 'all') ST = {}; else delete ST[cur]; sync(); refit(); return; }
       if((b = t.closest('[data-m]'))){ var m = b.dataset.m; if(m === 'r'){ delete st().x; delete st().y; } else { var xy = m.split(','); st().x = (st().x || 0) + +xy[0]; st().y = (st().y || 0) + +xy[1]; } refit(); return; }
       b = t.closest('[data-a]'); if(!b) return; var a = b.dataset.a;
       if(a === 'x'){ ST = JSON.parse(saved); o.remove(); if(window.jmaDashOpen) jmaDashOpen(); }
