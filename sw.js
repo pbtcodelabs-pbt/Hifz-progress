@@ -1,5 +1,5 @@
 // جامعہ امتحانی سافٹ ویئر — سروس ورکر (آف لائن سپورٹ)
-const CACHE_NAME = 'jamia-hifz-cache-MD2411TU063';
+const CACHE_NAME = 'jamia-hifz-cache-MD2411TU064';
 const CORE_ASSETS = [
   './index.html',
   './manifest.json',
