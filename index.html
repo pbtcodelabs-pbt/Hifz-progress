@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU062</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU063</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9664,7 +9664,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU062" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU063" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10857,7 +10857,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2411TU062', n: '🎨 ہوم کا نیا ڈیزائن «مدرسہ انتظامیہ»: اوپر مدرسے کی تصویر، ربن پر مدرسے کا نام، سرپرست / مہتمم / استاد کے نام، تاریخ، 6 خانے گنتی کے ساتھ اور نیچے مستقل بٹنوں کی پٹی؛ مدرسے کی تصویر کیمرہ / گیلری + روشنی و رنگ کے آلے سے' };
+window.MD_NOTE = { v: 'MD2411TU063', n: 'ہوم کے خانوں کی نئی ترتیب: 1 سبق، 2 سبقی، 3 منزل، 4 حاضری، 5 طلبہ، 6 رپورٹس (دائیں کونے سے شروع)' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
@@ -11090,12 +11090,12 @@ window.MD_NOTE = { v: 'MD2411TU062', n: '🎨 ہوم کا نیا ڈیزائن «
       + '<div class="dt62"><span class="or">❦</span><div><i>' + IC.cal + '</i> بروز ' + w + '، <bdi>' + (+q[2]) + '</bdi> ' + MN[+q[1] - 1] + ' <bdi>' + q[0] + '</bdi>ء</div><span class="or">❦</span></div>'
       + '<div class="sh62"><span>اہم شعبے</span></div>'
       + '<div class="g62t">'
-      + tile('c-man', 'h-manzil.png', 'منزل', L.manzil ? 'data-d="kpient"' : 'data-d35="1"', kn(L.manzil), !L.manzil)
       + tile('c-sab', 'h-sabaq.png', 'سبق', L.sabaq ? 'data-d="kpient"' : 'data-d35="1"', kn(L.sabaq), !L.sabaq)
       + tile('c-sbq', 'h-sabqi.png', 'سبقی', L.sabqi ? 'data-d="kpient"' : 'data-d35="1"', kn(L.sabqi), !L.sabqi)
-      + tile('c-rep', 'h-rep.png', 'رپورٹس', 'data-d="rep"', null)
-      + tile('c-stu', 'h-stu.png', 'طلبہ', 'data-d="stu"', nStu)
+      + tile('c-man', 'h-manzil.png', 'منزل', L.manzil ? 'data-d="kpient"' : 'data-d35="1"', kn(L.manzil), !L.manzil)
       + tile('c-att', 'h-att.png', 'حاضری', 'data-d="' + (L.att ? 'kpiatt' : 'att') + '"', kn(L.att), !L.att)
+      + tile('c-stu', 'h-stu.png', 'طلبہ', 'data-d="stu"', nStu)
+      + tile('c-rep', 'h-rep.png', 'رپورٹس', 'data-d="rep"', null)
       + '</div>'
       + (bkOk ? '' : '<button type="button" class="bk62" data-k54="drive">☁️ ' + (on ? 'آج کا بیک اپ ابھی نہیں ہوا — دبائیں' : 'ڈرائیو بیک اپ جوڑیں — ریکارڈ محفوظ رکھیں') + '</button>')
       + (vs ? '<div class="v62">V' + vs + '</div>' : '')
