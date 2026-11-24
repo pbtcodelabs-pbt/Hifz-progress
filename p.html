@@ -14,7 +14,7 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tx);font-family:N,'Noto Nastaliq Urdu',serif;font-size:16px}
 .n{font-family:Arial,sans-serif;font-weight:700;unicode-bidi:isolate;direction:ltr;display:inline-block}
-.wrap{max-width:460px;margin:0 auto;padding:12px}
+.wrap{max-width:460px;margin:0 auto;padding:12px}.wrap>.mdp{margin:-12px;padding:12px 4px}
 .card{background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08)}
 .mad{font-size:14px;color:var(--g);text-align:center;padding:5px;background:#e6f2ee}
 .hd{background:#f3f7f5;padding:14px;display:flex;gap:12px;align-items:center;border-bottom:3px solid var(--g)}
@@ -54,6 +54,7 @@ details[open] summary i{transform:rotate(180deg)}
 </style>
 </head>
 <body>
+<script src="poster.js?v=MD2511WE092"></script>
 <div class="wrap" id="app"><div class="box">⏳ …</div></div>
 <script>
 (function(){
@@ -80,31 +81,15 @@ details[open] summary i{transform:rotate(180deg)}
       ask(j && j.reason === 'pin' ? '❌ پن غلط ہے' + (j.left != null ? ' — ' + N(j.left) + ' کوشش باقی' : '') : j && j.reason === 'lock' ? '⏳ زیادہ غلط پن — ' + N(j.wait) + ' منٹ بعد دوبارہ' : j && j.reason === 'gone' ? 'یہ لنک بند ہو چکا ہے — مدرسے سے نیا لنک لیں' : 'کچھ مسئلہ — دوبارہ کوشش کریں');
     }).catch(function(){ ask('📶 انٹرنیٹ چیک کریں'); });
   }
-  function draw(d, ts){
-    var s = d.s || {}, A = d.at || {}, m = A.m || {}, pm = A.pm || {}, rk = (d.rk && d.rk.l) || [], h = d.h || {}, kh = d.kh;
-    var avg = rk.length ? Math.round(rk.reduce(function(t, x){ return t + x.p; }, 0) / rk.length) : null, by = {}; rk.forEach(function(x){ by[x.k] = x; });
-    var H = '<div class="card"><div class="mad">' + E(d.mad || '') + '</div>'
-      + '<div class="hd"><div class="ph"' + (s.ph ? ' style="background-image:url(' + E(s.ph) + ')"' : '') + '>' + (s.ph ? '' : '👤') + '</div><div><div class="nm">' + E(s.n) + '</div><div class="mt">' + (s.w ? 'ولد ' + E(s.w) + ' · ' : '') + (s.roll ? 'رول ' + N(s.roll) + ' · ' : '') + E(s.cls || '') + (s.ust ? '<br>استاد: ' + E(s.ust) : '') + '</div></div></div>'
-      + '<div class="st"><div><b>' + (m.pct != null ? m.pct + '%' : '—') + '</b>حاضری</div>' + ['سبق', 'سبقی', 'منزل'].map(function(k){ return '<div><b>' + (by[k] ? by[k].p : '—') + '</b>' + k + '</div>'; }).join('') + '</div>';
-    if(rk.length) H += '<div class="rk"><div class="t">📈 کون اوپر، کون نیچے (پچھلے ' + N(d.rk.d) + ' دن)</div><div class="rk3">' + rk.map(function(x, i){ return '<span class="' + (i === 0 ? 'gd' : i === rk.length - 1 && rk.length > 1 ? 'w' : '') + '">' + '①②③'[i] + ' ' + x.k + '<b>' + x.p + '%' + (x.tr >= 5 ? ' ↑' : x.tr <= -5 ? ' ↓' : '') + '</b></span>'; }).join('') + '</div></div>';
-    var w = rk.length > 1 ? rk[rk.length - 1] : null;
-    H += '<details><summary>📊 <b>کارکردگی</b>' + (avg != null ? '<em>اوسط ' + avg + '/100</em>' : '') + '<i>▾</i></summary><div class="in">'
-      + (rk.length ? rk.map(function(x){ return '• ' + x.k + ': ' + N(x.p + '%') + (x.m ? ' · روزانہ غلطی ' + N(x.m) : '') + (x.a ? ' · اٹکن ' + N(x.a) : ''); }).join('<br>') : 'ابھی کم ریکارڈ')
-      + (w && (w.p < 85 || rk[0].p - w.p >= 10) ? '<br>⚠️ <b>' + w.k + '</b> نسبتاً کمزور — گھر پر بھی ' + w.k + ' سنیں۔' : rk.length ? '<br>✅ ماشاء اللہ، تینوں اچھے جا رہے ہیں۔' : '') + '</div></details>';
-    H += '<details><summary>🕌 <b>حاضری</b>' + (m.pct != null ? '<em>' + m.pct + '%</em>' : '') + '<i>▾</i></summary><div class="in">'
-      + ymN(A.ym) + ': ' + (m.n ? 'حاضر ' + N(m.p) + ' · آدھی ' + N(m.h) + ' · غیر حاضر ' + N(m.a) + ' نشستیں' : 'ابھی درج نہیں')
-      + '<br>' + ymN(A.pym) + ': ' + (pm.n ? N(pm.pct + '%') + ' (حاضر ' + N(pm.p) + ' · غیر حاضر ' + N(pm.a) + ')' : '—')
-      + (function(){ var ab = (d.days || []).filter(function(x){ var r = x.a.filter(function(v){ return v && v !== 'c'; }); return r.length && r.every(function(v){ return v === 'a'; }); }); return ab.length ? '<br>❌ پورے دن غیر حاضر: ' + ab.map(function(x){ return dt(x.d) + (x.w ? ' (' + E(x.w) + ')' : ''); }).join('، ') : ''; })() + '</div></details>';
-    H += '<details><summary>📖 <b>حفظ کی ترقی</b>' + (h.pct != null ? '<em>' + h.pct + '%</em>' : '') + '<i>▾</i></summary><div class="in">' + (h.pct != null ? 'قرآن مجید کا ' + N(h.pct + '%') + ' یاد' + (h.full ? ' · مکمل پارے ' + N(h.full) : '') + (h.part ? ' · جزوی ' + N(h.part) : '') : '—') + '</div></details>';
-    if(kh) H += '<details><summary>🏁 <b>ختم قرآن</b><em>' + (kh.done ? 'مکمل' : (function(){ var x = new Date(kh.d + 'T12:00:00'); return MN[x.getMonth()] + ' ' + x.getFullYear(); })()) + '</em><i>▾</i></summary><div class="in">' + (kh.done ? 'الحمدللہ حفظ مکمل' : 'موجودہ رفتار سے متوقع تاریخ: ' + dt(kh.d) + ' ' + N(kh.d.slice(0, 4)) + (kh.tr === 'up' ? ' — رفتار بڑھ رہی ہے ↑' : kh.tr === 'dn' ? ' — رفتار کم ہو رہی ہے ↓' : '')) + '</div></details>';
-    H += '<details open><summary>📝 <b>روزانہ ریکارڈ</b><em>پچھلے 30 دن</em><i>▾</i></summary><div class="in">' + ((d.days || []).map(function(x){
-      var six = '<span class="six">' + x.a.map(function(v, i){ return v === 'c' ? '' : '<u class="' + (v || '') + '" title="' + SES[i] + '">' + (v === 'p' ? 'ح' : v === 'h' ? '½' : v === 'a' ? 'غ' : '·') + '</u>'; }).join('') + '</span>';
-      return '<div class="day"><h5>' + dt(x.d) + six + '</h5>' + (x.e.length ? x.e.map(function(e){ var k = KN[e.k] || [e.k, '']; return '<div class="e"><b class="' + k[1] + '">' + k[0] + ':</b> ' + E(e.q) + (e.at ? ' · اٹکن ' + N(e.at) : '') + (e.m ? ' · غلطی ' + N(e.m) : '') + (e.p ? ' · ' + E(e.p) : '') + (e.l ? ' · سنا: ' + E(e.l) : '') + '</div>'; }).join('') : '<div class="e" style="color:#94a3b8">سبق / سبقی / منزل درج نہیں</div>') + (x.w ? '<div class="e" style="color:#b91c1c">وجہ: ' + E(x.w) + '</div>' : '') + '</div>';
-    }).join('') || 'ابھی ریکارڈ نہیں') + '<div style="font-size:12px;color:#94a3b8">ح = حاضر · ½ = آدھی · غ = غیر حاضر (ہر خانہ ایک نشست)</div></div></details>';
-    H += '<div class="sh"><button id="pr">📄 PDF / پرنٹ</button><button id="out">🔒 اس فون سے ہٹائیں</button></div><div class="ft">آخری تازگی: ' + (ts ? N(new Date(ts).toLocaleString('en-GB', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })) : '') + ' · یہ رپورٹ صرف آپ کے بچے کی ہے</div></div>';
-    app.innerHTML = H;
-    document.getElementById('pr').onclick = function(){ document.querySelectorAll('details').forEach(function(x){ x.open = true; }); setTimeout(function(){ window.print(); }, 200); };
-    document.getElementById('out').onclick = function(){ try{ localStorage.removeItem(K); }catch(e){} ask(''); };
+  function draw(d, ts){   /* MD2511WE092: وہی پروفائل پوسٹر (poster.js) — رنگین تصویر واٹس ایپ کے لیے، PDF کالا سفید */
+    var foot = 'آخری تازگی: ' + (ts ? N(new Date(ts).toLocaleString('en-GB', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })) : '') + ' · یہ رپورٹ صرف آپ کے بچے کی ہے';
+    if(!window.MDPoster){ app.innerHTML = '<div class="box">⏳ …</div>'; setTimeout(function(){ draw(d, ts); }, 400); return; }
+    document.body.style.background = 'linear-gradient(180deg,#d9f2df,#bfe6c9)';
+    app.innerHTML = MDPoster.html(d, { foot: foot, btns: '<button id="pr">📄 PDF (کالا سفید)</button><button id="img">🖼️ رنگین تصویر</button><button id="out">🔒 اس فون سے ہٹائیں</button>' });
+    document.getElementById('pr').onclick = function(){ var keep = app.innerHTML; app.innerHTML = MDPoster.html(d, { bw: true, open: true, foot: foot }); document.body.style.background = '#fff';
+      var back = function(){ window.removeEventListener('afterprint', back); draw(d, ts); }; window.addEventListener('afterprint', back); setTimeout(function(){ window.print(); }, 300); };
+    document.getElementById('img').onclick = function(){ var b = this; b.disabled = true; b.textContent = '⏳ …'; MDPoster.share(d, 'report').then(function(){ b.disabled = false; b.textContent = '🖼️ رنگین تصویر'; }, function(){ b.disabled = false; b.textContent = '🖼️ رنگین تصویر'; }); };
+    document.getElementById('out').onclick = function(){ try{ localStorage.removeItem(K); }catch(e){} document.body.style.background = ''; ask(''); };
   }
   var saved = ''; try{ saved = localStorage.getItem(K) || ''; }catch(e){}
   if(saved) load(saved, true); else ask('');
