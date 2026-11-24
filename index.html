@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU067</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU068</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7493,6 +7493,21 @@ async function mdDevSavePass(){
 <div id="jmaStu" class="no-print"></div>
 <div id="jmaPro" class="no-print"></div>
 <div id="jmaAdm" class="no-print"></div>
+<style id="jma068css">
+.jm68 .hd{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.jm68 .pv{width:64px;height:64px;border-radius:50%;flex:none;background:#d1fae5 center/cover no-repeat;border:3px solid #d4af37;display:flex;align-items:center;justify-content:center;font-size:24px}
+.jm68 .nm{font:400 22px/1.6 'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;color:#065f46}
+.jm68 .sb{font-size:14px;color:#475569}
+.jm68 .n{font-family:Arial,sans-serif;font-weight:700;direction:ltr;unicode-bidi:isolate}
+.jm68r{display:flex;gap:8px;border-top:1px solid #eef2f7;padding:0 2px;font-size:14px;line-height:1.55}
+.jm68r b.n{font-size:13px}
+.jm68r span{flex:none;width:92px;color:#64748b}
+.jm68r b{flex:1;font-weight:400;color:#0f172a;overflow-wrap:anywhere}
+.jm68r i{color:#cbd5e1;font-style:normal}
+.jm68 .tip{text-align:center;font-size:13px;color:#92400e;margin-top:6px}
+.jm68.ok{border:2px solid #86efac}
+#jmaAdm .jm2-steps div{font-size:12.5px;white-space:nowrap;overflow:hidden;padding:3px 1px}
+</style>
 <script id="jma017">
 /* MD2311MO041: پاروں کے نام (مالک کا حکم) */
 window.JMA_PARA = ['الم', 'سیقول', 'تلک الرسل', 'لن تنالوا', 'والمحصنات', 'لا یحب اللہ', 'واذا سمعوا', 'ولو اننا', 'قال الملا', 'واعلموا', 'یعتذرون', 'وما من دابۃ', 'وما ابرئ', 'ربما', 'سبحن الذی', 'قال الم', 'اقترب', 'قد افلح', 'وقال الذین', 'امن خلق', 'اتل ما اوحی', 'ومن یقنت', 'ومالی', 'فمن اظلم', 'الیہ یرد', 'حم', 'قال فما خطبکم', 'قد سمع اللہ', 'تبرک الذی', 'عم'];
@@ -7590,7 +7605,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   function admDraw(){
     var el = $('jmaAdm'), h = '';
     h += '<div class="jm2-top"><b>' + (F._edit ? '✏️ معلومات بدلیں — ' + E(F.n) : '➕ نیا داخلہ') + '</b><button data-x="adm">✕</button></div><div class="jm2-wrap">';
-    h += '<div class="jm2-steps">' + ['① بنیادی معلومات', '② تعلیمی معلومات', '③ ابتدائی ریکارڈ'].map(function(t, i){ return '<div class="' + (step === i + 1 ? 'on' : step > i + 1 ? 'dn' : '') + '">' + t + '</div>'; }).join('') + '</div>';
+    h += '<div class="jm2-steps">' + ['① بنیادی', '② تعلیمی', '③ ابتدائی ریکارڈ', '④ پیش نظارہ'].map(function(t, i){ return '<div class="' + (step === i + 1 ? 'on' : step > i + 1 ? 'dn' : '') + '">' + t + '</div>'; }).join('') + '</div>';
     if(step === 1){
       h += '<div class="jm2-card"><div class="jm2-photo"><div class="pv" id="jm2Pv" style="' + photoBg(F.photo) + '">' + (F.photo ? '' : '📷') + '</div><div style="flex:1"><button type="button" class="jm2-btn o" data-a="photo" style="width:100%">📷 تصویر لیں / چنیں</button>' + (F.photo ? '<button type="button" class="jm2-btn r" data-a="nophoto" style="width:100%;margin-top:6px;font-size:15px">تصویر ہٹائیں</button>' : '') + '</div></div><input type="file" id="jm2File" accept="image/*" style="display:none"></div>';
       h += '<div class="jm2-card"><label class="jm2-l">طالب علم کا مکمل نام <i>*</i></label><input class="jm2-in" data-f="n" value="' + E(F.n) + '">'
@@ -7608,6 +7623,16 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
         + '<label class="jm2-l">رول نمبر <span style="font-size:13px;color:#64748b">(خودکار اگلا خالی نمبر' + (canAdmin() ? '؛ آپ بدل سکتے ہیں' : '') + ')</span></label><input class="jm2-in" data-f="roll" value="' + E(F.roll) + '" inputmode="numeric" dir="ltr" style="font:800 20px Arial;text-align:center"' + (canAdmin() ? '' : ' readonly') + '>'
         + (lockRoll ? '<div style="font-size:13px;color:#64748b;margin-top:4px">رول نمبر صرف منتظم / مہتمم بدل سکتا ہے</div>' : '')
         + '<label class="jm2-l">موجودہ تعلیمی حیثیت</label>' + sel('status', STATUS, F.status) + '</div>';
+    } else if(step === 4){
+      /* MD2411TU068 (مالک کا حکم): محفوظ کرنے سے پہلے پورا ریکارڈ ایک نظر میں */
+      var pf = [], pp = []; for(var q in F.bParas){ if(F.bParas[q] === 'f') pf.push(+q); else if(F.bParas[q] === 'p') pp.push(+q); } pf.sort(function(a, b){ return a - b; }); pp.sort(function(a, b){ return a - b; });
+      var row = function(l, v, ltr){ return '<div class="jm68r"><span>' + l + '</span><b' + (ltr ? ' class="n"' : '') + '>' + (v ? E(v) : '<i>—</i>') + '</b></div>'; };
+      h += '<div class="jm2-card jm68"><div class="hd"><div class="pv" style="' + photoBg(F.photo) + '">' + (F.photo ? '' : '📷') + '</div><div><div class="nm">' + E(F.n) + '</div><div class="sb">ولد ' + E(F.w) + ' · رول <b class="n">' + E(F.roll) + '</b></div></div></div>'
+        + row('جنس', F.gender) + row('سرپرست', (F.grd || F.w) + (F.rel ? ' (' + F.rel + ')' : '')) + row('موبائل', F.mob, 1) + row('داخلہ', F.admDate, 1) + row('پتہ', F.addr)
+        + row('جماعت', clsName(F.classId)) + row('ذمہ دار استاد', F.tName) + row('تعلیمی حیثیت', F.status)
+        + row('مکمل پارے', pf.length ? pf.join('، ') + ' (' + pf.length + ')' : '', 1) + row('جزوی پارے', pp.join('، '), 1)
+        + row('سورتیں', F.surahs) + row('ناظرہ', F.nazra) + row('نورانی قاعدہ', F.qaida) + row('دیگر', F.notes)
+        + '<div class="tip">سب ٹھیک ہو تو «✅ محفوظ کریں» دبائیں — کچھ بدلنا ہو تو «→ پیچھے»</div></div>';
     } else {
       var fc = 0, pc = 0; for(var k in F.bParas){ if(F.bParas[k] === 'f') fc++; else if(F.bParas[k] === 'p') pc++; }
       h += '<div class="jm2-card"><h4>📖 پہلے سے یاد شدہ پارے</h4><div style="font-size:14px;color:#475569;line-height:1.9;margin-bottom:6px">پارہ دبائیں: ایک بار = مکمل (سبز)، دوبارہ = جزوی (پیلا)، تیسری بار = ہٹائیں</div>'
@@ -7618,7 +7643,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
         + '<label class="jm2-l">نورانی قاعدہ (کون سا سبق / مکمل)</label><input class="jm2-in" data-f="qaida" value="' + E(F.qaida) + '" placeholder="مثلاً: سبق 12 / مکمل">'
         + '<label class="jm2-l">دیگر ضروری تعلیمی معلومات</label><textarea class="jm2-in" data-f="notes" rows="2">' + E(F.notes) + '</textarea></div>';
     }
-    h += '<div class="jm2-err" id="jm2Err"></div><div class="jm2-nav">' + (step > 1 ? '<button class="jm2-btn o" data-a="back">→ پیچھے</button>' : '') + (step < 3 ? '<button class="jm2-btn" data-a="next">آگے ←</button>' : '<button class="jm2-btn" data-a="save">✅ ' + (F._edit ? 'محفوظ کریں' : 'داخلہ مکمل کریں') + '</button>') + '</div></div>';
+    h += '<div class="jm2-err" id="jm2Err"></div><div class="jm2-nav">' + (step > 1 ? '<button class="jm2-btn o" data-a="back">→ پیچھے</button>' : '') + (step < 3 ? '<button class="jm2-btn" data-a="next">آگے ←</button>' : step === 3 ? '<button class="jm2-btn" data-a="next">👁️ پیش نظارہ ←</button>' : '<button class="jm2-btn" data-a="save">✅ محفوظ کریں</button>') + '</div></div>';
     el.innerHTML = h; el.scrollTop = 0;
     var fi = $('jm2File'); if(fi) fi.onchange = function(){ var f = fi.files && fi.files[0]; if(f) readPhoto(f); };
   }
@@ -7657,10 +7682,16 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       try{ jmaAudit('نیا داخلہ', s.sid, s.n, clsName(s.classId) + ' · رول ' + s.roll); }catch(e){}
     }
     refreshOld();
-    $('jmaAdm').style.display = 'none';
     curCls = s.classId; if($('jmaStu').style.display === 'block') stuDraw();
+    if(!F._edit){
+      /* MD2411TU068: داخلہ مکمل → «اگلا طالب علم ←» */
+      $('jmaAdm').innerHTML = '<div class="jm2-top"><b>✅ داخلہ مکمل</b><button data-x="adm">✕</button></div><div class="jm2-wrap"><div class="jm2-card jm68 ok"><div class="hd"><div class="pv" style="' + photoBg(s.photo) + '">' + (s.photo ? '' : '📷') + '</div><div><div class="nm">' + E(s.n) + '</div><div class="sb">مستقل نمبر <b class="n">' + E(s.sid) + '</b> · رول <b class="n">' + E(s.roll) + '</b></div></div></div><div class="tip" style="color:#15803d;font-size:16px">✅ ریکارڈ محفوظ ہو گیا</div></div>'
+        + '<div class="jm2-nav"><button class="jm2-btn o" data-a="viewpro" data-sid="' + E(s.sid) + '">👤 پروفائل دیکھیں</button><button class="jm2-btn" data-a="nextstu">اگلا طالب علم ←</button></div></div>';
+      $('jmaAdm').scrollTop = 0; return;
+    }
+    $('jmaAdm').style.display = 'none';
     jmaProOpen(s.sid);
-    alert(F._edit ? '✅ محفوظ ہو گیا' : '✅ داخلہ مکمل — مستقل نمبر: ' + s.sid);
+    alert('✅ محفوظ ہو گیا');
   }
   /* پہلے سے یاد مکمل پارے → حفظ پروگریس کا «پہلے سے مکمل» (صرف اگر وہاں ابھی کچھ درج نہ ہو)؛ جزوی پارے الگ ریکارڈ میں (مرحلہ 6 میں پارہ وار حساب) */
   function seedHifzBaseline(s){
@@ -7744,6 +7775,8 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     if(a === 'next'){ if(check()){ step++; admDraw(); } return; }
     if(a === 'back'){ grab(); step--; admDraw(); return; }
     if(a === 'save'){ save(); return; }
+    if(a === 'nextstu'){ jmaAdmOpen(); return; }
+    if(a === 'viewpro'){ $('jmaAdm').style.display = 'none'; jmaProOpen(b.getAttribute('data-sid')); return; }
   });
 
   window.jmaAdmF = function(){ return F; }; window.jmaAdmRedraw = function(){ admDraw(); }; window.jmaAdmGrab = function(){ grab(); };
@@ -9664,7 +9697,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU067" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU068" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10900,7 +10933,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2411TU067', n: 'ہوم کی تصویر پر تین بار ٹچ کریں: وہیں مدرسے کا نام، سرپرست، مہتمم، قاری صاحب، نام کا فونٹ (کشیدہ / نستعلیق / نسخ / ثلث) اور تصویر بدلیں؛ نام ہمیشہ ایک لائن میں، اوپر کا حصہ چھوٹا' };
+window.MD_NOTE = { v: 'MD2411TU068', n: 'نئے داخلے میں «👁️ پیش نظارہ» — پورا ریکارڈ دیکھ کر محفوظ کریں، پھر «اگلا طالب علم ←»؛ ہوم کی تصویر پر تین ٹچ: ہر لائن کا فونٹ، رنگ، سائز، جگہ (تیر) اور تصویر کا بہترین ناپ' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
@@ -11098,8 +11131,8 @@ window.MD_NOTE = { v: 'MD2411TU067', n: 'ہوم کی تصویر پر تین با
 .x62 .ov66{padding:50px 3% 8px!important}
 .x62 .ov66 .nm58{font-size:var(--nmfs,30px)!important;white-space:nowrap!important;overflow:hidden!important;line-height:1.6!important}
 .x62 .r66{font-size:clamp(14px,4vw,18px)!important;line-height:1.6!important}
-#jm67{position:fixed;inset:0;z-index:2147483060;background:rgba(2,44,34,.5);display:flex;align-items:flex-end;justify-content:center;direction:rtl}
-#jm67 .bx{background:#fffdf4;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;border-radius:18px 18px 0 0;border-top:3px solid #e6c35c;padding:8px 12px calc(10px + env(safe-area-inset-bottom,0px));font-family:'Jameel Noori Nastaleeq',var(--nastaliq),serif;box-sizing:border-box}
+#jm67{position:fixed;inset:0;z-index:2147483060;background:linear-gradient(180deg,transparent 0,transparent 36%,rgba(2,44,34,.35) 37%);display:flex;align-items:flex-end;justify-content:center;direction:rtl}
+#jm67 .bx{background:#fffdf4;width:100%;max-width:480px;max-height:63vh;overflow-y:auto;border-radius:18px 18px 0 0;border-top:3px solid #e6c35c;padding:8px 12px calc(10px + env(safe-area-inset-bottom,0px));font-family:'Jameel Noori Nastaleeq',var(--nastaliq),serif;box-sizing:border-box}
 #jm67 h3{margin:0;text-align:center;font:400 20px/1.7 'Jameel Noori Nastaleeq Kasheeda',serif;color:#0b6b2c}
 #jm67 .rw{display:flex;align-items:center;gap:6px;margin-top:5px}
 #jm67 .rw span{flex:none;width:64px;font-size:14px;color:#334155}
@@ -11110,6 +11143,21 @@ window.MD_NOTE = { v: 'MD2411TU067', n: 'ہوم کی تصویر پر تین با
 #jm67 .ph{display:flex;gap:6px;margin-top:6px}
 #jm67 .ph button,#jm67 .ok,#jm67 .x{flex:1;border:1.5px solid #0f766e;background:#fff;color:#0f766e;border-radius:12px;padding:0 6px;font:inherit;font-size:15px;line-height:2.1}
 #jm67 .ft{display:flex;gap:6px;margin-top:8px}
+#jm67 .sec{margin-top:8px;font:400 15px/1.8 'Jameel Noori Nastaleeq Kasheeda',serif;color:#0b6b2c;border-top:1px dashed #e6c35c;padding-top:2px}
+#jm67 .ln{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+#jm67 .ln button{border:1.5px solid #94a3b8;background:#fff;border-radius:10px;font-size:14px;line-height:1.9;padding:0 2px;white-space:nowrap;overflow:hidden}
+#jm67 .ln button.on{background:#0f766e;color:#fff;border-color:#0f766e}
+#jm67 .cl{flex:1;display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+#jm67 .cl i{width:24px;height:24px;border-radius:50%;border:2px solid #cbd5e1;display:block}
+#jm67 .cl i.on{outline:3px solid #0f766e;outline-offset:1px}
+#jm67 .cl input{flex:none;width:34px;height:26px;padding:0;border:1.5px solid #94a3b8;border-radius:6px}
+#jm67 #jm67s{flex:1;accent-color:#0f766e;padding:0;border:0;direction:ltr}
+#jm67 .sq{flex:none;width:32px;height:30px;border-radius:8px;border:1.5px solid #0f766e;background:#ecfdf5;color:#0f766e;font:900 17px Arial;padding:0}
+#jm67 .sm{flex:none;border:1.5px solid #94a3b8;background:#fff;border-radius:8px;padding:0 6px;font-size:13px;line-height:1.9}
+#jm67 .mv{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+#jm67 .mv button{height:32px;border-radius:8px;border:1.5px solid #0f766e;background:#ecfdf5;color:#0f766e;font:900 15px Arial;padding:0}
+#jm67 .nt{font-size:13px;line-height:1.85;color:#475569;background:#fef9e7;border-radius:10px;padding:2px 8px}
+#jm67 .nt b{color:#0b6b2c;font-weight:400}
 #jm67 .ok{flex:2;background:linear-gradient(135deg,#059669,#065f46);color:#fff;border:0;font-size:17px}
 </style>
 <script id="jma054">
@@ -11179,7 +11227,7 @@ window.MD_NOTE = { v: 'MD2411TU067', n: 'ہوم کی تصویر پر تین با
       + nav('data-k54="top"', 'home', 'ہوم', 'hm') + nav('data-d="exm"', 'exm', 'امتحانات') + nav('data-d="stu"', 'stu', 'طلبہ پروفائل') + nav('data-d="cfg"', 'mad', 'مدرسہ پروفائل')
       + '</nav></div>';
     paintPhoto(); try{ if(window.jmaHdrApply) jmaHdrApply(); }catch(e){}
-    var hs = {}; try{ hs = (JSON.parse(localStorage.getItem('jamia_hdr_style_v1') || '{}') || {}).nm || {}; }catch(e){} if(!hs.fs) fitName();
+    fitName(); try{ if(window.jma67Apply) jma67Apply(); }catch(e){}
   }
   /* ⚙️ سیٹنگز: باقی سب کام ایک جگہ */
   function menu(){
@@ -11196,11 +11244,12 @@ window.MD_NOTE = { v: 'MD2411TU067', n: 'ہوم کی تصویر پر تین با
   /* MD2411TU061: نام کبھی نہ کٹے — جگہ کے حساب سے خود چھوٹا، پھر بھی بڑا ہو تو دو لائن */
   function fitName(){ var n = $('jm58nm'); if(!n) return;
     if(n.closest('.ov66')){ /* MD2411TU067: ہمیشہ ایک لائن — سائز CSS متغیر سے (jmaHdrApply اسے نہیں مٹاتا) */
-      var box = n.parentNode, f = Math.min(40, box.clientWidth / 7); box.style.setProperty('--nmfs', f + 'px');
+      var box = n.parentNode, cap = (window.jma67Cap && jma67Cap()) || 40, f = Math.min(cap, box.clientWidth / 7); box.style.setProperty('--nmfs', f + 'px');
       var g2 = 0; while(n.scrollWidth > n.clientWidth + 1 && f > 13 && g2++ < 60){ f -= 1; box.style.setProperty('--nmfs', f + 'px'); } return; }
     var fs = Math.min(40, Math.max(24, n.parentNode.clientWidth / 8)); n.style.whiteSpace = 'nowrap'; n.style.fontSize = fs + 'px';
     var g = 0; while(n.scrollWidth > n.clientWidth + 1 && fs > 24 && g++ < 40){ fs -= 1; n.style.fontSize = fs + 'px'; }
     if(n.scrollWidth > n.clientWidth + 1){ n.style.whiteSpace = 'normal'; n.style.lineHeight = '1.5'; n.style.fontSize = '26px'; } }
+  window.jma54Fit = fitName;
   window.addEventListener('resize', function(){ try{ fitName(); }catch(e){} });
   /* ہوم کی اپنی تصویر (IndexedDB md_ui_v1 / kv / home) */
   function idb(){ return new Promise(function(res, rej){ var r = indexedDB.open('md_ui_v1', 1); r.onupgradeneeded = function(){ r.result.createObjectStore('kv'); }; r.onsuccess = function(){ res(r.result); }; r.onerror = function(){ rej(r.error); }; }); }
@@ -11256,42 +11305,86 @@ window.MD_NOTE = { v: 'MD2411TU067', n: 'ہوم کی تصویر پر تین با
 })();
 </script>
 <script id="jma067">
-/* MD2411TU067 (مالک کا حکم): ہوم کی تصویر پر تین بار ٹچ → اسی جگہ نیچے پٹی: مدرسے کا نام، سرپرست، مہتمم، قاری صاحب، نام کا فونٹ، تصویر بدلیں — بغیر الگ prompt */
+/* MD2411TU067 / 068 (مالک کا حکم): ہوم کی تصویر پر تین بار ٹچ → نیچے پٹی (تصویر اوپر نظر آتی رہے، ہر تبدیلی فوراً دکھے):
+   نام / سرپرست / مہتمم / قاری صاحب؛ ہر لائن کا فونٹ، رنگ، سائز، جگہ (تیر)؛ تصویر کیمرہ / گیلری + بہترین ناپ کی ہدایت۔ انداز: jamia_hdr67_v1 */
 (function(){
   'use strict';
-  var K = 'jamia_mgmt_cfg_v1', HK = 'jamia_hdr_style_v1';
+  var K = 'jamia_mgmt_cfg_v1', SK = 'jamia_hdr67_v1';
   var FONTS = [['کشیدہ', "'Jameel Noori Nastaleeq Kasheeda','Jameel Noori Nastaleeq',serif"], ['نستعلیق', "'Jameel Noori Nastaleeq','Noto Naskh Arabic',serif"], ['نسخ', "'Noto Naskh Arabic',Arial,sans-serif"], ['ثلث', "'DecoType Thuluth','Jameel Noori Nastaleeq',serif"]];
+  var COLORS = ['#ffffff', '#fde68a', '#facc15', '#fb923c', '#86efac', '#7dd3fc', '#f9a8d4', '#111111'];
+  var LINES = [['nm', '🕌 مدرسہ'], ['sar', '🤲 سرپرست'], ['moh', '👤 مہتمم'], ['tc', '👳 قاری']];
   function J(k){ try{ return JSON.parse(localStorage.getItem(k) || '{}') || {}; }catch(e){ return {}; } }
   function E(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function can(){ try{ return typeof jmaCan !== 'function' || jmaCan('classes'); }catch(e){ return true; } }
+  /* پرانی (067) فونٹ کی ترتیب یہاں منتقل */
+  (function(){ try{ if(localStorage.getItem(SK)) return; var o = J('jamia_hdr_style_v1'); if(o.nm && o.nm.ff){ localStorage.setItem(SK, JSON.stringify({ nm: { ff: o.nm.ff } })); } }catch(e){} })();
+  var ST = J(SK);
+  function setI(el, k, v){ if(v == null || v === '') el.style.removeProperty(k); else el.style.setProperty(k, v, 'important'); }
+  function apply(){
+    var d = document.getElementById('jmaDash'); if(!d) return;
+    LINES.forEach(function(L){ var el = d.querySelector('.ov66 [data-hs="' + L[0] + '"]'); if(!el) return; var st = ST[L[0]] || {};
+      setI(el, 'font-family', st.ff); setI(el, 'transform', (st.x || st.y) ? 'translate(' + (st.x || 0) + 'px,' + (st.y || 0) + 'px)' : '');
+      if(L[0] === 'nm'){ setI(el, 'color', st.c); }
+      else { var b = el.querySelector('b'), i = el.querySelector('i'); if(b){ setI(b, 'color', st.c); setI(b, 'font-family', st.ff); } if(i) setI(i, 'color', st.c); setI(el, 'font-size', st.fs ? st.fs + 'px' : ''); } });
+  }
+  window.jma67Cap = function(){ return (ST.nm || {}).fs || 0; };
+  window.jma67Apply = apply;
+  function refit(){ try{ if(window.jma54Fit) jma54Fit(); }catch(e){} apply(); }
   function open(){
     var o = document.getElementById('jm67'); if(o) o.remove();
-    var c = window.jmaCfg ? jmaCfg() : {}, raw = J(K), hs = J(HK), cur = ((hs.nm || {}).ff) || FONTS[0][1];
-    var nm = window.jmaMadName ? jmaMadName() : (c.name || '');
+    var saved = JSON.stringify(ST), cur = 'nm';
+    var c = window.jmaCfg ? jmaCfg() : {}, raw = J(K), nm = window.jmaMadName ? jmaMadName() : (c.name || '');
     o = document.createElement('div'); o.id = 'jm67'; o.className = 'no-print';
     o.innerHTML = '<div class="bx"><h3>✏️ ہوم کے اوپر کی تفصیل</h3>'
       + '<div class="rw"><span>🕌 مدرسہ</span><input id="jm67n" maxlength="60" value="' + E(nm) + '"></div>'
-      + '<div class="rw"><span>🔤 فونٹ</span><div class="fn">' + FONTS.map(function(f, i){ return '<button type="button" data-f="' + i + '" class="' + (f[1] === cur ? 'on' : '') + '" style="font-family:' + f[1].replace(/"/g, '') + '">' + f[0] + '</button>'; }).join('') + '</div></div>'
       + '<div class="rw"><span>🤲 سرپرست</span><input id="jm67r" maxlength="60" value="' + E(raw.sar || c.sar || '') + '"></div>'
       + '<div class="rw"><span>👤 مہتمم</span><input id="jm67m" maxlength="60" value="' + E(raw.moh || c.moh || '') + '"></div>'
       + '<div class="rw"><span>👳 قاری صاحب</span><input id="jm67t" maxlength="60" value="' + E(raw.teacher || '') + '" placeholder="خالی ہو تو کلاس کا انچارج"></div>'
-      + '<div class="ph"><button type="button" data-a="pic">📷 تصویر بدلیں</button><button type="button" data-a="sty">🎨 سائز / رنگ</button></div>'
+      + '<div class="sec">🎨 لکھائی کا انداز — کون سی لائن؟</div><div class="ln">' + LINES.map(function(L){ return '<button type="button" data-l="' + L[0] + '">' + L[1] + '</button>'; }).join('') + '</div>'
+      + '<div class="rw"><span>🔤 فونٹ</span><div class="fn">' + FONTS.map(function(f, i){ return '<button type="button" data-f="' + i + '" style="font-family:' + f[1].replace(/"/g, '') + '">' + f[0] + '</button>'; }).join('') + '</div></div>'
+      + '<div class="rw"><span>🎨 رنگ</span><div class="cl">' + COLORS.map(function(x){ return '<i data-c="' + x + '" style="background:' + x + '"></i>'; }).join('') + '<input type="color" id="jm67c"></div></div>'
+      + '<div class="rw"><span>🔠 سائز</span><button type="button" class="sq" data-s="-1">−</button><input type="range" id="jm67s" min="10" max="48"><button type="button" class="sq" data-s="1">+</button><button type="button" class="sm" data-s="0">خود</button></div>'
+      + '<div class="rw"><span>↕️ جگہ</span><div class="mv"><button type="button" data-m="0,-3">▲</button><button type="button" data-m="0,3">▼</button><button type="button" data-m="3,0">◀</button><button type="button" data-m="-3,0">▶</button><button type="button" data-m="r">⟲</button></div></div>'
+      + '<div class="sec">🖼️ تصویر</div><div class="nt">بہترین تصویر: <b>چوڑائی اونچائی سے دگنی (2:1)</b> — مثلاً <b>1200 × 600</b>۔ فون <b>لیٹا کر کے</b> تصویر بنائیں؛ لگاتے وقت فریم خود اسی ناپ کا ہوتا ہے — انگلی سے کھسکائیں، زوم، روشنی اور رنگ سے سنواریں۔</div>'
+      + '<div class="ph"><button type="button" data-a="pic">📷 کیمرہ / 🖼️ گیلری — تصویر بدلیں</button></div>'
       + '<div class="ft"><button type="button" class="x" data-a="x">✕ چھوڑیں</button><button type="button" class="ok" data-a="ok">✅ محفوظ کریں</button></div></div>';
     document.body.appendChild(o);
-    var pick = cur;
+    function st(){ return (ST[cur] = ST[cur] || {}); }
+    function sync(){
+      o.querySelectorAll('[data-l]').forEach(function(b){ b.classList.toggle('on', b.dataset.l === cur); });
+      var s0 = ST[cur] || {}, ff = s0.ff || (cur === 'nm' ? FONTS[0][1] : FONTS[0][1]);
+      o.querySelectorAll('[data-f]').forEach(function(b){ b.classList.toggle('on', FONTS[+b.dataset.f][1] === ff); });
+      o.querySelectorAll('[data-c]').forEach(function(b){ b.classList.toggle('on', b.dataset.c === s0.c); });
+      var r = document.getElementById('jm67s'); r.max = cur === 'nm' ? 48 : 30; r.value = s0.fs || (cur === 'nm' ? 32 : 17);
+    }
+    function live(){
+      var d = document.getElementById('jmaDash'), v = function(i){ return (document.getElementById(i).value || '').trim(); };
+      var n = d && d.querySelector('#jm58nm'); if(n && v('jm67n')) n.textContent = v('jm67n');
+      [['sar', 'jm67r'], ['moh', 'jm67m'], ['tc', 'jm67t']].forEach(function(p){ var b = d && d.querySelector('.ov66 [data-hs="' + p[0] + '"] b'); if(b && v(p[1])) b.textContent = v(p[1]); });
+      refit();
+    }
+    sync();
+    o.addEventListener('input', function(e){
+      if(e.target.id === 'jm67s'){ st().fs = +e.target.value; refit(); return; }
+      if(e.target.id === 'jm67c'){ st().c = e.target.value; sync(); refit(); return; }
+      if(e.target.tagName === 'INPUT') live();
+    });
     o.addEventListener('click', function(e){
-      if(e.target === o){ o.remove(); return; }
-      var f = e.target.closest('[data-f]'); if(f){ pick = FONTS[+f.dataset.f][1]; o.querySelectorAll('[data-f]').forEach(function(b){ b.classList.toggle('on', b === f); }); document.getElementById('jm67n').style.fontFamily = pick.replace(/"/g, ''); return; }
-      var b = e.target.closest('[data-a]'); if(!b) return; var a = b.dataset.a;
-      if(a === 'x'){ o.remove(); }
-      else if(a === 'pic'){ o.remove(); if(window.jmaHomePhoto) jmaHomePhoto(); }
-      else if(a === 'sty'){ o.remove(); if(window.jmaHdrPanel) jmaHdrPanel('nm'); }
+      if(e.target === o){ return; }
+      var t = e.target, b;
+      if((b = t.closest('[data-l]'))){ cur = b.dataset.l; sync(); return; }
+      if((b = t.closest('[data-f]'))){ st().ff = FONTS[+b.dataset.f][1]; sync(); refit(); return; }
+      if((b = t.closest('[data-c]'))){ st().c = b.dataset.c; sync(); refit(); return; }
+      if((b = t.closest('[data-s]'))){ var k = +b.dataset.s; if(!k) delete st().fs; else st().fs = Math.max(10, Math.min(cur === 'nm' ? 48 : 30, (st().fs || (cur === 'nm' ? 32 : 17)) + k * 2)); sync(); refit(); return; }
+      if((b = t.closest('[data-m]'))){ var m = b.dataset.m; if(m === 'r'){ delete st().x; delete st().y; } else { var xy = m.split(','); st().x = (st().x || 0) + +xy[0]; st().y = (st().y || 0) + +xy[1]; } refit(); return; }
+      b = t.closest('[data-a]'); if(!b) return; var a = b.dataset.a;
+      if(a === 'x'){ ST = JSON.parse(saved); o.remove(); if(window.jmaDashOpen) jmaDashOpen(); }
+      else if(a === 'pic'){ if(window.jmaHomePhoto) jmaHomePhoto(); }
       else if(a === 'ok'){
         var v = function(i){ return (document.getElementById(i).value || '').trim(); };
         var name = v('jm67n'); if(!name){ alert('مدرسے کا نام خالی نہیں ہو سکتا'); return; }
         var c2 = Object.assign({}, J(K), { name: name, sar: v('jm67r'), moh: v('jm67m'), teacher: v('jm67t'), usr: 1, upd: Date.now() });
-        var h2 = J(HK); h2.nm = Object.assign({}, h2.nm || {}, { ff: pick });
-        try{ localStorage.setItem(K, JSON.stringify(c2)); localStorage.setItem(HK, JSON.stringify(h2)); }catch(x){ alert('❌ محفوظ نہیں ہو سکا (فون کی جگہ)'); return; }
+        try{ localStorage.setItem(K, JSON.stringify(c2)); localStorage.setItem(SK, JSON.stringify(ST)); }catch(x){ alert('❌ محفوظ نہیں ہو سکا (فون کی جگہ)'); return; }
         try{ document.dispatchEvent(new Event('jma-changed')); }catch(x){}
         o.remove(); if(window.jmaDashOpen) jmaDashOpen(); if(window.jmaToast) jmaToast('✅ محفوظ ہو گیا');
       }
@@ -11559,7 +11652,7 @@ window.MD_NOTE = { v: 'MD2411TU067', n: 'ہوم کی تصویر پر تین با
   }
   function applyAll(){
     var S = load(), d = $('jmaDash'); if(!d) return;
-    d.querySelectorAll('[data-hs]').forEach(function(el){ applyOne(el, S[el.getAttribute('data-hs')]); });
+    d.querySelectorAll('[data-hs]').forEach(function(el){ if(el.closest('.ov66')) return; applyOne(el, S[el.getAttribute('data-hs')]); });
   }
   window.jmaHdrApply = applyAll; setTimeout(function(){ window.jmaHdrPanel = openPanel; }, 0);
 
