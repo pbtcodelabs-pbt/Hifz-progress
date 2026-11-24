@@ -1450,7 +1450,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU079</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU080</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7792,7 +7792,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     var sb = document.querySelector('#jmaAdm .jm68 .sb'); if(sb) sb.innerHTML = Object.keys(ER).length ? '<b style="color:#b91c1c">⚠️ سرخ خانے درست کریں</b>' : '✅ سب ضروری خانے مکمل';
     if(t.getAttribute('data-f') === 'n'){ var nm = document.querySelector('#jmaAdm .jm68 .nm'); if(nm) nm.textContent = t.value || '—'; }
   }, true);
-  /* MD2411TU079: طالب علم حذف (آرکائیو میں محفوظ) — کارڈ اور پروفائل دونوں سے */
+  /* MD2411TU080: طالب علم حذف (آرکائیو میں محفوظ) — کارڈ اور پروفائل دونوں سے */
   function doArch(sid){
     var sa = bySid(sid); if(!sa) return;
     if(!confirm('کیا طالب علم «' + sa.n + '» کو حذف کریں؟\n\nسارا ریکارڈ محفوظ رہے گا — «🗄️ سابقہ طلبہ» میں سے واپس لایا جا سکتا ہے۔')) return;
@@ -8006,7 +8006,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       + '<label class="jm2-l">کارکردگی</label><div class="jm2-opts">' + PERF.map(function(p){ return '<button data-perf="' + p + '" class="' + (F.perf === p ? 'on' : '') + '">' + p + '</button>'; }).join('') + '</div>'
       + '<label class="jm2-l">نوٹ (اختیاری)</label><input class="jm2-in" id="jm3Note" value="' + E(F.note || '') + '"></div>';
     h += '<div class="jm2-err" id="jm3Err"></div><div class="jm2-nav">' + (F._old ? '<button class="jm2-btn r" data-del="1" style="flex:0 0 auto">🗑️</button>' : '') + '<button class="jm2-btn" data-sv="1">✅ ' + k[1] + ' محفوظ کریں</button></div></div>';
-    var y = el.scrollTop; el.innerHTML = h; el.scrollTop = y;
+    var y = el.scrollTop; el.innerHTML = h; el.scrollTop = y; requestAnimationFrame(function(){ if(el.scrollTop !== y) el.scrollTop = y; });
     var di = $('jm3Date'); if(di) di.onchange = function(){ F.date = di.value || pkDate(); };
     var ls = $('jm45Sel'); if(ls) ls.onchange = function(){ var v = ls.value; if(!v || v === F.sid){ F.lis = { type: 'student', id: '', name: '' }; } else { var st = stu(v); F.lis = { type: 'student', id: v, name: st ? st.n : '' }; } draw(); };
   }
@@ -8045,7 +8045,10 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     if(d.k){ F.kind = d.k; if(F.kind === 'manzil') F.items.forEach(function(it){ it.lines = 0; }); draw(); return; }
     if(d.ses != null){ F.ses = +d.ses; draw(); return; }
     if(d.para && !d.pao){ var p = +d.para, it = item(p); if(it) F.items = F.items.filter(function(x){ return x !== it; }); else { F.items.push({ para: p, lines: 0, ruku: 0, pao: [] }); F.items.sort(function(a, c){ return a.para - c.para; }); } draw(); return; }
-    if(d.st){ var v = (+d.d); if(d.p){ var it2 = item(+d.p); if(it2) it2[d.st] = Math.max(0, Math.min(d.st === 'lines' ? 400 : 40, (it2[d.st] || 0) + v)); } else F[d.st] = Math.max(0, Math.min(99, (F[d.st] || 0) + v)); draw(); return; }
+    if(d.st){ var v = (+d.d); if(d.p){ var it2 = item(+d.p); if(it2) it2[d.st] = Math.max(0, Math.min(d.st === 'lines' ? 400 : 40, (it2[d.st] || 0) + v)); } else F[d.st] = Math.max(0, Math.min(99, (F[d.st] || 0) + v));
+      /* MD2411TU080: صرف عدد بدلو — پورا صفحہ دوبارہ نہ بناؤ، تاکہ اسکرول اوپر نہ جائے */
+      var nb = b.parentNode && b.parentNode.querySelector('b'); if(nb){ nb.textContent = String(d.p ? (it2 ? it2[d.st] : 0) : (F[d.st] || 0)); return; }
+      draw(); return; }
     if(d.pao){ var it3 = item(+d.p), q = +d.pao; if(it3){ it3.pao = it3.pao || []; var ix = it3.pao.indexOf(q); if(ix > -1) it3.pao.splice(ix, 1); else { it3.pao.push(q); it3.pao.sort(); } } draw(); return; }
     if(d.lis){ if(d.lis === 'teacher'){ F.lis = { type: 'teacher', id: me().id, name: me().name }; F._dd = false; } else { if(F.lis.type !== 'student') F.lis = { type: 'student', id: '', name: '' }; } draw(); setTimeout(function(){ var q = $('jm45Sel'); if(q && !q.value){ try{ q.showPicker ? q.showPicker() : q.focus(); }catch(e){ q.focus(); } } }, 80); return; }
     if(d.dd){ F._dd = !F._dd; draw(); return; }
@@ -9407,7 +9410,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 (function(){
   'use strict';
   var W = 'https://aio-pos-verify.pbtcodelabs.workers.dev', K = 'jamia_mdid_v1', TD = 3;
-  /* MD2411TU079 (مالک کا حکم): درمیان میں 6 مہینے کا پیکج — ایک موبائل 2,750 (250 بچت)، دو موبائل 5,500 (500 بچت) */
+  /* MD2411TU080 (مالک کا حکم): درمیان میں 6 مہینے کا پیکج — ایک موبائل 2,750 (250 بچت)، دو موبائل 5,500 (500 بچت) */
   var PK = [ { id: 'md-1-1m', dev: 1, nm: 'ایک موبائل', du: '1 مہینہ', pr: 500 }, { id: 'md-1-6m', dev: 1, nm: 'ایک موبائل', du: '6 مہینے', pr: 2750, tag: '250 کی بچت' }, { id: 'md-1-1y', dev: 1, nm: 'ایک موبائل', du: '1 سال', pr: 5000, tag: '1,000 کی بچت' },
              { id: 'md-2-1m', dev: 2, nm: 'دو موبائل', du: '1 مہینہ', pr: 1000 }, { id: 'md-2-6m', dev: 2, nm: 'دو موبائل', du: '6 مہینے', pr: 5500, tag: '500 کی بچت' }, { id: 'md-2-1y', dev: 2, nm: 'دو موبائل', du: '1 سال', pr: 10000, tag: '2,000 کی بچت' } ];
   function E(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -9832,7 +9835,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU079" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU080" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -11093,7 +11096,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2411TU079', n: '📗 داخلہ میں «مکمل قرآن پاک» بٹن؛ غلط پارہ ✕ سے ہٹائیں؛ 🗑 طالب علم حذف (دو بار تصدیق)؛ 🔒 گوگل پاسورڈ پیغام ختم' };
+window.MD_NOTE = { v: 'MD2411TU080', n: '🔧 روزانہ اندراج میں لائنیں / رکوع بڑھاتے وقت صفحہ اپنی جگہ پر رہے گا؛ 📗 داخلہ میں مکمل قرآن پاک بٹن' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
