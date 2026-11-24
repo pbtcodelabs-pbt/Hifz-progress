@@ -1450,7 +1450,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE088</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE089</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9867,7 +9867,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE088" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE089" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -11467,6 +11467,12 @@ details.jm88d>summary::-webkit-details-marker{display:none}
 details.jm88d>summary::after{content:' ▼';font-size:12px;color:#64748b}
 details.jm88d[open]>summary::after{content:' ▲'}
 details.jm88d>.in{padding:0 6px 6px}
+.jm88t{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.jm88t button{border:2px solid var(--c);border-radius:12px;background:#fff;padding:6px 4px;font-family:inherit;text-align:center;cursor:pointer;line-height:1.55;min-width:0}
+.jm88t button b{display:block;font-size:15px;color:var(--c)}
+.jm88t button>span{display:block;font-size:12.5px;color:#334155;overflow-wrap:anywhere}
+.jm88t button.ok{background:color-mix(in srgb,var(--c) 10%,#fff)}
+.jm88t button .n{display:inline;font-family:Arial,sans-serif;font-weight:700}
 details.jm88i{margin-top:6px}details.jm88i>summary{cursor:pointer;font-size:14px;color:#065f46;font-weight:700;list-style:none}
 details.jm88i>summary::-webkit-details-marker{display:none}
 </style>
@@ -11498,6 +11504,22 @@ details.jm88i>summary::-webkit-details-marker{display:none}
     if(at < 0) return; var d = document.createElement('details'); d.className = 'jm88i'; d.innerHTML = '<summary>' + label + '</summary>';
     kids.slice(at).forEach(function(k){ d.appendChild(k); }); card.appendChild(d);
   }
+  /* MD2511WE089 (مالک کا حکم — «منزل، اٹکن، غلطیاں فوری اندراج و خلاصہ»): آج کے تین خانے + تین ➕ بٹن کی جگہ ایک قطار — ہر خانہ خود بٹن (دبائیں = اندراج)،
+     اندر آج کا خلاصہ: پارہ · مقدار · اٹکن · غلطی · کس نے سنا؛ پوری لائنیں (دبانے پر ترمیم) «آج کی پوری تفصیل» تہہ میں — پرانے بٹن / لائنیں وہی نوڈ، صرف چھپے / منتقل */
+  var KN = [['sabaq', 'سبق', '#16a34a'], ['sabqi', 'سبقی', '#2563eb'], ['manzil', 'منزل', '#9333ea']];
+  function pn(p){ try{ return window.jmaParaName ? jmaParaName(p) : 'پارہ ' + p; }catch(e){ return 'پارہ ' + p; } }
+  function qty(e){ return (e.items || []).map(function(it){ var q = []; if(it.lines) q.push('<span class="n">' + it.lines + '</span> لائن'); if(it.ruku) q.push('<span class="n">' + it.ruku + '</span> رکوع'); if(it.pao && it.pao.length) q.push('<span class="n">' + it.pao.length + '</span> پاؤ'); return pn(it.para) + (q.length ? ' · ' + q.join(' ') : ''); }).join('، '); }
+  function tiles(card, sid){
+    var d = window.jmaPkDate ? jmaPkDate() : '', EN = (window.jma019 && jma019.EN()) || [], es = EN.filter(function(e){ return !e.del && e.sid === sid && e.date === d; });
+    var tri = card.querySelector(':scope > .jm2-tri'), add = card.querySelector(':scope > .jm3-add'); if(!tri || !add) return;
+    var row = document.createElement('div'); row.className = 'jm88t';
+    row.innerHTML = KN.map(function(k){ var x = es.filter(function(e){ return e.kind === k[0]; }), L = x[x.length - 1];
+      var sm = L ? qty(L) + (k[0] !== 'sabaq' && L.atkan ? ' · اٹکن <span class="n">' + L.atkan + '</span>' : '') + (L.mist ? ' · غلطی <span class="n">' + L.mist + '</span>' : '') + (L.lis && L.lis.name ? ' · سنا: ' + String(L.lis.name).replace(/[<>&"]/g, '') : '') + (x.length > 1 ? ' (<span class="n">' + x.length + '</span>)' : '') : '➕ اندراج کریں';
+      return '<button type="button" data-ent="' + k[0] + '" class="' + (L ? 'ok' : '') + '" style="--c:' + k[2] + '"><b>' + (L ? '✔ ' : '') + k[1] + '</b><span>' + sm + '</span></button>'; }).join('');
+    tri.style.display = 'none'; add.style.display = 'none'; add.after(row);
+    var lines = Array.prototype.slice.call(card.querySelectorAll(':scope > .jm3-ent'));
+    if(lines.length){ var dd = document.createElement('details'); dd.className = 'jm88i'; dd.innerHTML = '<summary>📝 آج کی پوری تفصیل (دبا کر بدلیں) ▾</summary>'; lines.forEach(function(l){ dd.appendChild(l); }); row.after(dd); }
+  }
   function apply(){
     var el = $('jmaPro'); if(!el || busy) return; var w = el.querySelector('.jm2-wrap'); if(!w || w.getAttribute('data-j88w')) return;
     var s = stu(); if(!s) return; busy = true;
@@ -11513,7 +11535,7 @@ details.jm88i>summary::-webkit-details-marker{display:none}
       var inn = more.querySelector('.in');
       if(att){ var six = att.querySelector('.jm5-six'); if(six){ var box = document.createElement('div'); box.innerHTML = attHTML(s.sid); six.style.display = 'none'; six.after(box); }
         fold(att, '📅', '📅 اس مہینے کی حاضری اور غیر حاضری کی تفصیل ▾'); }
-      if(today) fold(today, '🕘', '🕘 پچھلے اندراج ▾');
+      if(today){ fold(today, '🕘', '🕘 پچھلے اندراج ▾'); try{ tiles(today, s.sid); }catch(e){} }
       var keep = [hd, pn, q, att, today].filter(Boolean);
       cards.forEach(function(c){ if(keep.indexOf(c) < 0) inn.appendChild(c); });
       keep.forEach(function(c){ w.appendChild(c); }); w.appendChild(more);
@@ -11540,7 +11562,7 @@ details.jm88i>summary::-webkit-details-marker{display:none}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2511WE088', n: '📐 طالب علم کا صفحہ کمپیکٹ: اوپر تصویر و نام، آج کی حاضری ایک ٹچ (حاضر / آدھی / غیر حاضر / رخصت)، سبق / سبقی / منزل فوراً، «📊 کارکردگی» بٹن؛ باقی سب «ℹ️ مزید تفصیل» میں — کچھ ختم نہیں' };
+window.MD_NOTE = { v: 'MD2511WE089', n: '📝 طالب علم کے صفحے پر آج کے سبق / سبقی / منزل کے خانوں میں سیدھا خلاصہ (پارہ، لائنیں، اٹکن، غلطی، کس نے سنا) — خانہ دبائیں تو اندراج' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
