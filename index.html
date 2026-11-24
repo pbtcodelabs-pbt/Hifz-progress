@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU059</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU060</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9499,7 +9499,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   function name(){ var c = cf(); return (c.name && !OLD.test(c.name) && c.name) || md().mad || 'جامعہ'; }
   window.jmaMadName = name;
   window.jmaPassDefault = function(){ var c = cf(); return c.pass != null ? c.pass : 40; };
-  window.jmaCfg = function(){ var c = cf(); return { name: name(), full: c.full || '', moh: c.moh || md().per || '', addr: c.addr || md().dist || '', phone: c.phone || md().mob || '', logo: c.logo || '' }; };
+  window.jmaCfg = function(){ var c = cf(); return { name: name(), full: c.full || '', teacher: c.teacher || '', moh: c.moh || md().per || '', addr: c.addr || md().dist || '', phone: c.phone || md().mob || '', logo: c.logo || '' }; };
   function paint(){
     try{
       var n = name();
@@ -9520,6 +9520,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       + '<label>🕌 مدرسے / جامعہ کا نام (ہر جگہ یہی)</label><input id="jm30n" maxlength="50" value="' + v('name', m.mad) + '" placeholder="مثلاً جامعہ فاروقیہ">'
       + '<label>🏛️ ادارے کا پورا نام (رپورٹ / رسید کے اوپر، اختیاری)</label><input id="jm30f" maxlength="90" value="' + v('full') + '" placeholder="مثلاً جامعہ فاروقیہ تعلیم القرآن، فتح پور">'
       + '<label>👤 مہتمم کا نام</label><input id="jm30m" maxlength="40" value="' + v('moh', m.per) + '">'
+      + '<label>👳 استاد / قاری صاحب کا نام (ہوم کے اوپر)</label><input id="jm30t" maxlength="60" value="' + v('teacher') + '" placeholder="خالی ہو تو کلاس کے انچارج کا نام">'
       + '<label>📍 پتہ / ضلع</label><input id="jm30a" maxlength="80" value="' + v('addr', m.dist) + '">'
       + '<label>📱 فون نمبر</label><input id="jm30p" class="ltr" inputmode="tel" maxlength="15" value="' + v('phone', m.mob) + '">'
       + '<label>🖼️ لوگو (اختیاری)</label><div class="lg"><img id="jm30i" alt="" src="' + E(logo || 'logo.png') + '"><button type="button" id="jm30lb">📷 لوگو چنیں</button>' + (logo ? '<button type="button" id="jm30lx">✕ ہٹائیں</button>' : '') + '<input type="file" id="jm30lf" accept="image/*" style="display:none"></div>'
@@ -9539,8 +9540,12 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       var nm = g('jm30n'), ps = g('jm30s').replace(/[۰-۹]/g, function(d){ return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d); });
       if(nm.length < 3){ er.textContent = 'مدرسے کا نام لکھیں'; return; }
       if(!/^\d{1,3}$/.test(ps) || +ps > 100){ er.textContent = 'کامیابی کا فیصد 0 سے 100 تک'; return; }
-      var c2 = Object.assign({}, cf(), { name: nm, full: g('jm30f'), moh: g('jm30m'), addr: g('jm30a'), phone: g('jm30p'), logo: newLogo, pass: +ps, upd: Date.now() });
-      try{ localStorage.setItem(K, JSON.stringify(c2)); }catch(e){ er.textContent = '❌ محفوظ نہیں ہو سکا (فون کی جگہ)'; return; }
+      var c2 = Object.assign({}, cf(), { name: nm, full: g('jm30f'), moh: g('jm30m'), teacher: g('jm30t'), addr: g('jm30a'), phone: g('jm30p'), logo: newLogo, pass: +ps, upd: Date.now() });
+      var okSave = false;
+      try{ localStorage.setItem(K, JSON.stringify(c2)); okSave = (cf().name === nm); }catch(e){}
+      if(!okSave && c2.logo){ try{ localStorage.setItem(K, JSON.stringify(Object.assign({}, c2, { logo: '' }))); okSave = (cf().name === nm); if(okSave) alert('⚠️ لوگو بڑا تھا، اس کے بغیر باقی ترتیبات محفوظ ہو گئیں'); }catch(e){} }
+      if(!okSave){ er.textContent = '❌ محفوظ نہیں ہو سکا (فون کی جگہ)'; alert('❌ ترتیبات محفوظ نہیں ہو سکیں — فون کی جگہ بھر گئی ہے۔ پہلے بیک اپ لیں'); return; }
+      try{ document.dispatchEvent(new Event('jma-changed')); }catch(e){}
       try{ if(window.jmaAudit) jmaAudit('ترتیبات بدلیں', '', nm); }catch(e){}
       o.remove(); paint(); try{ if($('jmaDash') && $('jmaDash').style.display === 'block' && window.jmaDashOpen) jmaDashOpen(); }catch(e){}
       alert('✅ ترتیبات محفوظ — اب ہر جگہ «' + nm + '»');
@@ -9559,7 +9564,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
      ============================================================ -->
 <style id="jma033css">
 #jm33c,#jm33e{position:fixed;inset:0;z-index:2147483100;background:rgba(2,44,34,.9);display:flex;align-items:center;justify-content:center;padding:14px;direction:rtl}
-#jm33c .bx,#jm33e .bx{background:#fff;border-radius:20px;max-width:420px;width:100%;padding:14px;font-family:var(--font-nastaliq,serif);box-shadow:0 12px 40px rgba(0,0,0,.45);max-height:100%;overflow-y:auto;box-sizing:border-box}
+#jm33c .bx,#jm33e .bx{background:#fff;border-radius:20px;max-width:420px;width:100%;padding:14px;font-family:var(--font-nastaliq,serif);box-shadow:0 12px 40px rgba(0,0,0,.45)}
 #jm33c h3,#jm33e h3{margin:0 0 8px;text-align:center;font-family:var(--font-kasheeda,serif);font-weight:400;color:#065f46;font-size:22px}
 #jm33c .b3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 #jm33c .b3 button{border:2px solid #0f766e;background:#ecfdf5;color:#065f46;border-radius:14px;padding:12px 4px;font:inherit;font-size:16px;line-height:1.6}
@@ -9567,8 +9572,6 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 #jm33c .x,#jm33e .x{display:block;width:100%;margin-top:10px;border:1.5px solid #94a3b8;background:#fff;border-radius:12px;padding:7px;font:inherit;font-size:16px}
 #jm33e .cv{position:relative;width:280px;height:280px;margin:0 auto;touch-action:none;border-radius:16px;overflow:hidden;background:#0f172a}
 #jm33e canvas{display:block;width:280px;height:280px}
-#jm33e .cv.rc{width:100%;max-width:360px;height:auto;aspect-ratio:2/1;border-radius:10px;outline:3px solid #d4af37;outline-offset:-3px}
-#jm33e .cv.rc canvas{width:100%;height:100%}
 #jm33e .ring{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at center,transparent 128px,rgba(15,23,42,.62) 129px);}
 #jm33e .ring::after{content:'';position:absolute;left:12px;top:12px;width:256px;height:256px;border-radius:50%;border:3px solid #d4af37;box-sizing:border-box}
 #jm33e .r{display:flex;align-items:center;gap:6px;margin-top:6px}
@@ -9585,50 +9588,46 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   'use strict';
   function $(i){ return document.getElementById(i); }
   /* تصویر لینے کا انتخاب */
-  /* MD2411TU059: opt = {title, rect:[w,h]} — مستطیل فریم (مدرسے کی ہوم تصویر) */
-  function choose(cb, opt){
-    opt = opt || {};
+  function choose(cb){
     var o = $('jm33c'); if(o) o.remove(); o = document.createElement('div'); o.id = 'jm33c';
-    o.innerHTML = '<div class="bx"><h3>' + (opt.title || '📷 طالب علم کی تصویر') + '</h3><div class="b3"><button type="button" data-c="env"><i>📷</i>کیمرہ</button><button type="button" data-c="user"><i>🤳</i>سیلفی</button><button type="button" data-c="gal"><i>🖼️</i>گیلری</button></div><button type="button" class="x" data-c="x">✕ واپس</button></div>';
+    o.innerHTML = '<div class="bx"><h3>📷 طالب علم کی تصویر</h3><div class="b3"><button type="button" data-c="env"><i>📷</i>کیمرہ</button><button type="button" data-c="user"><i>🤳</i>سیلفی</button><button type="button" data-c="gal"><i>🖼️</i>گیلری</button></div><button type="button" class="x" data-c="x">✕ واپس</button></div>';
     document.body.appendChild(o);
     o.onclick = function(e){ var b = e.target.closest('[data-c]'); if(!b && e.target !== o) return; var k = b ? b.getAttribute('data-c') : 'x'; if(k === 'x'){ o.remove(); return; }
       var inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*'; if(k !== 'gal') inp.setAttribute('capture', k === 'user' ? 'user' : 'environment');
       inp.style.display = 'none'; document.body.appendChild(inp);
-      inp.onchange = function(){ var f = inp.files && inp.files[0]; inp.remove(); if(f){ o.remove(); edit(f, cb, opt); } };
+      inp.onchange = function(){ var f = inp.files && inp.files[0]; inp.remove(); if(f){ o.remove(); edit(f, cb); } };
       inp.click(); };
   }
   /* سنوارنے کا آلہ */
-  function edit(file, cb, opt){
-    opt = opt || {}; var RC = opt.rect, CH = RC ? Math.round(560 * RC[1] / RC[0]) : 560;
+  function edit(file, cb){
     var url = URL.createObjectURL(file), img = new Image();
     img.onload = function(){
       var o = $('jm33e'); if(o) o.remove(); o = document.createElement('div'); o.id = 'jm33e';
-      o.innerHTML = '<div class="bx"><h3>✂️ تصویر سنواریں</h3><div class="cv' + (RC ? ' rc' : '') + '"><canvas width="560" height="' + CH + '"></canvas>' + (RC ? '' : '<div class="ring"></div>') + '</div><div class="tip">انگلی سے کھسکائیں · دو انگلیوں سے بڑا / چھوٹا کریں</div>'
+      o.innerHTML = '<div class="bx"><h3>✂️ تصویر سنواریں</h3><div class="cv"><canvas width="560" height="560"></canvas><div class="ring"></div></div><div class="tip">انگلی سے کھسکائیں · دو انگلیوں سے بڑا / چھوٹا کریں</div>'
         + '<div class="r"><span>🔍 زوم</span><button type="button" data-z="-">−</button><input type="range" id="jm33z" min="100" max="400" value="100"><button type="button" data-z="+">+</button></div>'
         + '<div class="r"><span>☀️ روشنی</span><input type="range" id="jm33b" min="50" max="170" value="100"></div>'
         + '<div class="r"><span>🌓 کنٹراسٹ</span><input type="range" id="jm33k" min="50" max="170" value="100"></div>'
-        + '<div class="r"><span>🎨 رنگ</span><input type="range" id="jm33s" min="0" max="200" value="100"></div>'
         + '<div class="row"><button type="button" data-e="rot">⟳ گھمائیں</button><button type="button" data-e="reset">↺ پہلے جیسا</button></div>'
         + '<div class="row"><button type="button" data-e="x">✕ چھوڑیں</button><button type="button" class="ok" data-e="ok">✅ تصویر لگائیں</button></div></div>';
       document.body.appendChild(o);
       var cv = o.querySelector('canvas'), ctx = cv.getContext('2d'), S = 560, R = 256 * 2;   /* کینوس 2x؛ گول دائرہ 512 */
-      var st = { z: 1, x: 0, y: 0, rot: 0, b: 100, k: 100, s: 100 };
-      function base(){ var w = st.rot % 180 ? img.height : img.width, h = st.rot % 180 ? img.width : img.height; return RC ? Math.max(S / w, CH / h) : R / Math.min(w, h); }   /* کم از کم: دائرہ پورا بھرا */
+      var st = { z: 1, x: 0, y: 0, rot: 0, b: 100, k: 100 };
+      function base(){ var w = st.rot % 180 ? img.height : img.width, h = st.rot % 180 ? img.width : img.height; return R / Math.min(w, h); }   /* کم از کم: دائرہ پورا بھرا */
       function draw(c2, size, ring){
-        var sc = base() * st.z * (size / S), hh = size * CH / S; c2.save(); c2.fillStyle = '#fff'; c2.fillRect(0, 0, size, hh);
-        try{ c2.filter = 'brightness(' + st.b + '%) contrast(' + st.k + '%) saturate(' + st.s + '%)'; }catch(e){}
-        c2.translate(size / 2 + st.x * size / S, hh / 2 + st.y * size / S); c2.rotate(st.rot * Math.PI / 180); c2.scale(sc, sc);
+        var sc = base() * st.z * (size / S); c2.save(); c2.fillStyle = '#fff'; c2.fillRect(0, 0, size, size);
+        try{ c2.filter = 'brightness(' + st.b + '%) contrast(' + st.k + '%)'; }catch(e){}
+        c2.translate(size / 2 + st.x * size / S, size / 2 + st.y * size / S); c2.rotate(st.rot * Math.PI / 180); c2.scale(sc, sc);
         c2.drawImage(img, -img.width / 2, -img.height / 2); c2.restore();
       }
       function paint(){ draw(ctx, S); }
       paint();
-      var Z = $('jm33z'), B = $('jm33b'), K = $('jm33k'), SA = $('jm33s');
-      Z.oninput = function(){ st.z = Z.value / 100; paint(); }; B.oninput = function(){ st.b = +B.value; paint(); }; K.oninput = function(){ st.k = +K.value; paint(); }; SA.oninput = function(){ st.s = +SA.value; paint(); };
+      var Z = $('jm33z'), B = $('jm33b'), K = $('jm33k');
+      Z.oninput = function(){ st.z = Z.value / 100; paint(); }; B.oninput = function(){ st.b = +B.value; paint(); }; K.oninput = function(){ st.k = +K.value; paint(); };
       /* انگلی / ماؤس: کھسکانا اور دو انگلیوں سے زوم */
       var pts = {}, last = null, pinch = 0;
       cv.addEventListener('pointerdown', function(e){ cv.setPointerCapture(e.pointerId); pts[e.pointerId] = { x: e.clientX, y: e.clientY }; last = null; pinch = 0; });
       cv.addEventListener('pointermove', function(e){ if(!pts[e.pointerId]) return; var p0 = pts[e.pointerId]; var ids = Object.keys(pts);
-        if(ids.length === 1){ var k2 = S / (cv.clientWidth || 280); st.x += (e.clientX - p0.x) * k2; st.y += (e.clientY - p0.y) * k2; }
+        if(ids.length === 1){ st.x += (e.clientX - p0.x) * (S / 280); st.y += (e.clientY - p0.y) * (S / 280); }
         pts[e.pointerId] = { x: e.clientX, y: e.clientY };
         if(ids.length >= 2){ var a = pts[ids[0]], c = pts[ids[1]], d = Math.hypot(a.x - c.x, a.y - c.y); if(pinch){ st.z = Math.max(1, Math.min(4, st.z * d / pinch)); Z.value = Math.round(st.z * 100); } pinch = d; }
         paint(); });
@@ -9638,10 +9637,9 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
         if(b.hasAttribute('data-z')){ st.z = Math.max(1, Math.min(4, st.z + (b.getAttribute('data-z') === '+' ? 0.15 : -0.15))); Z.value = Math.round(st.z * 100); paint(); return; }
         var k = b.getAttribute('data-e');
         if(k === 'rot'){ st.rot = (st.rot + 90) % 360; paint(); }
-        else if(k === 'reset'){ st = { z: 1, x: 0, y: 0, rot: 0, b: 100, k: 100, s: 100 }; Z.value = 100; B.value = 100; K.value = 100; SA.value = 100; paint(); }
+        else if(k === 'reset'){ st = { z: 1, x: 0, y: 0, rot: 0, b: 100, k: 100 }; Z.value = 100; B.value = 100; K.value = 100; paint(); }
         else if(k === 'x'){ o.remove(); URL.revokeObjectURL(url); }
         else if(k === 'ok'){
-          if(RC){ var oc2 = document.createElement('canvas'); oc2.width = RC[0]; oc2.height = RC[1]; draw(oc2.getContext('2d'), RC[0]); o.remove(); URL.revokeObjectURL(url); cb(oc2.toDataURL('image/jpeg', 0.85)); return; }
           /* صرف گول دائرے والا حصہ — 320×320 */
           var big = document.createElement('canvas'); big.width = S; big.height = S; draw(big.getContext('2d'), S);
           var out = document.createElement('canvas'); out.width = 320; out.height = 320; var oc = out.getContext('2d'); oc.fillStyle = '#fff'; oc.fillRect(0, 0, 320, 320);
@@ -9661,7 +9659,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU059" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU060" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10085,7 +10083,7 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
       else if(r.k === 'exm'){ upsert(D.EX, 'id', v); touched.EX = 1; }
       else if(r.k === 'akh'){ if(String(id).indexOf('RN:') === 0){ RN = RN || J('jamia_mgmt_rnote_v1', {}) || {}; RN[id.slice(3)] = v; } else { upsert(D.AK, 'id', v); touched.AK = 1; } }
       else if(r.k === 'ann'){ ANN = ANN || J('jamia_mgmt_ann_v1', []) || []; upsert(ANN, 'id', v); }
-      else if(r.k === 'cfg'){ CF = v; }
+      else if(r.k === 'cfg'){ var _cur = J('jamia_mgmt_cfg_v1', null); if(!_cur || when(v) >= when(_cur)) CF = v; }
       else if(r.k === 'fee' && id === 'plans'){ D.F.plans = D.F.plans || {}; Object.keys(D.F.plans).forEach(function(k){ delete D.F.plans[k]; }); Object.assign(D.F.plans, v.plans || {}); D.F.seq = Math.max(+D.F.seq || 0, +v.seq || 0); touched.F = 1; }
       else if(r.k === 'fee'){ D.F.rec = D.F.rec || []; upsert(D.F.rec, 'id', v); D.F.seq = Math.max(+D.F.seq || 0, +v.no || 0); touched.F = 1; }
       else if(r.k === 'fexp'){ D.F.exp = D.F.exp || []; upsert(D.F.exp, 'id', v); touched.F = 1; }
@@ -10125,6 +10123,7 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
         if(L){ var lh = h32(L.j); if(lh === rh){ H[rid] = rh; return; }
           if(H[rid] && H[rid] !== lh){   /* دونوں طرف بدلا — نیا جیتے */
             var rv = null; try{ rv = JSON.parse(r.j).v; }catch(e){} if(when(L.v) > when(rv)) return; } }
+        if(L && r.k === 'cfg'){ var rv3 = null; try{ rv3 = JSON.parse(r.j).v; }catch(e){} if(when(L.v) > when(rv3)) return; }   /* ترتیبات: نئی مقامی تبدیلی پرانی آن لائن سے کبھی نہ دبے */
         got.push({ k: r.k, j: r.j }); H[rid] = rh;
       });
       if(docs.length && docs[docs.length - 1].u) cur = docs[docs.length - 1].u;   /* ترتیب u سے — آخری ہی سب سے نیا */
@@ -10853,7 +10852,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2411TU059', n: '⚙️ ترتیبات کا بٹن نیچے کی پٹی میں؛ ترتیبات کے اندر مدرسے کی تصویر — 📷 کیمرہ یا گیلری، پھر زوم، روشنی، کنٹراسٹ، رنگ اور گھمانے سے سنواریں؛ وہی ہوم کے اوپر لگتی ہے' };
+window.MD_NOTE = { v: 'MD2411TU060', n: 'ہوم کا اوپر والا حصہ نیا: صاف خوبصورت تصویر (مسجد، چاند)، مدرسے کا نام کبھی نہیں کٹتا؛ «🖼️ تصویر بدلیں» سے اپنے مدرسے کی تصویر لگائیں' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
@@ -10958,12 +10957,12 @@ window.MD_NOTE = { v: 'MD2411TU059', n: '⚙️ ترتیبات کا بٹن نی�
 .jm54 .hdb img{height:80%;width:auto}
 .jm54 .vr{position:absolute;left:0;right:0;bottom:3px;text-align:center;font:700 10px Arial;color:rgba(255,255,255,.9);line-height:1.2;pointer-events:none}
 @media (min-width:700px){.jm54 .g6 .t{font-size:36px}}
-/* MD2311MO058: نیا اوپر کا حصہ — صاف تصویر (یا مدرسے کی اپنی)، نام کبھی نہیں کٹتا */
+/* MD2411TU060: نیا اوپر کا حصہ — صاف تصویر (یا مدرسے کی اپنی)، نام کبھی نہیں کٹتا */
 .jm54 .h58{position:relative;overflow:hidden;min-height:clamp(190px,52vw,280px);display:flex;align-items:flex-end;border-bottom:3px solid #d4af37;box-shadow:0 4px 10px rgba(0,0,0,.25)}
 .jm54 .h58 .sky{position:absolute;inset:0;width:100%;height:100%}
 .jm54 .h58 .ph{position:absolute;inset:0;background:center/cover no-repeat}
 .jm54 .h58.has .ph:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.2) 0%,rgba(0,40,15,.5) 40%,rgba(0,35,12,.88) 100%)}
-.jm54 .h58 .in{position:relative;z-index:1;width:100%;display:flex;align-items:center;gap:8px;padding:30px 3% 12px;direction:rtl;box-sizing:border-box}
+.jm54 .h58 .in{position:relative;z-index:1;width:100%;display:flex;align-items:center;gap:8px;padding:44px 3% 12px;direction:rtl;box-sizing:border-box}
 .jm54 .h58 .lg{width:clamp(62px,19vw,96px);height:clamp(62px,19vw,96px);border-radius:50%;object-fit:cover;flex:none;border:3px solid #d4af37;box-shadow:0 3px 8px rgba(0,0,0,.4);background:#064420;order:2}
 .jm54 .h58 .tx{flex:1;min-width:0;text-align:center;color:#fff}
 .jm54 .nm58{font-family:'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;line-height:1.55;color:#fff;text-shadow:0 2px 0 #064420,0 0 10px rgba(0,0,0,.55);white-space:nowrap;overflow:hidden;max-width:100%}
@@ -10997,11 +10996,13 @@ window.MD_NOTE = { v: 'MD2411TU059', n: '⚙️ ترتیبات کا بٹن نی�
     var lb = +localStorage.getItem('jamia_last_backup_v1') || 0, lbDays = lb ? Math.floor((Date.now() - lb) / 864e5) : null;
     var ver = ''; try{ ver = window.MD_VER ? MD_VER() : ''; }catch(e){} var vs = (/(\d{3})$/.exec(ver) || [])[1];
     var cls = []; try{ cls = ((window.jmaMgmt && jmaMgmt.classes()) || []).filter(function(x){ return !x.del && x.incharge && (typeof jmaAllowedClass !== 'function' || jmaAllowedClass(x.id)); }); }catch(e){}
-    var qari = cls.length ? cls.map(function(x){ return x.incharge; }).filter(function(v, i, a){ return a.indexOf(v) === i; }).slice(0, 2).join('، ') : '';
+    var qari = cls.length ? cls.map(function(x){ return x.incharge; }).filter(function(v, i, a){ return a.indexOf(v) === i; }).slice(0, 2).join('، ') : ''; if(c && c.teacher) qari = c.teacher;
+    var canPic = typeof jmaCan !== 'function' || jmaCan('classes');
     el.innerHTML = '<div class="w"><div class="h58" id="jm58hd"><svg class="sky" viewBox="0 0 400 200" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs><linearGradient id="h58g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a5a2a"/><stop offset=".55" stop-color="#11803a"/><stop offset="1" stop-color="#2a9d3f"/></linearGradient><radialGradient id="h58r" cx=".5" cy=".35" r=".6"><stop offset="0" stop-color="#fff6c8" stop-opacity=".45"/><stop offset="1" stop-color="#fff6c8" stop-opacity="0"/></radialGradient></defs><rect width="400" height="200" fill="url(#h58g)"/><rect width="400" height="200" fill="url(#h58r)"/><g fill="#fde68a" opacity=".85"><circle cx="40" cy="30" r="1.2"/><circle cx="90" cy="18" r="1"/><circle cx="150" cy="40" r="1.1"/><circle cx="250" cy="22" r="1"/><circle cx="310" cy="45" r="1.2"/><circle cx="360" cy="20" r="1"/><circle cx="205" cy="12" r="1"/></g><path d="M338 30a16 16 0 1 0 14 24a13 13 0 1 1 -14 -24z" fill="#fde68a"/><g fill="#064420"><path d="M0 200V172q20-8 40 0v-18h4v-6l3-6 3 6v6h4v24q18-10 36 0V200z"/><path d="M80 200V150h6v-26l4-8 4 8v26h6v50z"/><path d="M120 200v-30q8-30 40-34 0-6 3-8 3 2 3 8 32 4 40 34v30z" /><path d="M150 200v-40q0-38 50-50 0-8 4-11 4 3 4 11 50 12 50 50v40z"/><path d="M300 200V150h6v-26l4-8 4 8v26h6v50z"/><path d="M240 200v-30q8-30 40-34 0-6 3-8 3 2 3 8 32 4 40 34v30z"/><path d="M330 200v-28q18-10 36 0v-18h4v-6l3-6 3 6v6h4v24q10-6 20 0V200z"/></g><path d="M0 199h400" stroke="#d4af37" stroke-width="2"/></svg><div class="ph" id="jm58ph"></div>'
-      + '<div class="in"><img class="lg" src="' + E(c.logo || 'ui/emblem.png') + '" alt=""><div class="tx"><div class="nm58" id="jm58nm">' + E(mad) + '</div><div class="fl"></div>'
-      + (c.moh ? '<div class="l58"><span>مہتمم صاحب:</span> <b>' + E(c.moh) + '</b></div>' : '')
-      + (qari ? '<div class="l58"><span>قاری استاد صاحب:</span> <b>' + E(qari) + '</b></div>' : '')
+      + '<button type="button" class="g58" data-d="cfg" aria-label="ترتیبات">⚙️</button>' + (canPic ? '<button type="button" class="p58" data-k54="pic">🖼️ تصویر بدلیں</button>' : '')
+      + '<div class="in"><img class="lg" src="' + E(c.logo || 'ui/emblem.png') + '" alt=""><div class="tx"><div class="nm58" data-hs="nm" id="jm58nm">' + E(mad) + '</div><div class="fl"></div>'
+      + (c.moh ? '<div class="l58" data-hs="moh"><span>مہتمم صاحب:</span> <b>' + E(c.moh) + '</b></div>' : '')
+      + (qari ? '<div class="l58" data-hs="tc"><span>قاری استاد صاحب:</span> <b>' + E(qari) + '</b></div>' : '')
       + '</div></div></div>'
       + '<div class="g6">'
       + btn('b-sabaq', 'h-sabaq.png', 'سبق', L.sabaq ? 'data-d="kpient"' : 'data-d35="1"', bd(L.sabaq, 'باقی'))
@@ -11013,14 +11014,14 @@ window.MD_NOTE = { v: 'MD2411TU059', n: '⚙️ ترتیبات کا بٹن نی�
       + '</div>'
       + '<button type="button" class="lo" data-k54="out"><img src="ui/h-out.png" alt=""> لاگ آؤٹ</button>'
       + '<div class="more">'
-      + '<button type="button" data-d="cfg">⚙️ ترتیبات</button><button type="button" data-d="exm">🎓 امتحانات</button><button type="button" data-d35="1">📋 آج کا کام</button><button type="button" data-d39="1">☁️ دو موبائل</button>'
+      + '<button type="button" data-d="exm">🎓 امتحانات</button><button type="button" data-d35="1">📋 آج کا کام</button><button type="button" data-d39="1">☁️ دو موبائل</button>'
       + (act.staff ? '' : '<button type="button" data-k54="pkg">📦 پیکج</button>')
       + (function(){ var D = window.jmaDrive, on = D && D.connected(), td = on && D.lastDay() === pk; return '<button type="button" data-k54="drive" class="' + (td ? '' : 'r') + '">' + (td ? '☁️ آج کا بیک اپ ✓' : on ? '☁️ بیک اپ — آج نہیں ہوا' : '☁️ ڈرائیو بیک اپ جوڑیں') + '</button>'; })()
       + '</div>'
       + '<div class="ft"><img src="ui/home-bot.jpg" alt=""><button type="button" class="hdb" data-k54="help"><img src="ui/h-help.png" alt=""> ہیلپ ڈیسک</button>' + (vs ? '<div class="vr">V' + vs + '</div>' : '') + '</div></div>';
     fitName(); paintPhoto();
   }
-  /* MD2311MO058: نام کبھی نہ کٹے — جگہ کے حساب سے خود چھوٹا، پھر بھی بڑا ہو تو دو لائن */
+  /* MD2411TU060: نام کبھی نہ کٹے — جگہ کے حساب سے خود چھوٹا، پھر بھی بڑا ہو تو دو لائن */
   function fitName(){ var n = $('jm58nm'); if(!n) return; var fs = Math.min(44, Math.max(24, n.parentNode.clientWidth / 7)); n.style.whiteSpace = 'nowrap'; n.style.fontSize = fs + 'px';
     var g = 0; while(n.scrollWidth > n.clientWidth + 1 && fs > 28 && g++ < 40){ fs -= 1; n.style.fontSize = fs + 'px'; }
     if(n.scrollWidth > n.clientWidth + 1){ n.style.whiteSpace = 'normal'; n.style.lineHeight = '1.45'; n.style.fontSize = '30px'; } }
@@ -11034,27 +11035,16 @@ window.MD_NOTE = { v: 'MD2411TU059', n: '⚙️ ترتیبات کا بٹن نی�
     if(photoUrl){ ph.style.backgroundImage = 'url(' + photoUrl + ')'; hd.classList.add('has'); return; }
     imgGet().then(function(v){ if(!v) return; photoUrl = v; var a = $('jm58ph'), b = $('jm58hd'); if(a){ a.style.backgroundImage = 'url(' + v + ')'; b.classList.add('has'); } }); }
   function pickPhoto(){
-    if(typeof window.jmaPhotoPick !== 'function'){ alert('تصویر کا آلہ نہیں کھلا'); return; }
-    jmaPhotoPick(function(d){ imgSet(d).then(function(ok){ if(ok){ photoUrl = d; refresh(); if(window.jmaToast) jmaToast('✅ مدرسے کی تصویر محفوظ ہو گئی — ہوم پر لگ گئی'); } else alert('❌ تصویر محفوظ نہیں ہو سکی'); }); },
-      { title: '🖼️ مدرسے کی تصویر', rect: [1200, 600] });
+    var has = !!photoUrl;
+    if(has && !confirm('نئی تصویر لگائیں؟\n\n(«Cancel» دبائیں تو پہلے والی سادہ تصویر واپس لانے کا پوچھا جائے گا)')){ if(confirm('اپنی تصویر ہٹا کر پہلے والی تصویر واپس لگائیں؟')){ imgSet(null).then(function(){ photoUrl = null; jmaDashOpen(); }); } return; }
+    var f = document.createElement('input'); f.type = 'file'; f.accept = 'image/*';
+    f.onchange = function(){ var file = f.files && f.files[0]; if(!file) return; var rd = new FileReader();
+      rd.onload = function(){ var im = new Image(); im.onload = function(){ var W = 1200, sc = Math.min(1, W / im.width), cv = document.createElement('canvas'); cv.width = Math.round(im.width * sc); cv.height = Math.round(im.height * sc);
+        cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height); var d = cv.toDataURL('image/jpeg', 0.82);
+        imgSet(d).then(function(ok){ if(ok){ photoUrl = d; jmaDashOpen(); if(window.jmaToast) jmaToast('✅ ہوم کی تصویر بدل گئی'); } else alert('❌ تصویر محفوظ نہیں ہو سکی'); }); };
+        im.src = rd.result; }; rd.readAsDataURL(file); };
+    f.click();
   }
-  function resetPhoto(){ if(!confirm('مدرسے کی تصویر ہٹا کر پہلے والی سادہ تصویر لگائیں؟')) return; imgSet(null).then(function(){ photoUrl = null; refresh(); }); }
-  function refresh(){ var D = $('jmaDash'); if(D && D.style.display === 'block'){ var y = D.scrollTop; jmaDashOpen(); D.scrollTop = y; } var x = document.querySelector('#jm30 .jm58s'); if(x) x.remove(); setBox(); }
-  /* ⚙️ ترتیبات کے اندر «🖼️ مدرسے کی تصویر» — یہی ہوم کے اوپر لگتی ہے */
-  function setBox(){
-    var o = $('jm30'), bx = o && o.querySelector('.bx'); if(!bx || bx.querySelector('.jm58s')) return;
-    var can = typeof jmaCan !== 'function' || jmaCan('classes');
-    var d = document.createElement('div'); d.className = 'jm58s';
-    d.style.cssText = 'margin-top:10px;border:2px solid #d4af37;border-radius:14px;padding:8px;background:#fffbea;text-align:center';
-    var show = function(u){ d.innerHTML = '<div style="font-family:\'Jameel Noori Nastaleeq Kasheeda\',serif;font-size:18px;color:#065f46">🖼️ مدرسے کی تصویر (ہوم کے اوپر)</div>'
-      + '<div style="margin:6px auto;width:100%;max-width:320px;aspect-ratio:2/1;border-radius:10px;overflow:hidden;border:1.5px solid #cbd5e1;background:#0a5a2a center/cover no-repeat' + (u ? ';background-image:url(' + u + ')' : '') + ';display:flex;align-items:center;justify-content:center;color:#fde68a;font-size:14px">' + (u ? '' : 'ابھی سادہ تصویر (مسجد / چاند) لگی ہے') + '</div>'
-      + (can ? '<div style="display:flex;gap:6px"><button type="button" data-p58="set" style="flex:1;border:0;border-radius:12px;padding:7px;background:linear-gradient(135deg,#059669,#065f46);color:#fff;font:inherit;font-size:15px">📷 ' + (u ? 'تصویر بدلیں' : 'تصویر لگائیں') + '</button>' + (u ? '<button type="button" data-p58="del" style="flex:1;border:2px solid #fca5a5;border-radius:12px;padding:7px;background:#fff;color:#b91c1c;font:inherit;font-size:15px">↺ پہلی تصویر</button>' : '') + '</div>'
-        : '<div style="font-size:13px;color:#64748b">تصویر صرف منتظم / مہتمم بدل سکتے ہیں</div>'); };
-    show(photoUrl); if(!photoUrl) imgGet().then(function(v){ if(v){ photoUrl = v; show(v); } });
-    d.addEventListener('click', function(e){ var b = e.target.closest('[data-p58]'); if(!b) return; e.stopPropagation(); if(b.dataset.p58 === 'set') pickPhoto(); else resetPhoto(); });
-    bx.appendChild(d);
-  }
-  setInterval(setBox, 800);
   window.jmaHomePhoto = pickPhoto;
   var orig = window.jmaDashOpen;
   window.jmaDashOpen = function(){ var el = $('jmaDash'); el.style.display = 'block'; try{ draw(); }catch(e){ el.classList.remove('jm54'); if(orig) orig(); } };
@@ -11065,6 +11055,7 @@ window.MD_NOTE = { v: 'MD2411TU059', n: '⚙️ ترتیبات کا بٹن نی�
     else if(k === 'help'){ try{ openHelpDesk({ type: 'chat' }); }catch(x){ try{ openHelpDesk(); }catch(y){} } }
     else if(k === 'out'){ if(window.jmaAskExit) jmaAskExit(); }
     else if(k === 'drive'){ if(window.jmaDriveOpen) jmaDriveOpen(); }
+    else if(k === 'pic'){ if(window.jmaHomePhoto) jmaHomePhoto(); }
   }, true);
   /* ایپ کھلتے ہی یہی ہوم (سائن اپ / پرانا تالا نہ ہو تو) */
   function boot(){ var n = 0, t = setInterval(function(){ n++;
@@ -11266,4 +11257,135 @@ window.MD_NOTE = { v: 'MD2411TU059', n: '⚙️ ترتیبات کا بٹن نی�
   document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'visible'){ LOAD_AT = Date.now(); setTimeout(daily, 2500); } });
 })();
 </script>
+<!-- ============================================================
+     MD2411TU060 — ہوم کے اوپر مدرسے / مہتمم / استاد کے نام: تین بار ٹچ کریں تو سائز، فونٹ، رنگ اور جگہ بدلنے کا پینل
+     (jamia_hdr_style_v1 میں محفوظ؛ باقی کسی ڈیٹا کو نہیں چھیڑتا)
+     ============================================================ -->
+<style id="jma059css">
+#jm59{position:fixed;left:0;right:0;bottom:0;z-index:2147483200;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.45);padding:12px 12px calc(12px + env(safe-area-inset-bottom,0px));direction:rtl;font-family:var(--font-nastaliq,serif);max-height:78vh;overflow-y:auto}
+#jm59 h3{margin:0 0 6px;text-align:center;font-family:var(--font-kasheeda,serif);font-weight:400;font-size:22px;color:#065f46}
+#jm59 .tb{display:flex;gap:6px;margin-bottom:6px}
+#jm59 .tb button{flex:1;border:1.5px solid #0f766e;background:#fff;color:#0f766e;border-radius:10px;padding:5px 2px;font:inherit;font-size:15px}
+#jm59 .tb button.on{background:#0f766e;color:#fff}
+#jm59 .r{display:flex;align-items:center;gap:6px;margin-top:7px}
+#jm59 .r>span{min-width:62px;font-size:15px;color:#0f172a}
+#jm59 .r input[type=range]{flex:1;accent-color:#0f766e;direction:ltr}
+#jm59 .r select{flex:1;font:inherit;font-size:16px;padding:5px;border:1.5px solid #94a3b8;border-radius:10px;background:#fff}
+#jm59 .r input[type=color]{width:46px;height:34px;border:1.5px solid #94a3b8;border-radius:8px;padding:0;background:#fff}
+#jm59 .sw{display:flex;gap:5px;flex-wrap:wrap;flex:1}
+#jm59 .sw i{width:26px;height:26px;border-radius:50%;border:2px solid #cbd5e1;display:block}
+#jm59 .pb{width:38px;height:36px;border-radius:10px;border:1.5px solid #0f766e;background:#ecfdf5;color:#0f766e;font:900 17px Arial;padding:0}
+#jm59 .pad{display:grid;grid-template-columns:repeat(3,42px);gap:4px;margin:0 auto;direction:ltr}
+#jm59 .pad button{height:34px;border-radius:10px;border:1.5px solid #0f766e;background:#ecfdf5;color:#0f766e;font-size:17px;padding:0}
+#jm59 .row{display:flex;gap:8px;margin-top:10px}
+#jm59 .row button{flex:1;border:1.5px solid #0f766e;background:#fff;color:#0f766e;border-radius:12px;padding:8px 4px;font:inherit;font-size:16px}
+#jm59 .row .ok{flex:2;background:linear-gradient(180deg,#059669,#065f46);color:#fff;border:0;font-size:18px}
+#jmaDash [data-hs]{touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+</style>
+<script id="jma059">
+(function(){
+  'use strict';
+  var HK = 'jamia_hdr_style_v1';
+  var NAMES = { nm: '🕌 مدرسے کا نام', moh: '👤 مہتمم صاحب', tc: '👳 استاد صاحب' };
+  var FONTS = [
+    ['نوری نستعلیق کشیدہ', "'Jameel Noori Nastaleeq Kasheeda','Jameel Noori Nastaleeq',serif"],
+    ['نوری نستعلیق', "'Jameel Noori Nastaleeq','Noto Naskh Arabic',serif"],
+    ['ثلث', "'DecoType Thuluth','Jameel Noori Nastaleeq',serif"],
+    ['سادہ (نسخ)', "'Noto Naskh Arabic',Arial,sans-serif"]
+  ];
+  var COLORS = ['#ffffff', '#fde68a', '#facc15', '#fb923c', '#86efac', '#7dd3fc', '#f9a8d4', '#111111'];
+  function $(i){ return document.getElementById(i); }
+  function load(){ try{ var v = JSON.parse(localStorage.getItem(HK) || 'null'); return (v && typeof v === 'object') ? v : {}; }catch(e){ return {}; } }
+  function save(S){ try{ localStorage.setItem(HK, JSON.stringify(S)); return true; }catch(e){ return false; } }
+  function canEdit(){ try{ return typeof jmaCan === 'function' ? jmaCan('classes') : true; }catch(e){ return true; } }
+  function pr(el, k, v){ if(v == null || v === '') el.style.removeProperty(k); else el.style.setProperty(k, v, 'important'); }
+
+  /* ---- ہوم کی لائنوں پر انداز لگانا ---- */
+  function applyOne(el, st){
+    var k = el.getAttribute('data-hs'); st = st || {};
+    pr(el, 'font-family', st.ff);
+    pr(el, 'transform', (st.x || st.y) ? 'translate(' + (+st.x || 0) + 'px,' + (+st.y || 0) + 'px)' : '');
+    pr(el, 'position', (st.x || st.y) ? 'relative' : '');
+    if(k === 'nm'){
+      pr(el, 'font-size', st.fs ? st.fs + 'px' : '');
+      pr(el, 'color', st.c);
+      pr(el, 'white-space', st.fs ? 'normal' : ''); pr(el, 'overflow', st.fs ? 'visible' : '');
+    } else {
+      var sp = el.querySelector('span'), b = el.querySelector('b');
+      if(sp){ pr(sp, 'font-size', st.fs ? Math.round(st.fs * .8) + 'px' : ''); pr(sp, 'color', st.c); pr(sp, 'font-family', st.ff); }
+      if(b){ pr(b, 'font-size', st.fs ? st.fs + 'px' : ''); pr(b, 'color', st.c); pr(b, 'font-family', st.ff); }
+      pr(el, 'white-space', st.fs ? 'normal' : ''); pr(el, 'overflow', st.fs ? 'visible' : '');
+    }
+  }
+  function applyAll(){
+    var S = load(), d = $('jmaDash'); if(!d) return;
+    d.querySelectorAll('[data-hs]').forEach(function(el){ applyOne(el, S[el.getAttribute('data-hs')]); });
+  }
+  window.jmaHdrApply = applyAll;
+
+  /* ---- پینل ---- */
+  function openPanel(k0){
+    var o = $('jm59'); if(o) o.remove();
+    var cur = k0, S = load();
+    o = document.createElement('div'); o.id = 'jm59'; o.className = 'no-print';
+    document.body.appendChild(o);
+    function el(){ return document.querySelector('#jmaDash [data-hs="' + cur + '"]'); }
+    function st(){ S[cur] = S[cur] || {}; return S[cur]; }
+    function commit(){ save(S); applyAll(); }
+    function draw(){
+      var e = el(), cs = e ? getComputedStyle(e.querySelector('b') || e) : null;
+      var fs = st().fs || (cs ? Math.round(parseFloat(cs.fontSize)) : 24) || 24;
+      var ff = st().ff || '', col = st().c || '#ffffff';
+      var h = '<h3>✏️ ہوم کے نام سنواریں</h3><div class="tb">';
+      Object.keys(NAMES).forEach(function(k){ if(document.querySelector('#jmaDash [data-hs="' + k + '"]')) h += '<button type="button" data-t="' + k + '" class="' + (k === cur ? 'on' : '') + '">' + NAMES[k] + '</button>'; });
+      h += '</div>';
+      h += '<div class="r"><span>🔠 سائز</span><button type="button" class="pb" data-z="-">−</button><input type="range" id="jm59s" min="12" max="70" value="' + fs + '"><button type="button" class="pb" data-z="+">+</button></div>';
+      h += '<div class="r"><span>🖋️ فونٹ</span><select id="jm59f"><option value="">— موجودہ —</option>' + FONTS.map(function(f){ return '<option value="' + f[1].replace(/"/g, '&quot;') + '"' + (ff === f[1] ? ' selected' : '') + '>' + f[0] + '</option>'; }).join('') + '</select></div>';
+      h += '<div class="r"><span>🎨 رنگ</span><input type="color" id="jm59c" value="' + (/^#[0-9a-f]{6}$/i.test(col) ? col : '#ffffff') + '"><div class="sw">' + COLORS.map(function(c){ return '<i data-c="' + c + '" style="background:' + c + '"></i>'; }).join('') + '</div></div>';
+      h += '<div class="r"><span>↔️ جگہ</span><div class="pad"><span></span><button type="button" data-m="u">⬆️</button><span></span><button type="button" data-m="l">⬅️</button><button type="button" data-m="z">●</button><button type="button" data-m="r">➡️</button><span></span><button type="button" data-m="d">⬇️</button><span></span></div></div>';
+      h += '<div class="row"><button type="button" data-a="reset">↺ اس کا پہلے جیسا</button><button type="button" class="ok" data-a="ok">✅ ہو گیا</button></div>';
+      o.innerHTML = h;
+    }
+    draw();
+    o.addEventListener('click', function(e){
+      var t = e.target.closest('[data-t],[data-z],[data-c],[data-m],[data-a]'); if(!t) return; e.stopPropagation();
+      if(t.dataset.t){ cur = t.dataset.t; draw(); return; }
+      if(t.dataset.z){ var d = t.dataset.z === '+' ? 2 : -2, sl = $('jm59s'); st().fs = Math.max(12, Math.min(70, (+sl.value || 24) + d)); commit(); draw(); return; }
+      if(t.dataset.c){ st().c = t.dataset.c; commit(); draw(); return; }
+      if(t.dataset.m){ var s = st(), m = t.dataset.m, step = 3;
+        if(m === 'u') s.y = Math.max(-80, (+s.y || 0) - step); if(m === 'd') s.y = Math.min(80, (+s.y || 0) + step);
+        if(m === 'l') s.x = Math.max(-120, (+s.x || 0) - step); if(m === 'r') s.x = Math.min(120, (+s.x || 0) + step);
+        if(m === 'z'){ s.x = 0; s.y = 0; } commit(); return; }
+      if(t.dataset.a === 'reset'){ delete S[cur]; var e2 = el(); if(e2) applyOne(e2, null); commit(); draw(); return; }
+      if(t.dataset.a === 'ok'){ commit(); o.remove(); }
+    });
+    o.addEventListener('input', function(e){
+      var t = e.target;
+      if(t.id === 'jm59s'){ st().fs = +t.value; commit(); }
+      if(t.id === 'jm59c'){ st().c = t.value; commit(); }
+    });
+    o.addEventListener('change', function(e){ if(e.target.id === 'jm59f'){ st().ff = e.target.value || ''; commit(); } });
+  }
+  window.jmaHdrPanel = openPanel;
+
+  /* ---- تین بار ٹچ ---- */
+  var tp = { k: '', n: 0, t: 0 };
+  document.addEventListener('click', function(e){
+    var el = e.target.closest && e.target.closest('#jmaDash [data-hs]'); if(!el) return;
+    var k = el.getAttribute('data-hs'), now = Date.now();
+    if(tp.k === k && now - tp.t < 700) tp.n++; else tp.n = 1;
+    tp.k = k; tp.t = now;
+    if(tp.n >= 3){ tp.n = 0; if(canEdit()) openPanel(k); }
+  }, true);
+
+  /* ---- ہوم دوبارہ بنے تو انداز دوبارہ لگے ---- */
+  function watch(){
+    var d = $('jmaDash'); if(!d){ setTimeout(watch, 500); return; }
+    var tm; new MutationObserver(function(){ clearTimeout(tm); tm = setTimeout(applyAll, 0); }).observe(d, { childList: true, subtree: true });
+    applyAll();
+  }
+  watch(); setInterval(applyAll, 1500);
+})();
+</script>
+
 </body></html>
