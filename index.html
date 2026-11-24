@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU061</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU062</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9498,7 +9498,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   function name(){ var c = cf(); return (c.name && (userSet(c) || !OLD.test(c.name)) && c.name) || md().mad || 'جامعہ'; }
   window.jmaMadName = name;
   window.jmaPassDefault = function(){ var c = cf(); return c.pass != null ? c.pass : 40; };
-  window.jmaCfg = function(){ var c = cf(); return { name: name(), full: c.full || '', teacher: c.teacher || '', moh: c.moh || md().per || '', addr: c.addr || md().dist || '', phone: c.phone || md().mob || '', logo: c.logo || '' }; };
+  window.jmaCfg = function(){ var c = cf(); return { name: name(), full: c.full || '', teacher: c.teacher || '', sar: c.sar || '', moh: c.moh || md().per || '', addr: c.addr || md().dist || '', phone: c.phone || md().mob || '', logo: c.logo || '' }; };
   function paint(){
     try{
       var n = name();
@@ -9519,6 +9519,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       + '<label>🕌 مدرسے / جامعہ کا نام (ہر جگہ یہی)</label><input id="jm30n" maxlength="50" value="' + v('name', m.mad) + '" placeholder="مثلاً جامعہ فاروقیہ">'
       + '<label>🏛️ ادارے کا پورا نام (رپورٹ / رسید کے اوپر، اختیاری)</label><input id="jm30f" maxlength="90" value="' + v('full') + '" placeholder="مثلاً جامعہ فاروقیہ تعلیم القرآن، فتح پور">'
       + '<label>👤 مہتمم کا نام</label><input id="jm30m" maxlength="40" value="' + v('moh', m.per) + '">'
+      + '<label>🤲 زیر سرپرستی (ہوم کے اوپر — خالی ہو تو نہیں دکھتا)</label><input id="jm30r" maxlength="60" value="' + v('sar') + '" placeholder="مثلاً مفتی منیر صاحب">'
       + '<label>👳 استاد / قاری صاحب کا نام (ہوم کے اوپر)</label><input id="jm30t" maxlength="60" value="' + v('teacher') + '" placeholder="خالی ہو تو کلاس کے انچارج کا نام">'
       + '<label>📍 پتہ / ضلع</label><input id="jm30a" maxlength="80" value="' + v('addr', m.dist) + '">'
       + '<label>📱 فون نمبر</label><input id="jm30p" class="ltr" inputmode="tel" maxlength="15" value="' + v('phone', m.mob) + '">'
@@ -9537,7 +9538,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       var g = function(i){ return String(($(i) || {}).value || '').trim(); }, er = $('jm30e');
       var nm = g('jm30n');
       if(nm.length < 3){ er.textContent = 'مدرسے کا نام لکھیں'; return; }
-      var c2 = Object.assign({}, cf(), { name: nm, full: g('jm30f'), moh: g('jm30m'), teacher: g('jm30t'), addr: g('jm30a'), phone: g('jm30p'), logo: newLogo, usr: 1, upd: Date.now() });
+      var c2 = Object.assign({}, cf(), { name: nm, full: g('jm30f'), moh: g('jm30m'), teacher: g('jm30t'), sar: g('jm30r'), addr: g('jm30a'), phone: g('jm30p'), logo: newLogo, usr: 1, upd: Date.now() });
       var okSave = false;
       try{ localStorage.setItem(K, JSON.stringify(c2)); okSave = (cf().name === nm); }catch(e){}
       if(!okSave && c2.logo){ try{ localStorage.setItem(K, JSON.stringify(Object.assign({}, c2, { logo: '' }))); okSave = (cf().name === nm); if(okSave) alert('⚠️ لوگو بڑا تھا، اس کے بغیر باقی ترتیبات محفوظ ہو گئیں'); }catch(e){} }
@@ -9561,7 +9562,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
      ============================================================ -->
 <style id="jma033css">
 #jm33c,#jm33e{position:fixed;inset:0;z-index:2147483100;background:rgba(2,44,34,.9);display:flex;align-items:center;justify-content:center;padding:14px;direction:rtl}
-#jm33c .bx,#jm33e .bx{background:#fff;border-radius:20px;max-width:420px;width:100%;padding:14px;font-family:var(--font-nastaliq,serif);box-shadow:0 12px 40px rgba(0,0,0,.45)}
+#jm33c .bx,#jm33e .bx{background:#fff;border-radius:20px;max-width:420px;width:100%;padding:14px;font-family:var(--font-nastaliq,serif);box-shadow:0 12px 40px rgba(0,0,0,.45);max-height:100%;overflow-y:auto;box-sizing:border-box}
 #jm33c h3,#jm33e h3{margin:0 0 8px;text-align:center;font-family:var(--font-kasheeda,serif);font-weight:400;color:#065f46;font-size:22px}
 #jm33c .b3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 #jm33c .b3 button{border:2px solid #0f766e;background:#ecfdf5;color:#065f46;border-radius:14px;padding:12px 4px;font:inherit;font-size:16px;line-height:1.6}
@@ -9569,6 +9570,8 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 #jm33c .x,#jm33e .x{display:block;width:100%;margin-top:10px;border:1.5px solid #94a3b8;background:#fff;border-radius:12px;padding:7px;font:inherit;font-size:16px}
 #jm33e .cv{position:relative;width:280px;height:280px;margin:0 auto;touch-action:none;border-radius:16px;overflow:hidden;background:#0f172a}
 #jm33e canvas{display:block;width:280px;height:280px}
+#jm33e .cv.rc{width:100%;max-width:360px;height:auto;aspect-ratio:2/1;border-radius:10px;outline:3px solid #d4af37;outline-offset:-3px}
+#jm33e .cv.rc canvas{width:100%;height:100%}
 #jm33e .ring{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at center,transparent 128px,rgba(15,23,42,.62) 129px);}
 #jm33e .ring::after{content:'';position:absolute;left:12px;top:12px;width:256px;height:256px;border-radius:50%;border:3px solid #d4af37;box-sizing:border-box}
 #jm33e .r{display:flex;align-items:center;gap:6px;margin-top:6px}
@@ -9585,46 +9588,50 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   'use strict';
   function $(i){ return document.getElementById(i); }
   /* تصویر لینے کا انتخاب */
-  function choose(cb){
+  /* MD2411TU059 / 062: opt = {title, rect:[w,h]} — مستطیل فریم (مدرسے کی ہوم تصویر) */
+  function choose(cb, opt){
+    opt = opt || {};
     var o = $('jm33c'); if(o) o.remove(); o = document.createElement('div'); o.id = 'jm33c';
-    o.innerHTML = '<div class="bx"><h3>📷 طالب علم کی تصویر</h3><div class="b3"><button type="button" data-c="env"><i>📷</i>کیمرہ</button><button type="button" data-c="user"><i>🤳</i>سیلفی</button><button type="button" data-c="gal"><i>🖼️</i>گیلری</button></div><button type="button" class="x" data-c="x">✕ واپس</button></div>';
+    o.innerHTML = '<div class="bx"><h3>' + (opt.title || '📷 طالب علم کی تصویر') + '</h3><div class="b3"><button type="button" data-c="env"><i>📷</i>کیمرہ</button><button type="button" data-c="user"><i>🤳</i>سیلفی</button><button type="button" data-c="gal"><i>🖼️</i>گیلری</button></div><button type="button" class="x" data-c="x">✕ واپس</button></div>';
     document.body.appendChild(o);
     o.onclick = function(e){ var b = e.target.closest('[data-c]'); if(!b && e.target !== o) return; var k = b ? b.getAttribute('data-c') : 'x'; if(k === 'x'){ o.remove(); return; }
       var inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*'; if(k !== 'gal') inp.setAttribute('capture', k === 'user' ? 'user' : 'environment');
       inp.style.display = 'none'; document.body.appendChild(inp);
-      inp.onchange = function(){ var f = inp.files && inp.files[0]; inp.remove(); if(f){ o.remove(); edit(f, cb); } };
+      inp.onchange = function(){ var f = inp.files && inp.files[0]; inp.remove(); if(f){ o.remove(); edit(f, cb, opt); } };
       inp.click(); };
   }
   /* سنوارنے کا آلہ */
-  function edit(file, cb){
+  function edit(file, cb, opt){
+    opt = opt || {}; var RC = opt.rect, CH = RC ? Math.round(560 * RC[1] / RC[0]) : 560;
     var url = URL.createObjectURL(file), img = new Image();
     img.onload = function(){
       var o = $('jm33e'); if(o) o.remove(); o = document.createElement('div'); o.id = 'jm33e';
-      o.innerHTML = '<div class="bx"><h3>✂️ تصویر سنواریں</h3><div class="cv"><canvas width="560" height="560"></canvas><div class="ring"></div></div><div class="tip">انگلی سے کھسکائیں · دو انگلیوں سے بڑا / چھوٹا کریں</div>'
+      o.innerHTML = '<div class="bx"><h3>✂️ تصویر سنواریں</h3><div class="cv' + (RC ? ' rc' : '') + '"><canvas width="560" height="' + CH + '"></canvas>' + (RC ? '' : '<div class="ring"></div>') + '</div><div class="tip">انگلی سے کھسکائیں · دو انگلیوں سے بڑا / چھوٹا کریں</div>'
         + '<div class="r"><span>🔍 زوم</span><button type="button" data-z="-">−</button><input type="range" id="jm33z" min="100" max="400" value="100"><button type="button" data-z="+">+</button></div>'
         + '<div class="r"><span>☀️ روشنی</span><input type="range" id="jm33b" min="50" max="170" value="100"></div>'
         + '<div class="r"><span>🌓 کنٹراسٹ</span><input type="range" id="jm33k" min="50" max="170" value="100"></div>'
+        + '<div class="r"><span>🎨 رنگ</span><input type="range" id="jm33s" min="0" max="200" value="100"></div>'
         + '<div class="row"><button type="button" data-e="rot">⟳ گھمائیں</button><button type="button" data-e="reset">↺ پہلے جیسا</button></div>'
         + '<div class="row"><button type="button" data-e="x">✕ چھوڑیں</button><button type="button" class="ok" data-e="ok">✅ تصویر لگائیں</button></div></div>';
       document.body.appendChild(o);
       var cv = o.querySelector('canvas'), ctx = cv.getContext('2d'), S = 560, R = 256 * 2;   /* کینوس 2x؛ گول دائرہ 512 */
-      var st = { z: 1, x: 0, y: 0, rot: 0, b: 100, k: 100 };
-      function base(){ var w = st.rot % 180 ? img.height : img.width, h = st.rot % 180 ? img.width : img.height; return R / Math.min(w, h); }   /* کم از کم: دائرہ پورا بھرا */
+      var st = { z: 1, x: 0, y: 0, rot: 0, b: 100, k: 100, s: 100 };
+      function base(){ var w = st.rot % 180 ? img.height : img.width, h = st.rot % 180 ? img.width : img.height; return RC ? Math.max(S / w, CH / h) : R / Math.min(w, h); }   /* کم از کم: دائرہ پورا بھرا */
       function draw(c2, size, ring){
-        var sc = base() * st.z * (size / S); c2.save(); c2.fillStyle = '#fff'; c2.fillRect(0, 0, size, size);
-        try{ c2.filter = 'brightness(' + st.b + '%) contrast(' + st.k + '%)'; }catch(e){}
-        c2.translate(size / 2 + st.x * size / S, size / 2 + st.y * size / S); c2.rotate(st.rot * Math.PI / 180); c2.scale(sc, sc);
+        var sc = base() * st.z * (size / S), hh = size * CH / S; c2.save(); c2.fillStyle = '#fff'; c2.fillRect(0, 0, size, hh);
+        try{ c2.filter = 'brightness(' + st.b + '%) contrast(' + st.k + '%) saturate(' + st.s + '%)'; }catch(e){}
+        c2.translate(size / 2 + st.x * size / S, hh / 2 + st.y * size / S); c2.rotate(st.rot * Math.PI / 180); c2.scale(sc, sc);
         c2.drawImage(img, -img.width / 2, -img.height / 2); c2.restore();
       }
       function paint(){ draw(ctx, S); }
       paint();
-      var Z = $('jm33z'), B = $('jm33b'), K = $('jm33k');
-      Z.oninput = function(){ st.z = Z.value / 100; paint(); }; B.oninput = function(){ st.b = +B.value; paint(); }; K.oninput = function(){ st.k = +K.value; paint(); };
+      var Z = $('jm33z'), B = $('jm33b'), K = $('jm33k'), SA = $('jm33s');
+      Z.oninput = function(){ st.z = Z.value / 100; paint(); }; B.oninput = function(){ st.b = +B.value; paint(); }; K.oninput = function(){ st.k = +K.value; paint(); }; SA.oninput = function(){ st.s = +SA.value; paint(); };
       /* انگلی / ماؤس: کھسکانا اور دو انگلیوں سے زوم */
       var pts = {}, last = null, pinch = 0;
       cv.addEventListener('pointerdown', function(e){ cv.setPointerCapture(e.pointerId); pts[e.pointerId] = { x: e.clientX, y: e.clientY }; last = null; pinch = 0; });
       cv.addEventListener('pointermove', function(e){ if(!pts[e.pointerId]) return; var p0 = pts[e.pointerId]; var ids = Object.keys(pts);
-        if(ids.length === 1){ st.x += (e.clientX - p0.x) * (S / 280); st.y += (e.clientY - p0.y) * (S / 280); }
+        if(ids.length === 1){ var k2 = S / (cv.clientWidth || 280); st.x += (e.clientX - p0.x) * k2; st.y += (e.clientY - p0.y) * k2; }
         pts[e.pointerId] = { x: e.clientX, y: e.clientY };
         if(ids.length >= 2){ var a = pts[ids[0]], c = pts[ids[1]], d = Math.hypot(a.x - c.x, a.y - c.y); if(pinch){ st.z = Math.max(1, Math.min(4, st.z * d / pinch)); Z.value = Math.round(st.z * 100); } pinch = d; }
         paint(); });
@@ -9634,9 +9641,10 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
         if(b.hasAttribute('data-z')){ st.z = Math.max(1, Math.min(4, st.z + (b.getAttribute('data-z') === '+' ? 0.15 : -0.15))); Z.value = Math.round(st.z * 100); paint(); return; }
         var k = b.getAttribute('data-e');
         if(k === 'rot'){ st.rot = (st.rot + 90) % 360; paint(); }
-        else if(k === 'reset'){ st = { z: 1, x: 0, y: 0, rot: 0, b: 100, k: 100 }; Z.value = 100; B.value = 100; K.value = 100; paint(); }
+        else if(k === 'reset'){ st = { z: 1, x: 0, y: 0, rot: 0, b: 100, k: 100, s: 100 }; Z.value = 100; B.value = 100; K.value = 100; SA.value = 100; paint(); }
         else if(k === 'x'){ o.remove(); URL.revokeObjectURL(url); }
         else if(k === 'ok'){
+          if(RC){ var oc2 = document.createElement('canvas'); oc2.width = RC[0]; oc2.height = RC[1]; draw(oc2.getContext('2d'), RC[0]); o.remove(); URL.revokeObjectURL(url); cb(oc2.toDataURL('image/jpeg', 0.85)); return; }
           /* صرف گول دائرے والا حصہ — 320×320 */
           var big = document.createElement('canvas'); big.width = S; big.height = S; draw(big.getContext('2d'), S);
           var out = document.createElement('canvas'); out.width = 320; out.height = 320; var oc = out.getContext('2d'); oc.fillStyle = '#fff'; oc.fillRect(0, 0, 320, 320);
@@ -9656,7 +9664,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU061" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU062" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10849,7 +10857,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2411TU061', n: 'ہوم کا اوپر والا حصہ نیا: صاف خوبصورت تصویر (مسجد، چاند)، مدرسے کا نام کبھی نہیں کٹتا؛ «🖼️ تصویر بدلیں» سے اپنے مدرسے کی تصویر لگائیں' };
+window.MD_NOTE = { v: 'MD2411TU062', n: '🎨 ہوم کا نیا ڈیزائن «مدرسہ انتظامیہ»: اوپر مدرسے کی تصویر، ربن پر مدرسے کا نام، سرپرست / مہتمم / استاد کے نام، تاریخ، 6 خانے گنتی کے ساتھ اور نیچے مستقل بٹنوں کی پٹی؛ مدرسے کی تصویر کیمرہ / گیلری + روشنی و رنگ کے آلے سے' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
@@ -10969,6 +10977,65 @@ window.MD_NOTE = { v: 'MD2411TU061', n: 'ہوم کا اوپر والا حصہ ن
 .jm54 .g58{position:absolute;right:2.5%;top:8px;z-index:2;width:40px;height:40px;border-radius:50%;border:2px solid #d4af37;background:rgba(6,68,32,.85);color:#fff;font-size:20px;line-height:1;padding:0}
 .jm54 .p58{position:absolute;left:2.5%;top:10px;z-index:2;border:1.5px solid #d4af37;background:rgba(6,68,32,.8);color:#fff;border-radius:999px;padding:0 10px;font-family:var(--nastaliq),serif;font-size:13px;line-height:1.9}
 .jm54 .g6{margin-top:12px}
+/* MD2411TU062: «مدرسہ انتظامیہ» ڈیزائن */
+#jmaDash.jm54:has(.x62){background:#f7f2df!important}
+#jmaDash.jm54 .w.x62{background:radial-gradient(ellipse at 50% 30%,#fffdf3 0%,#f7f0d8 70%,#efe4c0 100%);padding-bottom:0}
+.x62 .h62{position:relative;height:clamp(150px,44vw,250px);overflow:hidden}
+.x62 .h62 .sky{position:absolute;inset:0;width:100%;height:100%}
+.x62 .h62 .ph{position:absolute;inset:0;background:center/cover no-repeat}
+.x62 .g62{position:absolute;right:3%;top:10px;width:40px;height:40px;border-radius:50%;border:2px solid #fff;background:linear-gradient(180deg,#22a04b,#0b6b2c);color:#fff;padding:7px;box-shadow:0 2px 6px rgba(0,0,0,.35);z-index:2}
+.x62 .g62 svg{width:100%;height:100%}
+.x62 .rb62{position:relative;margin:-30px 5% 0;z-index:2;text-align:center;background:linear-gradient(180deg,#1f8f45,#0b6b2c 60%,#075221);border:2.5px solid #e6c35c;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.3),inset 0 2px 0 rgba(255,255,255,.25);padding:2px 12px 4px;clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+.x62 .rb62:before,.x62 .rb62:after{content:'';position:absolute;top:50%;width:14px;height:14px;background:#e6c35c;transform:translateY(-50%) rotate(45deg)}
+.x62 .rb62:before{right:-8px}.x62 .rb62:after{left:-8px}
+.x62 .rb62 .mq{display:block;font-size:18px;line-height:1;margin-top:-1px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+.x62 .nm58{font-size:clamp(22px,7vw,40px);font-family:'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;color:#fff;line-height:1.55;white-space:normal;overflow:visible;max-width:100%;text-shadow:0 2px 2px rgba(0,0,0,.35)}
+.x62 .in62{display:flex;margin:8px 3% 0;background:#fff;border:2px solid #1f8f45;border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);direction:rtl}
+.x62 .in62 .rs{flex:1;min-width:0}
+.x62 .in62 .dc{order:2;flex:none;width:26%;max-width:120px;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 30%,#fff8dc,#f3e3b0);border-right:1.5px solid #e6d7a8}
+.x62 .in62 .dc img{width:80%;max-width:90px}
+.x62 .r62{display:flex;align-items:center;gap:8px;padding:2px 10px;border-bottom:1px solid #e5e7eb;min-height:38px}
+.x62 .r62:last-child{border-bottom:0}
+.x62 .r62 b{flex:1;min-width:0;font:400 clamp(16px,4.6vw,21px)/1.8 'Jameel Noori Nastaleeq',var(--nastaliq),serif;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.x62 .r62 i{order:-1;flex:none;width:24px;height:24px;color:#0b6b2c}
+.x62 .r62 i svg{width:100%;height:100%}
+.x62 .dt62{display:flex;align-items:center;justify-content:center;gap:6px;margin:10px 3% 0;direction:rtl}
+.x62 .dt62>div{display:flex;align-items:center;gap:6px;background:linear-gradient(180deg,#fffdf2,#fbefc8);border:2px solid #e6c35c;border-radius:999px;padding:0 18px;font:400 clamp(16px,4.8vw,21px)/2 'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;color:#14532d;box-shadow:0 2px 5px rgba(0,0,0,.1)}
+.x62 .dt62 bdi{font:700 .82em Arial,sans-serif}
+.x62 .dt62 i{width:24px;height:24px;color:#0b6b2c;display:inline-flex}.x62 .dt62 i svg{width:100%;height:100%}
+.x62 .dt62 .or{color:#c9a227;font-size:20px}
+.x62 .sh62{display:flex;align-items:center;gap:8px;margin:10px 3% 6px}
+.x62 .sh62:before,.x62 .sh62:after{content:'';flex:1;height:2px;background:linear-gradient(90deg,transparent,#c9a227)}
+.x62 .sh62:after{background:linear-gradient(270deg,transparent,#c9a227)}
+.x62 .sh62 span{background:linear-gradient(180deg,#1f8f45,#0b6b2c);color:#fff;border:2px solid #e6c35c;border-radius:10px;padding:0 22px;font:400 clamp(18px,5.2vw,24px)/1.75 'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;box-shadow:0 2px 5px rgba(0,0,0,.2)}
+.x62 .g62t{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,2.4vw,14px);padding:0 3%;direction:rtl}
+.x62 .t62{position:relative;border:1.5px solid rgba(255,255,255,.9);border-radius:16px;padding:10px 4px 2px;min-height:clamp(96px,27vw,140px);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;box-shadow:0 3px 8px rgba(0,0,0,.14),inset 0 2px 0 rgba(255,255,255,.7);cursor:pointer}
+.x62 .t62 img{width:clamp(48px,15vw,78px);height:auto;filter:drop-shadow(0 2px 2px rgba(0,0,0,.2))}
+.x62 .t62 b{font:400 clamp(19px,5.6vw,28px)/1.7 'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;color:#0f172a}
+.x62 .n62{position:absolute;left:7px;top:6px;min-width:26px;height:26px;border-radius:13px;padding:0 6px;box-sizing:border-box;color:#fff;font:800 14px/26px Arial,sans-serif;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.x62 .n62.ok{background:#16a34a!important}
+.x62 .c-sbq{background:linear-gradient(180deg,#e0f2ff,#b9e1fb)}.x62 .c-sbq .n62{background:#1d72c2}
+.x62 .c-sab{background:linear-gradient(180deg,#e2fbe9,#b4ecc7)}.x62 .c-sab .n62{background:#15803d}
+.x62 .c-man{background:linear-gradient(180deg,#fff6d8,#fbe0a0)}.x62 .c-man .n62{background:#ea7a0c}
+.x62 .c-att{background:linear-gradient(180deg,#ffe4ec,#fbc3d2)}.x62 .c-att .n62{background:#be123c}
+.x62 .c-stu{background:linear-gradient(180deg,#efe7ff,#d7c6fb)}.x62 .c-stu .n62{background:#6d28d9}
+.x62 .c-rep{background:linear-gradient(180deg,#dcf7fb,#aee8f1)}
+.x62 .bk62{display:block;margin:10px auto 0;border:1.5px solid #f87171;background:#fef2f2;color:#991b1b;border-radius:999px;padding:0 14px;font:400 14px/2 var(--nastaliq),'Jameel Noori Nastaleeq',serif}
+.x62 .v62{text-align:center;font:700 10px Arial;color:#94a3b8;margin:6px 0 2px}
+.x62 .nv62{position:sticky;bottom:0;z-index:5;margin-top:auto;display:grid;grid-template-columns:repeat(7,1fr);gap:3px;align-items:end;padding:8px 4px calc(6px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(247,240,216,0),#f3e9c6 22%);border-top:0;direction:rtl}
+.x62 .nv62:after{content:'';position:absolute;left:0;right:0;bottom:0;height:7px;background:#0b6b2c;z-index:-1}
+.x62 .nv62 button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;min-width:0;background:#fffdf4;border:1.5px solid #e6c35c;border-radius:10px;padding:4px 1px 0;color:#0b6b2c;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.x62 .nv62 i{width:22px;height:22px;display:block}.x62 .nv62 i svg{width:100%;height:100%}
+.x62 .nv62 span{font:400 clamp(9.5px,2.75vw,13px)/1.9 'Jameel Noori Nastaleeq',var(--nastaliq),serif;color:#14532d;white-space:nowrap;overflow:hidden;max-width:100%}
+.x62 .nv62 .hm{background:linear-gradient(180deg,#22a04b,#0b6b2c);color:#fff;border:2.5px solid #e6c35c;transform:translateY(-6px);padding-top:7px;box-shadow:0 4px 8px rgba(0,0,0,.3)}
+.x62 .nv62 .hm span{color:#fff}
+#jm62m{position:fixed;inset:0;z-index:2147481400;background:rgba(2,44,34,.55);display:flex;align-items:flex-end;justify-content:center;direction:rtl}
+#jm62m .bx{background:#fffdf4;width:100%;max-width:480px;border-radius:20px 20px 0 0;padding:10px 12px calc(14px + env(safe-area-inset-bottom,0px));border-top:3px solid #e6c35c;font-family:var(--nastaliq),'Jameel Noori Nastaleeq',serif}
+#jm62m h3{margin:0 0 6px;text-align:center;font:400 22px/1.7 'Jameel Noori Nastaleeq Kasheeda',serif;color:#0b6b2c}
+#jm62m button{display:flex;align-items:center;gap:10px;width:100%;margin-top:6px;border:1.5px solid #e6c35c;background:#fff;border-radius:12px;padding:2px 12px;font:inherit;font-size:17px;line-height:2.1;color:#14532d;text-align:right}
+#jm62m button i{font-style:normal;font-size:20px}
+#jm62m button.x{justify-content:center;border-color:#94a3b8;color:#334155}
+@media (min-width:700px){.x62 .t62{min-height:150px}}
 </style>
 <script id="jma054">
 (function(){
@@ -10985,43 +11052,76 @@ window.MD_NOTE = { v: 'MD2411TU061', n: 'ہوم کا اوپر والا حصہ ن
   }
   function bd(n, what){ return n ? '<span class="bd">' + n + ' <small>' + what + '</small></span>' : '<span class="bd ok">✓</span>'; }
   function btn(cls, ic, t, attr, badge){ return '<button type="button" class="' + cls + '" ' + attr + '><span class="t">' + t + '</span><img src="ui/' + ic + '" alt=""><span class="ch">‹</span>' + (badge || '') + '</button>'; }
+  /* MD2411TU062 (مالک کا حکم — چوتھا ڈیزائن «مدرسہ انتظامیہ»): اوپر مدرسے کی تصویر، سبز ربن پر مدرسے کا نام (کشیدہ)،
+     سفید کارڈ میں سرپرست / مہتمم / استاد — صرف نام، کوئی «مدرسہ نام:» جیسا عنوان نہیں؛ تاریخ کی پٹی؛ «اہم شعبے»؛ 3×2 ہلکے رنگ کے خانے
+     گنتی کے ساتھ؛ نیچے ہمیشہ نظر آنے والی پٹی (مدرسہ پروفائل، طلبہ پروفائل، امتحانات، ہوم، ہیلپ ڈیسک، روزانہ شیڈول، سیٹنگز) */
+  var IC = {
+    sar: '<svg viewBox="0 0 24 24"><path d="M3 21h18v-2H3zM5 18h14v-6l-7-5-7 5zm7-14a2 2 0 1 0 0-.01z" fill="currentColor"/></svg>',
+    moh: '<svg viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="4" fill="currentColor"/><path d="M4 21c0-4.4 3.6-7.5 8-7.5s8 3.1 8 7.5z" fill="currentColor"/></svg>',
+    tc: '<svg viewBox="0 0 24 24"><path d="M3 4h18v11H11l-2 2H3z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="7" cy="18" r="2.4" fill="currentColor"/><path d="M2.5 23c.4-2.4 2.2-3.4 4.5-3.4s4.1 1 4.5 3.4z" fill="currentColor"/><path d="M12 8h6M12 11h4" stroke="currentColor" stroke-width="1.8"/></svg>',
+    cal: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2"/><path d="M7 13h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2zm-8 4h2v2H7zm4 0h2v2h-2z" fill="currentColor"/></svg>',
+    home: '<svg viewBox="0 0 24 24"><path d="M12 3 2 12h3v9h5v-6h4v6h5v-9h3z" fill="currentColor"/></svg>',
+    gear: '<svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7 7 0 0 0-1.7-1L15 3h-4l-.4 2.9a7 7 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7 7 0 0 0 1.7 1L11 21h4l.4-2.9a7 7 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5A3.5 3.5 0 1 1 13 8.5a3.5 3.5 0 0 1 0 7z" fill="currentColor"/></svg>',
+    help: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.9 2.7c-.8.3-1.1.9-1.1 1.7v.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.2" fill="#fff"/></svg>',
+    sch: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="2"/><path d="M6.5 12h3v3h-3zm4.5 0h3v3h-3zm4.5 0h3v3h-3zM6.5 16.5h3v2.5h-3zm4.5 0h3v2.5h-3z" fill="currentColor"/></svg>',
+    exm: '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 3h6v3H9zM8 10h8M8 13.5h8M8 17h5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>',
+    stu: '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4" fill="currentColor"/><circle cx="5.5" cy="10" r="2.5" fill="currentColor"/><circle cx="18.5" cy="10" r="2.5" fill="currentColor"/><path d="M5.5 21c0-3.8 2.9-6.4 6.5-6.4s6.5 2.6 6.5 6.4zM.8 19c0-2.6 1.9-4.4 4.7-4.4 1 0 1.8.2 2.5.6-1.3 1.1-2.1 2.4-2.4 3.8zm22.4 0c0-2.6-1.9-4.4-4.7-4.4-1 0-1.8.2-2.5.6 1.3 1.1 2.1 2.4 2.4 3.8z" fill="currentColor"/></svg>',
+    mad: '<svg viewBox="0 0 24 24"><path d="M12 2c1.2 1.8 3.5 2.6 3.5 5H8.5C8.5 4.6 10.8 3.8 12 2zM4 9h16v2H4zM5 12h14v9h-4v-5h-6v5H5zM1.5 21h21v1.5h-21z" fill="currentColor"/></svg>'
+  };
   function draw(){
     var el = $('jmaDash'); el.classList.add('jm54');
     var c = window.jmaCfg ? jmaCfg() : {}, mad = window.jmaMadName ? jmaMadName() : (c.name || 'مدرسہ');
     var pk = window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10), q = pk.split('-'), w = DAYS[new Date(+q[0], +q[1] - 1, +q[2]).getDay()];
     var L = left(), act = {}; try{ act = JSON.parse(localStorage.getItem('jamia_act_v4') || '{}') || {}; }catch(e){}
-    var lb = +localStorage.getItem('jamia_last_backup_v1') || 0, lbDays = lb ? Math.floor((Date.now() - lb) / 864e5) : null;
     var ver = ''; try{ ver = window.MD_VER ? MD_VER() : ''; }catch(e){} var vs = (/(\d{3})$/.exec(ver) || [])[1];
     var cls = []; try{ cls = ((window.jmaMgmt && jmaMgmt.classes()) || []).filter(function(x){ return !x.del && x.incharge && (typeof jmaAllowedClass !== 'function' || jmaAllowedClass(x.id)); }); }catch(e){}
     var qari = cls.length ? cls.map(function(x){ return x.incharge; }).filter(function(v, i, a){ return a.indexOf(v) === i; }).slice(0, 2).join('، ') : ''; if(c && c.teacher) qari = c.teacher;
-    var canPic = typeof jmaCan !== 'function' || jmaCan('classes');
-    el.innerHTML = '<div class="w"><div class="h58" id="jm58hd"><svg class="sky" viewBox="0 0 400 200" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs><linearGradient id="h58g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a5a2a"/><stop offset=".55" stop-color="#11803a"/><stop offset="1" stop-color="#2a9d3f"/></linearGradient><radialGradient id="h58r" cx=".5" cy=".35" r=".6"><stop offset="0" stop-color="#fff6c8" stop-opacity=".45"/><stop offset="1" stop-color="#fff6c8" stop-opacity="0"/></radialGradient></defs><rect width="400" height="200" fill="url(#h58g)"/><rect width="400" height="200" fill="url(#h58r)"/><g fill="#fde68a" opacity=".85"><circle cx="40" cy="30" r="1.2"/><circle cx="90" cy="18" r="1"/><circle cx="150" cy="40" r="1.1"/><circle cx="250" cy="22" r="1"/><circle cx="310" cy="45" r="1.2"/><circle cx="360" cy="20" r="1"/><circle cx="205" cy="12" r="1"/></g><path d="M338 30a16 16 0 1 0 14 24a13 13 0 1 1 -14 -24z" fill="#fde68a"/><g fill="#064420"><path d="M0 200V172q20-8 40 0v-18h4v-6l3-6 3 6v6h4v24q18-10 36 0V200z"/><path d="M80 200V150h6v-26l4-8 4 8v26h6v50z"/><path d="M120 200v-30q8-30 40-34 0-6 3-8 3 2 3 8 32 4 40 34v30z" /><path d="M150 200v-40q0-38 50-50 0-8 4-11 4 3 4 11 50 12 50 50v40z"/><path d="M300 200V150h6v-26l4-8 4 8v26h6v50z"/><path d="M240 200v-30q8-30 40-34 0-6 3-8 3 2 3 8 32 4 40 34v30z"/><path d="M330 200v-28q18-10 36 0v-18h4v-6l3-6 3 6v6h4v24q10-6 20 0V200z"/></g><path d="M0 199h400" stroke="#d4af37" stroke-width="2"/></svg><div class="ph" id="jm58ph"></div>'
-      + '<button type="button" class="g58" data-d="cfg" aria-label="ترتیبات">⚙️</button>' + (canPic ? '<button type="button" class="p58" data-k54="pic">🖼️ تصویر بدلیں</button>' : '')
-      + '<div class="in"><img class="lg" src="' + E(c.logo || 'ui/emblem.png') + '" alt=""><div class="tx"><div class="nm58" data-hs="nm" id="jm58nm">' + E(mad) + '</div><div class="fl"></div>'
-      + (c.moh ? '<div class="l58" data-hs="moh"><span>مہتمم صاحب:</span> <b>' + E(c.moh) + '</b></div>' : '')
-      + (qari ? '<div class="l58" data-hs="tc"><span>قاری استاد صاحب:</span> <b>' + E(qari) + '</b></div>' : '')
-      + '</div></div></div>'
-      + '<div class="g6">'
-      + btn('b-sabaq', 'h-sabaq.png', 'سبق', L.sabaq ? 'data-d="kpient"' : 'data-d35="1"', bd(L.sabaq, 'باقی'))
-      + btn('b-sabqi', 'h-sabqi.png', 'سبقی', L.sabqi ? 'data-d="kpient"' : 'data-d35="1"', bd(L.sabqi, 'باقی'))
-      + btn('b-manzil', 'h-manzil.png', 'منزل', L.manzil ? 'data-d="kpient"' : 'data-d35="1"', bd(L.manzil, 'باقی'))
-      + btn('b-att', 'h-att.png', 'حاضری', 'data-d="' + (L.att ? 'kpiatt' : 'att') + '"', bd(L.att, 'باقی'))
-      + btn('b-stu', 'h-stu.png', 'طلبہ', 'data-d="stu"', '')
-      + btn('b-rep', 'h-rep.png', 'رپورٹس', 'data-d="rep"', '')
+    var nStu = 0; try{ nStu = ((window.jmaMgmt && jmaMgmt.students()) || []).filter(function(s){ return !s.del && !/فارغ|خارج|چھوڑ/.test(s.status || '') && (typeof jmaAllowedClass !== 'function' || jmaAllowedClass(s.classId)); }).length; }catch(e){}
+    var D = window.jmaDrive, on = D && D.connected(), bkOk = on && D.lastDay() === pk;
+    var rows = [['sar', c.sar], ['moh', c.moh], ['tc', qari]].filter(function(r){ return r[1]; });
+    function tile(cl, ic, t, attr, n, ok){ return '<button type="button" class="t62 ' + cl + '" ' + attr + '>' + (n != null ? '<span class="n62' + (ok ? ' ok' : '') + '">' + n + '</span>' : '') + '<img src="ui/' + ic + '" alt=""><b>' + t + '</b></button>'; }
+    function kn(n){ return n ? n : '✓'; }
+    function nav(attr, ic, t, cl){ return '<button type="button" ' + attr + (cl ? ' class="' + cl + '"' : '') + '><i>' + IC[ic] + '</i><span>' + t + '</span></button>'; }
+    el.innerHTML = '<div class="w x62">'
+      + '<div class="h62" id="jm58hd">' + '<svg class="sky" viewBox="0 0 400 200" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs><linearGradient id="h58g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a5a2a"/><stop offset=".55" stop-color="#11803a"/><stop offset="1" stop-color="#2a9d3f"/></linearGradient><radialGradient id="h58r" cx=".5" cy=".35" r=".6"><stop offset="0" stop-color="#fff6c8" stop-opacity=".45"/><stop offset="1" stop-color="#fff6c8" stop-opacity="0"/></radialGradient></defs><rect width="400" height="200" fill="url(#h58g)"/><rect width="400" height="200" fill="url(#h58r)"/><g fill="#fde68a" opacity=".85"><circle cx="40" cy="30" r="1.2"/><circle cx="90" cy="18" r="1"/><circle cx="150" cy="40" r="1.1"/><circle cx="250" cy="22" r="1"/><circle cx="310" cy="45" r="1.2"/><circle cx="360" cy="20" r="1"/><circle cx="205" cy="12" r="1"/></g><path d="M338 30a16 16 0 1 0 14 24a13 13 0 1 1 -14 -24z" fill="#fde68a"/><g fill="#064420"><path d="M0 200V172q20-8 40 0v-18h4v-6l3-6 3 6v6h4v24q18-10 36 0V200z"/><path d="M80 200V150h6v-26l4-8 4 8v26h6v50z"/><path d="M120 200v-30q8-30 40-34 0-6 3-8 3 2 3 8 32 4 40 34v30z" /><path d="M150 200v-40q0-38 50-50 0-8 4-11 4 3 4 11 50 12 50 50v40z"/><path d="M300 200V150h6v-26l4-8 4 8v26h6v50z"/><path d="M240 200v-30q8-30 40-34 0-6 3-8 3 2 3 8 32 4 40 34v30z"/><path d="M330 200v-28q18-10 36 0v-18h4v-6l3-6 3 6v6h4v24q10-6 20 0V200z"/></g><path d="M0 199h400" stroke="#d4af37" stroke-width="2"/></svg>' + '<div class="ph" id="jm58ph"></div><button type="button" class="g62" data-k54="menu" aria-label="سیٹنگز">' + IC.gear + '</button></div>'
+      + '<div class="rb62"><span class="mq">🕌</span><div class="nm58" data-hs="nm" id="jm58nm">' + E(mad) + '</div></div>'
+      + (rows.length ? '<div class="in62"><div class="dc"><img src="ui/h-manzil.png" alt=""></div><div class="rs">'
+        + rows.map(function(r){ return '<div class="r62" data-hs="' + r[0] + '"><b>' + E(r[1]) + '</b><i>' + IC[r[0]] + '</i></div>'; }).join('') + '</div></div>' : '')
+      + '<div class="dt62"><span class="or">❦</span><div><i>' + IC.cal + '</i> بروز ' + w + '، <bdi>' + (+q[2]) + '</bdi> ' + MN[+q[1] - 1] + ' <bdi>' + q[0] + '</bdi>ء</div><span class="or">❦</span></div>'
+      + '<div class="sh62"><span>اہم شعبے</span></div>'
+      + '<div class="g62t">'
+      + tile('c-man', 'h-manzil.png', 'منزل', L.manzil ? 'data-d="kpient"' : 'data-d35="1"', kn(L.manzil), !L.manzil)
+      + tile('c-sab', 'h-sabaq.png', 'سبق', L.sabaq ? 'data-d="kpient"' : 'data-d35="1"', kn(L.sabaq), !L.sabaq)
+      + tile('c-sbq', 'h-sabqi.png', 'سبقی', L.sabqi ? 'data-d="kpient"' : 'data-d35="1"', kn(L.sabqi), !L.sabqi)
+      + tile('c-rep', 'h-rep.png', 'رپورٹس', 'data-d="rep"', null)
+      + tile('c-stu', 'h-stu.png', 'طلبہ', 'data-d="stu"', nStu)
+      + tile('c-att', 'h-att.png', 'حاضری', 'data-d="' + (L.att ? 'kpiatt' : 'att') + '"', kn(L.att), !L.att)
       + '</div>'
-      + '<button type="button" class="lo" data-k54="out"><img src="ui/h-out.png" alt=""> لاگ آؤٹ</button>'
-      + '<div class="more">'
-      + '<button type="button" data-d="exm">🎓 امتحانات</button><button type="button" data-d35="1">📋 آج کا کام</button><button type="button" data-d39="1">☁️ دو موبائل</button>'
-      + (act.staff ? '' : '<button type="button" data-k54="pkg">📦 پیکج</button>')
-      + (function(){ var D = window.jmaDrive, on = D && D.connected(), td = on && D.lastDay() === pk; return '<button type="button" data-k54="drive" class="' + (td ? '' : 'r') + '">' + (td ? '☁️ آج کا بیک اپ ✓' : on ? '☁️ بیک اپ — آج نہیں ہوا' : '☁️ ڈرائیو بیک اپ جوڑیں') + '</button>'; })()
-      + '</div>'
-      + '<div class="ft"><img src="ui/home-bot.jpg" alt=""><button type="button" class="hdb" data-k54="help"><img src="ui/h-help.png" alt=""> ہیلپ ڈیسک</button>' + (vs ? '<div class="vr">V' + vs + '</div>' : '') + '</div></div>';
-    fitName(); paintPhoto();
+      + (bkOk ? '' : '<button type="button" class="bk62" data-k54="drive">☁️ ' + (on ? 'آج کا بیک اپ ابھی نہیں ہوا — دبائیں' : 'ڈرائیو بیک اپ جوڑیں — ریکارڈ محفوظ رکھیں') + '</button>')
+      + (vs ? '<div class="v62">V' + vs + '</div>' : '')
+      + '<nav class="nv62">'
+      + nav('data-k54="menu"', 'gear', 'سیٹنگز') + nav('data-d35="1"', 'sch', 'روزانہ شیڈول') + nav('data-k54="help"', 'help', 'ہیلپ ڈیسک')
+      + nav('data-k54="top"', 'home', 'ہوم', 'hm') + nav('data-d="exm"', 'exm', 'امتحانات') + nav('data-d="stu"', 'stu', 'طلبہ پروفائل') + nav('data-d="cfg"', 'mad', 'مدرسہ پروفائل')
+      + '</nav></div>';
+    paintPhoto(); try{ if(window.jmaHdrApply) jmaHdrApply(); }catch(e){}
+    var hs = {}; try{ hs = (JSON.parse(localStorage.getItem('jamia_hdr_style_v1') || '{}') || {}).nm || {}; }catch(e){} if(!hs.fs) fitName();
+  }
+  /* ⚙️ سیٹنگز: باقی سب کام ایک جگہ */
+  function menu(){
+    var o = $('jm62m'); if(o) o.remove(); o = document.createElement('div'); o.id = 'jm62m'; o.className = 'no-print';
+    var act = {}; try{ act = JSON.parse(localStorage.getItem('jamia_act_v4') || '{}') || {}; }catch(e){}
+    var it = [['data-d="cfg"', '🕌', 'مدرسہ پروفائل، تصویر، پن'], ['data-k54="drive"', '☁️', 'گوگل ڈرائیو بیک اپ'], ['data-d39="1"', '📱', 'دو موبائل — آن لائن جوڑ']];
+    if(!act.staff) it.push(['data-k54="pkg"', '📦', 'پیکج و سبسکرپشن']);
+    it.push(['data-k54="out"', '🚪', 'لاگ آؤٹ / ایپ بند کریں']);
+    o.innerHTML = '<div class="bx"><h3>⚙️ سیٹنگز</h3>' + it.map(function(x){ return '<button type="button" ' + x[0] + '><i>' + x[1] + '</i>' + x[2] + '</button>'; }).join('') + '<button type="button" class="x">✕ بند کریں</button></div>';
+    document.body.appendChild(o);
+    o.addEventListener('click', function(e){ var b = e.target.closest('button'); if(e.target === o || (b && b.classList.contains('x'))){ o.remove(); return; } if(!b) return;
+      o.remove(); var dash = $('jmaDash'), cl = b.cloneNode(true); cl.style.display = 'none'; dash.appendChild(cl); cl.click(); cl.remove(); });
   }
   /* MD2411TU061: نام کبھی نہ کٹے — جگہ کے حساب سے خود چھوٹا، پھر بھی بڑا ہو تو دو لائن */
-  function fitName(){ var n = $('jm58nm'); if(!n) return; var fs = Math.min(44, Math.max(24, n.parentNode.clientWidth / 7)); n.style.whiteSpace = 'nowrap'; n.style.fontSize = fs + 'px';
-    var g = 0; while(n.scrollWidth > n.clientWidth + 1 && fs > 28 && g++ < 40){ fs -= 1; n.style.fontSize = fs + 'px'; }
-    if(n.scrollWidth > n.clientWidth + 1){ n.style.whiteSpace = 'normal'; n.style.lineHeight = '1.45'; n.style.fontSize = '30px'; } }
+  function fitName(){ var n = $('jm58nm'); if(!n) return; var fs = Math.min(40, Math.max(24, n.parentNode.clientWidth / 8)); n.style.whiteSpace = 'nowrap'; n.style.fontSize = fs + 'px';
+    var g = 0; while(n.scrollWidth > n.clientWidth + 1 && fs > 24 && g++ < 40){ fs -= 1; n.style.fontSize = fs + 'px'; }
+    if(n.scrollWidth > n.clientWidth + 1){ n.style.whiteSpace = 'normal'; n.style.lineHeight = '1.5'; n.style.fontSize = '26px'; } }
   window.addEventListener('resize', function(){ try{ fitName(); }catch(e){} });
   /* ہوم کی اپنی تصویر (IndexedDB md_ui_v1 / kv / home) */
   function idb(){ return new Promise(function(res, rej){ var r = indexedDB.open('md_ui_v1', 1); r.onupgradeneeded = function(){ r.result.createObjectStore('kv'); }; r.onsuccess = function(){ res(r.result); }; r.onerror = function(){ rej(r.error); }; }); }
@@ -11032,16 +11132,27 @@ window.MD_NOTE = { v: 'MD2411TU061', n: 'ہوم کا اوپر والا حصہ ن
     if(photoUrl){ ph.style.backgroundImage = 'url(' + photoUrl + ')'; hd.classList.add('has'); return; }
     imgGet().then(function(v){ if(!v) return; photoUrl = v; var a = $('jm58ph'), b = $('jm58hd'); if(a){ a.style.backgroundImage = 'url(' + v + ')'; b.classList.add('has'); } }); }
   function pickPhoto(){
-    var has = !!photoUrl;
-    if(has && !confirm('نئی تصویر لگائیں؟\n\n(«Cancel» دبائیں تو پہلے والی سادہ تصویر واپس لانے کا پوچھا جائے گا)')){ if(confirm('اپنی تصویر ہٹا کر پہلے والی تصویر واپس لگائیں؟')){ imgSet(null).then(function(){ photoUrl = null; jmaDashOpen(); }); } return; }
-    var f = document.createElement('input'); f.type = 'file'; f.accept = 'image/*';
-    f.onchange = function(){ var file = f.files && f.files[0]; if(!file) return; var rd = new FileReader();
-      rd.onload = function(){ var im = new Image(); im.onload = function(){ var W = 1200, sc = Math.min(1, W / im.width), cv = document.createElement('canvas'); cv.width = Math.round(im.width * sc); cv.height = Math.round(im.height * sc);
-        cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height); var d = cv.toDataURL('image/jpeg', 0.82);
-        imgSet(d).then(function(ok){ if(ok){ photoUrl = d; jmaDashOpen(); if(window.jmaToast) jmaToast('✅ ہوم کی تصویر بدل گئی'); } else alert('❌ تصویر محفوظ نہیں ہو سکی'); }); };
-        im.src = rd.result; }; rd.readAsDataURL(file); };
-    f.click();
+    if(typeof window.jmaPhotoPick !== 'function'){ alert('تصویر کا آلہ نہیں کھلا'); return; }
+    jmaPhotoPick(function(d){ imgSet(d).then(function(ok){ if(ok){ photoUrl = d; refresh(); if(window.jmaToast) jmaToast('✅ مدرسے کی تصویر محفوظ ہو گئی — ہوم پر لگ گئی'); } else alert('❌ تصویر محفوظ نہیں ہو سکی'); }); },
+      { title: '🖼️ مدرسے کی تصویر', rect: [1200, 600] });
   }
+  function resetPhoto(){ if(!confirm('مدرسے کی تصویر ہٹا کر پہلے والی سادہ تصویر لگائیں؟')) return; imgSet(null).then(function(){ photoUrl = null; refresh(); }); }
+  function refresh(){ var D = $('jmaDash'); if(D && D.style.display === 'block'){ var y = D.scrollTop; jmaDashOpen(); D.scrollTop = y; } var x = document.querySelector('#jm30 .jm58s'); if(x) x.remove(); setBox(); }
+  /* ⚙️ مدرسہ پروفائل (ترتیبات) کے اندر «🖼️ مدرسے کی تصویر» — یہی ہوم کے اوپر لگتی ہے */
+  function setBox(){
+    var o = $('jm30'), bx = o && o.querySelector('.bx'); if(!bx || bx.querySelector('.jm58s')) return;
+    var can = typeof jmaCan !== 'function' || jmaCan('classes');
+    var d = document.createElement('div'); d.className = 'jm58s';
+    d.style.cssText = 'margin-top:10px;border:2px solid #d4af37;border-radius:14px;padding:8px;background:#fffbea;text-align:center';
+    var show = function(u){ d.innerHTML = '<div style="font-family:\'Jameel Noori Nastaleeq Kasheeda\',serif;font-size:18px;color:#065f46">🖼️ مدرسے کی تصویر (ہوم کے اوپر)</div>'
+      + '<div style="margin:6px auto;width:100%;max-width:320px;aspect-ratio:2/1;border-radius:10px;overflow:hidden;border:1.5px solid #cbd5e1;background:#0a5a2a center/cover no-repeat' + (u ? ';background-image:url(' + u + ')' : '') + ';display:flex;align-items:center;justify-content:center;color:#fde68a;font-size:14px">' + (u ? '' : 'ابھی سادہ تصویر (مسجد / چاند) لگی ہے') + '</div>'
+      + (can ? '<div style="font-size:13px;color:#64748b;margin-bottom:4px">📷 کیمرہ یا 🖼️ گیلری — پھر زوم، روشنی، کنٹراسٹ اور رنگ سے سنواریں</div><div style="display:flex;gap:6px"><button type="button" data-p58="set" style="flex:1;border:0;border-radius:12px;padding:7px;background:linear-gradient(135deg,#059669,#065f46);color:#fff;font:inherit;font-size:15px">📷 ' + (u ? 'تصویر بدلیں' : 'تصویر لگائیں') + '</button>' + (u ? '<button type="button" data-p58="del" style="flex:1;border:2px solid #fca5a5;border-radius:12px;padding:7px;background:#fff;color:#b91c1c;font:inherit;font-size:15px">↺ پہلی تصویر</button>' : '') + '</div>'
+        : '<div style="font-size:13px;color:#64748b">تصویر صرف منتظم / مہتمم بدل سکتے ہیں</div>'); };
+    show(photoUrl); if(!photoUrl) imgGet().then(function(v){ if(v){ photoUrl = v; show(v); } });
+    d.addEventListener('click', function(e){ var b = e.target.closest('[data-p58]'); if(!b) return; e.stopPropagation(); if(b.dataset.p58 === 'set') pickPhoto(); else resetPhoto(); });
+    bx.appendChild(d);
+  }
+  setInterval(setBox, 800);
   window.jmaHomePhoto = pickPhoto;
   var orig = window.jmaDashOpen;
   window.jmaDashOpen = function(){ var el = $('jmaDash'); el.style.display = 'block'; try{ draw(); }catch(e){ el.classList.remove('jm54'); if(orig) orig(); } };
@@ -11053,6 +11164,8 @@ window.MD_NOTE = { v: 'MD2411TU061', n: 'ہوم کا اوپر والا حصہ ن
     else if(k === 'out'){ if(window.jmaAskExit) jmaAskExit(); }
     else if(k === 'drive'){ if(window.jmaDriveOpen) jmaDriveOpen(); }
     else if(k === 'pic'){ if(window.jmaHomePhoto) jmaHomePhoto(); }
+    else if(k === 'menu'){ menu(); }
+    else if(k === 'top'){ var dd = $('jmaDash'); if(dd) dd.scrollTo({ top: 0, behavior: 'smooth' }); }
   }, true);
   /* ایپ کھلتے ہی یہی ہوم (سائن اپ / پرانا تالا نہ ہو تو) */
   function boot(){ var n = 0, t = setInterval(function(){ n++;
