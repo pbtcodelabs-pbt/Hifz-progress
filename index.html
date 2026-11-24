@@ -1450,7 +1450,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE090</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE091</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9895,7 +9895,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE090" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE091" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -11616,6 +11616,97 @@ body.jm7v #jm51nav{display:none!important}
   };
 })();
 </script>
+<style id="jma091css">
+.jm88q .par{grid-column:1/-1;background:linear-gradient(135deg,#15803d,#166534)}
+.jm88q .par small{font-size:12px;opacity:.9;margin-right:6px}
+#jm94{position:fixed;inset:0;z-index:2147483300;background:rgba(15,23,42,.45);display:flex;align-items:flex-end;justify-content:center}
+#jm94 .bx{background:#fff;width:100%;max-width:520px;border-radius:18px 18px 0 0;padding:10px 14px 14px;direction:rtl;font-family:'Jameel Noori Nastaleeq',var(--nastaliq),serif}
+#jm94 h3{margin:0 0 6px;font-size:18px;color:#065f46;display:flex;align-items:center}#jm94 h3 button{margin-right:auto;border:0;background:#f1f5f9;border-radius:10px;padding:2px 10px;font-size:15px}
+#jm94 .ln{direction:ltr;text-align:left;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:6px 8px;font:13px Arial,sans-serif;word-break:break-all}
+#jm94 .pin{margin:6px 0;font-size:16px}#jm94 .pin b{font:800 22px Arial;letter-spacing:4px;color:#b45309}
+#jm94 .g{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+#jm94 .g button{border:0;border-radius:12px;padding:8px 4px;font:inherit;font-size:15px;color:#fff;background:#0f766e}
+#jm94 .g .wa{background:#16a34a;grid-column:1/-1;font-size:17px}#jm94 .g .x{background:#fef2f2;color:#b91c1c}#jm94 .g .c{background:#e2e8f0;color:#0f172a}
+#jm94 .nt{font-size:12.5px;color:#64748b;line-height:1.85;margin-top:6px}
+</style>
+<script id="jma091">
+/* 🔗 MD2511WE091 (مالک کا حکم — ONLINE-PLAN §3 «والدین کا لنک، MCS ماڈل»): ہر طالب علم کی ایک تیار رپورٹ (JSON) سرور `/mdpar` پر؛ لنک
+   `p.html#<20 حروف>` + 4 ہندسوں کا پن — والدین صرف اپنا بچہ دیکھیں (پن کے بغیر کچھ نہیں، 5 غلط پر 15 منٹ روک، نیا لنک = پرانا بند)۔
+   صرف مین موبائل (MD ID + dev، `jamia_mdid_v1`) بھیجتا ہے؛ لنک / پن `jamia_mgmt_par_v1 {sid:{tok,pin,at,h}}` (بیک اپ میں)؛
+   ریکارڈ بدلے تو (`jma-changed` 40 سیکنڈ بعد، اور ہر 15 منٹ) جن بچوں کا لنک بنا ہے ان کی رپورٹ خود تازہ (پن دوبارہ نہیں جاتا)۔
+   رپورٹ میں: نام، ولدیت، رول، جماعت، تصویر، مدرسہ، اس / پچھلے مہینے کی حاضری، سبق / سبقی / منزل درجہ بندی، حفظ %، ختم کی تاریخ، پچھلے 30 دن کا دن بہ دن ریکارڈ — بند نشستیں «c»۔ */
+(function(){
+  'use strict';
+  var W = 'https://aio-pos-verify.pbtcodelabs.workers.dev', PK = 'jamia_mgmt_par_v1', BASE = 'https://pbtcodelabs-pbt.github.io/Hifz-progress/p.html#';
+  function $(id){ return document.getElementById(id); }
+  function E(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function P(){ try{ return JSON.parse(localStorage.getItem(PK) || '{}') || {}; }catch(e){ return {}; } }
+  function setP(o){ try{ localStorage.setItem(PK, JSON.stringify(o)); }catch(e){} }
+  function md(){ try{ return JSON.parse(localStorage.getItem('jamia_mdid_v1') || 'null') || {}; }catch(e){ return {}; } }
+  function madN(){ var n = ''; try{ n = typeof window.jmaMadName === 'function' ? jmaMadName() : (window.jmaMadName || ''); }catch(e){} if(!n){ try{ n = ((window.jmaCfg && jmaCfg()) || {}).name || ''; }catch(e){} } return n || md().mad || 'مدرسہ'; }
+  function stu(sid){ var L = (window.jmaMgmt && jmaMgmt.students()) || []; return L.find(function(x){ return x.sid === sid; }) || null; }
+  function rnd(n){ var a = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789', o = '', r = new Uint8Array(n); crypto.getRandomValues(r); for(var i = 0; i < n; i++) o += a[r[i] % a.length]; return o; }
+  function pin4(){ var r = new Uint8Array(2); crypto.getRandomValues(r); return String(1000 + ((r[0] << 8 | r[1]) % 9000)); }
+  function dAdd(ds, n){ var d = new Date(ds + 'T12:00:00'); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); }
+  function pn(p){ try{ return window.jmaParaName ? jmaParaName(p) : ''; }catch(e){ return ''; } }
+  function qty(e){ return (e.items || []).map(function(it){ var q = []; if(it.lines) q.push(it.lines + ' لائن'); if(it.ruku) q.push(it.ruku + ' رکوع'); if(it.pao && it.pao.length) q.push(it.pao.length + ' پاؤ'); return 'پارہ ' + it.para + (pn(it.para) ? ' (' + pn(it.para) + ')' : '') + (q.length ? ': ' + q.join('، ') : ''); }).join(' · '); }
+  function build(s){
+    var t = window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10), ym = t.slice(0, 7), pd = new Date(t + 'T12:00:00'); pd.setDate(1); pd.setMonth(pd.getMonth() - 1);
+    var pym = pd.toISOString().slice(0, 7), C = ((window.jmaMgmt && jmaMgmt.classes()) || []).find(function(c){ return c.id === s.classId; }) || {};
+    var EN = ((window.jma019 && jma019.EN()) || []).filter(function(e){ return !e.del && e.sid === s.sid; }), AT = (window.jma019 && jma019.AT()) || {};
+    var from = dAdd(t, -29), days = [];
+    for(var d = t; d >= from; d = dAdd(d, -1)){
+      var r = AT[s.sid + '|' + d] || null, on = window.jmaSesOn ? jmaSesOn(d) : [1, 1, 1, 1, 1, 1], a = [];
+      for(var i = 0; i < 6; i++){ if(!on[i]){ a.push('c'); continue; } var x = r && r.s && r.s[i]; a.push(x && x.st ? x.st : (r && r.day === 'absent' ? 'a' : '')); }
+      var es = EN.filter(function(e){ return e.date === d; }).map(function(e){ return { k: e.kind, q: qty(e), at: e.kind === 'sabaq' ? 0 : (e.atkan || 0), m: e.mist || 0, p: e.perf || '', l: e.lis ? (e.lis.name || '') + (e.lis.type === 'student' ? ' (طالب علم)' : '') : '' }; });
+      if(es.length || a.some(function(v){ return v && v !== 'c'; })) days.push({ d: d, a: a, e: es, w: r && r.reason ? r.reason : '' });
+    }
+    var rk = window.jmaRank ? jmaRank(s.sid) : null, H = null, K = null; try{ H = jmaHifzCalc(s); }catch(e){} try{ K = jmaKhatm(s); }catch(e){}
+    var cfg = {}; try{ cfg = (window.jmaCfg && jmaCfg()) || {}; }catch(e){}
+    return { v: 1, t: Date.now(), mad: madN(), s: { n: s.n, w: s.w || '', roll: s.roll || '', cls: C.name || '', ust: C.incharge || s.tName || '', ph: s.photo || '' },
+      at: { m: window.jmaMonthAtt ? jmaMonthAtt(s.sid, ym) : null, pm: window.jmaMonthAtt ? jmaMonthAtt(s.sid, pym) : null, ym: ym, pym: pym },
+      rk: rk ? { d: rk.days, l: rk.list.map(function(x){ return { k: x.k[1], p: x.pct, tr: x.tr, m: x.mist, a: x.atk }; }) } : null,
+      h: H ? { pct: H.pct, full: H.full, part: H.part } : null, kh: K && K.ok && K.date ? { d: K.date.toISOString().slice(0, 10), tr: K.trend || '' } : (K && K.done ? { done: 1 } : null), days: days };
+  }
+  async function push(sid, withPin){
+    var m = md(), o = P(), x = o[sid], s = stu(sid); if(!m.id || !m.dev || !x || !s) return { ok: false, reason: 'none' };
+    var data = JSON.stringify(build(s)), h = data.length + ':' + data.slice(-400);
+    var r = await fetch(W + '/mdpar', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ op: 'put', id: m.id, dev: m.dev, sid: sid, tok: x.tok, pin: withPin ? x.pin : '', data: data }) }).then(function(z){ return z.json(); });
+    if(r && r.ok){ o = P(); if(o[sid]){ o[sid].at = Date.now(); o[sid].h = h; setP(o); } } return r;
+  }
+  window.jmaParBtn = function(sid){ var x = P()[sid]; return '<button type="button" class="par" data-j91="' + E(sid) + '">🔗 والدین کا لنک' + (x ? '<small>(بنا ہوا · ' + (x.at ? new Date(x.at).toLocaleDateString('en-GB') : '') + ')</small>' : '') + '</button>'; };
+  function sheet(sid, note){
+    var o0 = $('jm94'); if(o0) o0.remove(); var x = P()[sid], s = stu(sid); if(!x || !s) return;
+    var url = BASE + x.tok, mob = String(s.mob || '').replace(/\D/g, ''), wa = mob ? mob.replace(/^0/, '92') : '';
+    var msg = 'السلام علیکم! ' + madN() + ' کی طرف سے آپ کے بچے *' + s.n + '* کی کارکردگی رپورٹ (حاضری، سبق، سبقی، منزل):\n' + url + '\nپن: *' + x.pin + '*\n(یہ لنک صرف آپ کے لیے ہے — کسی اور کو نہ دیں)';
+    var o = document.createElement('div'); o.id = 'jm94';
+    o.innerHTML = '<div class="bx"><h3>🔗 والدین کا لنک — ' + E(s.n) + '<button type="button" data-x="1">✕</button></h3>' + (note ? '<div style="color:#15803d;font-size:14px">' + note + '</div>' : '')
+      + '<div class="ln">' + E(url) + '</div><div class="pin">🔑 پن: <b>' + E(x.pin) + '</b></div>'
+      + '<div class="g"><button type="button" class="wa" data-a="wa">💬 والدین کو واٹس ایپ پر بھیجیں' + (mob ? '' : ' (نمبر نہیں)') + '</button><button type="button" class="c" data-a="cp">📋 کاپی</button><button type="button" data-a="up">🔄 ابھی تازہ کریں</button><button type="button" class="c" data-a="new">🆕 نیا لنک / پن</button><button type="button" class="x" data-a="off">⛔ لنک بند کریں</button></div>'
+      + '<div class="nt">والدین یہ لنک کھول کر پن لکھیں گے تو صرف اپنے بچے کی رپورٹ دیکھ سکیں گے — کسی اور بچے کی نہیں۔ ریکارڈ بدلتا رہے تو رپورٹ خود تازہ ہوتی رہتی ہے (انٹرنیٹ ہو تو)۔ لنک کسی غلط ہاتھ لگے تو «🆕 نیا لنک» — پرانا فوراً بند۔</div></div>';
+    o.addEventListener('click', async function(e){ var t = e.target; if(t === o){ o.remove(); return; } var b = t.closest && t.closest('button'); if(!b) return; e.stopPropagation(); var a = b.dataset.a;
+      if(b.dataset.x){ o.remove(); return; }
+      if(a === 'wa'){ var u = (wa ? 'https://wa.me/' + wa : 'https://wa.me/') + '?text=' + encodeURIComponent(msg); window.open(u, '_blank'); return; }
+      if(a === 'cp'){ try{ await navigator.clipboard.writeText(msg); b.textContent = '✅ کاپی ہو گیا'; }catch(x2){ prompt('کاپی کریں', msg); } return; }
+      if(a === 'up'){ b.textContent = '⏳…'; var r = await push(sid, false).catch(function(){ return null; }); b.textContent = r && r.ok ? '✅ تازہ ہو گئی' : '📶 انٹرنیٹ / سرور — دوبارہ'; return; }
+      if(a === 'new'){ if(!confirm('نیا لنک اور نیا پن بنائیں؟ پرانا لنک فوراً بند ہو جائے گا — والدین کو نیا بھیجنا ہو گا۔')) return; return make(sid, true); }
+      if(a === 'off'){ if(!confirm('یہ لنک بند کریں؟ والدین رپورٹ نہیں دیکھ سکیں گے۔')) return; var m = md(); try{ await fetch(W + '/mdpar', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ op: 'del', id: m.id, dev: m.dev, sid: sid }) }); }catch(x3){} var p2 = P(); delete p2[sid]; setP(p2); o.remove(); try{ jmaProRedraw(); }catch(x4){} return; } }, true);
+    document.body.appendChild(o);
+  }
+  async function make(sid, fresh){
+    var m = md(); if(!m.id || !m.dev){ alert('والدین کا لنک صرف مین موبائل سے بنتا ہے (جس پر مدرسے کی MD ID ہے)۔ پہلے سائن اپ مکمل کریں / انٹرنیٹ چالو کریں۔'); return; }
+    var o = P(); if(!o[sid] || fresh) o[sid] = { tok: rnd(20), pin: pin4(), at: 0 }; setP(o);
+    var r = await push(sid, true).catch(function(){ return null; });
+    if(!r || !r.ok){ alert(r && r.reason === 'none' ? '⚠️ یہ موبائل مدرسے کا مین موبائل نہیں — لنک یہاں سے نہیں بنے گا' : '📶 سرور تک نہیں پہنچ سکے — انٹرنیٹ چالو کر کے دوبارہ دبائیں'); return; }
+    try{ jmaProRedraw(); }catch(x){} sheet(sid, fresh ? '✅ نیا لنک بن گیا — پرانا بند' : '✅ رپورٹ سرور پر چلی گئی');
+  }
+  window.addEventListener('click', function(e){ var b = e.target && e.target.closest && e.target.closest('[data-j91]'); if(!b) return; e.stopPropagation(); e.preventDefault(); var sid = b.getAttribute('data-j91'); if(P()[sid]) sheet(sid); else make(sid, false); }, true);
+  /* خودکار تازگی */
+  var T = 0; function auto(){ clearTimeout(T); T = setTimeout(async function(){ if(!navigator.onLine) return; var o = P(); for(var sid in o){ var s = stu(sid); if(!s) continue; var data = JSON.stringify(build(s)), h = data.length + ':' + data.slice(-400); if(h === o[sid].h) continue; try{ await push(sid, false); }catch(e){} } }, 40000); }
+  document.addEventListener('jma-changed', auto); setInterval(auto, 15 * 60000); setTimeout(auto, 20000);
+  window.jmaParBuild = build;
+})();
+</script>
 <style id="jma088css">
 /* MD2511WE088 (مالک کا حکم — طالب علم کا صفحہ ایک اسکرین کے قریب): صرف ترتیب و سائز؛ کوئی خانہ / حساب ختم نہیں */
 #jmaPro.jm88 .jm2-wrap{padding-top:6px}
@@ -11705,7 +11796,7 @@ details.jm88i>summary::-webkit-details-marker{display:none}
       var cards = Array.prototype.slice.call(w.children), hd = w.querySelector(':scope > .jm2-hd'), pn = w.querySelector(':scope > .jm2-pn');
       var today = null, att = null; cards.forEach(function(c){ var t = h4(c); if(!today && t.indexOf('📝') === 0) today = c; else if(!att && t.indexOf('🕌 حاضری') === 0) att = c; });
       var q = document.createElement('div'); q.className = 'jm88q';
-      q.innerHTML = '<button type="button" class="pf" data-j88="perf">📊 کارکردگی</button><button type="button" class="rp" data-j88="rep">📄 ماہانہ رپورٹ</button><button type="button" class="mo" data-j88="more">ℹ️ مزید تفصیل</button>';
+      q.innerHTML = '<button type="button" class="pf" data-j88="perf">📊 کارکردگی</button><button type="button" class="rp" data-j88="rep">📄 ماہانہ رپورٹ</button><button type="button" class="mo" data-j88="more">ℹ️ مزید تفصیل</button>' + (window.jmaParBtn ? jmaParBtn(s.sid) : '');
       var more = document.createElement('details'); more.className = 'jm88d'; more.id = 'jm88more'; if(moreOpen) more.open = true;
       more.innerHTML = '<summary>ℹ️ مزید تفصیل — بنیادی معلومات، ختم قرآن، امتحانات، تربیت، تجزیہ، حفظ، تاریخ</summary><div class="in"></div>';
       more.addEventListener('toggle', function(){ moreOpen = more.open; try{ sessionStorage.setItem('jm88more', moreOpen ? '1' : '0'); }catch(e){} });
@@ -11740,7 +11831,7 @@ details.jm88i>summary::-webkit-details-marker{display:none}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2511WE090', n: '⚙️ نشستیں بند / چالو (گرمیوں سردیوں کے لیے)؛ 📈 سبق / سبقی / منزل کی درجہ بندی؛ 👂 «کس نے سنا» کی نئی فہرست (رول، نام، تصویر)؛ 📍 ضلع کی صاف فہرست' };
+window.MD_NOTE = { v: 'MD2511WE091', n: '🔗 والدین کا آن لائن لنک: طالب علم کے صفحے پر «والدین کا لنک» — ہر بچے کا الگ لنک + پن، والدین صرف اپنا بچہ دیکھیں (حاضری، سبق / سبقی / منزل، روزانہ ریکارڈ)' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
