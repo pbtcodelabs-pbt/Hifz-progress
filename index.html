@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU072</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU073</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7751,7 +7751,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     x += '<div class="jm2-hd"><div class="pv" style="' + photoBg(s.photo) + '">' + (s.photo ? '' : '👤') + '</div><div style="min-width:0"><div class="nm">' + E(s.n) + '</div><div class="mt">' + (s.w ? 'ولد ' + E(s.w) + '<br>' : '') + 'رول نمبر: <span class="jm2-n">' + E(s.roll || '—') + '</span> · ' + E(clsName(s.classId)) + '<br>🆔 <span class="jm2-n">' + E(s.sid) + '</span></div></div></div>';
     x += '<div class="jm2-pn"><button data-nv="' + (ix > 0 ? E(list[ix - 1].sid) : '') + '"' + (ix > 0 ? '' : ' disabled') + '>→ پچھلا طالب علم</button><button data-nv="' + (ix > -1 && ix < list.length - 1 ? E(list[ix + 1].sid) : '') + '"' + (ix > -1 && ix < list.length - 1 ? '' : ' disabled') + '>اگلا طالب علم ←</button></div>';
     x += window.jmaKhatmBox ? jmaKhatmBox(s) : '';   /* MD2411TU070: ختم قرآن کا تخمینہ */
-    x += '<div class="jm2-card"><h4>📋 بنیادی معلومات</h4><dl class="jm2-kv"><dt>سرپرست</dt><dd>' + E(s.grd || s.w || '—') + (s.rel ? ' (' + E(s.rel) + ')' : '') + '</dd><dt>موبائل</dt><dd><span class="jm2-n">' + E(s.mob || '—') + '</span></dd><dt>داخلہ</dt><dd><span class="jm2-n">' + fmtD(s.admDate) + '</span></dd><dt>جنس</dt><dd>' + E(s.gender || '—') + '</dd><dt>ذمہ دار استاد</dt><dd>' + E(s.tName || '—') + '</dd><dt>تعلیمی حیثیت</dt><dd>' + E(s.status || '—') + '</dd>' + (s.addr ? '<dt>پتہ</dt><dd>' + E(s.addr) + '</dd>' : '') + '</dl>'
+    x += '<div class="jm2-card"><h4>📋 بنیادی معلومات</h4><dl class="jm2-kv"><dt>سرپرست</dt><dd>' + E(s.grd || s.w || '—') + (s.rel ? ' (' + E(s.rel) + ')' : '') + '</dd><dt>موبائل</dt><dd>' + (mob ? '<a class="jm73tel" href="tel:' + E(mob) + '">📞 <span class="jm2-n">' + E(s.mob) + '</span></a> <a class="jm73wa" href="https://wa.me/' + E(wa) + '" target="_blank">💬 واٹس ایپ</a>' : '<span class="jm2-n">—</span>') + '</dd><dt>داخلہ</dt><dd><span class="jm2-n">' + fmtD(s.admDate) + '</span></dd><dt>جنس</dt><dd>' + E(s.gender || '—') + '</dd><dt>ذمہ دار استاد</dt><dd>' + E(s.tName || '—') + '</dd><dt>تعلیمی حیثیت</dt><dd>' + E(s.status || '—') + '</dd>' + (s.addr ? '<dt>پتہ</dt><dd>' + E(s.addr) + '</dd>' : '') + '</dl>'
       + '<div class="jm2-acts">' + (mob ? '<a href="tel:' + E(mob) + '">📞 کال</a><a class="wa" href="https://wa.me/' + E(wa) + '" target="_blank">💬 واٹس ایپ</a>' : '') + '<button data-a="edit">✏️ معلومات بدلیں</button><button data-rep-open="1" style="background:#ecfdf5;color:#065f46">📄 ماہانہ رپورٹ / واٹس ایپ</button></div></div>';
     x += window.jmaProToday ? jmaProToday(s) : '';
     x += window.jmaProAtt ? jmaProAtt(s) : '';   /* MD2311MO020 */
@@ -9813,7 +9813,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU072" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU073" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -9989,6 +9989,14 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
 #jm7Print .sg{display:flex;justify-content:space-between;margin-top:14mm;font-size:16px}
 #jm7Print .sg div{border-top:1.5px solid #000;width:40%;text-align:center;padding-top:3px}
 #jm7Print .lst td{height:8mm}
+#jm7Print .rec73 td{height:13mm;vertical-align:middle}
+#jm7Print .rec73 td.ph{text-align:center;padding:1px}
+#jm7Print .rec73 td.ph img{width:11mm;height:11mm;border-radius:50%;object-fit:cover;border:1px solid #000;display:inline-block}
+#jm7Print .rec73 .np{font-size:20px;opacity:.5}
+#jm7Print .rec73 a{color:#000;text-decoration:none}
+#jm7Print .rec73 tr.grp td{background:#f1f5f9!important;font-weight:700;font-size:16px;height:auto;text-align:right}
+.jm73tel{display:inline-flex;align-items:center;gap:4px;background:#ecfdf5;border:1.5px solid #16a34a;color:#065f46;border-radius:999px;padding:0 10px;text-decoration:none;line-height:1.9}
+.jm73wa{display:inline-flex;align-items:center;gap:3px;background:#dcfce7;border:1.5px solid #22c55e;color:#14532d;border-radius:999px;padding:0 10px;text-decoration:none;line-height:1.9;font-size:14px;margin-inline-start:4px}
 #jm7Print .wr td{height:11mm}
 @media print{
   html,body{background:#fff!important;height:auto!important;overflow:visible!important;min-width:0!important;width:auto!important;margin:0!important;padding:0!important}
@@ -10060,11 +10068,22 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
       + '<button data-r="m" data-ym="' + py + '">📅 ماہانہ جماعت رپورٹ — ' + ymName(py) + '</button>'
       + '<button data-r="c">📞 رابطہ فہرست (والد / سرپرست، موبائل، پتہ)</button>'
       + '<button data-r="l">📋 طلبہ کی فہرست (حفظ کی مقدار کے ساتھ)</button>'
+      + '<button data-r="p">🗂️ داخل شدہ طلبہ — تصویر، ولدیت، سرپرست، موبائل، پتہ (یہ جماعت)</button>'
+      + '<button data-r="pa">🗂️ سب جماعتوں کے داخل شدہ طلبہ (تصویر کے ساتھ)</button>'
       + '<button data-r="x" class="x">✕ واپس</button></div>';
     document.body.appendChild(o);
     o.onclick = function(e){ var b = e.target.closest('[data-r]'); if(!b && e.target !== o) return; var r = b ? b.dataset.r : 'x'; o.remove(); if(r === 'x') return;
       var st = S(cid), c = cls(cid), info = E(c.name || '') + (c.incharge ? ' (' + E(c.incharge) + ')' : '') + ' — <span class="n">' + fmtD(pk()) + '</span>';
       if(r === 'm'){ jmaPrintNow(jmaClassReport(cid, b.dataset.ym), 'portrait', 'ماہانہ جماعت رپورٹ'); return; }
+      if(r === 'p' || r === 'pa'){ /* MD2411TU073: داخل شدہ طلبہ کا ریکارڈ — چھوٹی تصویر، نام، ولدیت، سرپرست، موبائل (اسکرین پر ٹچ = کال)، پتہ */
+        var all = r === 'pa', CL = ((window.jmaMgmt && jmaMgmt.classes()) || []).filter(function(x){ return !x.del; });
+        var groups = all ? CL.map(function(x){ return { c: x, st: S(x.id) }; }).filter(function(g){ return g.st.length; }) : [{ c: c, st: st }];
+        var tot = 0, rows = groups.map(function(g){ tot += g.st.length;
+          return (all ? '<tr class="grp"><td colspan="7">' + E(g.c.name || '') + (g.c.incharge ? ' — ' + E(g.c.incharge) : '') + ' (<span class="n">' + g.st.length + '</span>)</td></tr>' : '')
+            + g.st.map(function(s){ var m = String(s.mob || '').replace(/\D/g, '');
+              return '<tr><td class="n">' + E(s.roll || '') + '</td><td class="ph">' + (s.photo ? '<img src="' + E(s.photo) + '">' : '<span class="np">👤</span>') + '</td><td class="nm">' + E(s.n) + '</td><td class="nm">' + E(s.w || '') + '</td><td class="nm">' + E(s.grd && s.grd !== s.w ? s.grd + (s.rel ? ' (' + s.rel + ')' : '') : (s.rel || 'والد')) + '</td><td class="n" style="direction:ltr">' + (m ? '<a href="tel:' + E(m) + '">' + E(s.mob) + '</a>' : '—') + '</td><td class="nm">' + E(s.addr || '—') + '</td></tr>'; }).join(''); }).join('');
+        jmaPrintNow('<div class="pg">' + head((all ? 'سب جماعتیں — <span class="n">' + fmtD(pk()) + '</span>' : info) + '<br>داخل شدہ طلبہ کا ریکارڈ') + '<table class="lst rec73"><colgroup><col style="width:6%"><col style="width:9%"><col style="width:19%"><col style="width:17%"><col style="width:15%"><col style="width:16%"><col style="width:18%"></colgroup><thead><tr><th>رول</th><th>تصویر</th><th>نام</th><th>ولدیت</th><th>سرپرست</th><th>موبائل</th><th>پتہ</th></tr></thead><tbody>'
+          + (rows || '<tr><td colspan="7">ابھی کوئی طالب علم داخل نہیں</td></tr>') + '</tbody></table><div style="font-size:14px;margin-top:6px">کل طلبہ: <span class="n">' + tot + '</span></div></div>', 'landscape', 'داخل شدہ طلبہ کا ریکارڈ'); return; }
       if(r === 'c'){ jmaPrintNow('<div class="pg">' + head(info + '<br>رابطہ فہرست') + '<table class="lst"><colgroup><col style="width:7%"><col style="width:20%"><col style="width:20%"><col style="width:17%"><col style="width:36%"></colgroup><thead><tr><th>رول</th><th>نام</th><th>والد / سرپرست</th><th>موبائل</th><th>پتہ</th></tr></thead><tbody>'
         + st.map(function(s){ return '<tr><td class="n">' + E(s.roll || '') + '</td><td class="nm">' + E(s.n) + '</td><td class="nm">' + E(s.w || s.grd || '') + (s.rel && s.grd && !s.w ? ' (' + E(s.rel) + ')' : '') + '</td><td class="n" style="direction:ltr">' + E(s.mob || '') + '</td><td class="nm">' + E(s.addr || '') + '</td></tr>'; }).join('')
         + '</tbody></table><div style="font-size:14px;margin-top:6px">کل طلبہ: <span class="n">' + st.length + '</span></div></div>', 'portrait', 'رابطہ فہرست'); return; }
@@ -11052,7 +11071,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2411TU072', n: 'ہیلپ ڈیسک اب صرف مسائل بتانے کے لیے؛ سوال پوچھنے کے لیے تالے / لاگ اِن والے صفحے پر نیا بٹن «💬 ہم سے سوال پوچھیں»' };
+window.MD_NOTE = { v: 'MD2411TU073', n: 'رپورٹس میں «🗂️ داخل شدہ طلبہ» — تصویر، نام، ولدیت، سرپرست، موبائل، پتہ (یہ جماعت یا سب جماعتیں) PDF / پرنٹ؛ پروفائل میں سرپرست کا نمبر ٹچ کریں تو کال، ساتھ واٹس ایپ' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
