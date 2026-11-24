@@ -1450,7 +1450,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU085</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU086</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9863,7 +9863,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU085" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU086" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10164,6 +10164,7 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
     o.innerHTML = '<div class="bx"><h3>📄 رپورٹیں — ' + E(cls(cid).name || '') + '</h3>'
       + '<button data-r="m" data-ym="' + ym + '">📅 ماہانہ جماعت رپورٹ — ' + ymName(ym) + '</button>'
       + '<button data-r="m" data-ym="' + py + '">📅 ماہانہ جماعت رپورٹ — ' + ymName(py) + '</button>'
+      + '<button data-r="perf" style="border-color:#065f46;background:#065f46;color:#fff">📊 مکمل کارکردگی رپورٹ — جماعت یا ایک طالب علم (آج / ہفتہ / مہینہ / سال / کوئی تاریخ)</button>'
       + '<button data-r="att">🗓️ حاضری رپورٹ — ایک طالب علم یا پوری جماعت (ہفتہ / مہینہ / سال)</button>'
       + '<button data-r="c">📞 رابطہ فہرست (والد / سرپرست، موبائل، پتہ)</button>'
       + '<button data-r="l">📋 طلبہ کی فہرست (حفظ کی مقدار کے ساتھ)</button>'
@@ -10175,6 +10176,7 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
       var st = S(cid), c = cls(cid), info = E(c.name || '') + (c.incharge ? ' (' + E(c.incharge) + ')' : '') + ' — <span class="n">' + fmtD(pk()) + '</span>';
       if(r === 'm'){ jmaPrintNow(jmaClassReport(cid, b.dataset.ym), 'portrait', 'ماہانہ جماعت رپورٹ'); return; }
       if(r === 'att'){ attPick(cid); return; }
+      if(r === 'perf'){ if(window.jmaPerfPick) jmaPerfPick(cid); return; }
       if(r === 'p' || r === 'pa'){ /* MD2411TU073: داخل شدہ طلبہ کا ریکارڈ — چھوٹی تصویر، نام، ولدیت، سرپرست، موبائل (اسکرین پر ٹچ = کال)، پتہ */
         var all = r === 'pa', CL = ((window.jmaMgmt && jmaMgmt.classes()) || []).filter(function(x){ return !x.del; });
         var groups = all ? CL.map(function(x){ return { c: x, st: S(x.id) }; }).filter(function(g){ return g.st.length; }) : [{ c: c, st: st }];
@@ -10191,6 +10193,155 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
         + st.map(function(s){ return '<tr><td class="n">' + E(s.roll || '') + '</td><td class="nm">' + E(s.n) + '</td><td class="nm">' + E(s.w || '') + '</td><td>' + E(hifzTxt(s)) + '</td><td>' + E(s.status || '') + '</td></tr>'; }).join('')
         + '</tbody></table><div style="font-size:14px;margin-top:6px">کل طلبہ: <span class="n">' + st.length + '</span></div></div>', 'portrait', 'طلبہ کی فہرست'); return; }
     };
+  };
+})();
+</script>
+
+<!-- ============================================================
+     MD2411TU086 (مالک کا حکم): 📊 مکمل کارکردگی رپورٹ — پوری جماعت یا ایک طالب علم؛ آج / یہ ہفتہ / پچھلا ہفتہ / یہ مہینہ / پچھلا مہینہ /
+     یہ سال / پچھلا سال / کوئی ایک تاریخ / تاریخ سے تاریخ۔ ہر دن: 6 نشستوں کی حاضری، سبق / سبقی / منزل (پارہ، لائن، رکوع، پاؤ)، اٹکن، غلطی،
+     کارکردگی، کس نے سنا۔ صاف کالا سفید، تنگ خانے (#jm7Print .p86)۔ صرف محفوظ ریکارڈ سے — کوئی فرضی گنتی نہیں۔
+     ============================================================ -->
+<style id="jma086css">
+#jm7Print .p86 table{font-size:12.5px;table-layout:fixed}
+#jm7Print .p86 th{background:#fff!important;color:#000!important;border-bottom:2px solid #000!important;font-size:12.5px;padding:2px 3px}
+#jm7Print .p86 td{padding:1px 3px;line-height:1.55;vertical-align:top}
+#jm7Print .p86 td.nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#jm7Print .p86 .n,#jm7Print .p86 .at{font-family:Arial,sans-serif;font-size:11.5px}
+#jm7Print .p86 .at{letter-spacing:1px;white-space:nowrap}
+#jm7Print .p86 .k{display:block;font-size:12px;line-height:1.5}
+#jm7Print .p86 .k b{font-weight:700}
+#jm7Print .p86 .sm{font-size:11px}
+#jm7Print .p86 tr.tot td{border-top:2px solid #000!important;font-weight:700}
+#jm7Print .p86 tr.ab td{background:#f3f4f6!important}
+#jm7Print .p86 .sum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid #000;margin:0 0 6px;font-size:13px}
+#jm7Print .p86 .sum div{border:1px solid #000;padding:2px 5px;line-height:1.6}
+#jm7Print .p86 .sum b{font-family:Arial,sans-serif;font-size:13px}
+#jm7Print .p86 .key{font-size:11px;margin-top:4px;line-height:1.6}
+#jm36M .jm86 label{display:block;margin:8px 0 4px;font-weight:800;color:#14532d}
+#jm36M .jm86 select{width:100%;padding:7px;border:2px solid #16a34a;border-radius:10px;font:600 16px var(--nastaliq),serif;background:#fff}
+#jm36M .jm86 .g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+#jm36M .jm86 .g button{margin:0;padding:0 6px;height:38px;text-align:center;font-size:15px;line-height:1.6;border-radius:11px;overflow:hidden}
+#jm36M .jm86 #jm86dt input[type=date]{display:none}
+#jm36M .jm86 #jm86dt .jm41b{margin-top:2px;font-size:15px;padding:3px 8px}
+#jm36M .jm86 h3{font-size:19px;margin-bottom:4px}
+#jm36M .jm86 label{margin:5px 0 3px}
+#jm36M .jm86 > button{padding:5px;margin-top:6px;font-size:16px}
+#jm36M .jm86 .g button.on{background:#065f46;color:#fff;border-color:#065f46}
+#jm36M .jm86 .dt{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+#jm36M .jm86 .dt div{font-size:14px;color:#334155}
+#jm36M .jm86 .go{background:#065f46!important;color:#fff!important;border-color:#065f46!important;text-align:center!important;font-size:18px!important}
+</style>
+<script id="jma086">
+(function(){
+  'use strict';
+  function $(i){ return document.getElementById(i); }
+  function E(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  var DAYN = ['اتوار', 'پیر', 'منگل', 'بدھ', 'جمعرات', 'جمعہ', 'ہفتہ'], MN = ['جنوری', 'فروری', 'مارچ', 'اپریل', 'مئی', 'جون', 'جولائی', 'اگست', 'ستمبر', 'اکتوبر', 'نومبر', 'دسمبر'];
+  var KIND = [['sabaq', 'سبق'], ['sabqi', 'سبقی'], ['manzil', 'منزل']], PS = { 'ممتاز': 100, 'بہت اچھا': 85, 'اچھا': 70, 'مناسب': 55, 'کمزور': 35 }, PAO = ['پہلا', 'دوسرا', 'تیسرا', 'چوتھا'];
+  function pk(){ return window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10); }
+  function dStr(d){ return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function dOf(ds){ var p = ds.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function fmtD(s){ var p = String(s || '').split('-'); return p.length === 3 ? (+p[2]) + '/' + (+p[1]) + '/' + p[0] : s; }
+  function mad(){ try{ return (window.jmaMadName && jmaMadName()) || 'جامعہ'; }catch(e){ return 'جامعہ'; } }
+  function classes(){ return ((window.jmaMgmt && jmaMgmt.classes()) || []).filter(function(c){ return !c.del; }); }
+  function cls(cid){ return classes().find(function(c){ return c.id === cid; }) || {}; }
+  function S(cid){ return ((window.jmaMgmt && jmaMgmt.students()) || []).filter(function(s){ return !s.del && s.classId === cid; }).sort(function(a, b){ return (parseInt(a.roll, 10) || 1e9) - (parseInt(b.roll, 10) || 1e9) || String(a.n).localeCompare(String(b.n)); }); }
+  function head(sub){ var c = window.jmaCfg ? jmaCfg() : {}; return '<div class="hd">' + (c.logo ? '<img src="' + E(c.logo) + '">' : '') + ' <span class="t">' + E(mad()) + '</span><div class="s">' + sub + '</div></div>'; }
+  /* مدت */
+  function period(k, a0, b0){ var t = dOf(pk()), a, b, nm;
+    if(k === 't'){ a = b = t; nm = 'آج'; }
+    else if(k === 'w' || k === 'pw'){ var dw = (t.getDay() + 6) % 7; a = new Date(t); a.setDate(t.getDate() - dw); if(k === 'pw') a.setDate(a.getDate() - 7); b = new Date(a); b.setDate(a.getDate() + 6); nm = k === 'w' ? 'یہ ہفتہ' : 'پچھلا ہفتہ'; }
+    else if(k === 'm' || k === 'pm'){ a = new Date(t.getFullYear(), t.getMonth() - (k === 'pm' ? 1 : 0), 1); b = new Date(a.getFullYear(), a.getMonth() + 1, 0); nm = MN[a.getMonth()] + ' ' + a.getFullYear(); }
+    else if(k === 'y' || k === 'py'){ var y = t.getFullYear() - (k === 'py' ? 1 : 0); a = new Date(y, 0, 1); b = new Date(y, 11, 31); nm = 'سال ' + y; }
+    else { a = dOf(a0 || pk()); b = dOf(b0 || a0 || pk()); if(b < a){ var x = a; a = b; b = x; } nm = dStr(a) === dStr(b) ? 'ایک دن' : 'منتخب مدت'; }
+    if(b > t) b = t; if(a > b) a = b;
+    var A = dStr(a), B = dStr(b); return { a: A, b: B, one: A === B, nm: nm }; }
+  function dLbl(ds){ return '<span class="n">' + fmtD(ds) + '</span> ' + DAYN[dOf(ds).getDay()]; }
+  /* حاضری: ہر دن کی 6 نشستیں */
+  function attDay(sid, d){ var A = (window.jma019 && jma019.AT) ? jma019.AT() : {}, r = A[sid + '|' + d]; if(!r) return null; var ss = r.s || {}, row = [], why = [];
+    for(var i = 0; i < 6; i++){ var x = ss[i]; var st = x && x.st ? x.st : (r.day === 'absent' ? 'a' : ''); row.push(st); if(x && x.reason) why.push(x.reason); }
+    if(r.reason) why.push(r.reason); if(!row.some(Boolean)) return null;
+    return { row: row, why: why.filter(function(v, i, s2){ return s2.indexOf(v) === i; }).join('، '), ab: row.filter(Boolean).every(function(v){ return v === 'a'; }) }; }
+  function atStr(row){ return row.map(function(v){ return v === 'p' ? 'ح' : v === 'h' ? '½' : v === 'a' ? 'غ' : '·'; }).join(' '); }
+  function ENs(sid, P){ return ((window.jma019 && jma019.EN()) || []).filter(function(e){ return !e.del && e.sid === sid && e.date >= P.a && e.date <= P.b; }); }
+  function score(e){ var b = PS[e.perf]; if(b == null) return null; var pen = Math.min(40, (e.kind === 'sabaq' ? 0 : (e.atkan || 0) * 3) + (e.mist || 0) * 2); return Math.max(0, b - pen); }
+  function itemTxt(it){ var p = []; if(it.lines) p.push(it.lines + ' لائن'); if(it.ruku) p.push(it.ruku + ' رکوع'); if(it.pao && it.pao.length) p.push('پاؤ ' + it.pao.join('،'));
+    return 'پ<span class="n">' + E(it.para) + '</span>' + (p.length ? ': ' + p.join('، ') : ''); }
+  function entTxt(L){ if(!L.length) return '—'; return L.map(function(e){ var q = (e.items || []).map(itemTxt).join(' + ') || '✓', x = [];
+      if(e.kind !== 'sabaq' && e.atkan) x.push('اٹکن ' + e.atkan); if(e.mist) x.push('غلطی ' + e.mist); if(e.perf) x.push(e.perf); if(e.lis && e.lis.name && e.lis.type === 'student') x.push('سنا: ' + e.lis.name);
+      return '<span class="k">' + q + (x.length ? ' <span class="sm">(' + E(x.join('، ')) + ')</span>' : '') + '</span>'; }).join(''); }
+  /* ایک طالب علم کا مدت کا جوڑ */
+  function sumOf(sid, P){
+    var EN = ENs(sid, P), days = {}, c = { p: 0, h: 0, a: 0 }, abDays = 0;
+    var d = dOf(P.a), end = dOf(P.b);
+    for(; d <= end; d.setDate(d.getDate() + 1)){ var ds = dStr(d), at = attDay(sid, ds); if(at){ at.row.forEach(function(v){ if(v) c[v]++; }); if(at.ab) abDays++; days[ds] = 1; } }
+    var k = {}; KIND.forEach(function(x){ var L = EN.filter(function(e){ return e.kind === x[0]; }); var dd = {}; L.forEach(function(e){ dd[e.date] = 1; days[e.date] = 1; });
+      var lines = 0, ruku = 0, pao = 0; L.forEach(function(e){ (e.items || []).forEach(function(it){ lines += +it.lines || 0; ruku += +it.ruku || 0; pao += (it.pao || []).length; }); });
+      k[x[0]] = { n: L.length, days: Object.keys(dd).length, lines: lines, ruku: ruku, pao: pao }; });
+    var at = EN.reduce(function(a, e){ return a + (e.kind !== 'sabaq' ? (e.atkan || 0) : 0); }, 0), mi = EN.reduce(function(a, e){ return a + (e.mist || 0); }, 0);
+    var sc = EN.map(score).filter(function(v){ return v != null; }), n = c.p + c.h + c.a;
+    return { c: c, n: n, pct: n ? Math.round((c.p + c.h * 0.5) * 100 / n) : null, abDays: abDays, k: k, atkan: at, mist: mi, sc: sc.length ? Math.round(sc.reduce(function(a, b){ return a + b; }, 0) / sc.length) : null, scN: sc.length, days: Object.keys(days).length };
+  }
+  function qty(o){ var p = []; if(o.lines) p.push(o.lines + ' لائن'); if(o.ruku) p.push(o.ruku + ' رکوع'); if(o.pao) p.push(o.pao + ' پاؤ'); return '<span class="n">' + o.days + '</span> دن' + (p.length ? '<span class="k sm">' + p.join('، ') + '</span>' : ''); }
+  var KEY = '<div class="key">حاضری: ح = حاضر · ½ = آدھی · غ = غیر حاضر · · = درج نہیں (6 نشستیں: فجر سے پہلے، فجر کے بعد، ناشتے کے بعد، ظہر کے بعد، مغرب کے بعد، عشاء کے بعد) · پ = پارہ · کارکردگی 100 میں سے: ممتاز 100، بہت اچھا 85، اچھا 70، مناسب 55، کمزور 35 (ہر اٹکن −3، ہر غلطی −2)؛ قوسین میں جانچ والے اندراج</div>';
+  function report(cid, sid, P){
+    var c = cls(cid), info = E(c.name || '') + (c.incharge ? ' (' + E(c.incharge) + ')' : '') + ' — ' + E(P.nm) + ': ' + (P.one ? dLbl(P.a) : '<span class="n">' + fmtD(P.a) + '</span> تا <span class="n">' + fmtD(P.b) + '</span>');
+    if(sid){
+      var s = S(cid).find(function(x){ return x.sid === sid; }) || {}, R = sumOf(sid, P), EN = ENs(sid, P), rows = [], d = dOf(P.a), end = dOf(P.b);
+      for(; d <= end; d.setDate(d.getDate() + 1)){ var ds = dStr(d), at = attDay(sid, ds), L = EN.filter(function(e){ return e.date === ds; });
+        if(!at && !L.length) continue;
+        var by = function(k){ return entTxt(L.filter(function(e){ return e.kind === k; }).sort(function(a, b){ return (a.ses || 0) - (b.ses || 0); })); };
+        var cnt = at ? at.row.filter(function(v){ return v === 'p' || v === 'h'; }).length : 0;
+        rows.push('<tr' + (at && at.ab ? ' class="ab"' : '') + '><td>' + dLbl(ds) + '</td><td class="at">' + (at ? atStr(at.row) : '—') + '</td><td class="n">' + (at ? cnt + '/' + at.row.filter(Boolean).length : '—') + '</td><td class="nm" style="white-space:normal">' + by('sabaq') + '</td><td class="nm" style="white-space:normal">' + by('sabqi') + '</td><td class="nm" style="white-space:normal">' + by('manzil') + '</td><td class="sm">' + E(at ? at.why : '') + '</td></tr>'); }
+      var sumBox = '<div class="sum"><div>درج دن: <b>' + R.days + '</b></div><div>حاضری: <b>' + (R.pct != null ? R.pct + '%' : '—') + '</b> <span class="sm">(ح ' + R.c.p + ' · ½ ' + R.c.h + ' · غ ' + R.c.a + ')</span></div><div>پورے دن غیر حاضر: <b>' + R.abDays + '</b></div><div>کارکردگی: <b>' + (R.sc != null ? R.sc + '/100' : '—') + '</b> <span class="sm">(' + R.scN + ')</span></div>'
+        + '<div>سبق: ' + qty(R.k.sabaq) + '</div><div>سبقی: ' + qty(R.k.sabqi) + '</div><div>منزل: ' + qty(R.k.manzil) + '</div><div>اٹکن: <b>' + R.atkan + '</b> · غلطی: <b>' + R.mist + '</b></div></div>';
+      jmaPrintNow('<div class="pg p86">' + head(info + '<br>مکمل کارکردگی رپورٹ — <b>' + E(s.n || '') + '</b>' + (s.roll ? ' (رول <span class="n">' + E(s.roll) + '</span>)' : '') + (s.w ? ' ولد ' + E(s.w) : '')) + sumBox
+        + '<table class="lst"><colgroup><col style="width:11%"><col style="width:11%"><col style="width:5%"><col style="width:22%"><col style="width:20%"><col style="width:20%"><col style="width:11%"></colgroup><thead><tr><th>تاریخ / دن</th><th>حاضری (6 نشستیں)</th><th>حاضر</th><th>سبق</th><th>سبقی</th><th>منزل</th><th>وجہ</th></tr></thead><tbody>'
+        + (rows.join('') || '<tr><td colspan="7">اس مدت میں کوئی ریکارڈ درج نہیں</td></tr>') + '</tbody></table>' + KEY + '</div>', 'landscape', 'کارکردگی رپورٹ — ' + (s.n || ''));
+      return;
+    }
+    var L = S(cid), T = { c: { p: 0, h: 0, a: 0 }, k: { sabaq: 0, sabqi: 0, manzil: 0 }, at: 0, mi: 0, ab: 0 }, rows;
+    if(P.one){
+      rows = L.map(function(st){ var at = attDay(st.sid, P.a), EN = ENs(st.sid, P), by = function(k){ return entTxt(EN.filter(function(e){ return e.kind === k; })); }, cnt = at ? at.row.filter(function(v){ return v === 'p' || v === 'h'; }).length : 0;
+        if(at) at.row.forEach(function(v){ if(v) T.c[v]++; }); if(at && at.ab) T.ab++; KIND.forEach(function(x){ if(EN.some(function(e){ return e.kind === x[0]; })) T.k[x[0]]++; });
+        return '<tr' + (at && at.ab ? ' class="ab"' : '') + '><td class="n">' + E(st.roll || '') + '</td><td class="nm">' + E(st.n) + '</td><td class="at">' + (at ? atStr(at.row) : '—') + '</td><td class="n">' + (at ? cnt + '/' + at.row.filter(Boolean).length : '—') + '</td><td class="nm" style="white-space:normal">' + by('sabaq') + '</td><td class="nm" style="white-space:normal">' + by('sabqi') + '</td><td class="nm" style="white-space:normal">' + by('manzil') + '</td></tr>'; }).join('');
+      jmaPrintNow('<div class="pg p86">' + head(info + '<br>پوری جماعت کی کارکردگی — <span class="n">' + L.length + '</span> طلبہ')
+        + '<div class="sum"><div>سبق ہوا: <b>' + T.k.sabaq + '</b>/' + L.length + '</div><div>سبقی ہوئی: <b>' + T.k.sabqi + '</b>/' + L.length + '</div><div>منزل ہوئی: <b>' + T.k.manzil + '</b>/' + L.length + '</div><div>پورے دن غیر حاضر: <b>' + T.ab + '</b> <span class="sm">(نشستیں: ح ' + T.c.p + ' · ½ ' + T.c.h + ' · غ ' + T.c.a + ')</span></div></div>'
+        + '<table class="lst"><colgroup><col style="width:4%"><col style="width:14%"><col style="width:11%"><col style="width:5%"><col style="width:23%"><col style="width:21%"><col style="width:22%"></colgroup><thead><tr><th>رول</th><th>نام</th><th>حاضری (6 نشستیں)</th><th>حاضر</th><th>سبق</th><th>سبقی</th><th>منزل</th></tr></thead><tbody>'
+        + (rows || '<tr><td colspan="7">ابھی کوئی طالب علم داخل نہیں</td></tr>') + '</tbody></table>' + KEY + '</div>', 'landscape', 'جماعت کی کارکردگی — ' + fmtD(P.a));
+      return;
+    }
+    rows = L.map(function(st){ var R = sumOf(st.sid, P); T.c.p += R.c.p; T.c.h += R.c.h; T.c.a += R.c.a; T.ab += R.abDays; T.at += R.atkan; T.mi += R.mist; KIND.forEach(function(x){ T.k[x[0]] += R.k[x[0]].days; });
+      return '<tr><td class="n">' + E(st.roll || '') + '</td><td class="nm">' + E(st.n) + '</td><td class="n">' + R.days + '</td><td class="n">' + R.c.p + ' / ' + R.c.h + ' / ' + R.c.a + '</td><td class="n">' + (R.pct != null ? R.pct + '%' : '—') + '</td><td class="n">' + R.abDays + '</td><td>' + qty(R.k.sabaq) + '</td><td>' + qty(R.k.sabqi) + '</td><td>' + qty(R.k.manzil) + '</td><td class="n">' + R.atkan + ' / ' + R.mist + '</td><td class="n">' + (R.sc != null ? R.sc + ' <span class="sm">(' + R.scN + ')</span>' : '—') + '</td></tr>'; }).join('');
+    var tn = T.c.p + T.c.h + T.c.a;
+    jmaPrintNow('<div class="pg p86">' + head(info + '<br>پوری جماعت کی مکمل کارکردگی — <span class="n">' + L.length + '</span> طلبہ')
+      + '<table class="lst"><colgroup><col style="width:4%"><col style="width:15%"><col style="width:6%"><col style="width:10%"><col style="width:6%"><col style="width:6%"><col style="width:13%"><col style="width:12%"><col style="width:12%"><col style="width:7%"><col style="width:9%"></colgroup><thead><tr><th>رول</th><th>نام</th><th>درج دن</th><th>نشستیں ح / ½ / غ</th><th>حاضری</th><th>پورے دن غ</th><th>سبق</th><th>سبقی</th><th>منزل</th><th>اٹکن / غلطی</th><th>کارکردگی</th></tr></thead><tbody>'
+      + (rows || '<tr><td colspan="11">ابھی کوئی طالب علم داخل نہیں</td></tr>')
+      + (L.length ? '<tr class="tot"><td></td><td class="nm">کل جماعت</td><td></td><td class="n">' + T.c.p + ' / ' + T.c.h + ' / ' + T.c.a + '</td><td class="n">' + (tn ? Math.round((T.c.p + T.c.h * 0.5) * 100 / tn) + '%' : '—') + '</td><td class="n">' + T.ab + '</td><td class="n">' + T.k.sabaq + ' دن</td><td class="n">' + T.k.sabqi + ' دن</td><td class="n">' + T.k.manzil + ' دن</td><td class="n">' + T.at + ' / ' + T.mi + '</td><td></td></tr>' : '')
+      + '</tbody></table>' + KEY + '</div>', 'landscape', 'جماعت کی مکمل کارکردگی');
+  }
+  window.jmaPerfReport = report;
+  /* چننے کا خانہ */
+  window.jmaPerfPick = function(cid){
+    var o = $('jm36M'); if(o) o.remove(); o = document.createElement('div'); o.id = 'jm36M'; var L = S(cid), t = pk(), k = 't';
+    o.innerHTML = '<div class="bx jm86"><h3>📊 مکمل کارکردگی رپورٹ — ' + E(cls(cid).name || '') + '</h3>'
+      + '<label>کس کی؟</label><select id="jm86s"><option value="">👥 پوری جماعت</option>' + L.map(function(s){ return '<option value="' + E(s.sid) + '">' + E((s.roll ? s.roll + ' — ' : '') + s.n) + '</option>'; }).join('') + '</select>'
+      + '<label>کون سی مدت؟</label><div class="g">' + [['t', 'آج'], ['d', '📅 کوئی تاریخ'], ['w', 'یہ ہفتہ'], ['pw', 'پچھلا ہفتہ'], ['m', 'یہ مہینہ'], ['pm', 'پچھلا مہینہ'], ['y', 'یہ سال'], ['py', 'پچھلا سال'], ['r', '📅 تاریخ سے تاریخ']].map(function(x){ return '<button type="button" data-k="' + x[0] + '"' + (x[0] === 'r' ? ' style="grid-column:1/-1"' : '') + '>' + x[1] + '</button>'; }).join('') + '</div>'
+      + '<div class="dt" id="jm86dt" style="display:none;margin-top:6px"><div><span id="jm86al">سے</span><input type="date" id="jm86a" max="' + t + '" value="' + t + '"></div><div id="jm86bw">تک<input type="date" id="jm86b" max="' + t + '" value="' + t + '"></div></div>'
+      + '<button type="button" class="go" data-go="1">📄 رپورٹ بنائیں</button><button type="button" data-k="x" class="x">✕ واپس</button></div>';
+    document.body.appendChild(o);
+    var A = $('jm86a'), B = $('jm86b');
+    [A, B].forEach(function(i){ i.addEventListener('change', function(){ if(window.jma41Deco) jma41Deco(i); }); if(window.jma41Deco) jma41Deco(i); });
+    var mark = function(){ o.querySelectorAll('.g button').forEach(function(b){ b.classList.toggle('on', b.dataset.k === k); }); $('jm86dt').style.display = (k === 'd' || k === 'r') ? '' : 'none'; $('jm86bw').style.display = k === 'r' ? '' : 'none'; $('jm86al').textContent = k === 'r' ? 'سے' : 'تاریخ'; $('jm86dt').style.gridTemplateColumns = k === 'r' ? '' : '1fr'; };
+    mark();
+    o.addEventListener('click', function(e){
+      if(e.target === o){ o.remove(); return; }
+      var b = e.target.closest('[data-k],[data-go]'); if(!b || !o.contains(b) || b.closest('#jm86dt')) return;
+      if(b.dataset.k === 'x'){ o.remove(); return; }
+      if(b.dataset.k){ k = b.dataset.k; mark(); return; }
+      var sid = $('jm86s').value || '', P = period(k, A.value, k === 'r' ? B.value : A.value); o.remove(); report(cid, sid, P);
+    });
   };
 })();
 </script>
@@ -11174,7 +11325,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2411TU085', n: '🗓️ نئی «حاضری رپورٹ» (رپورٹیں ← سب سے اوپر): ایک طالب علم یا پوری جماعت — یہ / پچھلا ہفتہ، یہ / پچھلا مہینہ، یہ / پچھلا سال؛ ہر دن کی 6 نشستیں اور غیر حاضر دن' };
+window.MD_NOTE = { v: 'MD2411TU086', n: '📊 نئی «مکمل کارکردگی رپورٹ» (رپورٹیں ← سب سے اوپر): پوری جماعت یا ایک طالب علم — آج، کوئی تاریخ، یہ / پچھلا ہفتہ، مہینہ، سال، تاریخ سے تاریخ؛ ہر دن کی 6 نشستوں کی حاضری اور سبق / سبقی / منزل کی پوری تفصیل' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
