@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU073</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU074</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9813,7 +9813,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU073" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU074" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10878,6 +10878,7 @@ body.jm7v #jm51nav{display:none!important}
 #jm52 .mid .bio{margin-top:0;border:2px solid #d4af37}
 #jm52 .mid .bx{margin:4px auto}
 #jm52 .hdb{position:absolute;left:31%;right:31%;top:44%;bottom:6%;border:0;background:transparent;cursor:pointer}
+#jm52 .ask72.sh74{border-color:#15803d;background:linear-gradient(180deg,#f0fdf4,#dcfce7);color:#14532d}
 #jm52 .ask72{display:block;margin:6px auto 0;border:2px solid #1d4ed8;background:linear-gradient(180deg,#eff6ff,#dbeafe);color:#1e3a8a;border-radius:999px;padding:0 18px;font:400 17px/2 'Jameel Noori Nastaleeq',var(--nastaliq),serif;box-shadow:0 2px 6px rgba(0,0,0,.15)}
 </style>
 <div id="jm52" class="no-print"></div>
@@ -10971,6 +10972,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<div id="jm52bio"></div>'
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
+      + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -11011,6 +11013,7 @@ body.jm7v #jm51nav{display:none!important}
     if(a === 'back'){ show('lock'); return; }
     if(a === 'ask'){ try{ openHelpDesk({ type: 'chat' }); }catch(e){ try{ openHelpDesk(); }catch(x){} } return; }   /* MD2411TU072: سوال = چیٹ (تالے / لاگ اِن پر) */
     if(a === 'help'){ try{ openHelpDesk(); }catch(e){} return; }   /* ہیلپ ڈیسک = مسائل */
+    if(a === 'share'){ if(window.jmaShareApp) jmaShareApp(); return; }
     if(a === 'bio'){ bioLogin(); return; }
     if(a === 'relink'){ bioRelink(); return; }
     if(a === 'bioon'){ M.err = 'پہلے پن لکھ کر کھولیں — پھر فنگر پرنٹ آن ہوگا'; draw(); return; }
@@ -11071,7 +11074,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2411TU073', n: 'رپورٹس میں «🗂️ داخل شدہ طلبہ» — تصویر، نام، ولدیت، سرپرست، موبائل، پتہ (یہ جماعت یا سب جماعتیں) PDF / پرنٹ؛ پروفائل میں سرپرست کا نمبر ٹچ کریں تو کال، ساتھ واٹس ایپ' };
+window.MD_NOTE = { v: 'MD2411TU074', n: 'تالے والے صفحے اور سیٹنگز میں «📲 ایپ شیئر کریں» — جسے لنک بھیجیں اس کے فون پر «📲 ایپ انسٹال کریں» کا بٹن خود آتا ہے' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
@@ -11373,6 +11376,7 @@ window.MD_NOTE = { v: 'MD2411TU073', n: 'رپورٹس میں «🗂️ داخل 
     var act = {}; try{ act = JSON.parse(localStorage.getItem('jamia_act_v4') || '{}') || {}; }catch(e){}
     var it = [['data-d="cfg"', '🕌', 'مدرسہ پروفائل — نام، سرپرست، مہتمم، قاری صاحب، تصویر'], ['data-k54="drive"', '☁️', 'گوگل ڈرائیو بیک اپ'], ['data-d39="1"', '📱', 'دو موبائل — آن لائن جوڑ']];
     if(!act.staff) it.push(['data-k54="pkg"', '📦', 'پیکج و سبسکرپشن']);
+    it.push(['data-k54="share"', '📲', 'ایپ شیئر کریں']);
     it.push(['data-k54="out"', '🚪', 'لاگ آؤٹ / ایپ بند کریں']);
     o.innerHTML = '<div class="bx"><h3>⚙️ سیٹنگز</h3>' + it.map(function(x){ return '<button type="button" ' + x[0] + '><i>' + x[1] + '</i>' + x[2] + '</button>'; }).join('') + '<button type="button" class="x">✕ بند کریں</button></div>';
     document.body.appendChild(o);
@@ -11431,6 +11435,7 @@ window.MD_NOTE = { v: 'MD2411TU073', n: 'رپورٹس میں «🗂️ داخل 
     else if(k === 'drive'){ if(window.jmaDriveOpen) jmaDriveOpen(); }
     else if(k === 'pic'){ if(window.jmaHomePhoto) jmaHomePhoto(); }
     else if(k === 'menu'){ menu(); }
+    else if(k === 'share'){ if(window.jmaShareApp) jmaShareApp(); }
     else if(k === 'top'){ var dd = $('jmaDash'); if(dd) dd.scrollTo({ top: 0, behavior: 'smooth' }); }
   }, true);
   /* ایپ کھلتے ہی یہی ہوم (سائن اپ / پرانا تالا نہ ہو تو) */
@@ -11541,6 +11546,44 @@ window.MD_NOTE = { v: 'MD2411TU073', n: 'رپورٹس میں «🗂️ داخل 
     var now = Date.now(); tp.n = now - tp.t < 700 ? tp.n + 1 : 1; tp.t = now;
     if(tp.n >= 3){ tp.n = 0; if(can()) open(); else if(window.jmaToast) jmaToast('یہ صرف منتظم / مہتمم بدل سکتے ہیں'); }
   }, true);
+})();
+</script>
+<style id="jma074css">
+#jm74i{position:fixed;left:10px;right:10px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:2147483600;max-width:460px;margin:0 auto;background:#fffdf4;border:2.5px solid #d4af37;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.4);padding:10px 12px;direction:rtl;font-family:'Jameel Noori Nastaleeq',var(--nastaliq),serif;text-align:center}
+#jm74i h4{margin:0;font:400 20px/1.7 'Jameel Noori Nastaleeq Kasheeda',serif;color:#065f46}
+#jm74i p{margin:2px 0 6px;font-size:14px;line-height:1.85;color:#334155}
+#jm74i .go{display:block;width:100%;border:0;border-radius:14px;background:linear-gradient(135deg,#16a34a,#065f46);color:#fff;font:inherit;font-size:19px;line-height:2.2}
+#jm74i .x{position:absolute;left:8px;top:6px;border:0;background:none;font-size:20px;color:#64748b}
+#jm74i ol{text-align:right;margin:4px 0;padding-right:20px;font-size:14.5px;line-height:1.9}
+</style>
+<script id="jma074">
+/* MD2411TU074 (مالک کا حکم): «📲 ایپ شیئر کریں» (تالے کا صفحہ + سیٹنگز) → لنک ?install=1؛ لنک کھلنے پر «📲 ایپ انسٹال کریں» (beforeinstallprompt)؛
+   انسٹال کا بٹن نہ ملے (واٹس ایپ کا اندرونی براؤزر / آئی فون) تو قدم بہ قدم ہدایت؛ پہلے سے انسٹال (standalone) ہو تو کچھ نہیں۔ */
+(function(){
+  'use strict';
+  var URL0 = 'https://pbtcodelabs-pbt.github.io/Hifz-progress/?install=1', dp = null;
+  function standalone(){ try{ return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; }catch(e){ return false; } }
+  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); dp = e; if(/[?&]install=1/.test(location.search)) card(); });
+  window.addEventListener('appinstalled', function(){ var c = document.getElementById('jm74i'); if(c) c.remove(); if(window.jmaToast) jmaToast('✅ ایپ انسٹال ہو گئی — فون کی اسکرین پر «مدرسہ» دیکھیں'); });
+  function mad(){ try{ return (window.jmaMadName && jmaMadName()) || ''; }catch(e){ return ''; } }
+  window.jmaShareApp = function(){
+    var t = '🕌 مدرسہ مینجمنٹ سافٹ ویئر — حفظ (سبق، سبقی، منزل)، 6 اوقات کی حاضری، امتحان، رپورٹیں اور ختم قرآن کا تخمینہ، سب ایک ایپ میں۔\n\n📲 یہ لنک کھولیں اور «ایپ انسٹال کریں» دبائیں — ایپ فون میں آ جائے گی:\n';
+    if(navigator.share){ navigator.share({ title: 'مدرسہ مینجمنٹ ایپ', text: t, url: URL0 }).catch(function(){}); return; }
+    window.open('https://wa.me/?text=' + encodeURIComponent(t + URL0), '_blank');
+  };
+  function card(){
+    if(standalone() || document.getElementById('jm74i')) return;
+    var c = document.createElement('div'); c.id = 'jm74i'; c.className = 'no-print';
+    var inApp = /FBAN|FBAV|Instagram|WhatsApp|; wv\)/i.test(navigator.userAgent), ios = /iPhone|iPad/i.test(navigator.userAgent);
+    c.innerHTML = '<button type="button" class="x" aria-label="بند">✕</button><h4>📲 مدرسہ ایپ انسٹال کریں</h4>'
+      + (dp ? '<p>ایک ٹچ میں ایپ فون کی اسکرین پر آ جائے گی — انٹرنیٹ کے بغیر بھی چلے گی</p><button type="button" class="go">📲 ایپ انسٹال کریں</button>'
+        : inApp ? '<p>یہ لنک واٹس ایپ کے اندر کھلا ہے — انسٹال کے لیے:</p><ol><li>اوپر کونے میں <b>⋮</b> دبائیں</li><li>«<b>Chrome میں کھولیں</b>» (Open in Chrome) چنیں</li><li>وہاں «📲 ایپ انسٹال کریں» دبائیں</li></ol>'
+        : ios ? '<p>آئی فون: نیچے <b>شیئر ⬆️</b> دبائیں ← «<b>Add to Home Screen</b>»</p>'
+        : '<p>کروم میں اوپر <b>⋮</b> دبائیں ← «<b>ایپ انسٹال کریں</b>» یا «<b>Add to Home screen</b>»</p>');
+    document.body.appendChild(c);
+    c.addEventListener('click', function(e){ if(e.target.closest('.x')){ c.remove(); return; } if(e.target.closest('.go') && dp){ dp.prompt(); dp.userChoice.then(function(r){ if(r && r.outcome === 'accepted') c.remove(); dp = null; }); } });
+  }
+  if(/[?&]install=1/.test(location.search)) setTimeout(card, 2500);
 })();
 </script>
 <!-- ============================================================
