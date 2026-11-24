@@ -1,5 +1,5 @@
 // جامعہ امتحانی سافٹ ویئر — سروس ورکر (آف لائن سپورٹ)
-const CACHE_NAME = 'jamia-hifz-cache-MD2311MO057';
+const CACHE_NAME = 'jamia-hifz-cache-MD2311MO058';
 const CORE_ASSETS = [
   './index.html',
   './manifest.json',
@@ -10,7 +10,7 @@ const CORE_ASSETS = [
   './fonts/Jameel_Noori_Nastaleeq_Kasheeda.ttf',
   './fonts/DecoType_Thuluth_Regular.ttf',
   /* MD2311MO054: نئے ڈیزائن کی تصویریں (آف لائن بھی) */
-  './ui/home-top.jpg', './ui/home-bot.jpg', './ui/h-sabaq.png', './ui/h-sabqi.png', './ui/h-manzil.png', './ui/h-att.png', './ui/h-stu.png', './ui/h-rep.png', './ui/h-out.png', './ui/h-help.png', './ui/lock-top.jpg', './ui/lock-bot.jpg', './ui/lock-l.jpg', './ui/lock-r.jpg',
+  './ui/emblem.png', './ui/home-bot.jpg', './ui/h-sabaq.png', './ui/h-sabqi.png', './ui/h-manzil.png', './ui/h-att.png', './ui/h-stu.png', './ui/h-rep.png', './ui/h-out.png', './ui/h-help.png', './ui/lock-top.jpg', './ui/lock-bot.jpg', './ui/lock-l.jpg', './ui/lock-r.jpg',
   './ui/i-sabaq.png', './ui/i-sabqi.png', './ui/i-manzil.png', './ui/i-att.png', './ui/i-stu.png', './ui/i-rep.png'
 ];
 
