@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU071</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2411TU072</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9813,7 +9813,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU071" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2411TU072" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10499,7 +10499,7 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
     var lc = document.querySelector('#lockScreen .lock-card'); if(!lc) return;
     if(!document.getElementById('jm40ask')){
       var b = document.createElement('button'); b.type = 'button'; b.id = 'jm40ask';
-      b.innerHTML = '<span class="pbthd-sos" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(#fde047,#facc15);color:#3b2300;border-radius:15px;padding:2px 8px;font:700 12px Arial">? Help Desk</span><span>💬 سوال پوچھیں / رہنمائی<small>جواب ایپ کے اندر ہی آئے گا</small></span>';
+      b.innerHTML = '<span class="pbthd-sos" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(#fde047,#facc15);color:#3b2300;border-radius:15px;padding:2px 8px;font:700 12px Arial">? Help Desk</span><span>💬 ہم سے سوال پوچھیں<small>جواب ایپ کے اندر ہی آئے گا</small></span>';
       b.onclick = function(){ try{ var m = JSON.parse(localStorage.getItem('jamia_mdid_v1') || '{}'); openHelpDesk({ type: 'chat', phone: m.mob || '', name: m.per || '' }); }catch(e){ try{ openHelpDesk(); }catch(x){} } };
       lc.appendChild(b);
     }
@@ -10859,6 +10859,7 @@ body.jm7v #jm51nav{display:none!important}
 #jm52 .mid .bio{margin-top:0;border:2px solid #d4af37}
 #jm52 .mid .bx{margin:4px auto}
 #jm52 .hdb{position:absolute;left:31%;right:31%;top:44%;bottom:6%;border:0;background:transparent;cursor:pointer}
+#jm52 .ask72{display:block;margin:6px auto 0;border:2px solid #1d4ed8;background:linear-gradient(180deg,#eff6ff,#dbeafe);color:#1e3a8a;border-radius:999px;padding:0 18px;font:400 17px/2 'Jameel Noori Nastaleeq',var(--nastaliq),serif;box-shadow:0 2px 6px rgba(0,0,0,.15)}
 </style>
 <div id="jm52" class="no-print"></div>
 <script id="jma052">
@@ -10921,7 +10922,7 @@ body.jm7v #jm51nav{display:none!important}
     } else if(M.st === 'dob' || M.st === 'forgot'){
       h += '<h3>🎂 ' + (M.st === 'dob' ? 'تاریخ پیدائش' : 'پن بھول گئے؟') + '</h3><div class="sub">' + (M.st === 'dob' ? 'استاد / قاری صاحب کی <b>تاریخ پیدائش</b> چنیں — پن بھولنے پر اسی سے نیا پن بنے گا (یاد رکھیں)' : 'وہی <b>تاریخ پیدائش</b> چنیں جو تالا بناتے وقت لکھی تھی') + '</div>'
         + '<label>تاریخ پیدائش</label>' + dobSel() + '<div class="er">' + M.err + '</div><button type="button" class="go" data-a="' + M.st + 'ok">✅ آگے</button>'
-        + (M.st === 'forgot' ? '<button type="button" class="lk" data-a="back">← واپس پن پر</button><button type="button" class="lk hd" data-a="help">تاریخ بھی یاد نہیں؟ — ہیلپ ڈیسک سے رابطہ</button>' : '');
+        + (M.st === 'forgot' ? '<button type="button" class="lk" data-a="back">← واپس پن پر</button><button type="button" class="lk hd" data-a="ask">تاریخ بھی یاد نہیں؟ — 💬 ہم سے پوچھیں</button>' : '');
     } else if(M.st === 'bioask'){
       h += '<h3>👆 فنگر پرنٹ</h3><div class="sub">کیا آئندہ اس فون پر <b>فنگر پرنٹ</b> سے بھی ایپ کھلے؟ (پن ساتھ چلتا رہے گا)</div><div class="er">' + M.err + '</div>'
         + '<button type="button" class="bio" data-a="bioyes">👆 ہاں، فنگر پرنٹ آن کریں</button><button type="button" class="lk" data-a="biono">ابھی نہیں</button>';
@@ -10950,6 +10951,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="go5" data-a="enter"><span>➜</span> داخل ہوں</button>'
       + '<div id="jm52bio"></div>'
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
+      + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -10988,7 +10990,8 @@ body.jm7v #jm51nav{display:none!important}
     if(a === 'enter'){ var pi = $('jm54pin'), v = pi ? pi.value.replace(/\D/g, '') : ''; if(v.length !== 4){ M.err = '4 ہندسوں کا پن لکھیں'; draw(); return; } M.pin = v; enter(); return; }
     if(a === 'forgot'){ show('forgot'); return; }
     if(a === 'back'){ show('lock'); return; }
-    if(a === 'help'){ try{ openHelpDesk({ type: 'chat' }); }catch(e){ try{ openHelpDesk(); }catch(x){} } return; }
+    if(a === 'ask'){ try{ openHelpDesk({ type: 'chat' }); }catch(e){ try{ openHelpDesk(); }catch(x){} } return; }   /* MD2411TU072: سوال = چیٹ (تالے / لاگ اِن پر) */
+    if(a === 'help'){ try{ openHelpDesk(); }catch(e){} return; }   /* ہیلپ ڈیسک = مسائل */
     if(a === 'bio'){ bioLogin(); return; }
     if(a === 'relink'){ bioRelink(); return; }
     if(a === 'bioon'){ M.err = 'پہلے پن لکھ کر کھولیں — پھر فنگر پرنٹ آن ہوگا'; draw(); return; }
@@ -11049,7 +11052,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2411TU071', n: 'ہوم کی تصویر پر سرپرست / مہتمم / قاری صاحب کی لائن اب کبھی غائب نہیں ہوتی (گہرے رنگ پر روشن ہالہ، جگہ کی حد)؛ تین ٹچ پٹی میں «↺ انداز پہلے جیسا»' };
+window.MD_NOTE = { v: 'MD2411TU072', n: 'ہیلپ ڈیسک اب صرف مسائل بتانے کے لیے؛ سوال پوچھنے کے لیے تالے / لاگ اِن والے صفحے پر نیا بٹن «💬 ہم سے سوال پوچھیں»' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
@@ -11404,7 +11407,7 @@ window.MD_NOTE = { v: 'MD2411TU071', n: 'ہوم کی تصویر پر سرپرس�
     var b = e.target.closest && e.target.closest('#jmaDash [data-k54]'); if(!b) return; e.stopPropagation(); e.preventDefault();
     var k = b.getAttribute('data-k54');
     if(k === 'pkg'){ if(window.mdPkgOpen) mdPkgOpen(); }
-    else if(k === 'help'){ try{ openHelpDesk({ type: 'chat' }); }catch(x){ try{ openHelpDesk(); }catch(y){} } }
+    else if(k === 'help'){ try{ openHelpDesk(); }catch(x){} }   /* MD2411TU072: اندر کا ہیلپ ڈیسک صرف مسائل */
     else if(k === 'out'){ if(window.jmaAskExit) jmaAskExit(); }
     else if(k === 'drive'){ if(window.jmaDriveOpen) jmaDriveOpen(); }
     else if(k === 'pic'){ if(window.jmaHomePhoto) jmaHomePhoto(); }
