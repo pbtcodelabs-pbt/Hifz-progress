@@ -1448,7 +1448,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO055</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2311MO056</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9654,7 +9654,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO055" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2311MO056" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -10846,7 +10846,7 @@ body.jm7v #jm51nav{display:none!important}
 @keyframes jm53in{from{transform:translate(-50%,-130%)}to{transform:translate(-50%,0)}}
 </style>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2311MO055', n: 'گوگل ڈرائیو بیک اپ: ہر روز صبح ایپ پہلی بار کھلتے ہی سارا ریکارڈ خود ڈرائیو پر؛ ہوم پر «☁️ بیک اپ» سے ابھی بیک اپ اور ڈرائیو سے واپس لانا' };
+window.MD_NOTE = { v: 'MD2311MO056', n: 'گوگل ڈرائیو بیک اپ اب دن میں دو بار: صبح ایپ پہلی بار کھلتے ہی، اور رات ساڑھے سات بجے' };
 (function(){
   'use strict';
   var LK = 'md_upd_seen_v1', PK = 'md_upd_done_v1';
@@ -11148,15 +11148,16 @@ window.MD_NOTE = { v: 'MD2311MO055', n: 'گوگل ڈرائیو بیک اپ: ہر
   function stateTxt(){
     if(busy) return ['busy', '⏳ ڈرائیو پر بیک اپ ہو رہا ہے…'];
     if(!meta.email) return ['warn', '⚠️ ابھی گوگل ڈرائیو سے نہیں جڑا — ریکارڈ صرف اسی فون میں ہے'];
+    if(meta.lastDay === today() && meta.eveDay === today()) return ['ok', '✅ آج کے دونوں بیک اپ (صبح + رات 7:30) ڈرائیو پر — <b>' + when(meta.last) + '</b>'];
     if(meta.lastDay !== today()) return ['warn', '🕒 آج کا بیک اپ ابھی نہیں ہوا — ' + (meta.last ? 'آخری: <b>' + when(meta.last) + '</b>' : '')];
-    return ['ok', '✅ آج کا بیک اپ ڈرائیو پر محفوظ — <b>' + when(meta.last) + '</b>' + (meta.lastCount != null ? ' · ' + meta.lastCount + ' طلبہ' : '')];
+    return ['ok', '✅ آج صبح کا بیک اپ ڈرائیو پر — <b>' + when(meta.last) + '</b>' + (meta.lastCount != null ? ' · ' + meta.lastCount + ' طلبہ' : '') + ' · 🌙 رات 7:30 کا باقی'];
   }
   function draw(){
     var el = $('jm55'); if(!el || el.style.display !== 'block') return; var s = stateTxt();
     el.innerHTML = '<div class="jm2-top"><b>☁️ گوگل ڈرائیو بیک اپ</b><button data-x55="1">✕</button></div><div class="wr">'
       + '<div class="cd"><div class="st ' + s[0] + '">' + s[1] + '</div>' + (meta.email ? '<div class="em">' + E(meta.email) + '</div>' : '') + '<div class="pg"><i></i></div><div class="pt"></div>'
       + '<button class="bt" data-a55="now">' + (meta.email ? '☁️ ابھی بیک اپ کریں' : '🔗 گوگل ڈرائیو جوڑیں اور بیک اپ کریں') + '</button>'
-      + '<div class="t" style="margin-top:6px">📌 ہر روز صبح ایپ پہلی بار کھلتے ہی بیک اپ خود ڈرائیو پر چلا جاتا ہے (فولڈر <b dir="ltr">' + FOLDER + '</b>) — 60 دن کی روزانہ نقلیں محفوظ رہتی ہیں۔ اجازت صرف اسی ایپ کی اپنی فائلوں کی۔</div></div>'
+      + '<div class="t" style="margin-top:6px">📌 ہر روز دو بار بیک اپ خود ڈرائیو پر: ☀️ صبح ایپ پہلی بار کھلتے ہی، اور 🌙 رات ساڑھے سات بجے (فولڈر <b dir="ltr">' + FOLDER + '</b>) — 60 دن کی روزانہ نقلیں محفوظ رہتی ہیں۔ اجازت صرف اسی ایپ کی اپنی فائلوں کی۔</div></div>'
       + (meta.email ? '<div class="cd"><h4>⬇️ ڈرائیو سے واپس لائیں</h4><button class="bt b" data-a55="list">📂 ڈرائیو کے بیک اپ دکھائیں</button><div class="ls" id="jm55ls"></div></div>' : '')
       + '<div class="cd"><h4>📁 فون میں بیک اپ فائل</h4><button class="bt o" data-a55="file">📁 بیک اپ فائل بنائیں / فائل سے واپس لائیں</button></div>'
       + (meta.email ? '<button class="bt r" data-a55="off">✕ ڈرائیو سے الگ کریں</button>' : '') + '</div>';
@@ -11176,16 +11177,25 @@ window.MD_NOTE = { v: 'MD2311MO055', n: 'گوگل ڈرائیو بیک اپ: ہر
   /* ——— روزانہ صبح: دن میں پہلی بار کھلتے ہی ——— */
   function locked(){ var l = $('jm52'); return l && getComputedStyle(l).display !== 'none'; }
   function typing(){ var a = document.activeElement; return a && /INPUT|TEXTAREA|SELECT/.test(a.tagName); }
+  /* MD2311MO056: دو بار — صبح (دن میں پہلی بار کھلتے ہی) اور رات 7:30 (PKT) کے بعد ایک بار */
+  function pkMin(){ try{ var p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Karachi', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date()), h = 0, m = 0; p.forEach(function(x){ if(x.type === 'hour') h = +x.value; if(x.type === 'minute') m = +x.value; }); return h * 60 + m; }catch(e){ var d = new Date(); return d.getHours() * 60 + d.getMinutes(); } }
+  var EVE = 19 * 60 + 30;
+  function idleHome(){ var ids = ['jmaEnt', 'jmaAtt', 'jmaExm', 'jmaAdm', 'jmaAkh', 'jm30', 'jm35', 'jmaStu', 'jmaPro', 'md28su']; return !typing() && !ids.some(function(i){ var e = $(i); return e && getComputedStyle(e).display !== 'none'; }); }
   function daily(){
-    if(!meta.email || busy || meta.lastDay === today() || !navigator.onLine || locked()) return;
-    if(token()){ backup(false).then(function(n){ if(n !== false) toast('☁️ آج کا بیک اپ ڈرائیو پر ہو گیا'); }); return; }
-    if(USE_REDIRECT && Date.now() - LOAD_AT < 25000 && !typing() && meta.silentDay !== today()){ meta.silentDay = today(); saveMeta(); goAuth('auto', true); }
+    if(!meta.email || busy || !navigator.onLine || locked()) return;
+    var morn = meta.lastDay !== today(), eve = pkMin() >= EVE && meta.eveDay !== today();
+    if(!morn && !eve) return;
+    var kind = eve ? 'eve' : 'morn';
+    if(token()){ backup(false).then(function(n){ if(n !== false){ if(kind === 'eve' || pkMin() >= EVE){ meta.eveDay = today(); saveMeta(); } toast(kind === 'eve' ? '🌙 رات ساڑھے سات بجے کا بیک اپ ڈرائیو پر ہو گیا' : '☁️ آج صبح کا بیک اپ ڈرائیو پر ہو گیا'); } }); return; }
+    if(!USE_REDIRECT || typing()) return;
+    if(kind === 'morn' && Date.now() - LOAD_AT < 25000 && meta.silentDay !== today()){ meta.silentDay = today(); saveMeta(); goAuth('auto', true); return; }
+    if(kind === 'eve' && idleHome() && meta.silentEve !== today()){ meta.silentEve = today(); saveMeta(); goAuth('auto', true); }
   }
   if(returned){
     (function go(n){ if(locked() && n < 300){ setTimeout(function(){ go(n + 1); }, 400); return; }
       if(returned.err){ if(!returned.silent) toast('⚠️ گوگل اکاؤنٹ کی اجازت نہیں ملی'); return; }
       if(returned.act === 'restore'){ jmaDriveOpen(); setTimeout(listRestore, 300); }
-      else if(returned.act === 'auto') backup(false).then(function(n){ if(n !== false) toast('☁️ آج کا بیک اپ ڈرائیو پر ہو گیا'); });
+      else if(returned.act === 'auto') daily();
       else { jmaDriveOpen(); backup(true).then(function(n){ if(n !== false) toast('✅ ڈرائیو پر بیک اپ ہو گیا — ' + n + ' طلبہ'); }); } })(0);
   }
   setInterval(daily, 4000);
