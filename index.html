@@ -1451,7 +1451,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE094</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE095</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9918,7 +9918,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE094" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE095" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -11862,8 +11862,8 @@ details.jm88i>summary::-webkit-details-marker{display:none}
    (4) پروفائل: اوپر صرف ختم کی تاریخ + چھوٹا گراف، حاضری اور آج کا سبق / سبقی / منزل؛ باقی (کارکردگی، رپورٹ، پوسٹر، والدین، تفصیل) ایک بٹن کے نیچے
    (5) 🏅 درجہ بندی: سبق / سبقی / منزل / حاضری — کمزور اوپر یا اچھے اوپر */
 #jm52 .dt{display:none!important}
-#jm52 .top .ck94{position:absolute;left:50%;top:52%;width:37%;aspect-ratio:1;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;pointer-events:none}
-#jm52 .top .ck94 svg{width:100%;height:100%;filter:drop-shadow(0 4px 6px rgba(0,0,0,.45))}
+#jm52 .top .ck94{position:absolute;left:50%;top:51%;width:32%;transform:translate(-50%,-50%);line-height:0;pointer-events:none}
+#jm52 .top .ck94 svg{display:block;width:100%;height:auto;aspect-ratio:1/1;overflow:visible;filter:drop-shadow(0 3px 5px rgba(0,0,0,.4))}
 .x62 .g62t.g94{grid-template-columns:2fr 1fr 1fr!important}
 .x62 .g62t.g94 .t62 .em94{font-size:clamp(34px,10vw,52px);line-height:1.15;display:block}
 .x62 .g62t.g94 .c-stu b small{display:block;font:700 11px Arial,sans-serif;opacity:.8}
@@ -11927,10 +11927,10 @@ details.jm94x>.in{padding:0 8px 8px}
 
   /* ———— (1) تالے کی اینالاگ گھڑی ———— */
   function clockSVG(){   /* مالک کا حکم: صرف ایک باریک میرون کنارہ، سفید چہرہ، Arial 1–12، منٹ کی لکیریں، کالی سوئیاں، سرخ سیکنڈ */
-    var s = '<svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="96" fill="#fff" stroke="#7a1022" stroke-width="5"/>';
-    for(var m = 0; m < 60; m++){ var b = m * Math.PI / 30, big = m % 5 === 0, r1 = big ? 80 : 85, r2 = 90;
+    var s = '<svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><circle cx="100" cy="100" r="93" fill="#fff" stroke="#7a1022" stroke-width="9"/>';
+    for(var m = 0; m < 60; m++){ var b = m * Math.PI / 30, big = m % 5 === 0, r1 = big ? 76 : 81, r2 = 86;
       s += '<line x1="' + (100 + r1 * Math.sin(b)).toFixed(1) + '" y1="' + (100 - r1 * Math.cos(b)).toFixed(1) + '" x2="' + (100 + r2 * Math.sin(b)).toFixed(1) + '" y2="' + (100 - r2 * Math.cos(b)).toFixed(1) + '" stroke="#222" stroke-width="' + (big ? 2.6 : 1) + '" stroke-linecap="round"/>'; }
-    for(var h = 1; h <= 12; h++){ var c = h * Math.PI / 6; s += '<text x="' + (100 + 66 * Math.sin(c)).toFixed(1) + '" y="' + (100 - 66 * Math.cos(c) + 7.5).toFixed(1) + '" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="21" fill="#111">' + h + '</text>'; }
+    for(var h = 1; h <= 12; h++){ var c = h * Math.PI / 6; s += '<text x="' + (100 + 63 * Math.sin(c)).toFixed(1) + '" y="' + (100 - 63 * Math.cos(c) + 7.5).toFixed(1) + '" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="21" fill="#111">' + h + '</text>'; }
     s += '<g id="ck94h"><line x1="100" y1="110" x2="100" y2="56" stroke="#111" stroke-width="6.5" stroke-linecap="round"/></g>'
       + '<g id="ck94m"><line x1="100" y1="114" x2="100" y2="30" stroke="#111" stroke-width="4" stroke-linecap="round"/></g>'
       + '<g id="ck94s"><line x1="100" y1="122" x2="100" y2="22" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round"/></g>'
@@ -12034,7 +12034,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2511WE094', n: '🕰️ تالے پر سنہری اینالاگ گھڑی (تاریخ کا ڈبہ ختم)؛ 🏠 ہوم پر صرف طلبہ / 🏅 درجہ بندی / رپورٹس — حاضری، سبق، سبقی، منزل ایک ہی طالب علم کے صفحے پر؛ 👥 طلبہ لمبی پٹیوں میں؛ 👤 پروفائل پر ختم کی تاریخ + چھوٹا گراف، باقی سب ایک بٹن میں؛ 🏅 کمزور / اچھے طلبہ کی درجہ بندی (سبق، سبقی، منزل، حاضری)' };
+window.MD_NOTE = { v: 'MD2511WE095', n: '🕰️ تالے کی گھڑی بالکل گول، سائز تھوڑا کم، میرون کنارہ ہر طرف برابر اور تھوڑا موٹا' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -12939,5 +12939,5 @@ body:has(#jm93) #jm66{display:none}
   window.addEventListener('click', function(e){ var b = e.target && e.target.closest && e.target.closest('[data-j93]'); if(!b) return; e.stopPropagation(); e.preventDefault(); jmaPosterOpen(b.getAttribute('data-j93')); }, true);
 })();
 </script>
-<script src="poster.js?v=MD2511WE094"></script>
+<script src="poster.js?v=MD2511WE095"></script>
 </body></html>
