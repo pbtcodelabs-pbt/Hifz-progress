@@ -103,7 +103,7 @@
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE103</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE104</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -1310,6 +1310,7 @@ function doRestore(event) {
     alert('❌ فائل پڑھنے میں مشکل ہوئی۔ دوبارہ کوشش کریں۔');
     event.target.value = '';
   };
+  try{ if(window.mdProg){ mdProg(10, '📥 فائل پڑھی جا رہی ہے…'); reader.onprogress = function(ev){ if(ev.lengthComputable) mdProg(10 + Math.round(ev.loaded / ev.total * 40), '📥 فائل پڑھی جا رہی ہے…'); }; reader.onloadend = function(){ if(window.mdProgEnd) mdProgEnd(); }; } }catch(x){}
   reader.readAsText(file);
 }
 
@@ -1935,7 +1936,8 @@ async function mdDevSavePass(){
   window.jmaCollectAll = collectAll;
   function snapshot(kind){
     var data = collectAll(), t = now(), id = kind === 'daily' ? 'd_' + dayKey(t) : 'x_' + t;
-    var st = (function(){ try{ return (JSON.parse(data['jamia_data_v4'] || '[]') || []).length; }catch(e){ return 0; } })();
+    /* MD2511WE104: پہلے صرف پرانے امتحانی حصے (jamia_data_v4) کے طلبہ گنے جاتے — نئے جامعہ نظام والے فون پر روزانہ حفاظتی نقل کبھی بنتی ہی نہیں تھی */
+    var st = (function(){ var n = 0; try{ n += (JSON.parse(data['jamia_data_v4'] || '[]') || []).length; }catch(e){} try{ n += (JSON.parse(data['jamia_mgmt_students_v1'] || '[]') || []).filter(function(x){ return x && !x.del && x.n; }).length; }catch(e){} return n; })();
     if(kind === 'daily' && !st) return Promise.resolve(false);   /* خالی ڈیٹا کی نقل اچھی نقل کے اوپر نہیں */
     return tx('snap', 'readwrite', function(s){ return s.put({ id: id, at: t, kind: kind, students: st, size: sizeOf(data), data: data }); })
       .then(prune).then(function(){ return true; }).catch(function(){ return false; });
@@ -2000,7 +2002,8 @@ async function mdDevSavePass(){
     var _ard = applyRestoreData;
     window.applyRestoreData = applyRestoreData = function(data, src){
       if(!can('restore')){ alert('🔒 بحالی صرف منتظم کر سکتا ہے'); return; }
-      snapshot('pre');   /* بحالی سے پہلے موجودہ ڈیٹا کی نقل */
+      window.__mdPreSnap = snapshot('pre');   /* بحالی سے پہلے موجودہ ڈیٹا کی نقل */
+      window.__mdRestoreDone = false;   /* MD2511WE104: init چلا = بحالی ہوئی → ایپ دوبارہ کھلے (ورنہ یادداشت کا پرانا ریکارڈ واپس لگا ریکارڈ مٹا دیتا) */
       var _init = window.init, ex = data && data.extra;
       window.init = init = function(){
         /* MD2511WE092: دوسرے موبائل کا بیک اپ اس موبائل پر لگے تو اس کی اپنی پہچان (MD ID، پیکج، ٹرائل، تالا، فون نمبر، والدین کے لنک) کبھی نہیں بدلتی — صرف مدرسے کا ریکارڈ آتا ہے */
@@ -2010,6 +2013,7 @@ async function mdDevSavePass(){
         try{ if(ex && typeof ex === 'object'){ for(var k in ex){ if(isMine(k) && ['jamia_data_v4', 'jamia_cfg_v4', 'jamia_classes_v1', 'jamia_current_class_v1'].indexOf(k) < 0 && !(other && keepOwn.indexOf(k) > -1)){ try{ localStorage.setItem(k, ex[k]); }catch(e){} } } } }catch(e){}
         if(other) setTimeout(function(){ alert('✅ دوسرے موبائل کا سارا ریکارڈ (طلبہ، حاضری، سبق / سبقی / منزل، امتحان) اس موبائل پر آ گیا۔\n\n🔒 اس موبائل کی اپنی MD ID (' + mine.id + ')، پیکج اور تالا ویسے ہی رہے۔\n🔗 والدین کے لنک یہاں سے نئے بنائیں۔'); }, 600);
         try{ jmaAudit('فائل سے بحالی', '', '', src || ''); }catch(e){}
+        window.__mdRestoreDone = true;
         window.init = init = _init; return _init.apply(this, arguments);
       };
       try{ return _ard.apply(this, arguments); } finally { setTimeout(function(){ window.init = init = _init; }, 0); }
@@ -4775,7 +4779,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE103" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE104" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -5511,7 +5515,7 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
     (D.AK || []).forEach(function(a){ if(a && a.id) add('records', 'akh', a.id, clsOf[a.sid], a); });
     var RN = J('jamia_mgmt_rnote_v1', {}) || {}; Object.keys(RN).forEach(function(key){ add('records', 'akh', 'RN:' + key, clsOf[key.split('|')[0]], RN[key]); });
     (J('jamia_mgmt_ann_v1', []) || []).forEach(function(a){ if(a && a.id) add('records', 'ann', a.id, '', a); });
-    var C = J('jamia_mgmt_cfg_v1', null); if(C) add('records', 'cfg', 'main', '', C);
+    var C = J('jamia_mgmt_cfg_v1', null), SE = J('jamia_mgmt_ses_v1', null); if(C || SE) add('records', 'cfg', 'main', '', SE ? Object.assign({}, C || {}, { _ses: SE }) : C);   /* MD2511WE104: نشستیں بند / چالو بھی دوسرے موبائل پر */
     var F = D.F || {}; add('fees', 'fee', 'plans', '', { plans: F.plans || {}, seq: F.seq || 0 });
     (F.rec || []).forEach(function(r){ if(r && r.id) add('fees', 'fee', r.id, '', r); });
     (F.exp || []).forEach(function(x){ if(x && x.id) add('fees', 'fexp', x.id, '', x); });
@@ -5522,7 +5526,7 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
   var applying = false;
   function apply(list){
     applying = true;
-    var D = stores(), touched = {}, RN = null, ANN = null, CF = null;
+    var D = stores(), touched = {}, RN = null, ANN = null, CF = null, SES = null;
     list.forEach(function(r){
       var o; try{ o = JSON.parse(r.j); }catch(e){ return; } var id = o.id, v = o.v; if(v == null) return;
       if(r.k === 'stu'){ upsert(D.MS, 'sid', v); touched.MS = 1; }
@@ -5532,13 +5536,14 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
       else if(r.k === 'exm'){ upsert(D.EX, 'id', v); touched.EX = 1; }
       else if(r.k === 'akh'){ if(String(id).indexOf('RN:') === 0){ RN = RN || J('jamia_mgmt_rnote_v1', {}) || {}; RN[id.slice(3)] = v; } else { upsert(D.AK, 'id', v); touched.AK = 1; } }
       else if(r.k === 'ann'){ ANN = ANN || J('jamia_mgmt_ann_v1', []) || []; upsert(ANN, 'id', v); }
-      else if(r.k === 'cfg'){ var _cur = J('jamia_mgmt_cfg_v1', null); if(!_cur || when(v) >= when(_cur)) CF = v; }
+      else if(r.k === 'cfg'){ if(v._ses && v._ses.hist){ SES = SES || J('jamia_mgmt_ses_v1', null) || { hist: [] }; var hm = {}; (SES.hist || []).concat(v._ses.hist).forEach(function(h){ if(h && h.from && (!hm[h.from] || (+h.t || 0) >= (+hm[h.from].t || 0))) hm[h.from] = h; }); SES = { hist: Object.keys(hm).sort().map(function(k){ return hm[k]; }) }; } v = Object.assign({}, v); delete v._ses;
+        var _cur = J('jamia_mgmt_cfg_v1', null); if(!_cur || when(v) >= when(_cur)) CF = v; }
       else if(r.k === 'fee' && id === 'plans'){ D.F.plans = D.F.plans || {}; Object.keys(D.F.plans).forEach(function(k){ delete D.F.plans[k]; }); Object.assign(D.F.plans, v.plans || {}); D.F.seq = Math.max(+D.F.seq || 0, +v.seq || 0); touched.F = 1; }
       else if(r.k === 'fee'){ D.F.rec = D.F.rec || []; upsert(D.F.rec, 'id', v); D.F.seq = Math.max(+D.F.seq || 0, +v.no || 0); touched.F = 1; }
       else if(r.k === 'fexp'){ D.F.exp = D.F.exp || []; upsert(D.F.exp, 'id', v); touched.F = 1; }
     });
     Object.keys(touched).forEach(function(k){ try{ localStorage.setItem(KEYS[k], JSON.stringify(D[k])); }catch(e){} });
-    try{ if(RN) localStorage.setItem('jamia_mgmt_rnote_v1', JSON.stringify(RN)); if(ANN) localStorage.setItem('jamia_mgmt_ann_v1', JSON.stringify(ANN)); if(CF) localStorage.setItem('jamia_mgmt_cfg_v1', JSON.stringify(CF)); }catch(e){}
+    try{ if(RN) localStorage.setItem('jamia_mgmt_rnote_v1', JSON.stringify(RN)); if(ANN) localStorage.setItem('jamia_mgmt_ann_v1', JSON.stringify(ANN)); if(CF) localStorage.setItem('jamia_mgmt_cfg_v1', JSON.stringify(CF)); if(SES && JSON.stringify(SES) !== JSON.stringify(J('jamia_mgmt_ses_v1', null))) localStorage.setItem('jamia_mgmt_ses_v1', JSON.stringify(SES)); }catch(e){}
     applying = false;
     refreshUI();
   }
@@ -6249,7 +6254,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
-      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2511WE103') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
+      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2511WE104') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -7041,7 +7046,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2511WE103', n: '🚪 ہوم کا سرخ «لاگ آؤٹ» بٹن اوپر کونے سے ہٹا کر نیچے خانوں کے بعد بیچ میں' };
+window.MD_NOTE = { v: 'MD2511WE104', n: '🛡️ بیک اپ واپس لانے کے بعد ایپ خود دوبارہ کھلتی ہے (پہلے پرانا ریکارڈ واپس آ سکتا تھا)؛ 📊 بیک اپ / واپسی پر پیش رفت کی پٹی؛ ☁️ نشستیں بند / چالو اب دوسرے موبائل پر بھی' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -7664,7 +7669,13 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
   function count(){ try{ return ((window.jmaMgmt && jmaMgmt.students()) || []).filter(function(s){ return !s.del; }).length; }catch(e){ return 0; } }
   function P(pct, t){ var g = document.querySelector('#jm55 .pg'), i = g && g.querySelector('i'), x = document.querySelector('#jm55 .pt'); if(g){ g.style.display = 'block'; i.style.width = pct + '%'; } if(x) x.textContent = t || ''; }
   function backup(interactive){
-    if(busy) return Promise.resolve(false); busy = true; draw();
+    if(busy) return Promise.resolve(false);
+    /* MD2511WE104 (دشمن بن کر جانچ): فون کا ڈیٹا مٹ گیا ہو (کروم صاف / نیا فون) اور ڈرائیو دوبارہ جڑے تو خودکار بیک اپ چند سیکنڈ میں خالی ریکارڈ
+       «MD-LATEST» کے اوپر لکھ دیتا تھا۔ اب: خالی یا پچھلے بیک اپ سے آدھے سے کم طلبہ ہوں تو خودکار بیک اپ نہیں؛ ہاتھ سے دبانے پر پہلے صاف پوچھتا ہے */
+    var n0 = count(), ln = +meta.lastN || 0, low = n0 === 0 || (ln >= 4 && n0 < ln / 2);
+    if(low && !interactive){ meta.skipLow = today(); saveMeta(); return Promise.resolve(false); }
+    if(low && !confirm('⚠️ اس فون میں ' + n0 + ' طلبہ ہیں' + (ln ? '، جبکہ پچھلے بیک اپ میں ' + ln + ' تھے' : '') + '۔\n\nاگر ریکارڈ مٹ گیا ہے تو پہلے «📂 ڈرائیو کے بیک اپ دکھائیں» سے ریکارڈ واپس لائیں۔\n\nکیا پھر بھی یہی (کم) ریکارڈ ڈرائیو پر «تازہ ترین» بنا دیں؟')) return Promise.resolve(false);
+    busy = true; draw();
     return getToken(interactive).then(function(){ P(15, 'گوگل اکاؤنٹ…'); return meta.email ? null : who(); })
       .then(function(){ P(30, 'ڈرائیو میں فولڈر «' + FOLDER + '»…'); return folder(); })
       .then(function(){
@@ -7674,7 +7685,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
           .then(function(r){ meta.latestId = r.id; P(85, 'آج کی نقل بھیجی جا رہی ہے…');
             var d = new Date(), nm = mdId() + '-' + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '-' + pad(d.getHours()) + pad(d.getMinutes()) + '.json';
             var up = (meta.dailyDay === today() && meta.dailyId) ? upload(nm, content, n, meta.dailyId).catch(function(){ return upload(nm, content, n, null); }) : upload(nm, content, n, null);
-            return up.then(function(r2){ if(meta.dailyDay !== today()) cleanup(); meta.dailyId = r2.id; meta.dailyDay = today(); meta.lastFile = nm; return n; }); });
+            return up.then(function(r2){ if(meta.dailyDay !== today()) cleanup(); meta.dailyId = r2.id; meta.dailyDay = today(); meta.lastFile = nm; meta.lastN = n; return n; }); });
       })
       .then(function(n){ meta.last = new Date().toISOString(); meta.lastCount = n; meta.lastDay = today(); saveMeta(); try{ localStorage.setItem('jamia_last_backup_v1', String(Date.now())); }catch(e){} busy = false; P(100, '✅ مکمل'); draw(); try{ var D = $('jmaDash'); if(D && D.style.display === 'block' && $('jm55').style.display !== 'block' && window.jmaDashOpen){ var y = D.scrollTop; jmaDashOpen(); D.scrollTop = y; } }catch(e){} return n; })
       .catch(function(e){ busy = false; draw(); var m = e.message || '';
@@ -7699,12 +7710,14 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
         return '<div class="it" data-fid="' + E(x.id) + '">' + (x.name === LATEST ? '⭐ تازہ ترین' : '📅 روزانہ نقل') + ' — <b>' + when(x.modifiedTime) + '</b> · <span class="n">' + n + '</span> طلبہ</div>'; }).join('');
     }).catch(function(e){ box.innerHTML = ''; toast('⚠️ ڈرائیو کی فہرست نہیں آ سکی'); });
   }
-  function restore(id){ getToken(true, 'restore').then(function(){ return api(DRIVE + '/' + id + '?alt=media'); }).then(function(r){ return r.json(); }).then(function(j){
+  function restore(id){ getToken(true, 'restore').then(function(){ if(window.mdProg) mdProg(15, '☁️ ڈرائیو سے بیک اپ آ رہا ہے…'); return api(DRIVE + '/' + id + '?alt=media'); }).then(function(r){ if(window.mdProg) mdProg(45, '☁️ فائل آ گئی — پڑھی جا رہی ہے…'); return r.json(); }).then(function(j){ if(window.mdProg) mdProg(55, 'تصدیق کا انتظار…');
       if(!window.applyRestoreData) return; var n = 0, ex = j && j.extra; try{ n = (JSON.parse((ex && ex.jamia_mgmt_students_v1) || '[]') || []).filter(function(x){ return !x.del; }).length; }catch(e){}
+      if(window.mdProgEnd) mdProgEnd();
       if(!confirm('☁️ گوگل ڈرائیو سے بیک اپ واپس لائیں؟\n\n👥 اس بیک اپ میں ' + n + ' طلبہ کا ریکارڈ ہے۔\n\n⚠️ اس فون کا موجودہ ریکارڈ اس سے بدل جائے گا (پہلے اس کی نقل خود محفوظ ہو جائے گی)۔')) return;
-      var c = window.confirm; window.confirm = function(){ return true; }; try{ applyRestoreData(j, 'گوگل ڈرائیو'); } finally { window.confirm = c; } }).catch(function(){ toast('⚠️ فائل نہیں آ سکی'); }); }
+      var c = window.confirm; window.confirm = function(){ return true; }; try{ applyRestoreData(j, 'گوگل ڈرائیو'); } finally { window.confirm = c; } }).catch(function(){ if(window.mdProgEnd) mdProgEnd(); toast('⚠️ فائل نہیں آ سکی'); }); }
   /* ——— اسکرین ——— */
   function stateTxt(){
+    if(meta.skipLow === today() && meta.lastDay !== today()) return ['warn', '⚠️ فون میں ریکارڈ خالی / بہت کم ہے — خودکار بیک اپ روک دیا تاکہ ڈرائیو کا اچھا بیک اپ محفوظ رہے۔ ریکارڈ مٹ گیا ہو تو نیچے «📂 ڈرائیو کے بیک اپ دکھائیں» سے واپس لائیں۔'];
     if(busy) return ['busy', '⏳ ڈرائیو پر بیک اپ ہو رہا ہے…'];
     if(!meta.email) return ['warn', '⚠️ ابھی گوگل ڈرائیو سے نہیں جڑا — ریکارڈ صرف اسی فون میں ہے'];
     if(meta.lastDay === today() && meta.eveDay === today()) return ['ok', '✅ آج کے دونوں بیک اپ (صبح + رات 7:30) ڈرائیو پر — <b>' + when(meta.last) + '</b>'];
@@ -7746,7 +7759,9 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
     var nm = (f.name || '').toLowerCase(), ty = f.type || ''; i.value = '';
     if(/\.pdf$/.test(nm) || ty === 'application/pdf'){ say('یہ PDF فائل ہے — اس سے ریکارڈ نہیں آ سکتا۔ بھیجنے والے سے کہیں کہ «📤 ریکارڈ کی فائل بھیجیں» والے بٹن سے فائل بھیجے۔', false); return; }
     if(/^image\//.test(ty) || /\.(jpe?g|png|webp|gif)$/.test(nm)){ say('یہ تصویر ہے — اس سے ریکارڈ نہیں آ سکتا۔ «.json» والی فائل چنیں۔', false); return; }
+    if(window.mdProg) mdProg(20, '📥 فائل پڑھی جا رہی ہے…');
     var j = null; try{ j = JSON.parse(await f.text()); }catch(x){}
+    if(window.mdProgEnd) mdProgEnd();
     if(!j || !Array.isArray(j.db) || !j.extra){ say('یہ مدرسے کے ریکارڈ کی فائل نہیں ہے۔ «.json» والی وہ فائل چنیں جو ایپ کے «📤 ریکارڈ کی فائل بھیجیں» بٹن سے بھیجی گئی ہو۔', false); return; }
     var n = stuN(j);
     if(!confirm('📥 دوسرے موبائل کا ریکارڈ اس موبائل پر لگائیں؟\n\n👥 اس فائل میں ' + n + ' طلبہ کا ریکارڈ ہے۔\n\n⚠️ اس موبائل کا موجودہ ریکارڈ اس سے بدل جائے گا (پہلے اس کی نقل خود محفوظ ہو جائے گی)۔\n🔒 اس موبائل کی MD ID، پیکج اور تالا ویسے رہیں گے۔')) return;
@@ -8147,6 +8162,45 @@ body:has(#jm93) #jm66{display:none}
       try{ if(window.jmaToast) jmaToast('✓ محفوظ — ' + SES[si]); }catch(x){} soon(); return; }
     b = tg.closest('[data-j101e]'); if(b){ e.stopPropagation(); if(cur && window.jmaEntOpen) jmaEntOpen(cur, b.getAttribute('data-j101e')); return; }
   }, true);
+})();
+</script>
+<style id="jma104css">
+/* MD2511WE104: بیک اپ / واپسی کی پیش رفت کی پٹی — سب راستوں (فائل، ڈرائیو، دوسرے موبائل کی فائل) کے لیے ایک */
+#mdPg{position:fixed;left:50%;top:12px;transform:translateX(-50%);z-index:2147483600;width:min(92vw,420px);background:#fffdf4;border:2px solid #d4a017;border-radius:16px;box-shadow:0 8px 28px rgba(0,0,0,.35);padding:10px 14px 12px;direction:rtl;display:none;font-family:var(--nastaliq),'Jameel Noori Nastaleeq',serif}
+#mdPg .t{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:16px;color:#0b4d2b;line-height:1.8}
+#mdPg .t b{font:900 20px Arial,sans-serif;color:#b45309;direction:ltr}
+#mdPg .g{height:14px;border-radius:999px;background:#e5e7eb;overflow:hidden;margin-top:4px}
+#mdPg .g i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#16a34a,#22c55e,#16a34a);background-size:200% 100%;transition:width .35s ease;animation:mdPgS 1.2s linear infinite}
+@keyframes mdPgS{from{background-position:200% 0}to{background-position:0 0}}
+</style>
+<div id="mdPg" class="no-print" role="status"><div class="t"><span id="mdPgT"></span><b id="mdPgN">0%</b></div><div class="g"><i id="mdPgI"></i></div></div>
+<script id="jma104">
+/* MD2511WE104 (مالک کا حکم — «دشمن بن کر جانچ»):
+   (1) 🐞 بحالی کے بعد ایپ دوبارہ نہیں کھلتی تھی — localStorage میں بیک اپ کا ریکارڈ لگ جاتا مگر ہر حصے (طلبہ، اندراج، حاضری…) کی یادداشت پرانی رہتی،
+       اگلی کسی بھی تبدیلی پر پرانی یادداشت محفوظ ہو کر واپس لگا ریکارڈ مٹا دیتی۔ اب کامیاب بحالی (`__mdRestoreDone`) کے بعد پہلے والی حفاظتی نقل
+       (`__mdPreSnap`) مکمل ہونے کا انتظار، پھر پیش رفت کی پٹی 100٪ اور ایپ خود دوبارہ کھلتی ہے۔
+   (2) `mdProg(فیصد، متن)` / `mdProgEnd()` — اوپر پیش رفت کی پٹی (فائل پڑھنا، ڈرائیو سے لانا، ریکارڈ لگانا)۔ */
+(function(){
+  'use strict';
+  function $(i){ return document.getElementById(i); }
+  var hideT = 0;
+  window.mdProg = function(p, t){ var b = $('mdPg'); if(!b) return; clearTimeout(hideT); p = Math.max(0, Math.min(100, Math.round(p))); b.style.display = 'block'; $('mdPgI').style.width = p + '%'; $('mdPgN').textContent = p + '%'; if(t) $('mdPgT').textContent = t; };
+  window.mdProgEnd = function(t, ms){ var b = $('mdPg'); if(!b) return; if(t){ mdProg(100, t); hideT = setTimeout(function(){ b.style.display = 'none'; }, ms || 1800); } else b.style.display = 'none'; };
+  function wrap(){
+    var A = window.applyRestoreData; if(typeof A !== 'function' || A.__j104) return;
+    var W = function(){
+      window.__mdRestoreDone = false;
+      var r = A.apply(this, arguments);
+      if(!window.__mdRestoreDone){ mdProgEnd(); return r; }
+      /* ریکارڈ لگ گیا — حفاظتی نقل مکمل ہو تو ایپ دوبارہ کھولیں */
+      var steps = [[60, '✅ ریکارڈ لگ گیا — طلبہ، حاضری، سبق…'], [80, '🛡️ پرانے ریکارڈ کی حفاظتی نقل محفوظ…'], [95, '🔄 ایپ دوبارہ کھل رہی ہے…']], i = 0, done = false;
+      var go = function(){ if(done) return; done = true; mdProg(100, '🔄 ایپ دوبارہ کھل رہی ہے…'); setTimeout(function(){ location.reload(); }, 600); };
+      (function tick(){ if(i < steps.length){ mdProg(steps[i][0], steps[i][1]); i++; setTimeout(tick, 450); } else { var P = window.__mdPreSnap; if(P && P.then){ var to = setTimeout(go, 4000); P.then(function(){ clearTimeout(to); go(); }, function(){ clearTimeout(to); go(); }); } else go(); } })();
+      return r;
+    };
+    W.__j104 = 1; window.applyRestoreData = W; try{ applyRestoreData = W; }catch(e){}
+  }
+  wrap(); setTimeout(wrap, 0);
 })();
 </script>
 <script src="poster.js?v=MD2511WE098"></script>
