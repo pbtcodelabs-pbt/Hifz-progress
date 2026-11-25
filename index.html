@@ -103,7 +103,7 @@
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE105</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE106</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -1178,9 +1178,11 @@ function closeBackup() {
   document.getElementById('pasteRestoreBox').style.display = 'none';
 }
 
+/* MD2511WE106 (مالک کا حکم): بیک اپ فائل کا نام ہمیشہ BKMD + دن + مہینہ + سال (2 ہندسے) + ہفتے کا دن (3 حروف) — مثلاً BKMD251126WED.json (پاکستانی وقت) */
+window.mdBkName = function(){ var ds = window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10), q = ds.split('-'), w = ['SUN','MON','TUE','WED','THU','FRI','SAT'][new Date(+q[0], +q[1] - 1, +q[2]).getDay()]; return 'BKMD' + q[2] + q[1] + q[0].slice(2) + w + '.json'; };
 function buildBackupPayload() {
   const num = makeFileNumber();
-  const fname = `Jamia_exam_${num}.json`;
+  const fname = window.mdBkName();
   const payload = JSON.stringify({ db: db, cfg, classes: classes, currentClassId: currentClassId, version: 6, saved: num, app: 'jamia_exam' });
   return { fname, payload };
 }
@@ -1254,7 +1256,7 @@ function doRestoreFromText() {
 // ریسٹور کا مشترکہ منطق — فائل اور پیسٹ شدہ متن دونوں کے لیے استعمال ہوتا ہے
 function applyRestoreData(data, sourceLabel) {
   if (!data || typeof data !== 'object' || !Array.isArray(data.db)) {
-    alert('❌ یہ درست بیک اپ ڈیٹا نہیں ہے۔\nبراہ کرم صحیح "Jamia_exam_..." بیک اپ منتخب/پیسٹ کریں۔');
+    alert('❌ یہ درست بیک اپ ڈیٹا نہیں ہے۔\nبراہ کرم صحیح "BKMD…json" بیک اپ منتخب/پیسٹ کریں۔');
     return;
   }
   let studentCount = data.db.length;
@@ -4779,7 +4781,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE105" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE106" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -6254,7 +6256,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
-      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2511WE105') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
+      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2511WE106') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -7046,7 +7048,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2511WE105', n: '☁️ طلبہ کی گول گولیاں: ہر کام (حاضری، سبق، سبقی، منزل) پر کنارہ بھرتا جاتا ہے؛ کام مکمل ہوتے ہی بچہ دھواں بن کر قطار سے اڑ جاتا ہے اور اگلا باقی بچہ خود سامنے؛ «✓ مکمل» سے دوبارہ دیکھیں' };
+window.MD_NOTE = { v: 'MD2511WE106', n: '💾 بیک اپ فائل کا نیا نام تاریخ کے ساتھ: BKMD251126WED.json (دن، مہینہ، سال، ہفتے کا دن) — فون، واٹس ایپ اور ڈرائیو، سب جگہ یہی' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -7683,7 +7685,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
         var latest = meta.latestId ? Promise.resolve(meta.latestId) : api(DRIVE + '?q=' + encodeURIComponent("name='" + LATEST + "' and '" + meta.folderId + "' in parents and trashed=false") + '&fields=files(id)').then(function(r){ return r.json(); }).then(function(j){ return (j.files && j.files[0] && j.files[0].id) || null; });
         return latest.then(function(lid){ P(65, 'تازہ ترین فائل بھیجی جا رہی ہے…'); return upload(LATEST, content, n, lid).catch(function(e){ if(lid && /404/.test(e.message)) return upload(LATEST, content, n, null); throw e; }); })
           .then(function(r){ meta.latestId = r.id; P(85, 'آج کی نقل بھیجی جا رہی ہے…');
-            var d = new Date(), nm = mdId() + '-' + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '-' + pad(d.getHours()) + pad(d.getMinutes()) + '.json';
+            var nm = window.mdBkName ? mdBkName() : 'BKMD.json';   /* MD2511WE106: روزانہ نقل کا نام BKMD251126WED.json */
             var up = (meta.dailyDay === today() && meta.dailyId) ? upload(nm, content, n, meta.dailyId).catch(function(){ return upload(nm, content, n, null); }) : upload(nm, content, n, null);
             return up.then(function(r2){ if(meta.dailyDay !== today()) cleanup(); meta.dailyId = r2.id; meta.dailyDay = today(); meta.lastFile = nm; meta.lastN = n; return n; }); });
       })
@@ -7730,7 +7732,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
     el.innerHTML = '<div class="jm2-top"><b>📲 ریکارڈ بھیجیں / وصول کریں · ☁️ بیک اپ</b><button data-x55="1">✕</button></div><div class="wr">'
       /* MD2511WE093 (مالک کا حکم — «مکتبہ والا فائل بھیجیں / وصول کریں کا نظام یہاں بھی») */
       + '<div class="cd x95 in"><h4>📥 دوسرے موبائل سے آیا ریکارڈ لگائیں</h4><ol><li>دوسرے موبائل سے بھیجی ہوئی فائل واٹس ایپ میں کھول کر فون میں <b>محفوظ (Download)</b> کر لیں۔</li><li>نیچے والا بٹن دبائیں اور فون کی فائلوں میں سے <b>ایسی فائل</b> چنیں:</li></ol>'
-      + '<div class="fl"><span class="fi">{ }</span><span><b dir="ltr">MADRASA MD12345 25-11-2026.json</b><small>فائل کے نام کے آخر میں <b dir="ltr">.json</b> لکھا ہوتا ہے</small></span></div>'
+      + '<div class="fl"><span class="fi">{ }</span><span><b dir="ltr">BKMD251126WED.json</b><small>فائل کے نام کے آخر میں <b dir="ltr">.json</b> لکھا ہوتا ہے</small></span></div>'
       + '<div class="wn">⚠️ PDF یا تصویر سے ریکارڈ نہیں آ سکتا — صرف <b dir="ltr">.json</b> والی فائل چنیں۔</div>'
       + '<label class="bt big">⬇️ فائل چنیں اور ریکارڈ لگائیں<input type="file" id="jm95f" accept=".json,application/json,text/plain,application/octet-stream" hidden></label><div class="ms" id="jm95m"></div>'
       + '<div class="nt">طلبہ، حاضری، سبق / سبقی / منزل، امتحان — سب آ جائے گا۔ 🔒 اس موبائل کی اپنی MD ID، پیکج اور تالا ویسے ہی رہیں گے۔ اس موبائل کا موجودہ ریکارڈ فائل والے سے بدلے گا (پہلے اس کی نقل خود محفوظ ہو جاتی ہے)۔</div></div>'
@@ -7745,7 +7747,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
   }
   window.jmaDriveOpen = function(){ var el = $('jm55'); el.style.display = 'block'; draw(); };
   /* 📤 / 📥 MD2511WE093 — مکتبہ والا طریقہ: فائل بھیجیں / آئی فائل لگائیں */
-  function fname95(){ var id = ''; try{ id = (JSON.parse(localStorage.getItem('jamia_mdid_v1') || '{}') || {}).id || ''; }catch(x){} var d = (window.jmaPkDate ? jmaPkDate() : new Date().toISOString().slice(0, 10)).split('-'); return 'MADRASA ' + (id ? id + ' ' : '') + d[2] + '-' + d[1] + '-' + d[0] + '.json'; }
+  function fname95(){ return window.mdBkName ? mdBkName() : 'BKMD.json'; }   /* MD2511WE106 */
   function stuN(j){ try{ return (JSON.parse((j.extra && j.extra.jamia_mgmt_students_v1) || '[]') || []).filter(function(x){ return x && !x.del && x.n; }).length; }catch(e){ return 0; } }
   async function sendFile(){
     if(typeof buildBackupPayload !== 'function') return; var pl = buildBackupPayload().payload, fn = fname95(), n = 0; try{ n = stuN(JSON.parse(pl)); }catch(e){}
