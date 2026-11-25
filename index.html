@@ -103,7 +103,7 @@
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE102</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE103</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -4775,7 +4775,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE102" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE103" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -6249,7 +6249,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
-      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2511WE102') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
+      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2511WE103') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -7041,7 +7041,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2511WE102', n: '🧹 پرانا امتحانی / حفظ پروگریس سافٹ ویئر ایپ سے مکمل صاف — ایپ ہلکی اور تیز، کھلتے وقت پرانی جھلک ختم؛ تالا، بیک اپ، فونٹ اور نیا جامعہ نظام ویسے' };
+window.MD_NOTE = { v: 'MD2511WE103', n: '🚪 ہوم کا سرخ «لاگ آؤٹ» بٹن اوپر کونے سے ہٹا کر نیچے خانوں کے بعد بیچ میں' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -7241,6 +7241,10 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
 .x62 .g62.lo99{top:8px;width:auto;height:28px;border-radius:999px;border:1.5px solid #fff;background:linear-gradient(180deg,#ef4444,#b91c1c);color:#fff;padding:0 9px 0 7px;display:flex;align-items:center;gap:4px;box-shadow:0 2px 8px rgba(0,0,0,.45);z-index:3;font:400 13px/1 var(--nastaliq),'Jameel Noori Nastaleeq',serif;cursor:pointer}
 .x62 .g62.lo99 svg{width:15px;height:15px;flex:none}
 .x62 .g62.lo99 span{white-space:nowrap;padding-top:3px}
+/* MD2511WE103: لاگ آؤٹ نیچے — خانوں کے بعد، بیچ میں */
+.x62 .lo102{display:flex;align-items:center;justify-content:center;gap:8px;margin:16px auto 4px;width:min(260px,70%);height:46px;border:2px solid #fff;border-radius:999px;background:linear-gradient(180deg,#ef4444,#b91c1c);color:#fff;box-shadow:0 3px 10px rgba(185,28,28,.35);font:400 18px/1 var(--nastaliq),'Jameel Noori Nastaleeq',serif;cursor:pointer}
+.x62 .lo102 svg{width:20px;height:20px;flex:none}
+.x62 .lo102 span{padding-top:4px}
 /* MD2411TU067: کم اونچائی، ہر چیز ایک لائن */
 .x62 .h62{min-height:clamp(168px,46vw,250px)!important}
 .x62 .ov66{padding:50px 3% 8px!important}
@@ -7321,7 +7325,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
     function kn(n){ return n ? n : '✓'; }
     function nav(attr, ic, t, cl){ return '<button type="button" ' + attr + (cl ? ' class="' + cl + '"' : '') + '><i>' + IC[ic] + '</i><span>' + t + '</span></button>'; }
     el.innerHTML = '<div class="w x62">'
-      + '<div class="h62" id="jm58hd">' + '<svg class="sky" viewBox="0 0 400 200" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs><linearGradient id="h58g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a5a2a"/><stop offset=".55" stop-color="#11803a"/><stop offset="1" stop-color="#2a9d3f"/></linearGradient><radialGradient id="h58r" cx=".5" cy=".35" r=".6"><stop offset="0" stop-color="#fff6c8" stop-opacity=".45"/><stop offset="1" stop-color="#fff6c8" stop-opacity="0"/></radialGradient></defs><rect width="400" height="200" fill="url(#h58g)"/><rect width="400" height="200" fill="url(#h58r)"/><g fill="#fde68a" opacity=".85"><circle cx="40" cy="30" r="1.2"/><circle cx="90" cy="18" r="1"/><circle cx="150" cy="40" r="1.1"/><circle cx="250" cy="22" r="1"/><circle cx="310" cy="45" r="1.2"/><circle cx="360" cy="20" r="1"/><circle cx="205" cy="12" r="1"/></g><path d="M338 30a16 16 0 1 0 14 24a13 13 0 1 1 -14 -24z" fill="#fde68a"/><g fill="#064420"><path d="M0 200V172q20-8 40 0v-18h4v-6l3-6 3 6v6h4v24q18-10 36 0V200z"/><path d="M80 200V150h6v-26l4-8 4 8v26h6v50z"/><path d="M120 200v-30q8-30 40-34 0-6 3-8 3 2 3 8 32 4 40 34v30z" /><path d="M150 200v-40q0-38 50-50 0-8 4-11 4 3 4 11 50 12 50 50v40z"/><path d="M300 200V150h6v-26l4-8 4 8v26h6v50z"/><path d="M240 200v-30q8-30 40-34 0-6 3-8 3 2 3 8 32 4 40 34v30z"/><path d="M330 200v-28q18-10 36 0v-18h4v-6l3-6 3 6v6h4v24q10-6 20 0V200z"/></g><path d="M0 199h400" stroke="#d4af37" stroke-width="2"/></svg>' + '<div class="ph" id="jm58ph"></div><button type="button" class="g62 lo99" data-k54="out" aria-label="لاگ آؤٹ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><path d="M6.6 6.8a8 8 0 1 0 10.8 0" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg><span>لاگ آؤٹ</span></button>'
+      + '<div class="h62" id="jm58hd">' + '<svg class="sky" viewBox="0 0 400 200" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs><linearGradient id="h58g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a5a2a"/><stop offset=".55" stop-color="#11803a"/><stop offset="1" stop-color="#2a9d3f"/></linearGradient><radialGradient id="h58r" cx=".5" cy=".35" r=".6"><stop offset="0" stop-color="#fff6c8" stop-opacity=".45"/><stop offset="1" stop-color="#fff6c8" stop-opacity="0"/></radialGradient></defs><rect width="400" height="200" fill="url(#h58g)"/><rect width="400" height="200" fill="url(#h58r)"/><g fill="#fde68a" opacity=".85"><circle cx="40" cy="30" r="1.2"/><circle cx="90" cy="18" r="1"/><circle cx="150" cy="40" r="1.1"/><circle cx="250" cy="22" r="1"/><circle cx="310" cy="45" r="1.2"/><circle cx="360" cy="20" r="1"/><circle cx="205" cy="12" r="1"/></g><path d="M338 30a16 16 0 1 0 14 24a13 13 0 1 1 -14 -24z" fill="#fde68a"/><g fill="#064420"><path d="M0 200V172q20-8 40 0v-18h4v-6l3-6 3 6v6h4v24q18-10 36 0V200z"/><path d="M80 200V150h6v-26l4-8 4 8v26h6v50z"/><path d="M120 200v-30q8-30 40-34 0-6 3-8 3 2 3 8 32 4 40 34v30z" /><path d="M150 200v-40q0-38 50-50 0-8 4-11 4 3 4 11 50 12 50 50v40z"/><path d="M300 200V150h6v-26l4-8 4 8v26h6v50z"/><path d="M240 200v-30q8-30 40-34 0-6 3-8 3 2 3 8 32 4 40 34v30z"/><path d="M330 200v-28q18-10 36 0v-18h4v-6l3-6 3 6v6h4v24q10-6 20 0V200z"/></g><path d="M0 199h400" stroke="#d4af37" stroke-width="2"/></svg>' + '<div class="ph" id="jm58ph"></div>'
             + '<div class="ov66"><div class="nm58" data-hs="nm" id="jm58nm">' + E(mad) + '</div>'
         + rows.map(function(r){ return '<div class="r66" data-hs="' + r[0] + '"><i>' + IC[r[0]] + '</i><b>' + E(r[1]) + '</b></div>'; }).join('') + '</div></div>'
       + '<div class="dt62"><span class="or">❦</span><div>بروز ' + w + '، <bdi>' + (+q[2]) + '</bdi> ' + MN[+q[1] - 1] + ' <bdi>' + q[0] + '</bdi>ء</div><span class="or">❦</span></div>'
@@ -7332,6 +7336,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
       + tile('c-rep', 'h-rep.png', 'رپورٹس', 'data-d="rep"', null)
       + '</div>'
       + (bkOk ? '' : '<button type="button" class="bk62" data-k54="drive">☁️ ' + (on ? 'آج کا بیک اپ ابھی نہیں ہوا — دبائیں' : 'ڈرائیو بیک اپ جوڑیں — ریکارڈ محفوظ رکھیں') + '</button>')
+      + '<button type="button" class="lo102" data-k54="out" aria-label="لاگ آؤٹ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><path d="M6.6 6.8a8 8 0 1 0 10.8 0" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg><span>لاگ آؤٹ</span></button>'   /* MD2511WE103 (مالک کا حکم): لاگ آؤٹ اوپر تصویر کے کونے سے نیچے خالی جگہ میں */
       + (vs ? '<div class="v62">V' + vs + '</div>' : '')
       + '<nav class="nv62">'
       + nav('data-k54="menu"', 'gear', 'سیٹنگز') + nav('data-d35="1"', 'sch', 'روزانہ شیڈول') + nav('data-k54="help"', 'help', 'ہیلپ ڈیسک')
