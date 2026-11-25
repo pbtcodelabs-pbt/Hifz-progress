@@ -1451,7 +1451,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE095</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE096</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -9918,7 +9918,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE095" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE096" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -11871,7 +11871,15 @@ details.jm88i>summary::-webkit-details-marker{display:none}
 @media (min-width:700px){.jm2-grid.g94{grid-template-columns:1fr 1fr!important}}
 .jm2-grid.g94 .jm2-c{padding:8px 10px;border-radius:12px}
 .jm2-grid.g94 .jm2-c .ph{width:50px;height:50px}
-.jm94m{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:6px 10px;margin:6px 0;font-size:13px;line-height:1.6}
+.jm94m{background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:6px 10px;margin:6px 0;font-size:13px;line-height:1.6}
+.jm94m .kh{margin-bottom:3px}
+.jm94m .br{display:grid;grid-template-columns:42px 1fr 40px 74px;align-items:center;gap:6px;margin:2px 0}
+.jm94m .br b{font-size:14px}
+.jm94m .br .bar{height:12px;border-radius:7px;background:#e5e7eb;overflow:hidden;direction:ltr}
+.jm94m .br .bar i{display:block;height:100%;border-radius:7px}
+.jm94m .br .p{font:800 13px Arial,sans-serif;text-align:left;direction:ltr}
+.jm94m .br .rk{font-size:11.5px;color:#475569;white-space:nowrap}
+.jm94m .br .rk bdi{font:700 12px Arial,sans-serif}
 .jm94m .jm70k{margin:0}
 .jm94m .sp{display:flex;align-items:center;gap:4px;font:700 11.5px Arial,sans-serif;direction:ltr}
 .jm94m .sp svg{width:54px;height:20px}
@@ -11957,9 +11965,17 @@ details.jm94x>.in{padding:0 8px 8px}
     var tr = av(z) - av(a), arrow = tr > 3 ? '<span style="color:#16a34a">↑</span>' : tr < -3 ? '<span style="color:#dc2626">↓</span>' : '→';
     return '<span class="sp"><b style="color:' + col + '">' + ({ sabaq: 'سبق', sabqi: 'سبقی', manzil: 'منزل' })[kind] + '</b><svg viewBox="0 0 54 20"><polyline points="' + path + '" fill="none" stroke="' + col + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>' + vals[vals.length - 1] + '%' + arrow + '</span>';
   }
-  window.jmaMiniHTML = function(s){
+  window.jmaMiniHTML = function(s){   /* MD2511WE096 (مالک کا حکم): لکیروں والا گراف نہیں — سبق / سبقی / منزل کی تین متوازی پٹیاں + فیصد + جماعت میں نمبر */
     var k = ''; try{ k = window.jmaKhatmTag ? jmaKhatmTag(s) : ''; }catch(e){}
-    return '<div class="jm94m">' + (k || '<span style="color:#64748b">🏁 ختم کی تاریخ — سبق درج ہونے پر</span>') + spark(s.sid, 'sabaq', '#16a34a') + spark(s.sid, 'sabqi', '#2563eb') + spark(s.sid, 'manzil', '#9333ea') + '</div>';
+    var mates = stuList(s.classId);
+    var col = function(p){ return p >= 85 ? '#16a34a' : p >= 70 ? '#65a30d' : p >= 55 ? '#d97706' : '#dc2626'; };
+    var rows = KN.slice(0, 3).map(function(x){
+      var v = score(s, x[0]); if(!v) return '<div class="br"><b style="color:' + x[2] + '">' + x[1] + '</b><span class="bar"></span><span class="p">—</span><span class="rk">ریکارڈ کم</span></div>';
+      var all = mates.map(function(m){ var w = score(m, x[0]); return w ? w.pct : null; }).filter(function(p){ return p != null; }).sort(function(a, b){ return b - a; });
+      var pos = all.indexOf(v.pct) + 1;
+      return '<div class="br"><b style="color:' + x[2] + '">' + x[1] + '</b><span class="bar"><i style="width:' + v.pct + '%;background:' + col(v.pct) + '"></i></span><span class="p">' + v.pct + '%</span><span class="rk">جماعت میں <bdi>' + pos + '/' + all.length + '</bdi></span></div>';
+    }).join('');
+    return '<div class="jm94m">' + '<div class="kh">' + (k || '<span style="color:#64748b">🏁 ختم کی تاریخ — سبق درج ہونے پر</span>') + '</div>' + rows + '</div>';
   };
   function proPack(){
     var el = $('jmaPro'); if(!el) return; var w = el.querySelector('.jm2-wrap'); if(!w || !w.getAttribute('data-j88w') || w.getAttribute('data-j94')) return;
@@ -12034,7 +12050,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2511WE095', n: '🕰️ تالے کی گھڑی بالکل گول، سائز تھوڑا کم، میرون کنارہ ہر طرف برابر اور تھوڑا موٹا' };
+window.MD_NOTE = { v: 'MD2511WE096', n: '📊 طالب علم کے صفحے پر سبق / سبقی / منزل کی تین متوازی پٹیاں — فیصد اور جماعت میں نمبر (کون آگے، کون پیچھے)' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -12939,5 +12955,5 @@ body:has(#jm93) #jm66{display:none}
   window.addEventListener('click', function(e){ var b = e.target && e.target.closest && e.target.closest('[data-j93]'); if(!b) return; e.stopPropagation(); e.preventDefault(); jmaPosterOpen(b.getAttribute('data-j93')); }, true);
 })();
 </script>
-<script src="poster.js?v=MD2511WE095"></script>
+<script src="poster.js?v=MD2511WE096"></script>
 </body></html>
