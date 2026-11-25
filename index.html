@@ -103,7 +103,7 @@
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH110</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH111</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -4812,7 +4812,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH110" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH111" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -6287,7 +6287,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
-      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH110') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
+      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH111') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -7079,7 +7079,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2611TH110', n: '👂 «کس نے سنا» کی فہرست: نام نوری نستعلیق کشیدہ، رول · نام · تصویر ساتھ ساتھ، تصویر بڑی؛ اوپر 🔍 تلاش + ترتیب (رول / الف ← ے / ے ← الف)؛ 🔒 سبق / سبقی / منزل بند (بچہ یا جماعت)' };
+window.MD_NOTE = { v: 'MD2611TH111', n: '👂 «کس نے سنا» میں چنا ہوا طالب علم اب بڑے ڈبے میں نہیں — بٹن کے نیچے صرف رول، نام اور صاف بڑی تصویر' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -8239,6 +8239,12 @@ body:has(#jm93) #jm66{display:none}
 #jm90.pop img,#jm90.pop .ph{width:62px!important;height:62px!important;border:3px solid #d4af37!important;box-shadow:0 2px 6px rgba(0,0,0,.18)}
 .jm90f img,.jm90f .ph{width:52px!important;height:52px!important}
 .jm90f .n{flex:0 1 auto!important}.jm90f img,.jm90f .ph{margin-left:auto}
+/* MD2611TH111 (مالک کا حکم): چنا ہوا طالب علم — کوئی بڑا رنگین ڈبہ نہیں؛ «سننے والے طالب علم» بٹن جتنی چوڑائی، اسی کے نیچے: رول · نام · صاف بڑی تصویر */
+.jm90f.ok{width:calc(50% - 3px);margin:4px auto 0 0;background:transparent!important;border:0!important;border-top:2px solid #0f766e!important;border-radius:0;padding:4px 2px;gap:6px;overflow:hidden}
+.jm90f.ok .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:20px!important;color:#0f172a!important}
+.jm90f.ok .r{min-width:22px;font-size:18px}
+.jm90f.ok img,.jm90f.ok .ph{width:56px!important;height:56px!important;margin-left:0;border:2.5px solid #d4af37!important;image-rendering:auto;opacity:1}
+.jm90f.ok small{margin-right:auto;font-size:11px;color:#64748b}
 #jm90.pop .ls button .n{flex:0 1 auto!important;max-width:150px}
 #jm90.pop .ls button{padding:4px 6px;gap:10px;align-items:center}
 #jm90.pop .ls button .r{min-width:28px;font-size:18px}
