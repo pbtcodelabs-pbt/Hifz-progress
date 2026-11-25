@@ -1451,7 +1451,7 @@ td.clickable:hover { background: #fff9e6 !important; }
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE096</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2511WE098</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -7487,7 +7487,8 @@ async function mdDevSavePass(){
 .jm2-hd .pv{width:78px;height:78px;border-radius:50%;flex:none;background:#fff center/cover no-repeat;border:3px solid #d4af37;display:flex;align-items:center;justify-content:center;font-size:32px;color:#065f46}
 .jm2-hd .nm{font-family:'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;font-size:24px;line-height:1.8}
 .jm2-hd .mt{font-size:14.5px;line-height:1.9;opacity:.95}
-.jm2-pn{display:flex;gap:8px;margin-bottom:10px}
+.jm2-pn{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.jm2-pn .jm97b{flex:1 1 100%;border:0;background:linear-gradient(135deg,#065f46,#0f766e);color:#fff;border-radius:12px;padding:7px 8px;font:inherit;font-size:16px;line-height:1.7;cursor:pointer}
 .jm2-pn button{flex:1;border:1.5px solid #065f46;background:#fff;color:#065f46;border-radius:12px;padding:6px;font:inherit;font-size:15px;line-height:1.7;cursor:pointer}
 .jm2-pn button:disabled{opacity:.35}
 .jm2-kv{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:15px;line-height:1.95}
@@ -7789,7 +7790,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     var mob = String(s.mob || '').replace(/\D/g, ''), wa = mob.replace(/^0/, '92');
     var x = '<div class="jm2-top"><b>👤 ' + E(s.n) + '</b><button data-x="pro">✕</button></div><div class="jm2-wrap">';
     x += '<div class="jm2-hd"><div class="pv" style="' + photoBg(s.photo) + '">' + (s.photo ? '' : '👤') + '</div><div style="min-width:0"><div class="nm">' + E(s.n) + '</div><div class="mt">' + (s.w ? 'ولد ' + E(s.w) + '<br>' : '') + 'رول نمبر: <span class="jm2-n">' + E(s.roll || '—') + '</span> · ' + E(clsName(s.classId)) + '<br>🆔 <span class="jm2-n">' + E(s.sid) + '</span></div></div></div>';
-    x += '<div class="jm2-pn"><button data-nv="' + (ix > 0 ? E(list[ix - 1].sid) : '') + '"' + (ix > 0 ? '' : ' disabled') + '>→ پچھلا طالب علم</button><button data-nv="' + (ix > -1 && ix < list.length - 1 ? E(list[ix + 1].sid) : '') + '"' + (ix > -1 && ix < list.length - 1 ? '' : ' disabled') + '>اگلا طالب علم ←</button></div>';
+    x += '<div class="jm2-pn"><button data-nv="' + (ix > 0 ? E(list[ix - 1].sid) : '') + '"' + (ix > 0 ? '' : ' disabled') + '>→ پچھلا طالب علم</button><button data-nv="' + (ix > -1 && ix < list.length - 1 ? E(list[ix + 1].sid) : '') + '"' + (ix > -1 && ix < list.length - 1 ? '' : ' disabled') + '>اگلا طالب علم ←</button><button type="button" class="jm97b" data-j97="' + E(s.classId) + '">📊 پوری جماعت کی کارکردگی — سبق · سبقی · منزل</button></div>';
     x += window.jmaKhatmBox ? jmaKhatmBox(s) : '';   /* MD2411TU070: ختم قرآن کا تخمینہ */
     x += '<div class="jm2-card"><h4>📋 بنیادی معلومات</h4><dl class="jm2-kv"><dt>سرپرست</dt><dd>' + E(s.grd || s.w || '—') + (s.rel ? ' (' + E(s.rel) + ')' : '') + '</dd><dt>موبائل</dt><dd>' + (mob ? '<a class="jm73tel" href="tel:' + E(mob) + '">📞 <span class="jm2-n">' + E(s.mob) + '</span></a> <a class="jm73wa" href="https://wa.me/' + E(wa) + '" target="_blank">💬 واٹس ایپ</a>' : '<span class="jm2-n">—</span>') + '</dd><dt>داخلہ</dt><dd><span class="jm2-n">' + fmtD(s.admDate) + '</span></dd><dt>جنس</dt><dd>' + E(s.gender || '—') + '</dd><dt>ذمہ دار استاد</dt><dd>' + E(s.tName || '—') + '</dd><dt>تعلیمی حیثیت</dt><dd>' + E(s.status || '—') + '</dd>' + (s.addr ? '<dt>پتہ</dt><dd>' + E(s.addr) + '</dd>' : '') + '</dl>'
       + '<div class="jm2-acts">' + (mob ? '<a href="tel:' + E(mob) + '">📞 کال</a><a class="wa" href="https://wa.me/' + E(wa) + '" target="_blank">💬 واٹس ایپ</a>' : '') + '<button data-a="edit">✏️ معلومات بدلیں</button><button data-rep-open="1" style="background:#ecfdf5;color:#065f46">📄 ماہانہ رپورٹ / واٹس ایپ</button></div></div>';
@@ -8036,6 +8037,19 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       return '<button type="button" data-lsid="' + E(x.sid) + '" class="' + (on ? 'on' : '') + '"' + (self ? ' disabled' : '') + '><b class="r">' + E(x.roll || '–') + '</b><span class="n">' + E(x.n) + (self ? ' <small>(خود)</small>' : '') + '</span>' + (x.photo ? '<img src="' + E(x.photo) + '" alt="">' : '<i class="ph">👤</i>') + '</button>'; }).join('') + '</div></div>';
     o.addEventListener('click', function(ev){ if(ev.target === o) o.remove(); });
     $('jmaEnt').appendChild(o);
+    /* MD2511WE098 (مالک کا حکم): چھوٹا ڈراپ ڈاؤن — خانے کے عین نیچے، خانے جتنا چوڑا (پورا صفحہ نہیں) */
+    try{
+      var fb = $('jmaEnt').querySelector('[data-lpick]'), bx = o.querySelector('.bx');
+      if(fb && bx){
+        var r = fb.getBoundingClientRect(), vh = window.innerHeight || 700, vw = window.innerWidth || 400;
+        var w = Math.min(Math.max(r.width, 250), vw - 16), left = Math.max(8, Math.min(r.left + (r.width - w) / 2, vw - w - 8));
+        var below = vh - r.bottom - 10, above = r.top - 10, up = below < 190 && above > below;
+        o.className = 'pop'; bx.style.width = w + 'px'; bx.style.left = left + 'px';
+        if(up){ bx.style.bottom = (vh - r.top + 4) + 'px'; bx.style.maxHeight = Math.min(300, above) + 'px'; }
+        else { bx.style.top = (r.bottom + 4) + 'px'; bx.style.maxHeight = Math.min(300, Math.max(150, below)) + 'px'; }
+        var on = bx.querySelector('button.on'); if(on) on.scrollIntoView({ block: 'nearest' });
+      }
+    }catch(e){}
   }
   function findDup(){ return EN.find(function(e){ return !e.del && e.id !== F.id && e.sid === F.sid && e.date === F.date && e.kind === F.kind && e.ses === F.ses; }); }
   function stepper(key, val, para){ return '<div class="jm3-st"><button class="m" data-st="' + key + '" data-p="' + (para || '') + '" data-d="-1">−</button><b>' + (val || 0) + '</b><button data-st="' + key + '" data-p="' + (para || '') + '" data-d="1">+</button></div>'; }
@@ -8176,6 +8190,11 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 #jm90 .ls button{display:flex;align-items:center;gap:10px;width:100%;border:0;border-bottom:1px solid #f1f5f9;background:#fff;padding:5px 4px;font:inherit;cursor:pointer;direction:rtl}
 #jm90 .ls button.on{background:#ecfdf5}#jm90 .ls button[disabled]{opacity:.4}
 #jm90 .ls button small{font-size:12px;color:#64748b}
+#jm90.pop{background:transparent;align-items:stretch;justify-content:flex-start}
+#jm90.pop .bx{position:fixed;max-width:none;border-radius:14px;border:2px solid #0f766e;box-shadow:0 8px 24px rgba(15,23,42,.28)}
+#jm90.pop .hd{padding:4px 10px;background:#f0fdf4}#jm90.pop .hd b{font-size:15px}
+#jm90.pop .ls{padding:2px 6px 6px}#jm90.pop .ls button{padding:3px 4px;gap:8px}
+#jm90.pop img,#jm90.pop .ph{width:40px;height:40px}
 .jm45sel.ok{border-color:#16a34a;background:#f0fdf4;color:#14532d}
 .jm45sel option{font-family:Arial,sans-serif;font-size:16px;color:#0f172a;background:#fff}
 .jm45sel option:disabled{color:#cbd5e1}
@@ -9918,7 +9937,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE096" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2511WE098" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -11391,6 +11410,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
+      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2511WE098') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -11873,7 +11893,7 @@ details.jm88i>summary::-webkit-details-marker{display:none}
 .jm2-grid.g94 .jm2-c .ph{width:50px;height:50px}
 .jm94m{background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:6px 10px;margin:6px 0;font-size:13px;line-height:1.6}
 .jm94m .kh{margin-bottom:3px}
-.jm94m .br{display:grid;grid-template-columns:42px 1fr 40px 74px;align-items:center;gap:6px;margin:2px 0}
+.jm94m .br{display:grid;grid-template-columns:42px 1fr 44px;align-items:center;gap:6px;margin:2px 0}
 .jm94m .br b{font-size:14px}
 .jm94m .br .bar{height:12px;border-radius:7px;background:#e5e7eb;overflow:hidden;direction:ltr}
 .jm94m .br .bar i{display:block;height:100%;border-radius:7px}
@@ -11919,6 +11939,46 @@ details.jm94x>.in{padding:0 8px 8px}
 #jm96 .r .p small{display:block;font:700 10.5px Arial}
 #jm96 .em{background:#fff;border-radius:12px;padding:14px;text-align:center;color:#64748b;font-size:14px;line-height:1.8}
 #jm96 .nt{font-size:12px;color:#64748b;line-height:1.7;margin:6px 2px}
+.vlk97{text-align:center;margin:10px 0 2px;font:700 15px Arial,sans-serif;color:#fef3c7;letter-spacing:.5px;text-shadow:0 1px 2px rgba(0,0,0,.45)}
+#jm97{position:fixed;inset:0;z-index:2147483000;background:#f0fdf4;overflow:auto;direction:rtl;font-family:var(--nastaliq),'Jameel Noori Nastaleeq',serif;padding-bottom:40px}
+#jm97 .tp{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:8px;padding:calc(8px + env(safe-area-inset-top,0px)) 10px 8px;background:linear-gradient(135deg,#065f46,#0f766e);color:#fff}
+#jm97 .tp b{flex:1;font-size:19px}
+#jm97 .tp button{border:0;background:rgba(255,255,255,.2);color:#fff;border-radius:50%;width:38px;height:38px;font-size:18px;cursor:pointer}
+#jm97 .w{padding:6px 6px}
+#jm97 .chp{display:flex;flex-wrap:wrap;gap:6px;margin:4px 2px 6px}
+#jm97 .chp button{border:1.5px solid #0f766e;background:#fff;color:#065f46;border-radius:999px;padding:4px 12px;font:700 14px var(--nastaliq),'Jameel Noori Nastaleeq',serif;cursor:pointer}
+#jm97 .chp button.on{background:#0f766e;color:#fff}
+#jm97 .sb{font-size:13.5px;color:#475569;line-height:1.8;margin:2px 4px 6px}
+#jm97 .cg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;align-items:start}
+#jm97 .c{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(15,23,42,.1)}
+#jm97 .chd{color:#fff;text-align:center;font:800 19px var(--nastaliq),'Jameel Noori Nastaleeq',serif;padding:3px 0;line-height:1.7}
+#jm97 .r{display:flex;align-items:center;gap:4px;padding:4px 4px;border-bottom:1px solid #f1f5f9;cursor:pointer}
+#jm97 .r.z{opacity:.6}
+#jm97 .r .ph{flex:none;width:26px;height:26px;border-radius:50%;background:#e2e8f0 center/cover no-repeat;display:flex;align-items:center;justify-content:center;font-size:13px}
+#jm97 .r .tx{flex:1;min-width:0}
+#jm97 .r .tx b{display:block;font-size:13px;font-weight:400;line-height:1.5;word-break:break-word}
+#jm97 .r .tx small{font-size:11px;color:#64748b}
+#jm97 .r .rl{font:800 10.5px Arial,sans-serif;color:#065f46;background:#ecfdf5;border-radius:5px;padding:0 3px}
+#jm97 .bb{display:flex;align-items:center;gap:3px;direction:ltr}
+#jm97 .bar{flex:1;height:8px;border-radius:5px;background:#e2e8f0;overflow:hidden}
+#jm97 .bar i{display:block;height:100%;border-radius:5px}
+#jm97 .p{flex:none;font:800 11px Arial,sans-serif;min-width:28px;text-align:right}
+#jm97 .em{background:#fff;border-radius:12px;padding:14px;text-align:center;color:#64748b;font-size:14px}
+#jm97 .nt{font-size:12px;color:#64748b;line-height:1.7;margin:8px 4px}
+#jm7Print .p97 .g97{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4mm;direction:rtl}
+#jm7Print .p97 .c97 h4{margin:0 0 2px;text-align:center;font-size:17px;border:1.5px solid #000;background:#e5e5e5;line-height:1.7}
+#jm7Print .p97 .r97{display:flex;align-items:center;gap:3px;border-bottom:.5px solid #999;padding:1px 0;break-inside:avoid;font-size:12.5px;line-height:1.5}
+#jm7Print .p97 .r97 .i{flex:none;width:5mm;font:700 10px Arial,sans-serif;text-align:center}
+#jm7Print .p97 .r97 .nn{flex:1;min-width:0}
+#jm7Print .p97 .r97 .bx{flex:none;width:16mm;height:3mm;border:1px solid #000;direction:ltr;background:#fff}
+#jm7Print .p97 .r97 .bx i{display:block;height:100%;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+#jm7Print .p97 .r97 .pp{flex:none;width:9mm;font:700 10.5px Arial,sans-serif;direction:ltr;text-align:right}
+#jm7Print .p97 .k97{font-size:11.5px;margin-top:6px;line-height:1.7}
+.x62 .g62t.g94{grid-template-columns:1fr!important;gap:12px!important}
+.x62 .g62t.g94 .t62{flex-direction:row!important;justify-content:center!important;align-items:center!important;gap:18px!important;min-height:clamp(104px,28vw,140px)!important;padding:10px 16px!important}
+.x62 .g62t.g94 .t62 img{width:clamp(64px,19vw,84px)!important}
+.x62 .g62t.g94 .t62 .em94{width:clamp(64px,19vw,84px);text-align:center;font-size:clamp(52px,15vw,68px)!important}
+.x62 .g62t.g94 .t62 b{flex:0 1 auto!important;font-size:clamp(26px,7.4vw,34px)!important}
 </style>
 <script id="jma094">
 (function(){
@@ -11965,15 +12025,12 @@ details.jm94x>.in{padding:0 8px 8px}
     var tr = av(z) - av(a), arrow = tr > 3 ? '<span style="color:#16a34a">↑</span>' : tr < -3 ? '<span style="color:#dc2626">↓</span>' : '→';
     return '<span class="sp"><b style="color:' + col + '">' + ({ sabaq: 'سبق', sabqi: 'سبقی', manzil: 'منزل' })[kind] + '</b><svg viewBox="0 0 54 20"><polyline points="' + path + '" fill="none" stroke="' + col + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>' + vals[vals.length - 1] + '%' + arrow + '</span>';
   }
-  window.jmaMiniHTML = function(s){   /* MD2511WE096 (مالک کا حکم): لکیروں والا گراف نہیں — سبق / سبقی / منزل کی تین متوازی پٹیاں + فیصد + جماعت میں نمبر */
+  window.jmaMiniHTML = function(s){   /* MD2511WE098 (مالک کا حکم): لکیروں والا گراف نہیں — سبق / سبقی / منزل کی تین متوازی پٹیاں + فیصد + جماعت میں نمبر */
     var k = ''; try{ k = window.jmaKhatmTag ? jmaKhatmTag(s) : ''; }catch(e){}
-    var mates = stuList(s.classId);
     var col = function(p){ return p >= 85 ? '#16a34a' : p >= 70 ? '#65a30d' : p >= 55 ? '#d97706' : '#dc2626'; };
     var rows = KN.slice(0, 3).map(function(x){
-      var v = score(s, x[0]); if(!v) return '<div class="br"><b style="color:' + x[2] + '">' + x[1] + '</b><span class="bar"></span><span class="p">—</span><span class="rk">ریکارڈ کم</span></div>';
-      var all = mates.map(function(m){ var w = score(m, x[0]); return w ? w.pct : null; }).filter(function(p){ return p != null; }).sort(function(a, b){ return b - a; });
-      var pos = all.indexOf(v.pct) + 1;
-      return '<div class="br"><b style="color:' + x[2] + '">' + x[1] + '</b><span class="bar"><i style="width:' + v.pct + '%;background:' + col(v.pct) + '"></i></span><span class="p">' + v.pct + '%</span><span class="rk">جماعت میں <bdi>' + pos + '/' + all.length + '</bdi></span></div>';
+      var v = score(s, x[0]); if(!v) return '<div class="br"><b style="color:' + x[2] + '">' + x[1] + '</b><span class="bar"></span><span class="p">—</span></div>';
+      return '<div class="br"><b style="color:' + x[2] + '">' + x[1] + '</b><span class="bar"><i style="width:' + v.pct + '%;background:' + col(v.pct) + '"></i></span><span class="p">' + v.pct + '%</span></div>';
     }).join('');
     return '<div class="jm94m">' + '<div class="kh">' + (k || '<span style="color:#64748b">🏁 ختم کی تاریخ — سبق درج ہونے پر</span>') + '</div>' + rows + '</div>';
   };
@@ -12047,10 +12104,105 @@ details.jm94x>.in{padding:0 8px 8px}
     if(t.hasAttribute('data-j96p')){ var sid = t.getAttribute('data-j96p'); if(el) el.remove(); try{ jmaProOpen(sid); }catch(x){} return; }
     draw();
   }, true);
+
+  /* ———— (6) MD2511WE098 (مالک کا حکم): پوری جماعت کی کارکردگی — سبق / سبقی / منزل تین کالم، ہر کالم میں سب سے کمزور اوپر ———— */
+  var CP = { cid: null };
+  function cpClasses(){ return ((window.jmaMgmt && jmaMgmt.classes()) || []).filter(function(c){ return !c.del && (typeof jmaAllowedClass !== 'function' || jmaAllowedClass(c.id)); }); }
+  function cpClsName(cid){ var c = ((window.jmaMgmt && jmaMgmt.classes()) || []).find(function(c){ return c.id === cid; }); return c ? (c.name || '') : ''; }
+  function cpDate(){ var p = String(today()).split('-'); return p.length === 3 ? (+p[2]) + '/' + (+p[1]) + '/' + p[0] : today(); }
+  function cpMad(){ try{ return (window.jmaMadName && jmaMadName()) || 'جامعہ'; }catch(e){ return 'جامعہ'; } }
+  function cpCol(p){ return p >= 85 ? '#16a34a' : p >= 70 ? '#65a30d' : p >= 55 ? '#d97706' : '#dc2626'; }
+  function cpCols(cid){
+    var L = stuList(cid);
+    return KN.slice(0, 3).map(function(x){
+      var rows = L.map(function(s){ return { s: s, v: score(s, x[0]) }; });
+      var has = rows.filter(function(r){ return r.v; }).sort(function(a, b){ return a.v.pct - b.v.pct || (b.v.mist || 0) - (a.v.mist || 0) || String(a.s.n).localeCompare(String(b.s.n), 'ur'); });
+      var none = rows.filter(function(r){ return !r.v; });
+      return { k: x, rows: has.concat(none), nHas: has.length };
+    });
+  }
+  function cpDraw(){
+    var el = $('jm97'); if(!el) return;
+    var cls = cpClasses();
+    if(!CP.cid || !cls.some(function(c){ return c.id === CP.cid; })) CP.cid = cls[0] ? cls[0].id : null;
+    var cols = cpCols(CP.cid), total = stuList(CP.cid).length;
+    var h = '<div class="tp"><button type="button" data-j97x="x" aria-label="واپس">→</button><b>📊 جماعت کی کارکردگی</b><button type="button" data-j97x="print" aria-label="پرنٹ">🖨️</button><button type="button" data-j97x="share" aria-label="شیئر">📤</button></div><div class="w">';
+    if(cls.length > 1) h += '<div class="chp">' + cls.map(function(c){ return '<button type="button" data-j97c="' + E(c.id) + '" class="' + (c.id === CP.cid ? 'on' : '') + '">' + E(c.name) + '</button>'; }).join('') + '</div>';
+    h += '<div class="sb">' + E(cpClsName(CP.cid)) + ' · <bdi>' + total + '</bdi> طلبہ — ہر کالم میں سب سے کمزور اوپر، سب سے بہتر نیچے۔ طالب علم دبائیں تو اس کا صفحہ کھلے گا۔</div>';
+    if(!total) h += '<div class="em">اس جماعت میں ابھی کوئی طالب علم نہیں</div>';
+    else h += '<div class="cg">' + cols.map(function(c){
+      return '<div class="c"><div class="chd" style="background:' + c.k[2] + '">' + c.k[1] + '</div>' + c.rows.map(function(r){
+        var ph = '<span class="ph" style="' + photoBg(r.s.photo) + '">' + (r.s.photo ? '' : '👤') + '</span>';
+        var nm = '<b>' + (r.s.roll ? '<span class="rl">' + E(r.s.roll) + '</span> ' : '') + E(r.s.n) + '</b>';
+        if(!r.v) return '<div class="r z" data-j97p="' + E(r.s.sid) + '">' + ph + '<div class="tx">' + nm + '<small>ریکارڈ کم</small></div></div>';
+        return '<div class="r" data-j97p="' + E(r.s.sid) + '">' + ph + '<div class="tx">' + nm + '<div class="bb"><span class="bar"><i style="width:' + r.v.pct + '%;background:' + cpCol(r.v.pct) + '"></i></span><span class="p">' + r.v.pct + '%</span></div></div></div>';
+      }).join('') + '</div>';
+    }).join('') + '</div>';
+    h += '<div class="nt">پچھلے 14 دن (کم ہوں تو 30 دن) کا اوسط — اٹکن اور غلطیاں نمبر کم کرتی ہیں۔ «ریکارڈ کم» والے طلبہ ہر کالم کے آخر میں ہیں۔ یہ صفحہ صرف استاد / منتظم کے لیے ہے، والدین کے لنک میں نہیں جاتا۔</div></div>';
+    el.innerHTML = h;
+  }
+  window.jmaClassPerfOpen = function(cid){
+    var el = $('jm97'); if(!el){ el = document.createElement('div'); el.id = 'jm97'; el.className = 'no-print'; document.body.appendChild(el); }
+    CP.cid = cid || CP.cid; el.style.display = 'block'; cpDraw();
+  };
+  window.jmaRankOpen = function(){ jmaClassPerfOpen(); };   /* ہوم کا «کارکردگی» بٹن */
+  function cpPrintHTML(){
+    var cols = cpCols(CP.cid);
+    return '<div class="pg p97"><div class="hd"><span class="t">' + E(cpMad()) + '</span><div class="s">پوری جماعت کی کارکردگی — ' + E(cpClsName(CP.cid)) + ' — <bdi>' + cpDate() + '</bdi></div></div><div class="g97">'
+      + cols.map(function(c){
+        return '<div class="c97"><h4>' + c.k[1] + '</h4>' + c.rows.map(function(r, i){
+          return '<div class="r97"><span class="i">' + (i + 1) + '</span><span class="nn">' + (r.s.roll ? '<span class="n">' + E(r.s.roll) + '</span> ' : '') + E(r.s.n) + '</span>'
+            + (r.v ? '<span class="bx"><i style="width:' + r.v.pct + '%;background:' + cpCol(r.v.pct) + '"></i></span><span class="pp">' + r.v.pct + '%</span>' : '<span class="bx"></span><span class="pp">—</span>') + '</div>';
+        }).join('') + '</div>';
+      }).join('') + '</div><div class="k97">ہر کالم میں سب سے کمزور اوپر۔ پچھلے 14 دن (کم ہوں تو 30 دن) کا اوسط۔ — صرف استاد / منتظم کے لیے</div></div>';
+  }
+  async function cpShare(){
+    try{
+      if(typeof waitForFonts === 'function') await waitForFonts();
+      var cols = cpCols(CP.cid), W = 1260, M = 30, gap = 18, cw = Math.floor((W - 2 * M - 2 * gap) / 3), rh = 72;
+      var n = Math.max.apply(null, cols.map(function(c){ return c.rows.length; }).concat([1])), top = 175, H = top + 74 + n * rh + 80;
+      var cv = document.createElement('canvas'); cv.width = W; cv.height = H; var g = cv.getContext('2d');
+      var FN = "'Jameel Noori Nastaleeq','Noto Nastaliq Urdu',serif";
+      g.fillStyle = '#fff'; g.fillRect(0, 0, W, H); g.textBaseline = 'middle'; g.direction = 'rtl';
+      g.textAlign = 'center'; g.fillStyle = '#065f46'; g.font = '700 56px ' + FN; g.fillText(cpMad(), W / 2, 55);
+      g.fillStyle = '#111'; g.font = '400 36px ' + FN; g.fillText('پوری جماعت کی کارکردگی — ' + cpClsName(CP.cid) + ' — ' + cpDate(), W / 2, 125);
+      g.fillStyle = '#065f46'; g.fillRect(M, 158, W - 2 * M, 3);
+      cols.forEach(function(c, i){
+        var x0 = W - M - (i + 1) * cw - i * gap, y0 = top + 4;
+        g.fillStyle = c.k[2]; g.fillRect(x0, y0, cw, 58); g.fillStyle = '#fff'; g.textAlign = 'center'; g.font = '700 38px ' + FN; g.fillText(c.k[1], x0 + cw / 2, y0 + 30);
+        c.rows.forEach(function(r, j){
+          var y = y0 + 66 + j * rh;
+          if(j % 2) { g.fillStyle = '#f1f5f9'; g.fillRect(x0, y, cw, rh); }
+          var txt = (r.s.roll ? r.s.roll + '  ' : '') + r.s.n, sz = 30; g.font = '400 ' + sz + 'px ' + FN;
+          while(g.measureText(txt).width > cw - 20 && sz > 16){ sz -= 2; g.font = '400 ' + sz + 'px ' + FN; }
+          g.direction = 'rtl'; g.textAlign = 'right'; g.fillStyle = '#0f172a'; g.fillText(txt, x0 + cw - 10, y + 22);
+          if(r.v){
+            var bx = x0 + 84, bw = cw - 100; g.fillStyle = '#e2e8f0'; g.fillRect(bx, y + 44, bw, 14);
+            g.fillStyle = cpCol(r.v.pct); g.fillRect(bx, y + 44, bw * r.v.pct / 100, 14);
+            g.direction = 'ltr'; g.textAlign = 'left'; g.fillStyle = '#111'; g.font = '700 26px Arial,sans-serif'; g.fillText(r.v.pct + '%', x0 + 10, y + 51);
+          } else { g.direction = 'rtl'; g.textAlign = 'right'; g.fillStyle = '#94a3b8'; g.font = '400 24px ' + FN; g.fillText('ریکارڈ کم', x0 + cw - 10, y + 52); }
+        });
+      });
+      g.direction = 'rtl'; g.textAlign = 'center'; g.fillStyle = '#475569'; g.font = '400 26px ' + FN; g.fillText('ہر کالم میں سب سے کمزور اوپر — صرف استاد / منتظم کے لیے', W / 2, H - 38);
+      var blob = await new Promise(function(res){ cv.toBlob(res, 'image/png'); });
+      var fn = 'Class-Performance-' + cpDate().replace(/\//g, '-') + '.png', file = new File([blob], fn, { type: 'image/png' });
+      if(navigator.canShare && navigator.canShare({ files: [file] })){ try{ await navigator.share({ files: [file], title: 'جماعت کی کارکردگی' }); }catch(e){} }
+      else { var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = fn; document.body.appendChild(a); a.click(); a.remove(); alert('📥 تصویر محفوظ ہو گئی — اب واٹس ایپ میں خود شیئر کریں'); }
+    }catch(err){ alert('❌ شیئر کے لیے تصویر نہیں بن سکی — «🖨️ پرنٹ» سے PDF بنا لیں'); }
+  }
+  document.addEventListener('click', function(e){
+    var t = e.target.closest && e.target.closest('[data-j97],[data-j97x],[data-j97c],[data-j97p]'); if(!t) return;
+    e.preventDefault(); e.stopPropagation();
+    if(t.hasAttribute('data-j97')){ jmaClassPerfOpen(t.getAttribute('data-j97')); return; }
+    var el = $('jm97');
+    if(t.hasAttribute('data-j97x')){ var a = t.getAttribute('data-j97x'); if(a === 'x'){ if(el) el.remove(); } else if(a === 'print'){ if(window.jmaPrintNow) jmaPrintNow(cpPrintHTML(), 'portrait', 'پرنٹ سے پہلے دیکھ لیں'); else alert('پرنٹ تیار نہیں'); } else if(a === 'share') cpShare(); return; }
+    if(t.hasAttribute('data-j97c')){ CP.cid = t.getAttribute('data-j97c'); cpDraw(); return; }
+    if(t.hasAttribute('data-j97p')){ var sid = t.getAttribute('data-j97p'); if(el) el.remove(); try{ jmaProOpen(sid); }catch(x){} }
+  }, true);
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2511WE096', n: '📊 طالب علم کے صفحے پر سبق / سبقی / منزل کی تین متوازی پٹیاں — فیصد اور جماعت میں نمبر (کون آگے، کون پیچھے)' };
+window.MD_NOTE = { v: 'MD2511WE098', n: '📊 پوری جماعت کی کارکردگی — سبق / سبقی / منزل تین کالم (کمزور اوپر)، پرنٹ + شیئر؛ ہوم کے تین بٹن ایک سائز؛ «کس نے سنا» چھوٹا ڈراپ ڈاؤن' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -12333,7 +12485,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
       + '<div class="sh62"><span>اہم شعبے</span></div>'
       + '<div class="g62t g94">'   /* MD2511WE094 (#417): سبق / سبقی / منزل / حاضری کے الگ خانے ختم — ایک طالب علم میں سب */
       + tile('c-stu', 'h-stu.png', 'طلبہ', 'data-d="stu"', nStu)
-      + '<button type="button" class="t62 c-man" data-d96="1"><span class="em94">🏅</span><b>درجہ بندی</b></button>'
+      + '<button type="button" class="t62 c-man" data-d96="1"><span class="em94">🏅</span><b>کارکردگی</b></button>'
       + tile('c-rep', 'h-rep.png', 'رپورٹس', 'data-d="rep"', null)
       + '</div>'
       + (bkOk ? '' : '<button type="button" class="bk62" data-k54="drive">☁️ ' + (on ? 'آج کا بیک اپ ابھی نہیں ہوا — دبائیں' : 'ڈرائیو بیک اپ جوڑیں — ریکارڈ محفوظ رکھیں') + '</button>')
@@ -12955,5 +13107,5 @@ body:has(#jm93) #jm66{display:none}
   window.addEventListener('click', function(e){ var b = e.target && e.target.closest && e.target.closest('[data-j93]'); if(!b) return; e.stopPropagation(); e.preventDefault(); jmaPosterOpen(b.getAttribute('data-j93')); }, true);
 })();
 </script>
-<script src="poster.js?v=MD2511WE096"></script>
+<script src="poster.js?v=MD2511WE098"></script>
 </body></html>
