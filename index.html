@@ -103,7 +103,7 @@
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH113</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH114</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -2463,7 +2463,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   function stuDraw(){
     var el = $('jmaStu'), allowed = cls().filter(function(c){ return okCls(c.id); });
     if(!allowed.length){
-      el.innerHTML = '<div class="jm2-top"><b>👥 طلبہ — داخلہ و پروفائل</b><button data-x="stu">✕</button></div><div class="jm2-wrap"><div class="jm2-empty">🕌 نیا نظام بالکل خالی ہے۔<br>پہلے <b>جماعت</b> بنائیں، پھر اس میں طلبہ کا داخلہ کریں۔<br><span style="font-size:14px">(پرانا امتحانی حصہ اور حفظ پروگریس اپنی جگہ پہلے کی طرح ہیں — ان کے طلبہ یہاں خود نہیں آتے)</span></div>'
+      el.innerHTML = '<div class="jm2-top"><b>👥 طلبہ — داخلہ و پروفائل</b><button data-x="stu">✕</button></div><div class="jm2-wrap"><div class="jm2-empty">🕌 ابھی کوئی جماعت نہیں۔<br>پہلے <b>جماعت</b> بنائیں (مثلاً «حفظ کلاس 1»)، پھر اس میں طلبہ کا داخلہ کریں۔</div>'
         + (canAdmin() ? '<button class="jm2-add" data-a="cls">➕ پہلی جماعت بنائیں</button>' : '<div class="jm2-empty">جماعت منتظم / مہتمم بنائے گا</div>') + '</div>';
       return;
     }
@@ -4452,7 +4452,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   function signup(){
     if($('md28su')) return;
     var m = me(), o = document.createElement('div'); o.id = 'md28su';
-    var mad = m.mad || (window.jmaMadName && jmaMadName()) || '';
+    var mad = m.mad || (function(){ var n = (window.jmaMadName && jmaMadName()) || ''; return n === 'جامعہ' ? '' : n; })();   /* MD2611TH114: «جامعہ» خود سے پہلے سے لکھا نہ آئے */
     o.innerHTML = '<div class="bx"><h3>🕌 مدرسہ سافٹ ویئر — سائن اپ</h3><div class="sub">اپنی بنیادی معلومات لکھیں — آپ کی <b>MD ID</b> بن جائے گی</div>'
       + '<div class="gift">🎁 سائن اپ کرتے ہی <b>3 دن</b> مفت</div>'
       + '<label>🕌 مدرسے / جامعہ کا نام</label><input id="md28m" maxlength="40" value="' + E(mad) + '" placeholder="مثلاً جامعہ فاروقیہ">'
@@ -4478,7 +4478,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     function done(ok){
       if(!$('md28su')) return;
       var m3 = me(); if(!m3.id && !pkgAct() && !oldAct()) setTrial(m3.sAt || Date.now());   /* انٹرنیٹ نہ ہو تو بھی ٹرائل — ID انٹرنیٹ آتے ہی */
-      o.remove(); after();
+      o.remove(); after(); try{ var dsh = $('jmaDash'); if(dsh && dsh.style.display === 'block' && window.jmaDashOpen) jmaDashOpen(); }catch(e){}   /* MD2611TH114: سائن اپ کا نام / مہتمم ہوم پر فوراً */
       try{ if(typeof showToast === 'function') showToast(ok ? '✅ آپ کی MD ID: ' + m3.id + ' — 3 دن مفت' : '📶 انٹرنیٹ نہیں — ٹرائل شروع، ID انٹرنیٹ آتے ہی خود بنے گی'); else alert(ok ? '✅ آپ کی MD ID: ' + m3.id : '📶 انٹرنیٹ آتے ہی ID خود بنے گی'); }catch(e){}
     }
   }
@@ -4840,7 +4840,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH113" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH114" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -5881,6 +5881,8 @@ body.jm7v #jm7Print.ls .pg{width:285mm;min-height:198mm}
 .jm38d{display:none!important}
 .jm41b{display:flex;align-items:center;gap:8px;width:100%;box-sizing:border-box;border:1.5px solid #94a3b8;border-radius:12px;background:#fff;padding:6px 12px;margin-top:4px;font-family:'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;font-size:20px;line-height:1.8;color:#065f46;direction:rtl;text-align:right;cursor:pointer}
 .jm41b b{color:#b45309;font-weight:400}
+.jm41b,.jm41b *{white-space:nowrap}.jm41b{overflow:hidden}   /* MD2611TH114 (مالک کا حکم): «جمعرات» کبھی دو لائن میں نہیں */
+.jm68 .jm41b{font-size:16px;padding:4px 8px;gap:4px}.jm68 .jm41b b{font-size:15px}
 .jm41b i{font-style:normal;margin-right:auto;font-size:15px;color:#0f766e;font-family:Arial}
 .jm41b:disabled{opacity:.6;cursor:default}
 #jm41w{position:fixed;inset:0;z-index:2147483100;background:rgba(2,44,34,.55);display:none;align-items:flex-end;justify-content:center;direction:rtl}
@@ -6315,7 +6317,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
-      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH113') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
+      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH114') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -7107,7 +7109,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2611TH113', n: '👂 «کس نے سنا» میں چنا ہوا طالب علم اب بڑے ڈبے میں نہیں — بٹن کے نیچے صرف رول، نام اور صاف بڑی تصویر' };
+window.MD_NOTE = { v: 'MD2611TH114', n: '📅 تاریخ کا خانہ ایک لائن میں («جمعرات» دو لائن میں نہیں)؛ 🆕 نئے گاہک کے لیے: سائن اپ کے فوراً بعد ہوم پر مدرسے کا نام، خالی صفحے پر سادہ ہدایت' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
