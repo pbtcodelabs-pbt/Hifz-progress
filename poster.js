@@ -1,3 +1,5 @@
+/* MD2611TH120 (مالک کا حکم): طالب علم کی تصویر ہر جگہ چورس (گول نہیں) */
+function rr9(c, x, y, w, h, r){ c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
 /* 🎴 MD2511WE092 (مالک کا حکم — تین پسندیدہ ڈیزائن ملا کر ایک «پروفائل پوسٹر»):
    اوپر گہری سبز پٹی + بیچ میں گول تصویر + نام (ڈیزائن 3)، سبق / سبقی / منزل کی لمبی چلتی پٹیاں — فیصد صرف ایک جگہ، کمزور نارنجی + «… پر محنت کی ضرورت» (ڈیزائن 2)،
    نیچے کھلنے والے خانے (ڈیزائن 1)؛ پس منظر مونگیا سبز۔ واٹس ایپ = رنگین تصویر (Canvas — نستعلیق کے جوڑ درست، ہندسے Arial)، PDF = کالا سفید (`.bw`)۔
@@ -21,7 +23,7 @@
       + ".mdp .cd{max-width:430px;margin:0 auto;background:#f7fcf8;border-radius:24px;overflow:hidden;box-shadow:0 6px 22px rgba(6,95,70,.18);border:1.5px solid #a7d8b5}"
       + ".mdp .band{min-height:84px;background:linear-gradient(135deg,#065f46,#0f8a5f);color:#fff;text-align:center;padding:8px 10px 44px;font-family:MDPK,MDPN,serif;font-size:22px;line-height:1.5}"
       + ".mdp .band small{display:block;font-family:MDPN,serif;font-size:13px;opacity:.88}"
-      + ".mdp .ph{width:96px;height:96px;border-radius:50%;margin:-48px auto 0;position:relative;border:4px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.18);background:#cbd5e1 center/cover;display:flex;align-items:center;justify-content:center;font-size:44px}"
+      + ".mdp .ph{width:104px;height:104px;border-radius:16px;margin:-48px auto 0;position:relative;border:4px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.18);background:#cbd5e1 center/cover;display:flex;align-items:center;justify-content:center;font-size:44px}"
       + ".mdp .nm{text-align:center;font-family:MDPK,MDPN,serif;font-size:27px;color:#065f46;margin-top:2px;line-height:1.5}"
       + ".mdp .mt{text-align:center;font-size:14px;color:#475569;line-height:1.85;padding:0 10px}"
       + ".mdp .chips{display:flex;gap:6px;justify-content:center;padding:8px 10px 2px;flex-wrap:wrap}"
@@ -134,8 +136,8 @@
     txC(c, D.mad || 'مدرسہ', W / 2, M + 70, 58, FK, '#fff');
     txC(c, 'کارکردگی رپورٹ · ' + ymN(A.ym), W / 2, M + 140, 32, F, 'rgba(255,255,255,.9)');
     var cy = M + 300, R = 112;
-    c.save(); c.shadowColor = 'rgba(0,0,0,.25)'; c.shadowBlur = 18; c.beginPath(); c.arc(W / 2, cy, R + 10, 0, 7); c.fillStyle = '#fff'; c.fill(); c.restore();
-    c.save(); c.beginPath(); c.arc(W / 2, cy, R, 0, 7); c.clip(); c.fillStyle = '#cbd5e1'; c.fillRect(W / 2 - R, cy - R, 2 * R, 2 * R);
+    c.save(); c.shadowColor = 'rgba(0,0,0,.25)'; c.shadowBlur = 18; c.beginPath(); rr9(c, W / 2 - R - 10, cy - R - 10, 2 * R + 20, 2 * R + 20, 30); c.fillStyle = '#fff'; c.fill(); c.restore();
+    c.save(); c.beginPath(); rr9(c, W / 2 - R, cy - R, 2 * R, 2 * R, 22); c.clip(); c.fillStyle = '#cbd5e1'; c.fillRect(W / 2 - R, cy - R, 2 * R, 2 * R);
     if(PH){ var k = Math.max(2 * R / PH.width, 2 * R / PH.height); c.drawImage(PH, W / 2 - PH.width * k / 2, cy - PH.height * k / 2, PH.width * k, PH.height * k); }
     else { c.fillStyle = '#94a3b8'; c.beginPath(); c.arc(W / 2, cy - 25, 45, 0, 7); c.fill(); c.beginPath(); c.ellipse(W / 2, cy + 95, 85, 70, 0, Math.PI, 0); c.fill(); }
     c.restore();
