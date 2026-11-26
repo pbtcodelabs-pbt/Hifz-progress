@@ -103,7 +103,7 @@
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH115</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH116</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -4868,7 +4868,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH115" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH116" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -6345,7 +6345,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
-      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH115') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
+      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH116') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -7137,7 +7137,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2611TH115', n: '👥 طلبہ کی گولیاں اب اوپر سامنے؛ ➕ نئی جماعت ایپ کے اپنے فارم میں؛ 🎉 سائن اپ پر خوش آمدید کارڈ؛ 📖 سبق میں مقدار کی واضح ہدایت' };
+window.MD_NOTE = { v: 'MD2611TH116', n: '👥 طلبہ کی گولیاں اب چورس ڈبے — اوپر تصویر، نیچے رول نمبر اور نام ایک ہی ڈبے میں (فروٹ منڈی کے خانوں جیسا)' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -8180,8 +8180,8 @@ body:has(#jm93) #jm66{display:none}
     var dn = L.filter(function(sid){ return state(sid).done && fly.indexOf(sid) < 0; });
     var vis = L.filter(function(sid){ return !state(sid).done || fly.indexOf(sid) > -1 || sid === cur || showDone; });
     return '<div class="j101p" id="j101p">' + vis.map(function(sid){ var s = bySid(sid), st = state(sid), pr = prog(sid), pc = Math.round(pr / 4 * 100), col = st.abs ? '#dc2626' : '#16a34a';
-      return '<button type="button" data-j101g="' + E(sid) + '" class="' + (sid === cur ? 'on ' : '') + (st.done ? (st.abs ? 'ab' : 'ok') : '') + (fly.indexOf(sid) > -1 ? ' fly' : '') + '"><span class="rg" style="background:conic-gradient(' + col + ' 0 ' + pc + '%,#e2e8f0 ' + pc + '% 100%)"><span class="c" style="' + bg(s.photo) + '">' + (s.photo ? '' : '👤') + '<span class="r">' + E(s.roll || '—') + '</span><span class="k">✓</span></span></span><span class="n">' + E(s.n) + '</span></button>'; }).join('')
-      + (dn.length ? '<button type="button" class="dn" data-j101dn="1"><span class="rg" style="background:#16a34a"><span class="c dc">✓<b>' + dn.length + '</b></span></span><span class="n">' + (showDone ? 'مکمل چھپائیں' : 'مکمل دیکھیں') + '</span></button>' : '')
+      return '<button type="button" data-j101g="' + E(sid) + '" class="' + (sid === cur ? 'on ' : '') + (st.done ? (st.abs ? 'ab' : 'ok') : '') + (fly.indexOf(sid) > -1 ? ' fly' : '') + '"><span class="ph9" style="' + bg(s.photo) + '">' + (s.photo ? '' : '👤') + '<span class="k">✓</span></span><span class="pb9"><i style="width:' + pc + '%;background:' + col + '"></i></span><span class="bd9"><b>' + E(s.roll || '—') + '</b><span class="n">' + E(s.n) + '</span></span></button>'; }).join('')   /* MD2611TH116 (مالک کا حکم): فروٹ منڈی کے خانوں جیسا ڈبہ — تصویر، پتلی پیش رفت پٹی، نیچے ایک لائن: دائیں رول نمبر، آگے نام */
+      + (dn.length ? '<button type="button" class="dn ok" data-j101dn="1"><span class="ph9 dc9">✓<b>' + dn.length + '</b></span><span class="pb9"><i style="width:100%;background:#16a34a"></i></span><span class="bd9"><span class="n">' + (showDone ? 'مکمل چھپائیں' : 'مکمل دیکھیں') + '</span></span></button>' : '')
       + '</div>';
   }
   function render(){
@@ -8279,6 +8279,22 @@ body:has(#jm93) #jm66{display:none}
   }, true);
 })();
 </script>
+<style id="jma116css">
+/* MD2611TH116 (مالک کا حکم): طلبہ کی گولیاں → چورس ڈبے (فروٹ منڈی کے خانوں جیسے)؛ رول نمبر نیچے دائیں، ساتھ نام — ایک ہی ڈبے میں */
+#j101p{gap:8px;padding:6px 2px 10px}
+#j101p button{flex:0 0 78px;display:flex;flex-direction:column;border:2px solid #2563eb;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 2px 0 #cbd5e1,0 3px 8px rgba(15,23,42,.14);padding:0;color:#0f172a}
+#j101p button.ok{border-color:#16a34a}#j101p button.ab{border-color:#dc2626}
+#j101p button.on{border-color:#ea580c;box-shadow:0 0 0 3px #fed7aa,0 3px 8px rgba(15,23,42,.14)}
+#j101p .ph9{position:relative;display:flex;align-items:center;justify-content:center;height:64px;background:#e2e8f0 center 30%/cover no-repeat;font-size:28px}
+#j101p .ph9 .k{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#16a34a;color:#fff;font:bold 13px/20px Arial,sans-serif;display:none}
+#j101p .ok .ph9 .k{display:block}#j101p .ab .ph9{filter:grayscale(.6)}
+#j101p .pb9{display:block;height:4px;background:#e2e8f0}#j101p .pb9 i{display:block;height:100%;transition:width .4s}
+#j101p .bd9{display:flex;align-items:center;gap:3px;padding:1px 4px 2px;direction:rtl;min-width:0}
+#j101p .bd9 b{flex:0 0 auto;font:800 14px Arial,sans-serif;color:#0f766e}
+#j101p .bd9 .n{flex:1;min-width:0;margin:0;font-size:12.5px;line-height:1.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+#j101p .dc9{flex-direction:column;background:#f0fdf4;color:#15803d;font:900 22px/1 Arial,sans-serif}#j101p .dc9 b{font-size:13px}
+#j101p .dn .bd9 .n{text-align:center;font-size:11.5px}
+</style>
 <style id="jma115css">
 /* MD2611TH115: جماعت کا فارم (prompt کی جگہ) + گولیاں اوپر */
 #jm115c{position:fixed;inset:0;z-index:2147483300;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;padding:16px;font-family:'Jameel Noori Nastaleeq',var(--nastaliq),serif}
