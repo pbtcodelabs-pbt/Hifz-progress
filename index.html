@@ -107,7 +107,7 @@
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName"></div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH123</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH124</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -4607,13 +4607,59 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 
   /* ———— پیکج لگا؟ (سرور سے) ———— */
   var last = 0, busy = false;
+  /* MD2611TH124 (مالک کا حکم): پیکج لگنے پر مبارکباد + اینیمیشن (ہر پیکج پر ایک بار، لاک / سائن اپ کے پیچھے نہیں)؛ ہوم پر پکی پٹی — پیکج، ختم ہونے کی تاریخ، باقی دن */
+  (function(){ try{ var st = document.createElement('style'); st.id = 'md125css'; st.textContent =
+    '#md28ce{overflow:hidden}#md28ce .cf{position:absolute;inset:0;pointer-events:none;overflow:hidden}#md28ce .cf s{position:absolute;top:-8%;font-size:26px;text-decoration:none;animation:md125f linear infinite}'
+    + '@keyframes md125f{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(115vh) rotate(540deg);opacity:.9}}'
+    + '@keyframes md125p{0%{transform:scale(.2);opacity:0}60%{transform:scale(1.15);opacity:1}100%{transform:scale(1)}}@keyframes md125b{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}'
+    + '#md28ce .bx{position:relative;animation:md125p .7s ease-out both;border:3px solid #d4af37}#md28ce .big{animation:md125b 1.2s ease-in-out infinite;display:inline-block}'
+    + '.x62 .pk125{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin:8px 3% 0;padding:5px 10px;border-radius:14px;border:2px solid #16a34a;background:linear-gradient(180deg,#f0fdf4,#dcfce7);color:#14532d;font:400 clamp(14px,4vw,17px)/1.9 var(--nastaliq),serif;direction:rtl;text-align:center;box-sizing:border-box}'
+    + '.x62 .pk125 b{font:700 .95em Arial,sans-serif;direction:ltr;display:inline-block}.x62 .pk125.w{border-color:#f59e0b;background:linear-gradient(180deg,#fffbeb,#fef3c7);color:#78350f}.x62 .pk125.r{border-color:#dc2626;background:linear-gradient(180deg,#fef2f2,#fee2e2);color:#7f1d1d}.x62 .pk125.t{border-color:#0284c7;background:linear-gradient(180deg,#f0f9ff,#e0f2fe);color:#075985}';
+    document.head.appendChild(st); }catch(e){} })();
+  function pkInfo(){
+    var m = me(), a = pkgAct();
+    if(a){ var l = a.life ? null : Math.max(0, Math.ceil((a.expiry - Date.now()) / 864e5)); return { k: 'pkg', nm: a.pkg || ((a.devices || 1) > 1 ? 'دو موبائل' : 'ایک موبائل'), life: !!a.life, left: l, end: a.life ? '' : dmy(a.expiry) }; }
+    if(oldAct()){ var o = jget(ACT_K) || {}; return { k: 'pkg', nm: 'سافٹ ویئر چالو', life: false, left: Math.max(0, Math.ceil((o.expiry - Date.now()) / 864e5)), end: dmy(o.expiry) }; }
+    if(m.id || m.pend){ var t = trialLeft(); if(t != null) return t > 0 ? { k: 'trial', left: t } : { k: 'end' }; }
+    return null;
+  }
+  window.mdPkgShort = function(){ try{ var i = pkInfo(); if(!i) return ''; if(i.k === 'pkg') return '📦 ' + i.nm + (i.life ? ' · لائف ٹائم' : ' · ' + i.left + ' دن باقی'); if(i.k === 'trial') return '🎁 ٹرائل · ' + i.left + ' دن باقی'; return '⛔ پیکج ختم'; }catch(e){ return ''; } };
+  window.mdPkgStripHTML = function(){
+    try{ var i = pkInfo(); if(!i) return '';
+      if(i.k === 'pkg'){ var c = i.life ? '' : i.left <= 3 ? ' r' : i.left <= 15 ? ' w' : '';
+        return '<div class="pk125' + c + '" data-k54="pkg"><span>📦 آپ سبسکرائب ہیں:</span><span>' + E(i.nm) + '</span>' + (i.life ? '<span>♾️ لائف ٹائم</span>' : '<span>· ختم ہو گا: <b>' + i.end + '</b> · <b>' + i.left + '</b> دن باقی</span>') + '</div>'; }
+      if(i.k === 'trial') return '<div class="pk125 t" data-k54="pkg"><span>🎁 مفت ٹرائل — <b>' + i.left + '</b> دن باقی · پیکج لینے کے لیے دبائیں</span></div>';
+      return '<div class="pk125 r" data-k54="pkg"><span>⛔ پیکج / ٹرائل ختم — پیکج لینے کے لیے دبائیں</span></div>';
+    }catch(e){ return ''; } };
+  function refreshHome(){ try{ var d = $('jmaDash'); if(d && d.style.display === 'block' && window.jmaDashOpen){ var y = d.scrollTop; jmaDashOpen(); d.scrollTop = y; } }catch(e){} }
+  window.mdPkgRefreshHome = refreshHome;
+  var CEL_K = 'jamia_mdcele_v1';
+  function celKey(a){ return (me().id || '') + '|' + (a.life ? 'life' : Math.round((a.expiry || 0) / 864e5)); }
+  function shown(i){ var e = $(i); return !!(e && getComputedStyle(e).display !== 'none'); }
+  function celTry(){
+    try{
+      var a = pkgAct(); if(!a || $('md28ce')) return;
+      var k = celKey(a), st = ''; try{ st = localStorage.getItem(CEL_K) || ''; }catch(e){}
+      if(st === k) return;
+      if(!st && a.at && Date.now() - a.at > 6 * 3600e3){ try{ localStorage.setItem(CEL_K, k); }catch(e){} return; }   /* پرانا چلتا پیکج — اپ ڈیٹ پر اچانک مبارکباد نہیں */
+      if(shown('jm52') || shown('lockScreen') || shown('md28su') || shown('jmaLogin') || shown('md115w')) return;
+      celebrate(a); try{ localStorage.setItem(CEL_K, k); }catch(e){}
+    }catch(e){}
+  }
   function celebrate(a){
     var o0 = $('md28ce'); if(o0) o0.remove();
-    var o = document.createElement('div'); o.id = 'md28ce';
-    o.innerHTML = '<div class="bx"><div class="big">🎉</div><b class="h">مبارک ہو! آپ کا پیکج چالو ہو گیا</b><div style="font-size:17px;line-height:2.1;color:#334155">📦 ' + E(a.pkg || 'پیکج') + '<br>' + (a.life ? '♾️ لائف ٹائم' : '⏳ <b style="font-family:Arial">' + Math.ceil((a.expiry - Date.now()) / 864e5) + '</b> دن — <b style="font-family:Arial">' + dmy(a.expiry) + '</b> تک') + '<br>🆔 MD ID: <b style="font-family:Arial">' + E(me().id) + '</b></div><button type="button" class="go" style="border:0;border-radius:999px;background:#059669;color:#fff;font:inherit;font-size:18px;padding:8px 34px;margin-top:12px">جزاک اللہ ✅</button></div>';
+    var o = document.createElement('div'); o.id = 'md28ce'; var cf = '', em = ['🎉', '✨', '🌙', '⭐', '🎊'];
+    for(var q = 0; q < 28; q++) cf += '<s style="left:' + Math.round(Math.random() * 96) + '%;animation-delay:' + (Math.random() * 2.4).toFixed(2) + 's;animation-duration:' + (2.8 + Math.random() * 2.2).toFixed(2) + 's">' + em[q % 5] + '</s>';
+    var nm = a.pkg || ((a.devices || 1) > 1 ? 'دو موبائل' : 'ایک موبائل'), left = a.life ? 0 : Math.max(0, Math.ceil((a.expiry - Date.now()) / 864e5));
+    o.innerHTML = '<div class="cf">' + cf + '</div><div class="bx"><div class="big">🎉</div><b class="h">مبارک ہو! آپ کا پیکج چالو ہو گیا</b><div style="font-size:18px;line-height:2.1;color:#334155">📦 <b>' + E(nm) + '</b><br>'
+      + (a.life ? '♾️ لائف ٹائم' : '⏳ <b style="font-family:Arial">' + left + '</b> دن باقی<br>📅 ختم ہونے کی تاریخ: <b style="font-family:Arial">' + dmy(a.expiry) + '</b>') + '<br>🆔 MD ID: <b style="font-family:Arial">' + E(me().id) + '</b></div>'
+      + '<button type="button" class="go" style="border:0;border-radius:999px;background:linear-gradient(180deg,#059669,#065f46);color:#fff;font:inherit;font-size:20px;width:100%;margin-top:10px;padding:9px;line-height:1.7">✅ شکریہ — ایپ شروع کریں</button></div>';
     o.querySelector('button').onclick = function(){ o.remove(); };
     document.body.appendChild(o);
   }
+  setInterval(celTry, 2500); setTimeout(celTry, 1500);
+  /* پیکج کی درخواست گئی ہو تو جب تک منظور نہ ہو، ہر 20 سیکنڈ بعد خود دیکھے (ایپ کھلی ہو تو) — پہلے 10 منٹ لگ جاتے تھے */
+  setInterval(function(){ try{ var m = me(); if(m.id && m.want && m.want.at && Date.now() - m.want.at < 3 * 864e5 && document.visibilityState === 'visible') check(true); }catch(e){} }, 20000);
   function check(force){
     var m = me(); if(!m.id || !m.dev || busy || navigator.onLine === false) return Promise.resolve();
     if(!force && Date.now() - last < 10 * 60e3) return Promise.resolve();
@@ -4629,10 +4675,11 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
           var lockOn = ($('lockScreen') || {}).style && $('lockScreen').style.display === 'flex';
           if(lockOn){ try{ $('lockMsg').textContent = ''; unlockApp(); }catch(e){} }
           try{ updateSubInfo(); }catch(e){}
-          celebrate(a);
+          try{ var mw = me(); if(mw.want){ delete mw.want; save(mw); } }catch(e){}
+          refreshHome(); celTry();
         }
       } else if(r && r.ok === false && r.reason === 'revoked' && old && old.md){   /* ہیلپ ڈیسک سے معطل */
-        old.expiry = Date.now() - 1000; try{ localStorage.setItem(ACT_K, JSON.stringify(old)); }catch(e){} setTrial(m.at || Date.now() - TD * 864e5); after();
+        old.expiry = Date.now() - 1000; try{ localStorage.setItem(ACT_K, JSON.stringify(old)); }catch(e){} setTrial(m.at || Date.now() - TD * 864e5); after(); refreshHome();
       }
     }).catch(function(){}).then(function(){ busy = false; paint(); });
   }
@@ -4891,7 +4938,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH123" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH124" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -6093,6 +6140,21 @@ body.jm7v #jm51nav{display:none!important}
 #jm51x .c{background:#dc2626;color:#fff}#jm51x .l{background:#fef3c7;color:#92400e}#jm51x .n{background:#f1f5f9;color:#334155}
 </style>
 <div id="jm51nav" class="no-print"><button type="button" id="jm51B" title="واپس">→<small>واپس</small></button><button type="button" class="hm" id="jm51H" title="ہوم">🏠<small>ہوم</small></button></div>
+<style id="jma125css">
+#jm125x{position:fixed;inset:0;z-index:2147483300;background:rgba(2,24,18,.72);display:none;align-items:center;justify-content:center;padding:16px;direction:rtl}
+#jm125x .bx{position:relative;display:flex;flex-direction:row;align-items:center;gap:12px;width:100%;max-width:410px;background:#fff;border:3px solid #2563eb;border-radius:24px;padding:18px 14px 26px;box-shadow:0 14px 44px rgba(0,0,0,.5);overflow:hidden;font-family:var(--nastaliq),'Jameel Noori Nastaleeq',serif}
+#jm125x .bx:after{content:'';position:absolute;left:0;right:0;bottom:0;height:9px;background:linear-gradient(90deg,#f59e0b 0,#f59e0b 22%,#2563eb 22%,#2563eb 78%,#f59e0b 78%)}
+#jm125x .lg{flex:0 0 92px;text-align:center;padding-left:12px;border-left:2px solid #e2e8f0}
+#jm125x .lg img{width:80px;height:80px;object-fit:contain;border-radius:18px}#jm125x .lg .em{font-size:58px;line-height:1.3}
+#jm125x .rt{flex:1;text-align:center;min-width:0}
+#jm125x h3{display:inline-flex;align-items:center;gap:8px;margin:0 0 8px;background:#fde2e2;color:#dc2626;border-radius:999px;padding:3px 20px;font-family:'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;font-weight:400;font-size:27px;line-height:1.8}
+#jm125x p{margin:0 0 12px;font-size:19px;line-height:1.9;color:#1e3a8a}
+#jm125x .bt{display:flex;gap:8px}
+#jm125x .bt button{flex:1;border-radius:999px;padding:7px 4px;font:inherit;font-size:20px;line-height:1.7;display:inline-flex;align-items:center;justify-content:center;gap:6px;cursor:pointer}
+#jm125x .y{border:0;background:linear-gradient(180deg,#ef2a2a,#c41212);color:#fff;box-shadow:0 4px 10px rgba(196,18,18,.35)}
+#jm125x .n{border:3px solid #2563eb;background:#fff;color:#1d4ed8}
+</style>
+<div id="jm125x" class="no-print"><div class="bx"><div class="lg"><img src="logo.png" alt="" onerror="this.outerHTML='<div class=em>🕌</div>'"></div><div class="rt"><h3>⏻ لاگ آؤٹ</h3><p>کیا آپ لاگ آؤٹ کرنا چاہتے ہیں؟</p><div class="bt"><button type="button" class="y" id="jm125Y">⏻ ہاں</button><button type="button" class="n" id="jm125N">✕ کینسل</button></div></div></div></div>
 <div id="jm51x" class="no-print"><div class="bx"><h3>⏻ ایپ بند کریں؟</h3><p>کیا آپ ایپ بند کرنا چاہتے ہیں؟ آپ کا سارا ریکارڈ محفوظ ہے۔</p>
 <button type="button" class="c" id="jm51C">⏻ ہاں، ایپ بند کریں</button><button type="button" class="l" id="jm51L" style="display:none">🚪 لاگ آؤٹ</button><button type="button" class="n" id="jm51N">✕ کینسل</button></div></div>
 <script id="jma051">
@@ -6135,12 +6197,13 @@ body.jm7v #jm51nav{display:none!important}
   function askExit(){
     var u = null; try{ u = window.jmaCurUser ? jmaCurUser() : null; }catch(e){}
     var hasUsers = false; try{ hasUsers = (JSON.parse(localStorage.getItem('jamia_users_v1') || '[]') || []).some(function(x){ return !x.del; }); }catch(e){}
-    $('jm51L').style.display = 'block'; $('jm51L').textContent = '🔐 لاگ آؤٹ — تالا لگائیں';
-    $('jm51x').style.display = 'flex';
+    $('jm125x').style.display = 'flex';   /* MD2611TH124 (مالک کا حکم): ایک ہی سادہ «لاگ آؤٹ» کارڈ — ہاں / کینسل */
   }
   window.jmaAskExit = askExit;
   var leaving = false;
   $('jm51N').onclick = function(){ $('jm51x').style.display = 'none'; };
+  $('jm125N').onclick = function(){ $('jm125x').style.display = 'none'; };
+  $('jm125Y').onclick = function(){ $('jm125x').style.display = 'none'; try{ var pk = $('md28pk'); if(pk) pk.remove(); }catch(e){} $('jm51L').onclick(); };   /* ہاں = پن / لاگ اِن والا صفحہ */
   $('jm51L').onclick = function(){ $('jm51x').style.display = 'none'; home(); var hu = false; try{ hu = (JSON.parse(localStorage.getItem('jamia_users_v1') || '[]') || []).some(function(x){ return !x.del; }); }catch(e){} if(hu && window.jmaLogout){ try{ $('jmaDash').style.display = 'none'; }catch(e){} jmaLogout(); } else if(window.jmaLockNow) jmaLockNow(); };
   $('jm51C').onclick = function(){ $('jm51x').style.display = 'none'; leaving = true;
     try{ window.close(); }catch(e){}
@@ -6152,7 +6215,8 @@ body.jm7v #jm51nav{display:none!important}
   try{ history.pushState({ jm51: 1 }, ''); }catch(e){}
   window.addEventListener('popstate', function(){
     if(leaving) return;
-    if($('jm51x').style.display === 'flex'){ $('jm51x').style.display = 'none'; }
+    if($('jm125x').style.display === 'flex'){ $('jm125x').style.display = 'none'; }
+    else if($('jm51x').style.display === 'flex'){ $('jm51x').style.display = 'none'; }
     else if(lockedOut()){ /* لاگ اِن پر کچھ نہیں */ }
     else if(!back()) askExit();
     try{ history.pushState({ jm51: 1 }, ''); }catch(e){}
@@ -6368,7 +6432,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
-      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH123') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
+      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH124') + '</bdi>' + (window.mdPkgShort && mdPkgShort() ? ' · ' + esc(mdPkgShort()) : '') + '</div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -7160,7 +7224,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2611TH123', n: '🆔 دو ایک جیسے موبائل اب الگ الگ MD ID بناتے ہیں · '👂 «کس نے سنا» کی فہرست اب «سننے والے طالب علم» بٹن کے عین نیچے کھلتی ہے؛ پیلی پٹی ختم' };
+window.MD_NOTE = { v: 'MD2611TH124', n: '🎉 پیکج لگنے پر مبارکباد + ہوم پر پیکج کی پٹی · 🔐 نیا لاگ آؤٹ کارڈ · 🆔 دو ایک جیسے موبائل اب الگ الگ MD ID بناتے ہیں · 👂 «کس نے سنا» کی فہرست اب «سننے والے طالب علم» بٹن کے عین نیچے کھلتی ہے؛ پیلی پٹی ختم' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -7448,6 +7512,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
             + '<div class="ov66"><div class="nm58" data-hs="nm" id="jm58nm">' + E(mad) + '</div>'
         + rows.map(function(r){ return '<div class="r66" data-hs="' + r[0] + '"><i>' + IC[r[0]] + '</i><b>' + E(r[1]) + '</b></div>'; }).join('') + '</div></div>'
       + '<div class="dt62"><span class="or">❦</span><div>بروز ' + w + '، <bdi>' + (+q[2]) + '</bdi> ' + MN[+q[1] - 1] + ' <bdi>' + q[0] + '</bdi>ء</div><span class="or">❦</span></div>'
+      + (window.mdPkgStripHTML ? mdPkgStripHTML() : '')   /* MD2611TH124: پکی پٹی — پیکج / ختم ہونے کی تاریخ / باقی دن */
       + '<div class="sh62"><span>اہم شعبے</span></div>'
       + '<div class="g62t g94">'   /* MD2511WE094 (#417): سبق / سبقی / منزل / حاضری کے الگ خانے ختم — ایک طالب علم میں سب */
       + tile('c-stu', 'h-stu.png', 'روزانہ ریکارڈ<small>سبق · سبقی · منزل</small>', 'data-d="stu"', nStu)
@@ -7457,7 +7522,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
       + '</div>'
       + (bkOk ? '' : '<button type="button" class="bk62" data-k54="drive">☁️ ' + (on ? 'آج کا بیک اپ ابھی نہیں ہوا — دبائیں' : 'ڈرائیو بیک اپ جوڑیں — ریکارڈ محفوظ رکھیں') + '</button>')
       + '<button type="button" class="lo102" data-k54="out" aria-label="لاگ آؤٹ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><path d="M6.6 6.8a8 8 0 1 0 10.8 0" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg><span>لاگ آؤٹ</span></button>'   /* MD2511WE103 (مالک کا حکم): لاگ آؤٹ اوپر تصویر کے کونے سے نیچے خالی جگہ میں */
-      + (vs ? '<div class="v62">V' + vs + '</div>' : '')
+      + (vs ? '<div class="v62">V' + vs + (window.mdPkgShort && mdPkgShort() ? ' · <span style="font-family:var(--nastaliq),serif;font-weight:400;font-size:12px">' + mdPkgShort() + '</span>' : '') + '</div>' : '')
       + '<nav class="nv62">'
       + nav('data-k54="menu"', 'gear', 'سیٹنگز') + nav('data-d35="1"', 'sch', 'روزانہ شیڈول') + nav('data-k54="help"', 'help', 'ہیلپ ڈیسک')
       + nav('data-k54="top"', 'home', 'ہوم', 'hm') + nav('data-d="exm"', 'exm', 'امتحانات') + nav('data-d="stu"', 'stu', 'طلبہ پروفائل') + nav('data-d="cfg"', 'mad', 'مدرسہ پروفائل')
@@ -7528,6 +7593,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
     if(k === 'pkg'){ if(window.mdPkgOpen) mdPkgOpen(); }
     else if(k === 'help'){ try{ openHelpDesk(); }catch(x){} }   /* MD2411TU072: اندر کا ہیلپ ڈیسک صرف مسائل */
     else if(k === 'out'){ if(window.jmaAskExit) jmaAskExit(); }
+    else if(k === 'pkg'){ try{ if(window.mdPkgOpen) mdPkgOpen(); }catch(x){} }
     else if(k === 'drive'){ if(window.jmaDriveOpen) jmaDriveOpen(); }
     else if(k === 'pic'){ if(window.jmaHomePhoto) jmaHomePhoto(); }
     else if(k === 'menu'){ menu(); }
