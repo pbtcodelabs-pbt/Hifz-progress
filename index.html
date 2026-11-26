@@ -107,7 +107,7 @@
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName"></div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH124</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH125</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -4607,7 +4607,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 
   /* ———— پیکج لگا؟ (سرور سے) ———— */
   var last = 0, busy = false;
-  /* MD2611TH124 (مالک کا حکم): پیکج لگنے پر مبارکباد + اینیمیشن (ہر پیکج پر ایک بار، لاک / سائن اپ کے پیچھے نہیں)؛ ہوم پر پکی پٹی — پیکج، ختم ہونے کی تاریخ، باقی دن */
+  /* MD2611TH125 (مالک کا حکم): پیکج لگنے پر مبارکباد + اینیمیشن (ہر پیکج پر ایک بار، لاک / سائن اپ کے پیچھے نہیں)؛ ہوم پر پکی پٹی — پیکج، ختم ہونے کی تاریخ، باقی دن */
   (function(){ try{ var st = document.createElement('style'); st.id = 'md125css'; st.textContent =
     '#md28ce{overflow:hidden}#md28ce .cf{position:absolute;inset:0;pointer-events:none;overflow:hidden}#md28ce .cf s{position:absolute;top:-8%;font-size:26px;text-decoration:none;animation:md125f linear infinite}'
     + '@keyframes md125f{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(115vh) rotate(540deg);opacity:.9}}'
@@ -4938,7 +4938,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH124" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH125" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -6155,8 +6155,8 @@ body.jm7v #jm51nav{display:none!important}
 #jm125x .n{border:3px solid #2563eb;background:#fff;color:#1d4ed8}
 </style>
 <div id="jm125x" class="no-print"><div class="bx"><div class="lg"><img src="logo.png" alt="" onerror="this.outerHTML='<div class=em>🕌</div>'"></div><div class="rt"><h3>⏻ لاگ آؤٹ</h3><p>کیا آپ لاگ آؤٹ کرنا چاہتے ہیں؟</p><div class="bt"><button type="button" class="y" id="jm125Y">⏻ ہاں</button><button type="button" class="n" id="jm125N">✕ کینسل</button></div></div></div></div>
-<div id="jm51x" class="no-print"><div class="bx"><h3>⏻ ایپ بند کریں؟</h3><p>کیا آپ ایپ بند کرنا چاہتے ہیں؟ آپ کا سارا ریکارڈ محفوظ ہے۔</p>
-<button type="button" class="c" id="jm51C">⏻ ہاں، ایپ بند کریں</button><button type="button" class="l" id="jm51L" style="display:none">🚪 لاگ آؤٹ</button><button type="button" class="n" id="jm51N">✕ کینسل</button></div></div>
+<div id="jm51x" class="no-print x123"><div class="bx"><div class="ic">🚪</div><h3>ایپ سے باہر جائیں؟</h3><p>کیا آپ واقعی ایپ بند کرنا چاہتے ہیں؟ آپ کا سارا ریکارڈ محفوظ ہے۔</p>
+<div class="rw"><button type="button" class="n" id="jm51N">کینسل</button><button type="button" class="c" id="jm51C">ایگزٹ</button></div><button type="button" class="l" id="jm51L" style="display:none">🚪 لاگ آؤٹ</button></div></div>
 <script id="jma051">
 (function(){
   'use strict';
@@ -6197,15 +6197,17 @@ body.jm7v #jm51nav{display:none!important}
   function askExit(){
     var u = null; try{ u = window.jmaCurUser ? jmaCurUser() : null; }catch(e){}
     var hasUsers = false; try{ hasUsers = (JSON.parse(localStorage.getItem('jamia_users_v1') || '[]') || []).some(function(x){ return !x.del; }); }catch(e){}
-    $('jm125x').style.display = 'flex';   /* MD2611TH124 (مالک کا حکم): ایک ہی سادہ «لاگ آؤٹ» کارڈ — ہاں / کینسل */
+    $('jm51L').style.display = 'none'; $('jm51x').style.display = 'flex';   /* MD2611TH125 (مالک کا حکم): باہر جانا = My City Shines جیسا «کینسل / ایگزٹ» */
   }
   window.jmaAskExit = askExit;
+  window.jmaAskLogout = function(){ $('jm125x').style.display = 'flex'; };   /* MD2611TH125 والا لاگ آؤٹ کارڈ — سیٹنگز سے */
   var leaving = false;
   $('jm51N').onclick = function(){ $('jm51x').style.display = 'none'; };
   $('jm125N').onclick = function(){ $('jm125x').style.display = 'none'; };
   $('jm125Y').onclick = function(){ $('jm125x').style.display = 'none'; try{ var pk = $('md28pk'); if(pk) pk.remove(); }catch(e){} $('jm51L').onclick(); };   /* ہاں = پن / لاگ اِن والا صفحہ */
   $('jm51L').onclick = function(){ $('jm51x').style.display = 'none'; home(); var hu = false; try{ hu = (JSON.parse(localStorage.getItem('jamia_users_v1') || '[]') || []).some(function(x){ return !x.del; }); }catch(e){} if(hu && window.jmaLogout){ try{ $('jmaDash').style.display = 'none'; }catch(e){} jmaLogout(); } else if(window.jmaLockNow) jmaLockNow(); };
   $('jm51C').onclick = function(){ $('jm51x').style.display = 'none'; leaving = true;
+    try{ if(window.PBTAppNative && PBTAppNative.exit){ PBTAppNative.exit(); return; } }catch(e){}   /* MD2611TH125: APK میں ایپ واقعی بند */
     try{ window.close(); }catch(e){}
     setTimeout(function(){ try{ history.go(-(history.length - 1)); }catch(e){} }, 150);
     setTimeout(function(){ if(document.visibilityState === 'visible'){ leaving = false; try{ history.pushState({ jm51: 1 }, ''); }catch(e){} if(window.jmaToast) jmaToast('ایپ بند کرنے کے لیے فون کا ہوم بٹن دبائیں — ریکارڈ محفوظ ہے'); } }, 1200); };
@@ -6432,7 +6434,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
-      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH124') + '</bdi>' + (window.mdPkgShort && mdPkgShort() ? ' · ' + esc(mdPkgShort()) : '') + '</div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
+      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH125') + '</bdi>' + (window.mdPkgShort && mdPkgShort() ? ' · ' + esc(mdPkgShort()) : '') + '</div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -7224,7 +7226,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2611TH124', n: '🎉 پیکج لگنے پر مبارکباد + ہوم پر پیکج کی پٹی · 🔐 نیا لاگ آؤٹ کارڈ · 🆔 دو ایک جیسے موبائل اب الگ الگ MD ID بناتے ہیں · 👂 «کس نے سنا» کی فہرست اب «سننے والے طالب علم» بٹن کے عین نیچے کھلتی ہے؛ پیلی پٹی ختم' };
+window.MD_NOTE = { v: 'MD2611TH125', n: '🚪 ہوم کا سرخ لاگ آؤٹ بٹن ختم؛ فون کا پیچھے بٹن ہوم پر «کینسل / ایگزٹ» پوچھتا ہے، ایگزٹ سے ایپ بند؛ لاگ آؤٹ سیٹنگز میں' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -7512,7 +7514,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
             + '<div class="ov66"><div class="nm58" data-hs="nm" id="jm58nm">' + E(mad) + '</div>'
         + rows.map(function(r){ return '<div class="r66" data-hs="' + r[0] + '"><i>' + IC[r[0]] + '</i><b>' + E(r[1]) + '</b></div>'; }).join('') + '</div></div>'
       + '<div class="dt62"><span class="or">❦</span><div>بروز ' + w + '، <bdi>' + (+q[2]) + '</bdi> ' + MN[+q[1] - 1] + ' <bdi>' + q[0] + '</bdi>ء</div><span class="or">❦</span></div>'
-      + (window.mdPkgStripHTML ? mdPkgStripHTML() : '')   /* MD2611TH124: پکی پٹی — پیکج / ختم ہونے کی تاریخ / باقی دن */
+      + (window.mdPkgStripHTML ? mdPkgStripHTML() : '')   /* MD2611TH125: پکی پٹی — پیکج / ختم ہونے کی تاریخ / باقی دن */
       + '<div class="sh62"><span>اہم شعبے</span></div>'
       + '<div class="g62t g94">'   /* MD2511WE094 (#417): سبق / سبقی / منزل / حاضری کے الگ خانے ختم — ایک طالب علم میں سب */
       + tile('c-stu', 'h-stu.png', 'روزانہ ریکارڈ<small>سبق · سبقی · منزل</small>', 'data-d="stu"', nStu)
@@ -7538,7 +7540,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
     if(!act.staff) it.push(['data-k54="pkg"', '📦', 'پیکج و سبسکرپشن']);
     if(typeof jmaCan !== 'function' || jmaCan('classes')) it.splice(1, 0, ['data-k54="pic"', '🖼️', 'مدرسے کی تصویر — کیمرہ / سیلفی / گیلری (ہوم پر خود لگ جائے گی)']);   /* MD2511WE099 */
     it.push(['data-k54="share"', '📲', 'ایپ شیئر کریں']);
-    it.push(['data-k54="out"', '🚪', 'لاگ آؤٹ / ایپ بند کریں']);
+    it.push(['data-k54="lock"', '🔐', 'لاگ آؤٹ']); it.push(['data-k54="out"', '🚪', 'ایپ بند کریں (ایگزٹ)']);
     o.innerHTML = '<div class="bx"><h3>⚙️ سیٹنگز</h3>' + it.map(function(x){ return '<button type="button" ' + x[0] + '><i>' + x[1] + '</i>' + x[2] + '</button>'; }).join('') + '<button type="button" class="x">✕ بند کریں</button></div>';
     document.body.appendChild(o);
     o.addEventListener('click', function(e){ var b = e.target.closest('button'); if(e.target === o || (b && b.classList.contains('x'))){ o.remove(); return; } if(!b) return;
@@ -7593,6 +7595,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
     if(k === 'pkg'){ if(window.mdPkgOpen) mdPkgOpen(); }
     else if(k === 'help'){ try{ openHelpDesk(); }catch(x){} }   /* MD2411TU072: اندر کا ہیلپ ڈیسک صرف مسائل */
     else if(k === 'out'){ if(window.jmaAskExit) jmaAskExit(); }
+    else if(k === 'lock'){ if(window.jmaAskLogout) jmaAskLogout(); }
     else if(k === 'pkg'){ try{ if(window.mdPkgOpen) mdPkgOpen(); }catch(x){} }
     else if(k === 'drive'){ if(window.jmaDriveOpen) jmaDriveOpen(); }
     else if(k === 'pic'){ if(window.jmaHomePhoto) jmaHomePhoto(); }
@@ -8703,4 +8706,18 @@ body:has(#jm93) #jm66{display:none}
 <style id="jma122css">/* MD2611TH122 (مالک کا حکم): پیلی «سننے والے طالب علم کا نام چنیں» پٹی نہیں — طالب علم والا بٹن ہی ڈراپ ڈاؤن کھولتا ہے؛ چنا ہوا خانہ (.ok) ویسا */
 .jm90f:not(.ok){display:none!important}
 </style>
+<style id="jma125css">
+/* MD2611TH125 (مالک کا حکم): ہوم کا سرخ «لاگ آؤٹ» بٹن ختم (لاگ آؤٹ / تالا سیٹنگز میں)؛ باہر جانے کا پاپ اپ My City Shines جیسا — 🚪، کینسل / ایگزٹ ساتھ ساتھ */
+.x62 .lo102{display:none!important}
+#jm51x.x123{background:rgba(15,23,42,.55)!important}
+#jm51x.x123 .bx{max-width:330px!important;border-radius:18px!important;padding:18px 16px 14px!important;box-shadow:0 16px 40px rgba(0,0,0,.35)}
+#jm51x.x123 .ic{font-size:36px;line-height:1.2}
+#jm51x.x123 h3{color:#0f172a!important;font-size:23px!important;margin:2px 0 2px!important}
+#jm51x.x123 p{font-size:16px;color:#475569;line-height:1.9;margin:0}
+#jm51x.x123 .rw{display:flex;gap:10px;margin-top:14px}
+#jm51x.x123 .rw button{flex:1;margin:0!important;padding:9px 6px!important;border-radius:12px!important;font-family:inherit;font-size:18px!important;line-height:1.7;width:auto!important}
+#jm51x.x123 .rw .n{border:1.5px solid #cbd5e1!important;background:#fff!important;color:#334155!important}
+#jm51x.x123 .rw .c{border:0!important;background:#0f766e!important;color:#fff!important;font-weight:700}
+</style>
+
 </body></html>
