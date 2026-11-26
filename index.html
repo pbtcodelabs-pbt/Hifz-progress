@@ -107,7 +107,7 @@
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName"></div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH122</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH123</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -4453,7 +4453,9 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   /* فون کی پہچان (سبزی منڈی جیسی) — اسی فون پر دوبارہ انسٹال ہو تو وہی ID اور وہی ٹرائل */
   function fpv(){ try{ var f = [String(navigator.userAgent || '').replace(/\d+/g, ''), Math.min(screen.width, screen.height), Math.max(screen.width, screen.height), navigator.hardwareConcurrency || 2, new Date().getTimezoneOffset(), navigator.language || '', navigator.platform || ''].join('|');
     var h1 = 5381, h2 = 52711; for(var i = 0; i < f.length; i++){ var c = f.charCodeAt(i); h1 = (h1 * 33) ^ c; h2 = (h2 * 31 + c) | 0; } return (h1 >>> 0).toString(36) + (h2 >>> 0).toString(36); }catch(e){ return ''; } }
-  function devKey(mob){ var m = me(); if(m.dev) return m.dev; var f = fpv() || Math.random().toString(36).slice(2, 12), h = 0, k = f + '|' + String(mob).slice(-10); for(var i = 0; i < k.length; i++){ h = ((h << 5) - h + k.charCodeAt(i)) | 0; } m.dev = 'M' + f + (h >>> 0).toString(36); save(m); return m.dev; }
+  /* MD2611TH123 (مالک کا حکم): ایک ہی ماڈل کے دو فون ایک ہی ID نہ بنائیں — ہر انسٹال کی اپنی خفیہ پہچان (rid)، فون کی عام پہچان کے ساتھ ملا کر */
+  function iid(){ var m = me(); if(!m.rid){ m.rid = Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4); save(m); } return m.rid; }
+  function devKey(mob){ var rid = iid(), m = me(); if(m.dev) return m.dev; var f = (fpv() || '') + rid, h = 0, k = f + '|' + String(mob).slice(-10); for(var i = 0; i < k.length; i++){ h = ((h << 5) - h + k.charCodeAt(i)) | 0; } m.dev = 'M' + f + (h >>> 0).toString(36); save(m); return m.dev; }
   function post(path, body){ return fetch(W + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).then(function(r){ return r.json(); }); }
   /* ٹرائل: سرور کا وقت یا پہلے کا مقامی — جو پہلے ہو (نئی ID سے نیا ٹرائل نہیں) */
   function setTrial(at){ if(!at) return; var t = jget(TRIAL_K); var st = t && t.start ? Math.min(t.start, at) : at; if(!t || t.start !== st){ try{ localStorage.setItem(TRIAL_K, JSON.stringify({ start: st })); }catch(e){} } }
@@ -4465,7 +4467,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     var m = me(); if(m.id || regBusy || !m.pend || navigator.onLine === false) return Promise.resolve();
     regBusy = true;
     var name = (m.mad + ' — ' + m.per + (m.dist ? ' (' + m.dist + ')' : '')).slice(0, 60);
-    return post('/aioid', { op: 'reg', app: 'MD', dev: devKey(m.mob), fp: fpv(), name: name, mobile: m.mob, gmail: '' }).then(function(r){
+    return post('/aioid', { op: 'reg', app: 'MD', dev: devKey(m.mob), fp: fpv() + '.' + iid(), name: name, mobile: m.mob, gmail: '' }).then(function(r){
       if(r && r.ok && r.id){ var m2 = me(); m2.id = r.id; m2.at = r.at || Date.now(); delete m2.pend; save(m2); if(!pkgAct()) setTrial(m2.at); paint(); check(true); }
     }).catch(function(){}).then(function(){ regBusy = false; });
   }
@@ -4546,6 +4548,21 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       var pk = $('md28pkid'); if(pk){ var h2 = idCard(false); if(pk.innerHTML !== h2) pk.innerHTML = h2; }
     }catch(e){}
   }
+  /* MD2611TH123 (مالک کا حکم): دوسرا فون پرانی ID پر بیٹھ جائے تو ڈیٹا مٹائے بغیر اس فون کی نئی ID — ID کے نمبر پر 7 بار دبائیں */
+  function resetId(){
+    var m = me(); if(!m.id) return;
+    if(!confirm('🆕 اس فون کی ID ' + m.id + ' ختم کر کے نئی ID بنائیں؟\n\n• مدرسے کا سارا ڈیٹا ویسا ہی رہے گا\n• اس ID کا پیکج / ٹرائل اس فون سے ہٹ جائے گا (اصل فون پر ویسا چلتا رہے گا)\n• نئی ID پر نیا 3 دن کا ٹرائل شروع ہو گا\n\nٹھیک ہے؟')) return;
+    var keep = { mad: m.mad, per: m.per, mob: m.mob, dist: m.dist, rid: Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4) };
+    save(keep);
+    try{ var a = jget(ACT_K); if(a && a.md) localStorage.removeItem(ACT_K); }catch(e){}
+    try{ localStorage.removeItem(TRIAL_K); localStorage.removeItem('jamia_pkwarn_v1'); }catch(e){}
+    var o = $('md28pk'); if(o) o.remove(); paint(); signup();
+  }
+  var idTaps = 0, idTapT = 0;
+  document.addEventListener('click', function(e){
+    var v = e.target.closest && e.target.closest('.md28id .v');
+    if(v){ var n = Date.now(); idTaps = (n - idTapT < 1500) ? idTaps + 1 : 1; idTapT = n; if(idTaps >= 7){ idTaps = 0; resetId(); } return; }
+  });
   document.addEventListener('click', function(e){
     var b = e.target.closest && e.target.closest('[data-md28]'); if(!b) return;
     var k = b.getAttribute('data-md28');
@@ -4874,7 +4891,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH122" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH123" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -6351,7 +6368,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
-      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH122') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
+      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH123') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -7143,7 +7160,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2611TH122', n: '👂 «کس نے سنا» کی فہرست اب «سننے والے طالب علم» بٹن کے عین نیچے کھلتی ہے؛ پیلی پٹی ختم' };
+window.MD_NOTE = { v: 'MD2611TH123', n: '🆔 دو ایک جیسے موبائل اب الگ الگ MD ID بناتے ہیں · '👂 «کس نے سنا» کی فہرست اب «سننے والے طالب علم» بٹن کے عین نیچے کھلتی ہے؛ پیلی پٹی ختم' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
