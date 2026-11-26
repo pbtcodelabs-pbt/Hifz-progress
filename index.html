@@ -103,7 +103,7 @@
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH117</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH118</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -3163,7 +3163,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }
   /* MD2511WE088: پروفائل سے آج کی ایک نشست ایک ٹچ میں (وہی setSes + save — ڈیٹا کا ڈھانچہ ویسا) */
   window.jmaSetSesNow = function(sid, i, st, reason){ setSes(sid, pk(), i, st, reason); save(); try{ document.dispatchEvent(new Event('jma-changed')); }catch(e){} try{ if(window.jmaProRedraw) jmaProRedraw(); }catch(e){} };
-  window.jmaSetSesMany = function(L){ (L || []).forEach(function(x){ setSes(x[0], pk(), x[1], x[2], x[3]); }); save(); try{ document.dispatchEvent(new Event('jma-changed')); }catch(e){} };   /* MD2611TH117: نیا حاضری صفحہ — ایک ساتھ کئی */
+  window.jmaSetSesMany = function(L){ (L || []).forEach(function(x){ setSes(x[0], pk(), x[1], x[2], x[3]); }); save(); try{ document.dispatchEvent(new Event('jma-changed')); }catch(e){} };   /* MD2611TH118: نیا حاضری صفحہ — ایک ساتھ کئی */
   window.jmaSesGuess = function(){ return guess(); };
   window.jmaSesOf = function(sid, i){ return sesOf(sid, pk(), i); };
 
@@ -4869,7 +4869,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH117" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH118" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -6346,7 +6346,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
-      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH117') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
+      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH118') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -7138,7 +7138,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2611TH117', n: '🕌 حاضری اب الگ صفحہ (ہوم پر «حاضری»): نشست چنیں، غیر حاضر بچے پر ٹچ، «باقی سب حاضر» — پھر اگلی نشست؛ 📝 «روزانہ ریکارڈ» میں صرف سبق / سبقی / منزل' };
+window.MD_NOTE = { v: 'MD2611TH118', n: '📲 «ایپ شیئر» اب موبائل ایپ (APK) کا لنک بھیجتا ہے — ساتھ انسٹال کا آسان طریقہ؛ کمپیوٹر کے لیے ویب لنک بھی' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -7429,7 +7429,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
       + '<div class="sh62"><span>اہم شعبے</span></div>'
       + '<div class="g62t g94">'   /* MD2511WE094 (#417): سبق / سبقی / منزل / حاضری کے الگ خانے ختم — ایک طالب علم میں سب */
       + tile('c-stu', 'h-stu.png', 'روزانہ ریکارڈ<small>سبق · سبقی · منزل</small>', 'data-d="stu"', nStu)
-      + tile('c-att', 'h-att.png', 'حاضری', 'data-d="att"', null)   /* MD2611TH117 (مالک کا حکم): حاضری الگ مستقل کام */
+      + tile('c-att', 'h-att.png', 'حاضری', 'data-d="att"', null)   /* MD2611TH118 (مالک کا حکم): حاضری الگ مستقل کام */
       /* MD2511WE101 (مالک کا حکم): «کارکردگی» ہوم سے ہٹی — رپورٹس کے اندر «📊 جماعت کی کارکردگی» */
       + tile('c-rep', 'h-rep.png', 'رپورٹس', 'data-d="rep"', null)
       + '</div>'
@@ -7641,7 +7641,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
   window.addEventListener('appinstalled', function(){ var c = document.getElementById('jm74i'); if(c) c.remove(); if(window.jmaToast) jmaToast('✅ ایپ انسٹال ہو گئی — فون کی اسکرین پر «مدرسہ» دیکھیں'); });
   function mad(){ try{ return (window.jmaMadName && jmaMadName()) || ''; }catch(e){ return ''; } }
   window.jmaShareApp = function(){
-    var t = '🕌 مدرسہ مینجمنٹ سافٹ ویئر — حفظ (سبق، سبقی، منزل)، 6 اوقات کی حاضری، امتحان، رپورٹیں اور ختم قرآن کا تخمینہ، سب ایک ایپ میں۔\n\n📲 یہ لنک کھولیں اور «ایپ انسٹال کریں» دبائیں — ایپ فون میں آ جائے گی:\n';
+    var t = '🕌 مدرسہ مینجمنٹ سافٹ ویئر — حفظ (سبق، سبقی، منزل)، 6 اوقات کی حاضری، امتحان، رپورٹیں اور ختم قرآن کا تخمینہ، سب ایک ایپ میں۔\n\n📲 موبائل ایپ ڈاؤن لوڈ کریں:\nhttps://github.com/pbtcodelabs-pbt/Hifz-progress/releases/download/madrasa-apk/Madrasa.apk\n\n✅ انسٹال کا آسان طریقہ:\n1️⃣ لنک دبائیں — فائل ڈاؤن لوڈ ہو گی\n2️⃣ ڈاؤن لوڈ مکمل ہو تو فائل کھولیں\n3️⃣ «نامعلوم ایپس» کی اجازت مانگے تو اجازت دیں\n4️⃣ Install دبائیں — ایپ تیار\n\n🌐 کمپیوٹر / Chrome میں:\n';
     if(navigator.share){ navigator.share({ title: 'مدرسہ مینجمنٹ ایپ', text: t, url: URL0 }).catch(function(){}); return; }
     window.open('https://wa.me/?text=' + encodeURIComponent(t + URL0), '_blank');
   };
@@ -8151,7 +8151,7 @@ body:has(#jm93) #jm66{display:none}
     var x = att(sid, ses()), es = ents(sid), has = {}; es.forEach(function(e){ has[e.kind] = 1; });
     var abs = dayAbs(sid) || (x && x.st === 'a');
     var off = {}; KN.forEach(function(k){ if(window.jmaKindOff && jmaKindOff(sid, k[0])) off[k[0]] = 1; });   /* MD2611TH109: بند = مکمل گنا جائے */
-    return { att: x, abs: abs, has: has, off: off, done: !!(abs || ((has.sabaq || off.sabaq) && (has.sabqi || off.sabqi) && (has.manzil || off.manzil))) };   /* MD2611TH117: حاضری الگ صفحے پر — مکمل = سبق + سبقی + منزل */
+    return { att: x, abs: abs, has: has, off: off, done: !!(abs || ((has.sabaq || off.sabaq) && (has.sabqi || off.sabqi) && (has.manzil || off.manzil))) };   /* MD2611TH118: حاضری الگ صفحے پر — مکمل = سبق + سبقی + منزل */
   }
   /* MD2511WE106: پیش رفت — اس نشست کی حاضری + سبق + سبقی + منزل (4 حصے)؛ غیر حاضر / رخصت = پورا */
   function prog(sid){ var st = state(sid); if(st.done) return 4; var n = (st.has.sabaq || st.off.sabaq ? 1 : 0) + (st.has.sabqi || st.off.sabqi ? 1 : 0) + (st.has.manzil || st.off.manzil ? 1 : 0); return n === 3 ? 4 : Math.round(n * 4 / 3); }
@@ -8171,7 +8171,7 @@ body:has(#jm93) #jm66{display:none}
       + '<div class="j101hd"><button type="button" class="nv" data-j101n="-1"' + (i <= 0 ? ' disabled' : '') + ' title="پچھلا">›</button>'
       + '<div class="md" data-j101pro="1"><div class="ph" style="' + bg(s.photo) + '">' + (s.photo ? '' : '👤') + '</div><div class="tx"><div class="nm"><span class="rl">' + E(s.roll || '—') + '</span>' + E(s.n) + '</div><div class="fa">' + (s.w ? 'ولد ' + E(s.w) : '') + ' · <span style="font-family:Arial">' + (i + 1) + '/' + L.length + '</span></div></div></div>'
       + '<button type="button" class="nv" data-j101n="1"' + (i >= L.length - 1 ? ' disabled' : '') + ' title="اگلا">‹</button></div>'
-      + '<div class="lb" style="display:flex;justify-content:space-between;align-items:center">🕌 حاضری «' + SES[si] + '»: <b style="font-weight:400;color:' + (st.att ? (st.att.st === 'a' ? '#dc2626' : st.att.st === 'h' ? '#d97706' : '#15803d') : '#64748b') + '">' + (st.att ? STT[st.att.st] : 'ابھی نہیں لگی') + '</b><button type="button" class="j101pro" data-j117att="1">🕌 حاضری کا صفحہ</button></div>'   /* MD2611TH117: حاضری یہاں نہیں لگتی — الگ صفحہ */
+      + '<div class="lb" style="display:flex;justify-content:space-between;align-items:center">🕌 حاضری «' + SES[si] + '»: <b style="font-weight:400;color:' + (st.att ? (st.att.st === 'a' ? '#dc2626' : st.att.st === 'h' ? '#d97706' : '#15803d') : '#64748b') + '">' + (st.att ? STT[st.att.st] : 'ابھی نہیں لگی') + '</b><button type="button" class="j101pro" data-j117att="1">🕌 حاضری کا صفحہ</button></div>'   /* MD2611TH118: حاضری یہاں نہیں لگتی — الگ صفحہ */
       + (st.abs ? '<div class="lb" style="color:#b91c1c">✖ آج غیر حاضر — سبق کا اندراج نہیں</div>' : '<div class="lb">📝 آج کا سبق</div><div class="jm88t">' + tl + '</div>')
       + '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span><button type="button" class="j101pro" data-j101pro="1">👤 پورا پروفائل</button> <button type="button" class="j101pro" data-j109o="' + E(cur) + '">🔒 بند / کھولیں</button></span>' + (st.done ? '<span style="color:#15803d;font-weight:800">✓ آج کا کام مکمل</span>' : '<span style="color:#b45309;font-size:13px">ابھی باقی</span>') + '</div>'
       + (i < L.length - 1 ? '<button type="button" class="j101ok' + (st.done ? '' : ' nx') + '" data-j101n="1">' + (st.done ? '✓ مکمل — اگلا طالب علم ←' : 'اگلا طالب علم ←') + '</button>' : (st.done ? '<div class="j101ok" style="text-align:center">🎉 جماعت کا آخری طالب علم</div>' : ''))
@@ -8282,7 +8282,7 @@ body:has(#jm93) #jm66{display:none}
 })();
 </script>
 <style id="jma117css">
-/* MD2611TH117 (مالک کا حکم): حاضری الگ سادہ صفحہ — نشست چنیں، غیر حاضر پر ٹچ، «باقی سب حاضر» */
+/* MD2611TH118 (مالک کا حکم): حاضری الگ سادہ صفحہ — نشست چنیں، غیر حاضر پر ٹچ، «باقی سب حاضر» */
 #jmaAtt.a117{padding-bottom:150px}
 .a117 .tp{position:sticky;top:0;z-index:3;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#065f46,#0f766e);color:#fff;padding:8px 12px}
 .a117 .tp b{font-family:'Jameel Noori Nastaleeq Kasheeda',var(--nastaliq),serif;font-size:22px;font-weight:400}
@@ -8316,7 +8316,7 @@ body:has(#jm93) #jm66{display:none}
 .a117 .em{text-align:center;padding:30px 10px;font-size:17px;color:#475569}
 </style>
 <script id="jma117">
-/* 🕌 MD2611TH117 (مالک کا حکم — «حاضری الگ مستقل کام، ٹک ٹک سے ساری نشستیں، باقی سب حاضر»):
+/* 🕌 MD2611TH118 (مالک کا حکم — «حاضری الگ مستقل کام، ٹک ٹک سے ساری نشستیں، باقی سب حاضر»):
    `jmaAttOpen` کی جگہ نیا صفحہ (وہی `#jmaAtt` ڈبہ، وہی ڈیٹا `jamia_mgmt_att_v1` بذریعہ `jmaSetSesMany`): اوپر جماعت، آج کی تاریخ، 6 نشستیں
    (ہر ایک پر ✓ مکمل / N باقی)، بچوں کے چھوٹے ڈبے؛ ٹچ = غیر حاضر → آدھی → خالی (حاضر پر ٹچ = غیر حاضر)؛ نیچے «✅ باقی N طلبہ حاضر»؛
    مکمل ہو تو «اگلی نشست ←» (اگلی باقی والی)۔ صرف آج (پرانی تاریخ پرانے طریقے سے نہیں چھیڑی)۔ */
