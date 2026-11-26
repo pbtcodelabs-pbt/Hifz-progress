@@ -103,7 +103,7 @@
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName">گلشن فاروقی جامعہ تعلیم القرآن</div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH114</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2611TH115</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -2451,9 +2451,24 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   function clsForm(id){
     if(!canAdmin()){ alert('🔒 جماعت صرف منتظم / مہتمم بنا یا بدل سکتا ہے'); return; }
     var c = id ? MC.find(function(x){ return x.id === id; }) : null;
-    var nm = prompt('جماعت کا نام:', c ? c.name : ''); if(nm == null) return; nm = nm.trim(); if(!nm){ alert('نام لکھیں'); return; }
-    if(MC.some(function(x){ return x !== c && x.name === nm; })){ alert('اس نام کی جماعت پہلے سے ہے'); return; }
-    var tc = prompt('ذمہ دار استاد کا نام:', c ? (c.incharge || '') : ''); if(tc == null) return;
+    /* MD2611TH115 (مالک کا حکم): فون کا سادہ ڈبہ (prompt) نہیں — ایپ کے اندر اپنا فارم */
+    var old = $('jm115c'); if(old) old.remove();
+    var o = document.createElement('div'); o.id = 'jm115c'; o.setAttribute('dir', 'rtl');
+    o.innerHTML = '<div class="bx"><h3>' + (c ? '✏️ جماعت بدلیں' : '➕ نئی جماعت') + '</h3>'
+      + '<label>جماعت کا نام</label><input id="jm115n" maxlength="30" value="' + E(c ? c.name : '') + '" placeholder="مثلاً حفظ کلاس 1">'
+      + '<label>ذمہ دار استاد / قاری صاحب</label><input id="jm115t" maxlength="30" value="' + E(c ? (c.incharge || '') : '') + '" placeholder="مثلاً قاری عبدالرحمن">'
+      + '<div class="er" id="jm115e"></div><div class="rw"><button type="button" class="no">✕ واپس</button><button type="button" class="ok">✅ محفوظ کریں</button></div></div>';
+    document.body.appendChild(o);
+    setTimeout(function(){ try{ $('jm115n').focus(); }catch(e){} }, 60);
+    o.addEventListener('click', function(ev){ if(ev.target === o || ev.target.closest('.no')) o.remove(); });
+    o.querySelector('.ok').onclick = function(){
+      var nm = String($('jm115n').value || '').trim(), tc = String($('jm115t').value || '').trim(), er = $('jm115e');
+      if(!nm){ er.textContent = 'جماعت کا نام لکھیں'; return; }
+      if(MC.some(function(x){ return x !== c && x.name === nm; })){ er.textContent = 'اس نام کی جماعت پہلے سے ہے'; return; }
+      o.remove(); clsSave(c, id, nm, tc);
+    };
+  }
+  function clsSave(c, id, nm, tc){
     var t = Date.now();
     if(c){ c.name = nm; c.incharge = tc.trim(); c.upd = t; }
     else { c = { id: 'MC' + t.toString(36), name: nm, incharge: tc.trim(), created: t, upd: t, dev: devId() }; MC.push(c); }
@@ -2991,8 +3006,9 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   function save(){
     F.note = ($('jm3Note') || {}).value || '';
     var er = '';
+    var _pp = F.items.map(function(it){ return it.para; });
     F.items = F.items.filter(function(it){ return (it.lines || 0) + (it.ruku || 0) + ((it.pao || []).length) > 0 || false; });
-    if(!F.items.length) er = 'پارہ چنیں اور مقدار (لائن / رکوع / پاؤ) لکھیں';
+    if(!F.items.length) er = _pp.length ? '📖 پارہ ' + _pp.join('، ') + ' چن لیا — اب اس کی مقدار بتائیں: لائنیں یا رکوع کا وہیل گھمائیں، یا پاؤ دبائیں' : '📖 پہلے پارہ چنیں، پھر مقدار (لائنیں / رکوع / پاؤ)';   /* MD2611TH115: واضح ہدایت */
     else if(F.kind === 'manzil' && F.items.some(function(it){ return it.lines; })) F.items.forEach(function(it){ it.lines = 0; });
     if(!er && F.date > pkDate()) er = 'آنے والی تاریخ کا اندراج نہیں ہو سکتا';
     if(!er && !F.lis.type) er = '👂 کس نے سنا؟ — «استاد محترم» یا «طالب علم» چنیں';
@@ -4479,8 +4495,20 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       if(!$('md28su')) return;
       var m3 = me(); if(!m3.id && !pkgAct() && !oldAct()) setTrial(m3.sAt || Date.now());   /* انٹرنیٹ نہ ہو تو بھی ٹرائل — ID انٹرنیٹ آتے ہی */
       o.remove(); after(); try{ var dsh = $('jmaDash'); if(dsh && dsh.style.display === 'block' && window.jmaDashOpen) jmaDashOpen(); }catch(e){}   /* MD2611TH114: سائن اپ کا نام / مہتمم ہوم پر فوراً */
-      try{ if(typeof showToast === 'function') showToast(ok ? '✅ آپ کی MD ID: ' + m3.id + ' — 3 دن مفت' : '📶 انٹرنیٹ نہیں — ٹرائل شروع، ID انٹرنیٹ آتے ہی خود بنے گی'); else alert(ok ? '✅ آپ کی MD ID: ' + m3.id : '📶 انٹرنیٹ آتے ہی ID خود بنے گی'); }catch(e){}
+      try{ welcome115(ok ? m3.id : ''); }catch(e){}   /* MD2611TH115 (مالک کا حکم): فون کا سادہ ڈبہ نہیں — ایپ کا اپنا خوش آمدید کارڈ */
     }
+  }
+  function welcome115(id){
+    var o = document.createElement('div'); o.id = 'md115w'; o.setAttribute('dir', 'rtl');
+    o.style.cssText = 'position:fixed;inset:0;z-index:2147483580;background:rgba(2,44,34,.6);display:flex;align-items:center;justify-content:center;padding:18px;font-family:\'Jameel Noori Nastaleeq Kasheeda\',\'Jameel Noori Nastaleeq\',serif';
+    o.innerHTML = '<div style="background:#fff;border-radius:22px;max-width:360px;width:100%;padding:18px 16px;text-align:center;box-shadow:0 16px 40px rgba(0,0,0,.35);border:3px solid #d4af37">'
+      + '<div style="font-size:46px;line-height:1.2">🎉</div><div style="font-size:24px;color:#065f46;line-height:2">خوش آمدید!</div>'
+      + (id ? '<div style="font-size:16px;color:#334155;line-height:1.9">آپ کی MD ID</div><div style="font:900 32px Arial,sans-serif;color:#065f46;letter-spacing:2px;direction:ltr">' + E(id) + '</div>' : '<div style="font-size:16px;color:#92400e;line-height:1.9">📶 انٹرنیٹ نہیں — ID انٹرنیٹ آتے ہی خود بنے گی</div>')
+      + '<div style="margin:8px 0;background:#ecfdf5;border-radius:12px;padding:6px;font-size:18px;color:#065f46;line-height:1.9">🎁 3 دن مفت — سب کچھ کھلا ہے</div>'
+      + '<div style="font-size:14px;color:#475569;line-height:1.9">اگلا قدم: ایپ کا تالا (4 ہندسوں کا پن) بنائیں، پھر «طلبہ» میں پہلی جماعت</div>'
+      + '<button type="button" style="margin-top:10px;width:100%;border:0;border-radius:14px;padding:10px;background:linear-gradient(135deg,#16a34a,#065f46);color:#fff;font:inherit;font-size:20px;line-height:1.8;cursor:pointer">✅ شروع کریں</button></div>';
+    o.querySelector('button').onclick = function(){ o.remove(); };
+    document.body.appendChild(o);
   }
   /* سائن اپ / ٹرائل کے بعد پرانے تالے کو دوبارہ فیصلہ کرنے دیں */
   function after(){ try{ var st = checkExpiry(), lk = $('lockScreen'), on = !!(lk && lk.style.display === 'flex');
@@ -4840,7 +4868,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH114" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2611TH115" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -6317,7 +6345,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
-      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH114') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
+      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2611TH115') + '</bdi></div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -7109,7 +7137,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2611TH114', n: '📅 تاریخ کا خانہ ایک لائن میں («جمعرات» دو لائن میں نہیں)؛ 🆕 نئے گاہک کے لیے: سائن اپ کے فوراً بعد ہوم پر مدرسے کا نام، خالی صفحے پر سادہ ہدایت' };
+window.MD_NOTE = { v: 'MD2611TH115', n: '👥 طلبہ کی گولیاں اب اوپر سامنے؛ ➕ نئی جماعت ایپ کے اپنے فارم میں؛ 🎉 سائن اپ پر خوش آمدید کارڈ؛ 📖 سبق میں مقدار کی واضح ہدایت' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -8180,7 +8208,7 @@ body:has(#jm93) #jm66{display:none}
       try{ if(window.jmaToast) jmaToast('☁️ ' + fly.map(function(x){ return (bySid(x) || {}).n; }).join('، ') + ' — آج کا کام مکمل'); }catch(e){} }
     var box = document.createElement('div'); box.id = 'j101box';
     box.innerHTML = '<div class="j101cnt">آج مکمل: <b>' + done + '</b> / <b>' + L.length + '</b> · باقی: <b>' + (L.length - done) + '</b> <button type="button" class="j101pro" data-j101full="1" style="float:left">' + (full ? '🔼 فہرست بند' : '📋 پوری فہرست') + '</button></div>'
-      + (full ? '' : focusHTML(L) + pillsHTML(L, fly));
+      + (full ? '' : pillsHTML(L, fly) + focusHTML(L));   /* MD2611TH115 (مالک کا حکم): گولیاں اوپر سامنے، نیچے نہیں */
     grid.parentNode.insertBefore(box, grid);
     setTimeout(function(){ var p = $('j101p'), on = p && p.querySelector('.on'); if(on){ try{ p.scrollLeft = on.offsetLeft - p.clientWidth / 2 + on.clientWidth / 2; }catch(e){} } }, 0);
   }
@@ -8251,6 +8279,21 @@ body:has(#jm93) #jm66{display:none}
   }, true);
 })();
 </script>
+<style id="jma115css">
+/* MD2611TH115: جماعت کا فارم (prompt کی جگہ) + گولیاں اوپر */
+#jm115c{position:fixed;inset:0;z-index:2147483300;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;padding:16px;font-family:'Jameel Noori Nastaleeq',var(--nastaliq),serif}
+#jm115c .bx{background:#fff;border-radius:18px;max-width:380px;width:100%;padding:14px 16px;border:2px solid #0f766e;box-shadow:0 14px 36px rgba(0,0,0,.3)}
+#jm115c h3{margin:0 0 6px;font-family:'Jameel Noori Nastaleeq Kasheeda','Jameel Noori Nastaleeq',serif;font-size:22px;color:#065f46;text-align:center;line-height:1.9}
+#jm115c label{display:block;font-size:16px;color:#334155;margin-top:6px;line-height:1.8}
+#jm115c input{width:100%;box-sizing:border-box;border:1.5px solid #94a3b8;border-radius:12px;padding:8px 10px;font:inherit;font-size:18px;direction:rtl;line-height:1.7}
+#jm115c input:focus{outline:none;border-color:#0f766e}
+#jm115c .er{color:#b91c1c;font-size:14px;min-height:22px;line-height:1.7}
+#jm115c .rw{display:flex;gap:8px;margin-top:4px}
+#jm115c .rw button{flex:1;border-radius:12px;padding:8px;font:inherit;font-size:18px;line-height:1.7;cursor:pointer}
+#jm115c .no{border:1.5px solid #cbd5e1;background:#fff;color:#334155}
+#jm115c .ok{border:0;background:linear-gradient(135deg,#16a34a,#065f46);color:#fff;flex:1.4}
+#j101box .j101p{margin:2px 0 8px;padding-top:8px;border-bottom:1px dashed #cbd5e1}
+</style>
 <style id="jma109css">
 /* MD2611TH109 (مالک کا حکم): «کس نے سنا» کی فہرست سمٹی ہوئی — رول، نام، بڑی صاف تصویر */
 #jm90.pop .bx{width:auto;min-width:190px}
