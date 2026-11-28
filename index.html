@@ -176,7 +176,7 @@ html,body{touch-action:pan-x pan-y!important;-webkit-text-size-adjust:100%!impor
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName"></div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2811SA136</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2811SA138</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -2605,10 +2605,10 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
       h += '<div class="jm2-card"><div class="jm2-photo"><div class="pv" id="jm2Pv" style="' + photoBg(F.photo) + '">' + (F.photo ? '' : '📷') + '</div><div style="flex:1"><button type="button" class="jm2-btn o" data-a="photo" style="width:100%">📷 تصویر لیں / چنیں</button>' + (F.photo ? '<button type="button" class="jm2-btn r" data-a="nophoto" style="width:100%;margin-top:6px;font-size:15px">تصویر ہٹائیں</button>' : '') + '</div></div><input type="file" id="jm2File" accept="image/*" style="display:none"></div>';
       h += '<div class="jm2-card"><label class="jm2-l">طالب علم کا مکمل نام <i>*</i></label><input class="jm2-in" data-f="n" value="' + E(F.n) + '">'
         + '<label class="jm2-l">والد کا نام <i>*</i></label><input class="jm2-in" data-f="w" value="' + E(F.w) + '">'
+        + '<label class="jm2-l">والد / سرپرست کا موبائل نمبر <i>*</i></label><input class="jm2-in" data-f="mob" value="' + E(F.mob) + '" inputmode="tel" dir="ltr" style="font-family:Arial;text-align:right" placeholder="03001234567">'
         + '<label class="jm2-l">جنس</label>' + sel('gender', ['طالب', 'طالبہ'], F.gender)
         + '<label class="jm2-l">سرپرست کا نام</label><input class="jm2-in" data-f="grd" value="' + E(F.grd) + '" placeholder="خالی ہو تو والد کا نام">'
         + '<label class="jm2-l">سرپرست سے تعلق</label>' + sel('rel', REL, F.rel)
-        + '<label class="jm2-l">سرپرست کا موبائل نمبر <i>*</i></label><input class="jm2-in" data-f="mob" value="' + E(F.mob) + '" inputmode="tel" dir="ltr" style="font-family:Arial;text-align:right" placeholder="03001234567">'
         + '<label class="jm2-l">داخلے کی تاریخ</label><input class="jm2-in" type="date" data-f="admDate" value="' + E(F.admDate) + '" style="font-family:Arial">'
         + '<label class="jm2-l">پتہ</label><input class="jm2-in" data-f="addr" value="' + E(F.addr) + '"></div>';
     } else if(step === 2){
@@ -4285,7 +4285,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
 
   window.jmaDashOpen = function(){ $('jmaDash').style.display = 'block'; draw(); };
   function draw(){
-    /* MD2811SA136 (مالک کا حکم): پرانا ڈیش بورڈ ختم — یہاں سے ہمیشہ نیا ہوم بنتا ہے (پرانا کوڈ صرف نیا ہوم ناکام ہو تو حفاظتی بیک اپ) */
+    /* MD2811SA138 (مالک کا حکم): پرانا ڈیش بورڈ ختم — یہاں سے ہمیشہ نیا ہوم بنتا ہے (پرانا کوڈ صرف نیا ہوم ناکام ہو تو حفاظتی بیک اپ) */
     if(window.jma54Home){ try{ window.jma54Home(); return; }catch(e){} }
     var u = me(), T = today(), A = anns().filter(function(a){ return a.aud !== 'parents' || can('classes'); });
     var lb = +localStorage.getItem(LB_K) || 0, lbDays = lb ? Math.floor((Date.now() - lb) / 864e5) : null;
@@ -5075,7 +5075,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2811SA136" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2811SA138" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -6571,7 +6571,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
-      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2811SA136') + '</bdi>' + (window.mdPkgShort && mdPkgShort() ? ' · ' + esc(mdPkgShort()) : '') + '</div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
+      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2811SA138') + '</bdi>' + (window.mdPkgShort && mdPkgShort() ? ' · ' + esc(mdPkgShort()) : '') + '</div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -7364,7 +7364,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2811SA136', n: '📦 سبسکرپشن کی پٹی پکی ٹھیک: از، تا تاریخ اور باقی دن ہر حال میں ایک ہی لائن (کبھی اوپر نیچے نہیں)؛ ورژن نمبر ہوم کے اوپر بائیں کونے میں؛ ہر صفحے کے نیچے خوبصورت پیچھے / ہوم / آگے پٹی۔ 🔒 زوم بند (100% لاک)، سبسکرپشن کی ایک لائن کی باریک کیپسول؛ 🔄📖📕 ہوم پر تین کیٹگریاں: گردان، حفظ، ناظرہ (گنتی سمیت)؛ ہر ایک میں روزانہ کا اندراج اور حاضری۔ طالب علم کے پروفائل میں کیٹگری بدلنے کا ڈراپ ڈاؤن۔ سبسکرپشن کی باریک پٹی؛ ہوم بغیر سکرول' };
+window.MD_NOTE = { v: 'MD2811SA138', n: '📦 سبسکرپشن کی پٹی پکی ٹھیک: از، تا تاریخ اور باقی دن ہر حال میں ایک ہی لائن (کبھی اوپر نیچے نہیں)؛ ورژن نمبر ہوم کے اوپر بائیں کونے میں؛ ہر صفحے کے نیچے خوبصورت پیچھے / ہوم / آگے پٹی۔ 🔒 زوم بند (100% لاک)، سبسکرپشن کی ایک لائن کی باریک کیپسول؛ 🔄📖📕 ہوم پر تین کیٹگریاں: گردان، حفظ، ناظرہ (گنتی سمیت)؛ ہر ایک میں روزانہ کا اندراج اور حاضری۔ طالب علم کے پروفائل میں کیٹگری بدلنے کا ڈراپ ڈاؤن۔ سبسکرپشن کی باریک پٹی؛ ہوم بغیر سکرول' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -7740,7 +7740,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
       if(g === 'ent'){ if(window.jmaStuOpen) jmaStuOpen(k); }
       else if(g === 'att'){ window.jmaCatCur = k; if(window.jmaAttOpen) jmaAttOpen(); } });
   }
-  window.jma54Home = draw;   /* MD2811SA136: پرانا ڈیش بورڈ بھی اسی کو بلاتا ہے */
+  window.jma54Home = draw;   /* MD2811SA138: پرانا ڈیش بورڈ بھی اسی کو بلاتا ہے */
   var orig = window.jmaDashOpen;
   window.jmaDashOpen = function(){ var el = $('jmaDash'); el.style.display = 'block'; try{ draw(); }catch(e){ el.classList.remove('jm54'); if(orig) orig(); } };
   document.addEventListener('click', function(e){
@@ -9166,12 +9166,12 @@ html body .pbtPw686:active{transform:scale(.92)}
 #jmaDash .x62 .sb131 span{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;line-height:1;margin:0;padding:2px 0 0}
 #jmaDash .x62 .sb131 b{font:700 .95em Arial,sans-serif;direction:ltr;unicode-bidi:isolate;margin:0;padding:0;display:inline}
 .x62 .vb131{position:absolute;left:3%;top:16px;z-index:3;height:28px;min-width:50px;padding:0 11px;box-sizing:border-box;border-radius:999px;border:1.5px solid #fff;background:rgba(6,68,32,.88);color:#fde68a;font:800 14px/25px Arial,sans-serif;letter-spacing:.3px;text-align:center;direction:ltr;box-shadow:0 2px 6px rgba(0,0,0,.35)}
-/* MD2811SA136: سبسکرپشن پٹی — تاریخیں اور باقی دن ہر حال میں ایک ہی لائن (اوپر نیچے نہیں) */
+/* MD2811SA138: سبسکرپشن پٹی — تاریخیں اور باقی دن ہر حال میں ایک ہی لائن (اوپر نیچے نہیں) */
 #jmaDash .x62 .sb131{display:flex!important;flex-wrap:nowrap!important;flex-direction:row!important;justify-content:center!important;height:34px!important;min-height:0!important;max-height:34px!important;overflow:hidden!important;white-space:nowrap!important;padding:3px 8px 0!important}
 #jmaDash .x62 .sb131 span{display:inline-flex!important;flex-wrap:nowrap!important;white-space:nowrap!important;align-items:center;gap:5px;font-size:clamp(11px,3.3vw,14px)}
 #jmaDash .x62 .sb131 .ln132{display:inline-block!important;max-width:100%;text-align:center}
 #jmaDash .x62 .sb131 b{display:inline!important;white-space:nowrap!important}
-/* MD2811SA136: اضافی پکا پن — لکھائی ایک ہی بلاک، کوئی ٹوٹ پھوٹ نہیں */
+/* MD2811SA138: اضافی پکا پن — لکھائی ایک ہی بلاک، کوئی ٹوٹ پھوٹ نہیں */
 #jmaDash .x62 .sb131 .ln132{display:block!important;white-space:nowrap!important;overflow:visible!important;width:auto!important;max-width:none!important;flex:none!important;direction:rtl;unicode-bidi:isolate;line-height:1.1}
 #jmaDash .x62 .sb131 .ln132 b{display:inline-block!important;white-space:nowrap!important;direction:ltr;unicode-bidi:isolate}
 #jm66{padding:0 10px calc(8px + env(safe-area-inset-bottom,0px))}
@@ -9183,7 +9183,7 @@ html body .pbtPw686:active{transform:scale(.92)}
 #jm66 button:disabled{opacity:.35}
 </style>
 <script id="md133fit">
-/* MD2811SA136 (مالک کا حکم): سبسکرپشن پٹی ہمیشہ ایک لائن — تنگ سکرین پر لکھائی خود چھوٹی ہو جاتی ہے، کبھی ٹوٹتی نہیں */
+/* MD2811SA138 (مالک کا حکم): سبسکرپشن پٹی ہمیشہ ایک لائن — تنگ سکرین پر لکھائی خود چھوٹی ہو جاتی ہے، کبھی ٹوٹتی نہیں */
 (function(){
   function fit(){
     try{
@@ -9202,7 +9202,7 @@ html body .pbtPw686:active{transform:scale(.92)}
 })();
 </script>
 <script id="md135guard">
-/* MD2811SA136 (مالک کا حکم): پرانا «🕌 جامعہ مینجمنٹ» ڈیش بورڈ بار بار نہ آئے۔
+/* MD2811SA138 (مالک کا حکم): پرانا «🕌 جامعہ مینجمنٹ» ڈیش بورڈ بار بار نہ آئے۔
    وجہ: پرانے ماڈیول کا اپنا draw() (ترتیبات / نام / اعلان محفوظ کرنے، واپسی وغیرہ پر) نئے ہوم کے اوپر پرانا صفحہ لکھ دیتا تھا۔
    اب جیسے ہی پرانا صفحہ (jm13-hero) نظر آئے، فوراً نیا ہوم (x62) دوبارہ بنتا ہے۔ ڈیٹا کو کوئی ہاتھ نہیں لگتا۔ */
 (function(){
@@ -9224,6 +9224,70 @@ html body .pbtPw686:active{transform:scale(.92)}
     d.addEventListener('transitionend', soon); check(); }
   arm(); setInterval(check, 1500);
   document.addEventListener('visibilitychange', soon);
+})();
+</script>
+<script id="md137pb">
+/* MD2811SA138 (مالک کا حکم): داخلہ فارم میں سرپرست / والد کے موبائل نمبر کے ساتھ «📒 فون بک» — دبائیں تو فون کی رابطہ فہرست کھلے، نمبر چنیں تو خود بھر جائے۔
+   (اینڈرائیڈ کروم کا Contact Picker — صرف وہی ایک رابطہ ایپ کو ملتا ہے جو آپ چنیں؛ پوری فون بک نہیں پڑھی جاتی) */
+(function(){
+  function norm(n){
+    var d = String(n || '').replace(/[۰-۹]/g, function(c){ return '۰۱۲۳۴۵۶۷۸۹'.indexOf(c); }).replace(/[٠-٩]/g, function(c){ return '٠١٢٣٤٥٦٧٨٩'.indexOf(c); }).replace(/\D/g, '');
+    if(d.indexOf('0092') === 0) d = '0' + d.slice(4); else if(d.indexOf('92') === 0 && d.length >= 12) d = '0' + d.slice(2);
+    else if(d.length === 10 && d.charAt(0) === '3') d = '0' + d;
+    return d;
+  }
+  function put(inp, v){
+    inp.value = v;
+    try{ inp.dispatchEvent(new Event('input', { bubbles: true })); inp.dispatchEvent(new Event('change', { bubbles: true })); }catch(e){}
+  }
+  function choose(list, cb){
+    var o = document.createElement('div'); o.className = 'no-print';
+    o.style.cssText = 'position:fixed;inset:0;z-index:2147483600;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;direction:rtl';
+    var h = '<div style="background:#fff;width:100%;border-radius:18px 18px 0 0;padding:14px 14px calc(14px + env(safe-area-inset-bottom,0px));max-height:70%;overflow:auto;font-family:var(--nastaliq),serif"><div style="font-size:18px;margin-bottom:8px">📒 کون سا نمبر؟</div>';
+    list.forEach(function(n, i){ h += '<button type="button" data-i="' + i + '" style="display:block;width:100%;margin:6px 0;padding:12px;border:1.5px solid #16a34a;border-radius:12px;background:#f0fdf4;font:700 19px Arial;direction:ltr">' + n + '</button>'; });
+    h += '<button type="button" data-i="x" style="display:block;width:100%;margin-top:8px;padding:10px;border:0;border-radius:12px;background:#e5e7eb;font:inherit;font-size:16px">بند کریں</button></div>';
+    o.innerHTML = h; document.body.appendChild(o);
+    o.addEventListener('click', function(e){ var b = e.target.closest('button'); if(e.target === o || (b && b.dataset.i === 'x')){ o.remove(); return; } if(!b) return; o.remove(); cb(list[+b.dataset.i]); });
+  }
+  function mobOf(inp){ return inp.matches('input[data-f="mob"]') ? inp : (document.querySelector('#jmaAdm input[data-f="mob"]') || inp); }
+  function setName(nm){
+    if(!nm) return;
+    var w = document.querySelector('#jmaAdm input[data-f="w"]'); if(!w) return;
+    var cur = String(w.value || '').trim();
+    if(!cur || cur === nm) { put(w, nm); return; }
+    if(confirm('والد کا نام «' + cur + '» لکھا ہے۔\n\nفون بک کا نام «' + nm + '» لگا دیں؟')) put(w, nm);
+  }
+  function pick(inp){
+    if(!(navigator.contacts && navigator.contacts.select)){
+      alert('📒 اس فون / براؤزر میں فون بک نہیں کھل سکتی۔\n\nاینڈرائیڈ پر کروم میں ایپ کھولیں (آئی فون پر یہ سہولت نہیں)، یا نمبر خود لکھیں۔'); return; }
+    navigator.contacts.select(['name', 'tel'], { multiple: false }).then(function(r){
+      if(!r || !r.length) return;
+      var tels = (r[0].tel || []).map(norm).filter(function(v, i, a){ return v && a.indexOf(v) === i; });
+      if(!tels.length){ alert('اس رابطے میں کوئی نمبر نہیں ملا'); return; }
+      var nm = ((r[0].name || [])[0] || '').trim();
+      function done(v){ put(mobOf(inp), v); setName(nm); }
+      if(tels.length === 1) done(tels[0]); else choose(tels, done);
+    }).catch(function(e){ if(e && e.name !== 'AbortError') alert('📒 فون بک نہیں کھل سکی — اجازت دیں یا نمبر خود لکھیں'); });
+  }
+  function inject(){
+    try{
+      var css = 'display:block;width:100%;margin:6px 0 4px;padding:9px 10px;border:1.5px solid #0f766e;border-radius:12px;background:#ecfdf5;color:#065f46;font-family:var(--nastaliq),serif;font-size:16px;cursor:pointer';
+      document.querySelectorAll('#jmaAdm input.jm2-in[data-f="w"], #jmaAdm input[data-f="mob"]').forEach(function(inp){
+        var nx = inp.nextElementSibling; if(nx && nx.getAttribute && nx.getAttribute('data-pb137')) return;
+        var b = document.createElement('button'); b.type = 'button'; b.setAttribute('data-pb137', '1');
+        b.textContent = inp.getAttribute('data-f') === 'w' ? '📒 فون بک سے والد کا نام اور نمبر' : '📒 فون بک سے نمبر اور نام';
+        b.style.cssText = css; inp.parentNode.insertBefore(b, inp.nextSibling);
+      });
+    }catch(e){}
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target && e.target.closest && e.target.closest('[data-pb137]'); if(!b) return;
+    e.stopPropagation(); e.preventDefault();
+    var inp = b.previousElementSibling; if(inp && inp.matches && inp.matches('input[data-f]')) pick(inp);
+  }, true);
+  var t = 0; function soon(){ clearTimeout(t); t = setTimeout(inject, 40); }
+  try{ new MutationObserver(soon).observe(document.documentElement, { childList: true, subtree: true }); }catch(e){}
+  setInterval(inject, 1500); inject();
 })();
 </script>
 </body></html>
