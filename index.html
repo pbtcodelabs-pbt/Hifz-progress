@@ -176,7 +176,7 @@ html,body{touch-action:pan-x pan-y!important;-webkit-text-size-adjust:100%!impor
       <img src="logo.png" alt="Madrasah Logo" class="home-logo" onerror="this.style.display='none'">
     </div>
     <div class="home-title" id="homeMadrasaName"></div>
-    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2811SA131</div>
+    <div class="home-version-badge" id="homeVersionBadge" onclick="mdDevTap()" style="cursor:default;user-select:none;-webkit-tap-highlight-color:transparent;">MD2811SA132</div>
     <div id="tfWidgetHome" style="display:flex;justify-content:center;margin:8px 0 6px;"></div>
     <div class="home-btns">
       <button class="home-btn home-btn-exam" onclick="openExam()">🎓 امتحانی سافٹ ویئر</button>
@@ -3060,7 +3060,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     }catch(e){} }, 90);
   }
   function isNaz(sid){ try{ return window.jmaStuCat && jmaStuCat(stu(sid)) === 'n'; }catch(e){ return false; } }
-  /* MD2811SA131 (مالک کا حکم): ناظرہ کے طالب علم کا اندراج — نورانی قاعدہ (17 تختیاں) / تیسواں پارہ (37 سورتیں) / قرآن پاک (لائنیں، رکوع، پاؤ، مکمل پارہ پہلے کی طرح) */
+  /* MD2811SA132 (مالک کا حکم): ناظرہ کے طالب علم کا اندراج — نورانی قاعدہ (17 تختیاں) / تیسواں پارہ (37 سورتیں) / قرآن پاک (لائنیں، رکوع، پاؤ، مکمل پارہ پہلے کی طرح) */
   var TK = ['حروفِ مفردات', 'حروفِ مرکبات', 'حروفِ مقطعات', 'حرکات (زبر، زیر، پیش)', 'تنوین', 'حرکات و تنوین کی مشق', 'کھڑا زبر، کھڑی زیر، الٹا پیش', 'حروفِ مدہ و لین', 'مد و لین کی مشق', 'سکون یا جزم', 'جزم کی مشق', 'تشدید (شد کی مشق)', '', '', 'تشدید مع التشدید', 'تشدید مع المد', 'تشدید مع المد اور قواعدِ تجوید کی تکمیلی مشق'];
   var SUR = ['النبأ', 'النازعات', 'عبس', 'التکویر', 'الانفطار', 'المطففین', 'الانشقاق', 'البروج', 'الطارق', 'الاعلیٰ', 'الغاشیہ', 'الفجر', 'البلد', 'الشمس', 'اللیل', 'الضحیٰ', 'الم نشرح', 'التین', 'العلق', 'القدر', 'البینہ', 'الزلزال', 'العادیات', 'القارعہ', 'التکاثر', 'العصر', 'الہمزہ', 'الفیل', 'قریش', 'الماعون', 'الکوثر', 'الکافرون', 'النصر', 'اللہب', 'الاخلاص', 'الفلق', 'الناس'];
   window.jmaNzLbl = function(it){ if(it.src === 'q') return 'تختی ' + it.tk + (TK[it.tk - 1] ? ' — ' + TK[it.tk - 1] : ''); if(it.src === 't') return 'سورۃ ' + SUR[it.sur - 1]; return null; };
@@ -3139,7 +3139,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     if(dup){ if(!confirm('اس نشست کا ' + KINDS.find(function(x){ return x[0] === F.kind; })[1] + ' پہلے سے درج ہے۔ پرانے کی جگہ یہ محفوظ کریں؟\n(مختلف نشست ہو تو اوپر نشست بدل لیں)')) return; dup.del = Date.now(); dup.upd = Date.now(); }
     if(F.kind === 'sabaq' && !isNaz(F.sid)) F.atkan = 0;
     var t = Date.now(), u = me(), rec = { src: F.src || '', sid: F.sid, kind: F.kind, date: F.date, ses: F.ses, items: F.items, lis: F.lis, atkan: F.atkan || 0, mist: F.mist || 0, perf: F.perf || '', note: F.note, upd: t, dev: devId() };
-    if(F.src === 'q' || F.src === 't') rec.gar = 1;   /* MD2811SA131: قاعدہ / تیسواں پارہ حفظ کے حساب میں نہیں */
+    if(F.src === 'q' || F.src === 't') rec.gar = 1;   /* MD2811SA132: قاعدہ / تیسواں پارہ حفظ کے حساب میں نہیں */
     if(F._old){ var e = EN.find(function(x){ return x.id === F.id; }); Object.assign(e, rec, { editBy: u.name, editAt: t }); }
     else { rec.id = 'E' + t.toString(36) + Math.random().toString(36).slice(2, 5); rec.t = t; rec.by = u.name; rec.byId = u.id; if(isGar(F.sid)) rec.gar = 1; EN.push(rec); }   /* MD2811SA130: گردان کا سبق نیا حفظ نہیں — حفظ کے حساب (پارہ وار پیش رفت) میں نہیں گنا جاتا */
     if(!saveEN()) return;
@@ -4762,9 +4762,9 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
     try{ var i = pkInfo(); if(!i) return '';
       if(i.k === 'pkg'){ var c = i.life ? '' : i.left <= 3 ? ' r' : i.left <= 15 ? ' w' : '';
         /* MD2811SA130 (ہیلپ ڈیسک #454): باریک ایک لائن کی پٹی — از تاریخ، تا تاریخ، باقی دن (بڑا ڈبہ نہیں) */
-        return '<div class="pk125 s129' + c + '" data-k54="pkg" title="' + E(i.nm) + '">' + (i.life ? '<span>📦 ' + E(i.nm) + ' · ♾️ لائف ٹائم</span>' : '<span>📦</span>' + (i.from ? '<span>از <b>' + i.from + '</b></span>' : '') + '<span>تا <b>' + i.end + '</b></span><span class="dl"><b>' + i.left + '</b> دن باقی</span>') + '</div>'; }
-      if(i.k === 'trial') return '<div class="pk125 s129 t" data-k54="pkg"><span>🎁 مفت ٹرائل — <b>' + i.left + '</b> دن باقی</span><span class="dl">پیکج لیں ›</span></div>';
-      return '<div class="pk125 s129 r" data-k54="pkg"><span>⛔ پیکج / ٹرائل ختم</span><span class="dl">پیکج لیں ›</span></div>';
+        return '<div class="sb131' + c + '" data-k54="pkg" title="' + E(i.nm) + '">' + (i.life ? '<span>📦 ' + E(i.nm) + ' · ♾️ لائف ٹائم</span>' : '<span>📦' + (i.from ? ' از <b>' + i.from + '</b>' : '') + '</span><span>تا <b>' + i.end + '</b></span><span><b>' + i.left + '</b> دن باقی</span>') + '</div>'; }
+      if(i.k === 'trial') return '<div class="sb131 t" data-k54="pkg"><span>🎁 مفت ٹرائل — <b>' + i.left + '</b> دن باقی</span><span>پیکج لیں ›</span></div>';
+      return '<div class="sb131 r" data-k54="pkg"><span>⛔ پیکج / ٹرائل ختم</span><span>پیکج لیں ›</span></div>';
     }catch(e){ return ''; } };
   function refreshHome(){ try{ var d = $('jmaDash'); if(d && d.style.display === 'block' && window.jmaDashOpen){ var y = d.scrollTop; jmaDashOpen(); d.scrollTop = y; } }catch(e){} }
   window.mdPkgRefreshHome = refreshHome;
@@ -5073,7 +5073,7 @@ window.jmaParaName = function(p){ return window.JMA_PARA[(+p) - 1] || ''; };
   }, true);
 })();
 </script>
-<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2811SA131" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
+<script src="https://pbtcodelabs-pbt.github.io/help/widget.js" data-app="Hifz-progress" data-ver="MD2811SA132" defer></script> <!-- 🆘 MD0211MO010: PBT Help Desk -->
 <script>
 /* 🔐 PBT-DEVHUB (مالک کا حکم، 16 نومبر 2026): ہیلپ ڈیسک «🔐 سب ڈویلپر پینل» سے سیدھا یہاں کا ڈویلپر پینل (`?devpanel=1`)
    + ایک مشترکہ پاس ورڈ: ہیلپ ڈیسک اسی ویب سائٹ پر `pbt_devpass_v1` = SHA-256('PBTDEV|' + پاس ورڈ) رکھتا ہے — یہ پینل اسے بھی مانتا ہے (`pbtHubPwOk`)۔ */
@@ -6297,7 +6297,7 @@ body.jm7v #jm51nav{display:none!important}
   'use strict';
   function $(i){ return document.getElementById(i); }
   /* بند ہونے والی اسکرینیں (ڈیش بورڈ کے علاوہ) — لاگ اِن / تالا کبھی نہیں */
-  var IDS = ['jm41w', 'jm30', 'jm36M', 'jmaPick', 'jm55', 'jm39', 'jmaAnn', 'jmaRep', 'jmaFee', 'jmaExm', 'jmaAtt', 'jmaEnt', 'jmaAkh', 'jmaAdm', 'jmaPro', 'jm35', 'jmaStu', 'jmaMgr'];
+  var IDS = ['jm41w', 'jm30', 'jm36M', 'jmaPick', 'jm55', 'jm39', 'jmaAnn', 'jmaRep', 'jmaFee', 'jmaExm', 'jmaAtt', 'jmaEnt', 'jmaAkh', 'jmaAdm', 'jmaPro', 'jm35', 'jmaStu', 'jmaMgr', 'jm96', 'jm97'];
   function vis(el){ return el && getComputedStyle(el).display !== 'none'; }
   function zOf(el){ return +getComputedStyle(el).zIndex || 0; }
   function openList(){ return IDS.map($).filter(vis).sort(function(a, b){ return zOf(b) - zOf(a); }); }
@@ -6569,7 +6569,7 @@ body.jm7v #jm51nav{display:none!important}
       + '<button type="button" class="lk" data-a="forgot">پن بھول گئے؟ — تاریخ پیدائش سے نیا پن</button>'
       + '<button type="button" class="ask72" data-a="ask">💬 ہم سے سوال پوچھیں</button>'
       + '<button type="button" class="ask72 sh74" data-a="share">📲 ایپ شیئر کریں</button>'
-      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2811SA131') + '</bdi>' + (window.mdPkgShort && mdPkgShort() ? ' · ' + esc(mdPkgShort()) : '') + '</div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
+      + '<div class="vlk97">ورژن: <bdi>' + esc((window.MD_NOTE && MD_NOTE.v) || 'MD2811SA132') + '</bdi>' + (window.mdPkgShort && mdPkgShort() ? ' · ' + esc(mdPkgShort()) : '') + '</div>'   /* MD2511WE098 (مالک کا حکم): تالے کے صفحے پر ورژن نمبر */
       + '</div>' + artBot();
   }
   function bioArea(){
@@ -7362,7 +7362,7 @@ details.jm94x>.in{padding:0 8px 8px}
 })();
 </script>
 <script id="jma053">
-window.MD_NOTE = { v: 'MD2811SA131', n: '🔒 زوم بند (100% لاک)، سبسکرپشن کی ایک لائن کی باریک کیپسول؛ 🔄📖📕 ہوم پر تین کیٹگریاں: گردان، حفظ، ناظرہ (گنتی سمیت)؛ ہر ایک میں روزانہ کا اندراج اور حاضری۔ طالب علم کے پروفائل میں کیٹگری بدلنے کا ڈراپ ڈاؤن۔ سبسکرپشن کی باریک پٹی؛ ہوم بغیر سکرول' };
+window.MD_NOTE = { v: 'MD2811SA132', n: '📦 سبسکرپشن کی پٹی ٹھیک: شروع، ختم کی تاریخ اور باقی دن ایک ہی لائن میں صاف؛ ورژن نمبر ہوم کے اوپر بائیں کونے میں؛ ہر صفحے کے نیچے خوبصورت پیچھے / ہوم / آگے پٹی۔ 🔒 زوم بند (100% لاک)، سبسکرپشن کی ایک لائن کی باریک کیپسول؛ 🔄📖📕 ہوم پر تین کیٹگریاں: گردان، حفظ، ناظرہ (گنتی سمیت)؛ ہر ایک میں روزانہ کا اندراج اور حاضری۔ طالب علم کے پروفائل میں کیٹگری بدلنے کا ڈراپ ڈاؤن۔ سبسکرپشن کی باریک پٹی؛ ہوم بغیر سکرول' };
 /* MD2411TU081 (مالک کا حکم — «کروم کا ڈیٹا اڑنے سے ایپ کا ڈیٹا کیوں اڑتا ہے»): براؤزر سے پکی جگہ (persist) — فون کی جگہ کم ہونے پر خودکار صفائی سے محفوظ؛ صارف خود «Clear data» کرے تو صرف ڈرائیو بیک اپ */
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persisted().then(function(ok){ if(!ok) navigator.storage.persist(); }); } catch (e) {}
 (function(){
@@ -7653,7 +7653,7 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
     function nav(attr, ic, t, cl){ return '<button type="button" ' + attr + (cl ? ' class="' + cl + '"' : '') + '><i>' + IC[ic] + '</i><span>' + t + '</span></button>'; }
     el.innerHTML = '<div class="w x62">'
       + '<div class="h62" id="jm58hd">' + '<svg class="sky" viewBox="0 0 400 200" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs><linearGradient id="h58g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a5a2a"/><stop offset=".55" stop-color="#11803a"/><stop offset="1" stop-color="#2a9d3f"/></linearGradient><radialGradient id="h58r" cx=".5" cy=".35" r=".6"><stop offset="0" stop-color="#fff6c8" stop-opacity=".45"/><stop offset="1" stop-color="#fff6c8" stop-opacity="0"/></radialGradient></defs><rect width="400" height="200" fill="url(#h58g)"/><rect width="400" height="200" fill="url(#h58r)"/><g fill="#fde68a" opacity=".85"><circle cx="40" cy="30" r="1.2"/><circle cx="90" cy="18" r="1"/><circle cx="150" cy="40" r="1.1"/><circle cx="250" cy="22" r="1"/><circle cx="310" cy="45" r="1.2"/><circle cx="360" cy="20" r="1"/><circle cx="205" cy="12" r="1"/></g><path d="M338 30a16 16 0 1 0 14 24a13 13 0 1 1 -14 -24z" fill="#fde68a"/><g fill="#064420"><path d="M0 200V172q20-8 40 0v-18h4v-6l3-6 3 6v6h4v24q18-10 36 0V200z"/><path d="M80 200V150h6v-26l4-8 4 8v26h6v50z"/><path d="M120 200v-30q8-30 40-34 0-6 3-8 3 2 3 8 32 4 40 34v30z" /><path d="M150 200v-40q0-38 50-50 0-8 4-11 4 3 4 11 50 12 50 50v40z"/><path d="M300 200V150h6v-26l4-8 4 8v26h6v50z"/><path d="M240 200v-30q8-30 40-34 0-6 3-8 3 2 3 8 32 4 40 34v30z"/><path d="M330 200v-28q18-10 36 0v-18h4v-6l3-6 3 6v6h4v24q10-6 20 0V200z"/></g><path d="M0 199h400" stroke="#d4af37" stroke-width="2"/></svg>' + '<div class="ph" id="jm58ph"></div>'
-            + '<div class="ov66"><div class="nm58" data-hs="nm" id="jm58nm">' + E(mad) + '</div>'
+            + (vs ? '<div class="vb131" aria-label="ورژن">V' + vs + '</div>' : '') + '<div class="ov66"><div class="nm58" data-hs="nm" id="jm58nm">' + E(mad) + '</div>'
         + rows.map(function(r){ return '<div class="r66" data-hs="' + r[0] + '"><i>' + IC[r[0]] + '</i><b>' + E(r[1]) + '</b></div>'; }).join('') + '</div></div>'
       + '<div class="dt62"><span class="or">❦</span><div>بروز ' + w + '، <bdi>' + (+q[2]) + '</bdi> ' + MN[+q[1] - 1] + ' <bdi>' + q[0] + '</bdi>ء</div><span class="or">❦</span></div>'
       + (window.mdPkgStripHTML ? mdPkgStripHTML() : '')   /* MD2611TH125: پکی پٹی — پیکج / ختم ہونے کی تاریخ / باقی دن */
@@ -7662,7 +7662,6 @@ try { if (navigator.storage && navigator.storage.persist) navigator.storage.pers
       + '<div class="r129"><button type="button" data-d="rep"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h10l4 4v14H5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 12h8M8 16h8M8 8h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></i><span>رپورٹس</span></button></div>'
       + (bkOk ? '' : '<button type="button" class="bk62" data-k54="drive">☁️ ' + (on ? 'آج کا بیک اپ ابھی نہیں ہوا — دبائیں' : 'ڈرائیو بیک اپ جوڑیں — ریکارڈ محفوظ رکھیں') + '</button>')
       + '<button type="button" class="lo102" data-k54="out" aria-label="لاگ آؤٹ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><path d="M6.6 6.8a8 8 0 1 0 10.8 0" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg><span>لاگ آؤٹ</span></button>'   /* MD2511WE103 (مالک کا حکم): لاگ آؤٹ اوپر تصویر کے کونے سے نیچے خالی جگہ میں */
-      + (vs ? '<div class="v62">V' + vs + (window.mdPkgShort && mdPkgShort() ? ' · <span style="font-family:var(--nastaliq),serif;font-weight:400;font-size:12px">' + mdPkgShort() + '</span>' : '') + '</div>' : '')
       + '<nav class="nv62">'
       + nav('data-k54="menu"', 'gear', 'سیٹنگز') + nav('data-d35="1"', 'sch', 'روزانہ شیڈول') + nav('data-k54="help"', 'help', 'ہیلپ ڈیسک')
       + nav('data-k54="top"', 'home', 'ہوم', 'hm') + nav('data-d="exm"', 'exm', 'امتحانات') + nav('data-d="stu"', 'stu', 'طلبہ پروفائل') + nav('data-d="cfg"', 'mad', 'مدرسہ پروفائل')
@@ -9155,4 +9154,21 @@ html body .pbtPw686:active{transform:scale(.92)}
 })();
 </script>
 
+<!-- MD2811SA132 (مالک کا حکم): سبسکرپشن کی باریک پٹی — ایک ہی لائن، تاریخیں اور باقی دن صاف؛ ورژن نمبر اوپر بائیں؛ ہر صفحے کے نیچے خوبصورت «پیچھے / ہوم / آگے» پٹی -->
+<style id="md132css">
+#jmaDash .x62 .sb131{display:flex!important;align-items:center;justify-content:space-between;gap:6px;direction:rtl;margin:6px 3% 0!important;height:34px;padding:3px 14px 0;box-sizing:border-box;border:1.5px solid #16a34a;border-radius:999px;background:linear-gradient(180deg,#f0fdf4,#dcfce7);color:#14532d;font:400 clamp(12.5px,3.6vw,15px)/1 var(--nastaliq),'Jameel Noori Nastaleeq',serif;white-space:nowrap;overflow:visible;cursor:pointer}
+#jmaDash .x62 .sb131.w{border-color:#f59e0b;background:linear-gradient(180deg,#fffbeb,#fef3c7);color:#78350f}
+#jmaDash .x62 .sb131.r{border-color:#dc2626;background:linear-gradient(180deg,#fef2f2,#fee2e2);color:#7f1d1d}
+#jmaDash .x62 .sb131.t{border-color:#0284c7;background:linear-gradient(180deg,#f0f9ff,#e0f2fe);color:#075985}
+#jmaDash .x62 .sb131 span{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;line-height:1;margin:0;padding:2px 0 0}
+#jmaDash .x62 .sb131 b{font:700 .95em Arial,sans-serif;direction:ltr;unicode-bidi:isolate;margin:0;padding:0;display:inline}
+.x62 .vb131{position:absolute;left:3%;top:16px;z-index:3;height:28px;min-width:50px;padding:0 11px;box-sizing:border-box;border-radius:999px;border:1.5px solid #fff;background:rgba(6,68,32,.88);color:#fde68a;font:800 14px/25px Arial,sans-serif;letter-spacing:.3px;text-align:center;direction:ltr;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+#jm66{padding:0 10px calc(8px + env(safe-area-inset-bottom,0px))}
+#jm66 .in{max-width:360px;grid-template-columns:1fr 1.2fr 1fr;gap:10px;align-items:center;padding:7px 10px;border-radius:999px;background:linear-gradient(180deg,#1f8f45,#0b6b2c 60%,#075221);border:2.5px solid #e6c35c;box-shadow:0 5px 14px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.25)}
+#jm66 button{flex-direction:row;gap:6px;height:44px;padding:3px 8px 0;border-radius:999px;background:linear-gradient(180deg,#fffdf4,#f6e7b0);border:2px solid #e6c35c;color:#0b6b2c;font:400 15px/1 'Jameel Noori Nastaleeq',var(--nastaliq),serif;box-shadow:0 2px 4px rgba(0,0,0,.3);transition:transform .12s}
+#jm66 button:active{transform:scale(.94)}
+#jm66 svg{width:26px;height:26px;flex:none;margin-top:-3px}
+#jm66 .hm{transform:none;background:linear-gradient(180deg,#ffe58a,#e2b631);border:2.5px solid #fff;color:#0b5d2a;font-size:16px;padding-top:3px}
+#jm66 button:disabled{opacity:.35}
+</style>
 </body></html>
